@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+*.egg-info/
+
+# Secrets
+.env
+backend/.env
+*.p8
+*.p12
+*.mobileprovision
+
+# macOS / Xcode (same as SingaSmoke)
+.DS_Store
+xcuserdata/
+DerivedData/
+*.xcuserstate
+build/
+ios/*.xcodeproj/
+ios/CaseDuo/Info.plist
+ios/CaseDuoWidget/Info.plist
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# fastlane
+ios/fastlane/screenshots/
+ios/fastlane/report.xml
+ios/fastlane/README.md
