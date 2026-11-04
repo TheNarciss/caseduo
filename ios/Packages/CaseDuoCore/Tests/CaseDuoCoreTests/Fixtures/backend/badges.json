@@ -1,0 +1,100 @@
+[
+  {
+    "code": "first_case",
+    "name": "Premier case",
+    "description": "Tu as répondu à ton premier case.",
+    "symbol": "briefcase.fill",
+    "earned_at": "2026-11-04T14:33:08.278852+00:00"
+  },
+  {
+    "code": "streak_3",
+    "name": "3 jours",
+    "description": "Trois jours d'affilée.",
+    "symbol": "flame",
+    "earned_at": null
+  },
+  {
+    "code": "streak_7",
+    "name": "Une semaine",
+    "description": "Sept jours d'affilée.",
+    "symbol": "flame.fill",
+    "earned_at": null
+  },
+  {
+    "code": "streak_10",
+    "name": "10 jours",
+    "description": "Dix jours d'affilée : le cap où l'habitude tient.",
+    "symbol": "flame.circle.fill",
+    "earned_at": null
+  },
+  {
+    "code": "streak_30",
+    "name": "30 jours",
+    "description": "Un mois sans casser la série. Icône spéciale débloquée.",
+    "symbol": "crown.fill",
+    "earned_at": null
+  },
+  {
+    "code": "perfect_week",
+    "name": "Semaine parfaite",
+    "description": "Objectif atteint chaque jour du lundi au dimanche, sans freeze.",
+    "symbol": "star.circle.fill",
+    "earned_at": null
+  },
+  {
+    "code": "score_90",
+    "name": "90+",
+    "description": "Un case noté 90 ou plus.",
+    "symbol": "rosette",
+    "earned_at": null
+  },
+  {
+    "code": "revenge_won",
+    "name": "Revanche",
+    "description": "Un exercice raté, repris et réussi.",
+    "symbol": "arrow.uturn.up.circle.fill",
+    "earned_at": null
+  },
+  {
+    "code": "follow_up_held",
+    "name": "Pas coincé",
+    "description": "Une relance tenue avec 80 ou plus.",
+    "symbol": "bubble.left.and.exclamationmark.bubble.right.fill",
+    "earned_at": null
+  },
+  {
+    "code": "mock_done",
+    "name": "Mock bouclé",
+    "description": "Un mock entretien complet, de bout en bout.",
+    "symbol": "person.wave.2.fill",
+    "earned_at": null
+  },
+  {
+    "code": "cadrage_home_done",
+    "name": "Cadrage rendu",
+    "description": "Un cadrage à domicile rendu en 5 slides.",
+    "symbol": "doc.richtext.fill",
+    "earned_at": null
+  },
+  {
+    "code": "fit_10",
+    "name": "Fit solide",
+    "description": "Dix questions de fit travaillées.",
+    "symbol": "person.text.rectangle.fill",
+    "earned_at": null
+  },
+  {
+    "code": "league_silver",
+    "name": "Argent",
+    "description": "Promu en ligue Argent.",
+    "symbol": "medal",
+    "earned_at": null
+  },
+  {
+    "code": "league_gold",
+    "name": "Or",
+    "description": "Promu en ligue Or.",
+    "symbol": "medal.fill",
+    "earned_at": null
+  }
+]

@@ -13,6 +13,11 @@ let package = Package(
     ],
     targets: [
         .target(name: "CaseDuoCore"),
-        .testTarget(name: "CaseDuoCoreTests", dependencies: ["CaseDuoCore"]),
+        .testTarget(
+            name: "CaseDuoCoreTests",
+            dependencies: ["CaseDuoCore"],
+            // Real backend responses, written by backend/tests/integration/test_contract.py.
+            resources: [.copy("Fixtures")]
+        ),
     ]
 )

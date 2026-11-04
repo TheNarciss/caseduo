@@ -1,0 +1,20 @@
+{
+  "id": "ecfae89a-d882-424e-86f9-dd07f889f0ea",
+  "date": "2026-11-04",
+  "type": "market_sizing",
+  "type_label": "Market sizing",
+  "style": "wavestone",
+  "language": "fr",
+  "difficulty": 2,
+  "sector": "industrie/défense",
+  "title": "Combien de passagers transitent chaque jour par l'aéroport de Changi ?",
+  "prompt": "Un de nos clients, un opérateur de services au sol, veut dimensionner une offre de traitement des bagages à Singapour. Avant toute chose, il nous demande un ordre de grandeur : combien de passagers passent chaque jour par l'aéroport de Changi ? Je te laisse construire l'estimation.",
+  "estimated_minutes": 6,
+  "parts": null,
+  "context_data_available": true,
+  "revealed": false,
+  "context_data": null,
+  "is_revenge": false,
+  "flagged": false,
+  "attempts": []
+}

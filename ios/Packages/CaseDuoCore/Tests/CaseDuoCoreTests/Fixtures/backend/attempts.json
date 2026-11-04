@@ -1,0 +1,35 @@
+[
+  {
+    "id": "125752ed-2e78-45aa-8ced-b47f9fc661b5",
+    "exercise_id": "297201ab-722c-40fe-8644-a9fe94870a9f",
+    "kind": "main",
+    "score": 48,
+    "xp_earned": 10,
+    "created_at": "2026-11-04T14:33:08.309245+00:00",
+    "title": "Combien de fois les aiguilles d'une horloge se superposent-elles en 24 heures ?",
+    "type": "brainteaser",
+    "type_label": "Brainteaser"
+  },
+  {
+    "id": "29a05f0f-927e-4534-994b-fe8fa16e12e8",
+    "exercise_id": "ecfae89a-d882-424e-86f9-dd07f889f0ea",
+    "kind": "follow_up",
+    "score": 45,
+    "xp_earned": 0,
+    "created_at": "2026-11-04T14:33:08.291531+00:00",
+    "title": "Combien de passagers transitent chaque jour par l'aéroport de Changi ?",
+    "type": "market_sizing",
+    "type_label": "Market sizing"
+  },
+  {
+    "id": "6f0a9976-c321-46ae-b92d-f897aa4650ed",
+    "exercise_id": "ecfae89a-d882-424e-86f9-dd07f889f0ea",
+    "kind": "main",
+    "score": 45,
+    "xp_earned": 15,
+    "created_at": "2026-11-04T14:33:08.265731+00:00",
+    "title": "Combien de passagers transitent chaque jour par l'aéroport de Changi ?",
+    "type": "market_sizing",
+    "type_label": "Market sizing"
+  }
+]

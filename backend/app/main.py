@@ -11,6 +11,7 @@ from contextlib import asynccontextmanager
 from time import time as _now
 
 from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 from . import logging_config
@@ -161,6 +162,23 @@ async def app_error_handler(request: Request, exc: AppError) -> JSONResponse:
     return JSONResponse(
         status_code=exc.status_code,
         content={"detail": exc.detail, "type": type(exc).__name__},
+    )
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_error_handler(request: Request, exc: RequestValidationError) -> JSONResponse:
+    """One readable sentence instead of FastAPI's list (docs/API.md: `detail` is text)."""
+    first = exc.errors()[0] if exc.errors() else {}
+    field = ".".join(str(p) for p in first.get("loc", ()) if p not in ("body", "query", "path"))
+    message = first.get("msg", "valeur invalide")
+    return JSONResponse(
+        status_code=422,
+        content={
+            "detail": f"Requête invalide : {field} — {message}"
+            if field
+            else f"Requête invalide : {message}",
+            "type": "ValidationError",
+        },
     )
 
 

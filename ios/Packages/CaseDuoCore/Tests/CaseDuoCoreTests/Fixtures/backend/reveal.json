@@ -1,0 +1,35 @@
+{
+  "context_data": {
+    "facts": [
+      {
+        "label": "Mouvements de passagers annuels à Changi (ordre de grandeur)",
+        "value": "≈ 65 à 70 millions",
+        "hypothesis": true,
+        "source_url": null
+      },
+      {
+        "label": "Part de passagers en correspondance",
+        "value": "≈ 30 %",
+        "hypothesis": true,
+        "source_url": null
+      },
+      {
+        "label": "Vols de passagers par jour",
+        "value": "≈ 1 000 à 1 100 décollages et atterrissages",
+        "hypothesis": true,
+        "source_url": null
+      },
+      {
+        "label": "Taux de remplissage moyen",
+        "value": "≈ 80 %",
+        "hypothesis": true,
+        "source_url": null
+      }
+    ],
+    "documents": [],
+    "constraints": [
+      "Un mouvement = un passager qui arrive ou qui part."
+    ]
+  },
+  "xp_penalty": 5
+}

@@ -188,7 +188,7 @@ ios/                l'app SwiftUI, le widget, CaseDuoCore, fastlane
 docs/               conventions, écarts, contrat d'API, TestFlight, prompts
 ```
 
-Tests : `cd backend && pip install -e ".[dev]" && pytest`. Il faut un Postgres sur `localhost:5433` avec une base `caseduo_test` : `docker compose up -d postgres && docker compose exec postgres createdb -U caseduo caseduo_test`. Côté iPhone : `cd ios/Packages/CaseDuoCore && swift test`.
+Tests : `cd backend && pip install -e ".[dev]" && pytest`. Il faut un Postgres sur `localhost:5433` avec une base `caseduo_test` : `docker compose up -d postgres && docker compose exec postgres createdb -U caseduo caseduo_test`. Côté iPhone : `cd ios/Packages/CaseDuoCore && swift test`. Les vraies réponses du backend, une par écran, sont décodées avec les types de l'app (`BackendContractTests`) ; après un changement d'API, régénère-les avec `UPDATE_CONTRACT_FIXTURES=1 pytest tests/integration/test_contract.py`.
 
 ## Licence
 
