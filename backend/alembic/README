@@ -1,0 +1,1 @@
+Migrations Alembic, écrites à la main comme dans Tangent. `alembic upgrade head` est lancé au démarrage du backend (app/db/init_db.py).

@@ -1,0 +1,86 @@
+[project]
+name = "caseduo-backend"
+version = "0.1.0"
+description = "CaseDuo — backend (exercices de case quotidiens, notation par Claude, mécaniques de rétention)"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.27",
+    "pydantic>=2.6",
+    "httpx[http2]>=0.27",        # APNs parle HTTP/2 (DEVIATIONS D5)
+    "python-dotenv>=1.0",
+    "markdown>=3.5",             # page HTML /admin/review
+    # ─ DB & Auth (comme Tangent) ─
+    "sqlalchemy[asyncio]>=2.0",
+    "asyncpg>=0.29",
+    "greenlet>=3.0",
+    "alembic>=1.13",
+    "fastapi-users[sqlalchemy]>=13.0",
+    "fastapi-users-db-sqlalchemy>=6.0",
+    "pwdlib[argon2]>=0.2",
+    "pyjwt[crypto]>=2.8.0",      # Sign in with Apple + JWT APNs (ES256)
+    "cryptography>=42.0",
+    # ─ LLM (comme Tangent, ADR-015) ─
+    "anthropic>=2.4,<3",
+    "tenacity>=8.0",
+    # ─ Jobs planifiés (comme Tangent) ─
+    "apscheduler>=3.10.4,<4",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-asyncio", "pytest-cov", "ruff>=0.5,<1", "mypy"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.setuptools.package-data]
+"app.content" = ["*.json"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["alembic/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "RUF"]
+ignore = [
+    "E501",    # line too long
+    "B008",    # Depends() in FastAPI defaults
+    "RUF001",  # ambiguous unicode in strings (French typography: « », ’, …)
+    "RUF002",
+    "RUF003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+warn_redundant_casts = true
+warn_unused_ignores = false
+warn_no_return = true
+ignore_missing_imports = true
+plugins = ["pydantic.mypy"]
+exclude = ["alembic/", "tests/"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+testpaths = ["tests"]
+addopts = "-v --tb=short --strict-markers"
+markers = [
+    "integration: requires a running Postgres DB (slower)",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
