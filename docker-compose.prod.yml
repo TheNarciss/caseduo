@@ -1,0 +1,43 @@
+# Surcharge prod (même méthode que Tangent) :
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+# Caddy écoute sur 127.0.0.1:8081 (le :80 de la VM est celui de Tangent) ;
+# le tunnel Cloudflare envoie caseduo.riskybusinesses.uk vers http://localhost:8081
+# (DEVIATIONS D3).
+services:
+  backend:
+    container_name: caseduo-backend
+    restart: unless-stopped
+    env_file: ./backend/.env
+    environment:
+      ENV: prod
+      COOKIE_SECURE: "true"
+      PROMPTS_DIR: /app/prompts
+    ports: !reset []                       # ← pas de port public
+    volumes: !override                     # ← pas le code monté en dev, seulement les prompts
+      - ./prompts:/app/prompts:ro
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips '*'
+
+  postgres:
+    container_name: caseduo-postgres
+    restart: unless-stopped
+    ports: !reset []                       # ← intra-Docker seulement
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: caseduo-caddy
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8081:80"                # ← localhost seulement (cloudflared y accède en local)
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  caddy_data:
+  caddy_config:

@@ -1,6 +1,6 @@
 # API CaseDuo (contrat app ↔ backend)
 
-Base : `https://caseduo.riskybusinesses.uk/api` (prod), `http://localhost:8000/api` (dev).
+Base : `https://caseduo.riskybusinesses.uk/api` (prod), `http://localhost:8001/api` (dev).
 Tout est en JSON UTF-8, dates `YYYY-MM-DD`, instants ISO 8601 avec fuseau. Auth par cookie `caseduo_auth` (HTTP-only, 7 jours, renouvelé par `GET /users/me`), exactement comme Tangent : l'app laisse `URLSession` garder et renvoyer le cookie.
 
 Erreurs : `{"detail": "message lisible en français", "type": "NomDeLErreur"}` avec le code HTTP adapté (401 non connecté, 404, 409, 422, 429, 503 budget IA ou IA indisponible).

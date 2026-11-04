@@ -1,4 +1,5 @@
-"""HTML pages outside /api: the admin review of a day (`/admin/review/{date}`).
+"""HTML pages outside /api: the admin review of a day (`/admin/review/{date}`)
+and the two legal pages App Store Connect links to (`/legal/*.html`).
 
 Readable in any browser. Without an admin session it shows a login form
 that posts to /api/auth/login (same cookie as the app), then reloads.
@@ -8,11 +9,12 @@ from __future__ import annotations
 
 import html
 from datetime import date, timedelta
+from pathlib import Path
 from typing import Any
 
 import markdown as md
 from fastapi import APIRouter, Depends
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..auth import User, current_active_user_optional
@@ -20,6 +22,17 @@ from ..db import get_session
 from .admin import review_data
 
 router = APIRouter(include_in_schema=False)
+
+LEGAL_DIR = Path(__file__).resolve().parent.parent / "content" / "legal"
+LEGAL_PAGES = {"privacy.html", "about.html"}
+
+
+@router.get("/legal/{name}")
+async def legal(name: str) -> Response:
+    if name not in LEGAL_PAGES:
+        return Response(status_code=404)
+    return HTMLResponse((LEGAL_DIR / name).read_text(encoding="utf-8"))
+
 
 STYLE = """
 :root { color-scheme: light dark; --bg:#fff; --fg:#1d1d1f; --muted:#6e6e73; --card:#f5f5f7;

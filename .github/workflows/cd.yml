@@ -1,0 +1,80 @@
+name: CD - Deploy to Production
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "ios/**"
+      - "**.md"
+  workflow_dispatch:  # re-déployer à la main depuis l'UI GitHub
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy main to caseduo.riskybusinesses.uk
+    # Un 2e runner sur la même VM que Tangent, enregistré pour ce dépôt (README, Déploiement).
+    runs-on: [self-hosted, Linux, oracle, prod]
+    timeout-minutes: 30
+    env:
+      PROJECT_DIR: /home/ubuntu/caseduo
+      COMPOSE: docker compose -f docker-compose.yml -f docker-compose.prod.yml
+
+    steps:
+      - name: Show current state
+        run: |
+          echo "Runner: $(hostname)"
+          cd "$PROJECT_DIR"
+          echo "Current commit: $(git rev-parse --short HEAD)"
+
+      - name: Pull latest main
+        working-directory: /home/ubuntu/caseduo
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          PREV_COMMIT=$(git rev-parse HEAD)
+          echo "PREV_COMMIT=$PREV_COMMIT" >> $GITHUB_ENV
+          git fetch "https://x-access-token:${GH_TOKEN}@github.com/TheNarciss/caseduo.git" \
+              main:refs/remotes/origin/main
+          git checkout main
+          git reset --hard origin/main
+          echo "New commit: $(git rev-parse --short HEAD)"
+
+      - name: Rebuild + restart containers
+        working-directory: /home/ubuntu/caseduo
+        run: |
+          set -euo pipefail
+          $COMPOSE up -d --build
+          sleep 5
+          $COMPOSE ps
+
+      - name: Health check (60s timeout)
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 30); do
+            if curl -fs https://caseduo.riskybusinesses.uk/api/health > /dev/null; then
+              echo "✅ Healthy after $i attempts ($((i * 2))s)"
+              curl -s https://caseduo.riskybusinesses.uk/api/health
+              exit 0
+            fi
+            echo "Attempt $i/30 — waiting 2s..."
+            sleep 2
+          done
+          echo "❌ Health check failed after 60s"
+          cd "$PROJECT_DIR"
+          $COMPOSE logs --tail 50 backend
+          exit 1
+
+      - name: Rollback on failure
+        if: failure()
+        working-directory: /home/ubuntu/caseduo
+        run: |
+          set -euo pipefail
+          echo "::warning::Deployment failed, rolling back to $PREV_COMMIT"
+          git reset --hard $PREV_COMMIT
+          $COMPOSE up -d --build
+          sleep 5
+          curl -fs https://caseduo.riskybusinesses.uk/api/health && echo "✅ Rollback succeeded" || echo "❌ Rollback also failed — manual intervention needed"

@@ -1,0 +1,17 @@
+:80 {
+    # Tout va au backend : l'API sous /api/*, la page /admin/review/{date}
+    # et les pages légales /legal/*.html (pas de site statique ici).
+    reverse_proxy backend:8000 {
+        # Cloudflare termine le TLS ; Caddy écoute en :80 et déduirait
+        # X-Forwarded-Proto: http. Le client a toujours parlé en HTTPS
+        # (même réglage que Tangent, ADR-014).
+        header_up X-Forwarded-Proto https
+        # La notation en SSE doit partir au fil de l'eau.
+        flush_interval -1
+    }
+
+    encode gzip zstd
+    log {
+        output stdout
+    }
+}

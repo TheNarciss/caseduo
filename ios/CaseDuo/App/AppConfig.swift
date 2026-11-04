@@ -3,7 +3,7 @@ import Foundation
 /// Where the backend is and which mode the app runs in.
 enum AppConfig {
     /// `APIBaseURL` from Info.plist (project.yml), overridable in debug builds with the launch
-    /// argument `-apiBaseURL http://localhost:8000/api`.
+    /// argument `-apiBaseURL http://localhost:8001/api`.
     static var apiBaseURL: URL {
         #if DEBUG
         if let override = UserDefaults.standard.string(forKey: "apiBaseURL"), let url = URL(string: override) {

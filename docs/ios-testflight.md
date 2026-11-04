@@ -95,7 +95,7 @@ Un build TestFlight expire au bout de 90 jours : relance le workflow avant.
 
 ## 7. Développer contre un backend local
 
-Les builds Debug acceptent un argument de lancement : dans Xcode, *Edit Scheme → Run → Arguments* : `-apiBaseURL http://localhost:8000/api` (le simulateur voit le Mac comme `localhost`). `-uiDemo YES` lance l'app avec des données de démonstration, sans réseau ni connexion (c'est ce que font les captures de la CI).
+Les builds Debug acceptent un argument de lancement : dans Xcode, *Edit Scheme → Run → Arguments* : `-apiBaseURL http://localhost:8001/api` (le simulateur voit le Mac comme `localhost`). `-uiDemo YES` lance l'app avec des données de démonstration, sans réseau ni connexion (c'est ce que font les captures de la CI).
 
 ## Quand ça coince
 
