@@ -173,3 +173,56 @@ class FakeBatches:
 def attach_batches(client: FakeClient) -> FakeBatches:
     client.messages.batches = FakeBatches(client)  # type: ignore[attr-defined]
     return client.messages.batches  # type: ignore[attr-defined]
+
+
+def grade_text(
+    rubric_keys: list[str],
+    marks: list[int] | None = None,
+    follow_up: str = "Et si le budget était divisé par deux ?",
+) -> str:
+    marks = marks or [2] * len(rubric_keys)
+    scores = [
+        {"key": k, "score": m, "justification": "Une phrase.", "quote": "je vois trois axes"}
+        for k, m in zip(rubric_keys, marks, strict=True)
+    ]
+    return (
+        "<scores>\n"
+        + json.dumps({"rubric_scores": scores, "score": 99})
+        + "\n</scores>\n<feedback>\n### Ce qui était bien\n- Plan clair.\n### À corriger\n- Chiffre → « je pose 30 % »\n"
+        "### En 30 secondes tu aurais dû dire\n« Je recommande… »\n</feedback>\n<follow_up>\n"
+        + follow_up
+        + "\n</follow_up>"
+    )
+
+
+class FakeStream:
+    def __init__(self, text: str, chunk: int = 7) -> None:
+        self.text = text
+        self.chunk = chunk
+
+    async def __aenter__(self) -> FakeStream:
+        return self
+
+    async def __aexit__(self, *exc: Any) -> bool:
+        return False
+
+    @property
+    def text_stream(self):
+        async def gen():
+            for i in range(0, len(self.text), self.chunk):
+                yield self.text[i : i + self.chunk]
+
+        return gen()
+
+    async def get_final_message(self) -> SimpleNamespace:
+        return message(self.text)
+
+
+def attach_grader(client: FakeClient, text_for: Any) -> None:
+    """`text_for(params) -> str`: what the grader answers."""
+
+    def stream(**params: Any) -> FakeStream:
+        client.calls.append(params)
+        return FakeStream(text_for(params))
+
+    client.messages.stream = stream  # type: ignore[attr-defined]
