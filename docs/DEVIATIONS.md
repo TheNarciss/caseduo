@@ -15,7 +15,7 @@ Le prompt demande `claude-sonnet-4-5` pour la génération et la notation. D'apr
 - **Proposition** : `CASEDUO_MODEL=claude-sonnet-5-5`, le Sonnet actuel. Il coûte **2 $ / 10 $** par million de tokens au lieu de 3 $ / 15 $, soit un tiers de moins, et c'est la génération suivante. Tangent tourne déjà sur `claude-sonnet-5` et `claude-opus-5`.
 - **Ce que le code gère déjà** : la variante de recherche web (`web_search_20250305` pour Sonnet 4.5, `web_search_20260209` pour Sonnet 4.6 et plus), la réflexion adaptative et l'effort (refusés par Sonnet 4.5, utilisés par Sonnet 5.x), et les prix. Changer la variable suffit.
 
-## D2 — Cible de coût de génération · **À valider**
+## D2 — Cible de coût de génération · **Résolu par D13** (génération sur l'abonnement)
 
 Le prompt fixe moins de 0,10 $ par jour pour la génération en batch. Avec la recherche web sur chaque case, ce n'est pas atteignable :
 
@@ -79,3 +79,18 @@ Le batch envoie une requête par exercice (`custom_id = gen:<date>:<slot>`). Une
 ## D12 — Format de sortie de la notation · **Appliqué**
 
 Tu demandes une réponse en streaming. Un JSON qui arrive token par token n'est pas affichable. Le correcteur écrit donc trois sections balisées dans l'ordre : `<scores>{…json…}</scores>`, puis `<feedback>…markdown…</feedback>`, puis `<follow_up>…</follow_up>`. Le serveur les découpe à la volée : l'app reçoit les notes en premier (animation du score et haptique tout de suite), puis le feedback qui s'écrit, puis la relance. Le score final est **recalculé par le serveur** à partir des notes 0/1/2 et des poids, sans se fier à l'arithmétique du modèle. `POST /api/grade` (sans streaming) renvoie la même chose en un seul JSON.
+
+## D13 — Les exercices sont écrits par une tâche planifiée Claude Code · **Appliqué (à ta demande)**
+
+C'est la méthode de ton projet Thales : une tâche planifiée sur claude.ai démarre une session neuve chaque nuit. À 01:32 heure de Singapour, cette session :
+
+1. demande au backend ce qui manque pour le lendemain (`GET /api/generation/plan`). Le backend renvoie le system prompt `prompts/generate.md` et, pour chaque exercice, exactement la consigne qu'une génération par l'API enverrait : faiblesses, titres déjà utilisés, style, langue ;
+2. écrit chaque exercice elle-même, recherche web comprise ;
+3. l'envoie (`POST /api/generation/import`). Le backend le valide comme avant (schéma, rubric, 3 à 6 chiffres sourcés, anti-doublon). Un refus revient avec sa raison, et la session corrige puis renvoie, 2 fois au plus ;
+4. clôt la nuit (`POST /api/generation/finish`). La ligne `cron_runs` (job `claude_code`) garde le compte et les refus.
+
+- **Coût** : la génération passe sur ton abonnement, sans facture API. Les ~0,30 à 0,40 $/jour de D2 disparaissent ; seule la notation reste payante.
+- **Ce qui reste** : avec `GENERATION_PROVIDER=claude_code`, le batch API de 03:00 est coupé. Le secours de 05:30 complète ce qui manque, par l'API si une clé est configurée, sinon avec le pack écrit à la main : une journée n'est jamais vide.
+- **Sécurité** : un jeton machine (`GENERATION_IMPORT_TOKEN` côté VM, `CASEDUO_IMPORT_TOKEN` dans l'environnement cloud) protège ces trois routes, séparé des sessions des utilisateurs. Sans jeton configuré, elles répondent 404.
+- **Le prompt de la tâche** est versionné dans `ops/nightly-generation-prompt.md` : le modifier là, puis mettre à jour la tâche planifiée avec le même texte.
+- **Retour en arrière** : `GENERATION_PROVIDER=api`, puis désactiver la tâche planifiée.

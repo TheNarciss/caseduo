@@ -5,7 +5,8 @@ crons are in JOBS_TIMEZONE (Asia/Singapore). Each job opens its own session
 and catches its exceptions so the scheduler keeps ticking.
 
 Jobs:
-- generation_submit     03:00 daily   → batch of tomorrow's exercises
+- generation_submit     03:00 daily   → batch of tomorrow's exercises (GENERATION_PROVIDER=api only;
+                                        with claude_code, a Claude Code scheduled task writes them)
 - generation_poll       every 30 min  → insert batch results as they land
 - generation_fallback   05:30 daily   → sync for whatever is still missing
 - generation_catch_up   at boot +60 s → today never empty, missed nights redone
@@ -38,12 +39,13 @@ def setup_scheduler() -> AsyncIOScheduler:
     scheduler = AsyncIOScheduler(timezone=JOBS_TZ)
     sub, fb = generation_jobs.SUBMIT_AT, generation_jobs.FALLBACK_AT
 
-    scheduler.add_job(
-        generation_jobs.job_submit_batch,
-        CronTrigger(hour=sub.hour, minute=sub.minute, timezone=JOBS_TZ),
-        id="generation_submit",
-        **_DAILY,
-    )
+    if generation_jobs.PROVIDER == "api":
+        scheduler.add_job(
+            generation_jobs.job_submit_batch,
+            CronTrigger(hour=sub.hour, minute=sub.minute, timezone=JOBS_TZ),
+            id="generation_submit",
+            **_DAILY,
+        )
     scheduler.add_job(
         generation_jobs.job_poll_batches,
         CronTrigger(minute="0,30", timezone=JOBS_TZ),

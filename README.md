@@ -72,6 +72,8 @@ Le backend écoute sur `127.0.0.1:8001` et Postgres sur `127.0.0.1:5433`. Ces po
 | `JWT_SECRET` | signe le cookie de session. `python -c "import secrets; print(secrets.token_urlsafe(48))"` |
 | `POSTGRES_PASSWORD` | mot de passe de la base (Compose construit `DATABASE_URL` avec) |
 | `ANTHROPIC_API_KEY` | génération et notation. Sans elle, l'app tourne sur le pack d'exercices écrit à la main et la notation répond 503 |
+| `GENERATION_PROVIDER` | `claude_code` (défaut conseillé) : les exercices sont écrits chaque nuit par une tâche planifiée Claude Code, sur ton abonnement ([D13](docs/DEVIATIONS.md)) ; `api` : batch Message Batches à 03:00 |
+| `GENERATION_IMPORT_TOKEN` | jeton partagé avec cette tâche planifiée (même valeur que `CASEDUO_IMPORT_TOKEN` dans l'environnement cloud) |
 | `CASEDUO_MODEL` | `claude-sonnet-4-5` par défaut, comme demandé. **Ce modèle est retiré le 30/11/2026** : voir [DEVIATIONS D1](docs/DEVIATIONS.md) (proposition : `claude-sonnet-5-5`) |
 | `LLM_DAILY_CAP_USD` | plafond global par jour, génération et notations confondues (1 $ par défaut) |
 | `GENERATION_WEB_SEARCH_MAX_USES` | recherches web par case (3 par défaut, 0 pour les couper) |
@@ -104,7 +106,13 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml exec backend \
   python -m app.cli create-user moi@example.com --admin --name "Clément"
 docker compose -f docker-compose.yml -f docker-compose.prod.yml exec backend python -m app.seed
 
-# 5. Le déploiement continu : un 2e runner GitHub sur la VM, pour ce dépôt
+# 5. La génération de nuit par Claude Code (D13)
+#    - dans backend/.env : GENERATION_PROVIDER=claude_code et GENERATION_IMPORT_TOKEN=<un jeton>
+#    - dans l'environnement cloud de Claude Code (menu de l'environnement → Edit) :
+#      variable CASEDUO_IMPORT_TOKEN = le même jeton
+#    - la tâche planifiée « CaseDuo — exercices du lendemain » tourne chaque nuit à 01:32 (Singapour)
+
+# 6. Le déploiement continu : un 2e runner GitHub sur la VM, pour ce dépôt
 #    (GitHub → TheNarciss/caseduo → Settings → Actions → Runners → New self-hosted runner,
 #    Linux ARM64), installé dans ~/actions-runner-caseduo avec les labels « oracle,prod »,
 #    puis ./svc.sh install && ./svc.sh start
@@ -118,7 +126,8 @@ Ils tournent dans le process du backend (APScheduler, comme Tangent), à l'heure
 
 | Quand | Quoi |
 |---|---|
-| 03:00 | batch Message Batches (−50 %) des exercices du lendemain |
+| 01:32 | **tâche planifiée Claude Code** (sur claude.ai, comme le projet Thales) : écrit les exercices du lendemain et les envoie au backend (`GENERATION_PROVIDER=claude_code`) |
+| 03:00 | ou, avec `GENERATION_PROVIDER=api` : batch Message Batches (−50 %) des exercices du lendemain |
 | toutes les 30 min | lecture des batchs terminés, insertion dès réception, exercices ratés refaits en synchrone |
 | 05:30 | secours : ce qui manque au lendemain est généré en synchrone (le batch est annulé) ; aujourd'hui est vérifié aussi |
 | au démarrage | rattrapage si un redémarrage nocturne a fait sauter un de ces jobs ; aujourd'hui jamais vide |
@@ -142,7 +151,7 @@ Chaque génération écrit une ligne dans `cron_runs` : id du batch, statut, tok
 
 ## Coûts
 
-Estimation pour une journée de génération en batch : ~0,40 $ avec Sonnet 4.5, ~0,30 $ avec Sonnet 5.5. La recherche web pèse lourd (0,01 $ par recherche, sans remise batch). Une notation coûte ~0,02 à 0,03 $. La cible de 0,10 $ par jour n'est pas tenable avec une recherche web sur chaque case : le détail est dans [DEVIATIONS D2](docs/DEVIATIONS.md). Le plafond journalier coupe tout au-delà de `LLM_DAILY_CAP_USD`.
+Avec la génération par Claude Code (D13), les exercices ne coûtent rien de plus que ton abonnement. En mode `api`, une journée en batch revient à ~0,40 $ avec Sonnet 4.5, ~0,30 $ avec Sonnet 5.5. La recherche web pèse lourd (0,01 $ par recherche, sans remise batch). Une notation coûte ~0,02 à 0,03 $. La cible de 0,10 $ par jour n'est pas tenable avec une recherche web sur chaque case : le détail est dans [DEVIATIONS D2](docs/DEVIATIONS.md). Le plafond journalier coupe tout au-delà de `LLM_DAILY_CAP_USD`.
 
 ## L'app iPhone
 

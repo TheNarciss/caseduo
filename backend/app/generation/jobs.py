@@ -26,6 +26,9 @@ from . import batch, service
 logger = logging.getLogger(__name__)
 
 TZ = ZoneInfo(os.getenv("JOBS_TIMEZONE", "Asia/Singapore"))
+# "api": the 03:00 Message Batch writes tomorrow. "claude_code": a Claude Code scheduled task
+# does (routers/generation_import.py, DEVIATIONS D13); the 05:30 fallback stays either way.
+PROVIDER = os.getenv("GENERATION_PROVIDER", "api").strip().lower()
 SUBMIT_AT = time(3, 0)
 FALLBACK_AT = time(5, 30)
 
@@ -107,6 +110,6 @@ async def job_catch_up_at_boot() -> None:
     if missed(now, FALLBACK_AT, last):
         logger.warning("Boot catch-up: 05:30 fallback was missed, running it")
         await job_fallback()
-    elif missed(now, SUBMIT_AT, last):
+    elif PROVIDER == "api" and missed(now, SUBMIT_AT, last):
         logger.warning("Boot catch-up: 03:00 batch was missed, submitting it")
         await job_submit_batch()
