@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 
-from . import admin_pages, attempts, day, exercises, grade, history, me, today
+from . import admin_pages, attempts, day, exercises, grade, history, me, mocks, today
 
 ROUTERS: list[APIRouter] = [
     today.router,
@@ -12,6 +12,7 @@ ROUTERS: list[APIRouter] = [
     me.router,
     day.router,
     history.router,
+    mocks.router,
 ]
 
 __all__ = ["ROUTERS", "admin_pages"]
