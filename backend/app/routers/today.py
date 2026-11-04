@@ -15,6 +15,7 @@ from ..db import get_session
 from ..db.models import DailyActivity, Exercise, MockRun
 from ..generation.planner import mock_is_mbb, mock_kind, mock_language
 from ..services import hooks, progress
+from ..services import streak as streak_service
 from ..services import today as today_service
 from ..services.clock import first_week, today_for
 
@@ -60,29 +61,13 @@ async def mock_info(session: AsyncSession, user: User, day: date) -> dict[str, A
     }
 
 
-def streak_view(user: User, day: date, goal_met: bool) -> dict[str, Any]:
-    if goal_met:
-        status = "extended_today"
-    elif user.streak_current > 0:
-        status = "at_risk"
-    else:
-        status = "safe"
-    return {
-        "current": user.streak_current,
-        "longest": user.streak_longest,
-        "freezes": user.streak_freezes,
-        "status": status,
-        "freeze_used_on": [],
-        "freeze_just_used": False,
-    }
-
-
 async def build_today(session: AsyncSession, user: User) -> dict[str, Any]:
     day = today_for(user)
+    await streak_service.rollover(session, user, day)
     await hooks.before_today(session, user, day)
     daily = await progress.daily_row(session, user, day)
     cards = await today_service.build_cards(session, user.id, day)
-    streak = streak_view(user, day, daily.goal_met)
+    streak = await streak_service.view(session, user, day, daily.goal_met, consume_notice=True)
     view: dict[str, Any] = {
         "date": day.isoformat(),
         "weekday": day.weekday(),

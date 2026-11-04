@@ -84,6 +84,25 @@ async def patch_me(
     return await me_view(session, user)
 
 
+class PushToken(BaseModel):
+    token: str = Field(min_length=32, max_length=200, pattern=r"^[0-9a-fA-F]+$")
+    environment: Literal["sandbox", "production"] = "production"
+
+
+@router.post("/push-token", status_code=204)
+async def register_push_token(
+    body: PushToken,
+    user: User = Depends(current_active_user),
+    session: AsyncSession = Depends(get_session),
+) -> Response:
+    """The app sends its APNs token at each launch; the last device wins."""
+    user.apns_token = body.token.lower()
+    user.apns_environment = body.environment
+    session.add(user)
+    await session.commit()
+    return Response(status_code=204)
+
+
 @router.delete("", status_code=204)
 async def delete_me(
     user: User = Depends(current_active_user),

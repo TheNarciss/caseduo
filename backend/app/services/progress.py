@@ -10,14 +10,15 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import Any
 
-from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..auth import User
-from ..db.models import Attempt, DailyActivity, Exercise
+from ..db.models import Attempt, Exercise
 from ..game.xp import DAY_COMPLETE_BONUS, effective_goal
+from . import streak as streak_service
 from . import today as today_service
 from .clock import first_week
+from .progress_rows import daily_row
 
 
 @dataclass
@@ -39,16 +40,7 @@ class ProgressResult:
         return dict(self.__dict__)
 
 
-async def daily_row(session: AsyncSession, user: User, day: date) -> DailyActivity:
-    stmt = (
-        pg_insert(DailyActivity)
-        .values(user_id=user.id, date=day)
-        .on_conflict_do_nothing(index_elements=["user_id", "date"])
-    )
-    await session.execute(stmt)
-    row = await session.get(DailyActivity, (user.id, day), populate_existing=True)
-    assert row is not None
-    return row
+__all__ = ["ProgressResult", "apply_attempt", "daily_row", "goal_for"]
 
 
 def goal_for(user: User, day: date) -> int:
@@ -59,6 +51,7 @@ async def apply_attempt(
     session: AsyncSession, user: User, attempt: Attempt, exercise: Exercise
 ) -> ProgressResult:
     day = attempt.local_date
+    await streak_service.rollover(session, user, day)
     daily = await daily_row(session, user, day)
     daily.xp_earned += attempt.xp_earned
     if attempt.kind == "main":
@@ -81,6 +74,14 @@ async def apply_attempt(
     daily.goal_met = daily.xp_earned >= result.goal_target
     result.goal_met = daily.goal_met
     result.goal_just_met = daily.goal_met and not was_met
+    if result.goal_just_met:
+        met = await streak_service.goal_met(session, user, day)
+        result.streak_extended = met.extended
+        result.freeze_earned = met.freeze_earned
+        result.perfect_week = await streak_service.check_perfect_week(session, user, day)
+    result.streak = await streak_service.view(
+        session, user, day, daily.goal_met, consume_notice=False
+    )
     result.xp_today = daily.xp_earned
     result.day_complete = daily.day_complete
     result.remaining = today_service.remaining(cards)
