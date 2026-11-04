@@ -126,3 +126,50 @@ class FakeClient:
         self.calls: list[dict[str, Any]] = []
         self.fail_slots = fail_slots or set()
         self.messages = FakeMessages(self)
+
+
+class FakeBatches:
+    """messages.batches: create / retrieve / results / cancel, driven by the test."""
+
+    def __init__(self, owner: FakeClient) -> None:
+        self.owner = owner
+        self.created: dict[str, list[Any]] = {}
+        self.status: dict[str, str] = {}
+        self.errored: set[str] = set()
+        self.cancelled: list[str] = []
+
+    async def create(self, requests: list[Any]) -> SimpleNamespace:
+        batch_id = f"msgbatch_{len(self.created) + 1:03d}"
+        self.created[batch_id] = list(requests)
+        self.status[batch_id] = "in_progress"
+        return SimpleNamespace(id=batch_id, processing_status="in_progress")
+
+    async def retrieve(self, batch_id: str) -> SimpleNamespace:
+        return SimpleNamespace(id=batch_id, processing_status=self.status[batch_id])
+
+    async def cancel(self, batch_id: str) -> SimpleNamespace:
+        self.cancelled.append(batch_id)
+        self.status[batch_id] = "canceling"
+        return SimpleNamespace(id=batch_id, processing_status="canceling")
+
+    async def results(self, batch_id: str):
+        requests = self.created[batch_id]
+        owner = self.owner
+
+        async def gen():
+            for req in requests:
+                cid = req["custom_id"]
+                if any(cid.endswith(s) for s in self.errored):
+                    yield SimpleNamespace(custom_id=cid, result=SimpleNamespace(type="errored"))
+                    continue
+                msg = await FakeMessages(owner).create(**req["params"])
+                yield SimpleNamespace(
+                    custom_id=cid, result=SimpleNamespace(type="succeeded", message=msg)
+                )
+
+        return gen()
+
+
+def attach_batches(client: FakeClient) -> FakeBatches:
+    client.messages.batches = FakeBatches(client)  # type: ignore[attr-defined]
+    return client.messages.batches  # type: ignore[attr-defined]
