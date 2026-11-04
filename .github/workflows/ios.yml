@@ -1,0 +1,255 @@
+name: iOS
+
+# SingaSmoke's workflow, moved under ios/ and extended to two signed targets (app + widget).
+# Pull requests and pushes to the default branch that touch the app: the logic's unit tests, then
+# the app compiled for the simulator. On pull requests, screenshots of the app in the simulator
+# (canned data, -uiDemo YES) land on the "screenshots" branch and in the run summary; the
+# "full-screenshots" label takes every screen.
+# A push to the default branch (or the "Run workflow" button) then archives, signs and uploads the
+# app to TestFlight, as soon as the signing secrets exist (docs/ios-testflight.md). Until then the
+# TestFlight job says what is missing and stops without failing.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ios/**"
+      - ".github/workflows/ios.yml"
+  pull_request:
+    paths:
+      - "ios/**"
+      - ".github/workflows/ios.yml"
+  workflow_dispatch:
+    inputs:
+      testflight:
+        description: "Envoyer sur TestFlight"
+        type: boolean
+        default: true
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: ios
+
+jobs:
+  build:
+    name: Tests + build (simulator)
+    runs-on: macos-15
+    timeout-minutes: 40
+    permissions:
+      contents: write   # the screenshots branch, on pull requests
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Select Xcode 26 (Apple requires the iOS 26 SDK for uploads)
+        run: |
+          set -euo pipefail
+          XCODE=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -n 1 || true)
+          if [ -z "$XCODE" ]; then echo "Xcode 26 introuvable sur ce runner"; ls /Applications | grep Xcode; exit 1; fi
+          sudo xcode-select -s "$XCODE"
+          xcodebuild -version
+
+      - name: Unit tests (API contract, SSE reader, haptics, widget snapshot, dates)
+        working-directory: ios/Packages/CaseDuoCore
+        run: swift test
+
+      - name: Generate the Xcode project
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Compile for the simulator
+        run: |
+          set -o pipefail
+          xcodebuild build \
+            -project CaseDuo.xcodeproj -scheme CaseDuo -configuration Debug \
+            -destination "generic/platform=iOS Simulator" \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO \
+            | tail -n 80
+
+      - name: Screenshots in the simulator
+        id: shots
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        timeout-minutes: 15
+        env:
+          SHOT_SET: ${{ contains(github.event.pull_request.labels.*.name, 'full-screenshots') && 'full' || 'quick' }}
+        run: scripts/ci-screenshots.sh build/Build/Products/Debug-iphonesimulator/CaseDuo.app "$RUNNER_TEMP/shots"
+
+      - name: Publish the screenshots
+        if: github.event_name == 'pull_request' && steps.shots.outcome == 'success'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/shots"
+          git init -q -b screenshots
+          git add .
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "Screenshots of $HEAD_SHA"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" screenshots
+          RAW="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/screenshots"
+          {
+            echo "### Screenshots of ${HEAD_SHA:0:7}"
+            echo
+            for f in *.png; do echo "<img src=\"$RAW/$f?v=${HEAD_SHA:0:7}\" width=\"260\" alt=\"$f\">"; done
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  testflight:
+    name: Archive, sign, upload to TestFlight
+    needs: build
+    if: >-
+      (github.event_name == 'workflow_dispatch' && inputs.testflight) ||
+      (github.event_name == 'push' && github.ref_name == github.event.repository.default_branch)
+    runs-on: macos-15
+    timeout-minutes: 60
+    # Repository secrets (Settings → Secrets and variables → Actions). The same values as Tangent and
+    # SingaSmoke, except the two provisioning profiles, which are per bundle ID:
+    #   IOS_CERTIFICATE_P12_B64, IOS_CERTIFICATE_PASSWORD   Apple Distribution certificate (.p12, base64)
+    #   IOS_PROVISIONING_PROFILE_B64                        App Store profile for uk.riskybusinesses.caseduo
+    #   IOS_WIDGET_PROVISIONING_PROFILE_B64                 App Store profile for uk.riskybusinesses.caseduo.widget
+    #   APPLE_TEAM_ID                                       ten characters
+    #   APPSTORE_API_KEY_ID, APPSTORE_API_ISSUER_ID, APPSTORE_API_KEY_P8_B64   App Store Connect API key
+    env:
+      BUNDLE_ID: uk.riskybusinesses.caseduo
+      WIDGET_BUNDLE_ID: uk.riskybusinesses.caseduo.widget
+    steps:
+      - name: Signing secrets present?
+        id: secrets
+        working-directory: .
+        env:
+          P12_B64: ${{ secrets.IOS_CERTIFICATE_P12_B64 }}
+          P12_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+          PROFILE_B64: ${{ secrets.IOS_PROVISIONING_PROFILE_B64 }}
+          WIDGET_PROFILE_B64: ${{ secrets.IOS_WIDGET_PROVISIONING_PROFILE_B64 }}
+          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          KEY_ID: ${{ secrets.APPSTORE_API_KEY_ID }}
+          ISSUER_ID: ${{ secrets.APPSTORE_API_ISSUER_ID }}
+          KEY_P8_B64: ${{ secrets.APPSTORE_API_KEY_P8_B64 }}
+        run: |
+          missing=""
+          for name in P12_B64 P12_PASSWORD PROFILE_B64 WIDGET_PROFILE_B64 TEAM_ID KEY_ID ISSUER_ID KEY_P8_B64; do
+            [ -n "${!name}" ] || missing="$missing $name"
+          done
+          if [ -n "$missing" ]; then
+            echo "::notice title=TestFlight ignoré::Secrets manquants :$missing. Marche à suivre : docs/ios-testflight.md"
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: steps.secrets.outputs.ready == 'true'
+
+      - name: Select Xcode 26
+        if: steps.secrets.outputs.ready == 'true'
+        run: |
+          set -euo pipefail
+          XCODE=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -n 1 || true)
+          if [ -z "$XCODE" ]; then echo "Xcode 26 introuvable sur ce runner"; ls /Applications | grep Xcode; exit 1; fi
+          sudo xcode-select -s "$XCODE"
+          xcodebuild -version
+
+      - name: Install the signing certificate and the two profiles
+        if: steps.secrets.outputs.ready == 'true'
+        env:
+          P12_B64: ${{ secrets.IOS_CERTIFICATE_P12_B64 }}
+          P12_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+          PROFILE_B64: ${{ secrets.IOS_PROVISIONING_PROFILE_B64 }}
+          WIDGET_PROFILE_B64: ${{ secrets.IOS_WIDGET_PROVISIONING_PROFILE_B64 }}
+          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          set -euo pipefail
+          KEYCHAIN="$RUNNER_TEMP/signing.keychain-db"
+          KEYCHAIN_PASSWORD="$(openssl rand -hex 16)"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          echo "$P12_B64" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN"
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security list-keychain -d user -s "$KEYCHAIN"
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          install_profile() {
+            echo "$1" | base64 --decode > "$RUNNER_TEMP/$2.mobileprovision"
+            local uuid
+            uuid=$(/usr/libexec/PlistBuddy -c "Print UUID" /dev/stdin <<< "$(security cms -D -i "$RUNNER_TEMP/$2.mobileprovision")")
+            cp "$RUNNER_TEMP/$2.mobileprovision" ~/Library/MobileDevice/Provisioning\ Profiles/"$uuid".mobileprovision
+            echo "$uuid"
+          }
+          APP_UUID=$(install_profile "$PROFILE_B64" app)
+          WIDGET_UUID=$(install_profile "$WIDGET_PROFILE_B64" widget)
+          echo "APP_PROFILE_UUID=$APP_UUID" >> "$GITHUB_ENV"
+          echo "WIDGET_PROFILE_UUID=$WIDGET_UUID" >> "$GITHUB_ENV"
+          # Manual signing per target: Swift packages must not get a profile.
+          cat > CaseDuo/Config/Signing.xcconfig <<XCCONFIG
+          CODE_SIGN_STYLE = Manual
+          DEVELOPMENT_TEAM = $TEAM_ID
+          CODE_SIGN_IDENTITY = Apple Distribution
+          PROVISIONING_PROFILE_SPECIFIER = $APP_UUID
+          XCCONFIG
+          cat > CaseDuo/Config/SigningWidget.xcconfig <<XCCONFIG
+          CODE_SIGN_STYLE = Manual
+          DEVELOPMENT_TEAM = $TEAM_ID
+          CODE_SIGN_IDENTITY = Apple Distribution
+          PROVISIONING_PROFILE_SPECIFIER = $WIDGET_UUID
+          XCCONFIG
+
+      - name: Archive
+        if: steps.secrets.outputs.ready == 'true'
+        run: |
+          set -o pipefail
+          brew install xcodegen
+          xcodegen generate
+          xcodebuild archive \
+            -project CaseDuo.xcodeproj -scheme CaseDuo -configuration Release \
+            -destination "generic/platform=iOS" \
+            -archivePath "$RUNNER_TEMP/CaseDuo.xcarchive" \
+            CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
+            | tail -n 80
+
+      - name: Export the .ipa
+        if: steps.secrets.outputs.ready == 'true'
+        env:
+          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>teamID</key><string>$TEAM_ID</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>provisioningProfiles</key><dict>
+              <key>$BUNDLE_ID</key><string>$APP_PROFILE_UUID</string>
+              <key>$WIDGET_BUNDLE_ID</key><string>$WIDGET_PROFILE_UUID</string>
+            </dict>
+            <key>uploadSymbols</key><true/>
+          </dict></plist>
+          PLIST
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/CaseDuo.xcarchive" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" \
+            -exportPath "$RUNNER_TEMP/export"
+          ls -la "$RUNNER_TEMP/export"
+
+      - name: Upload to TestFlight
+        if: steps.secrets.outputs.ready == 'true'
+        env:
+          KEY_ID: ${{ secrets.APPSTORE_API_KEY_ID }}
+          ISSUER_ID: ${{ secrets.APPSTORE_API_ISSUER_ID }}
+          KEY_P8_B64: ${{ secrets.APPSTORE_API_KEY_P8_B64 }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.private_keys
+          echo "$KEY_P8_B64" | base64 --decode > ~/.private_keys/AuthKey_"$KEY_ID".p8
+          xcrun altool --upload-app -f "$RUNNER_TEMP"/export/*.ipa -t ios \
+            --apiKey "$KEY_ID" --apiIssuer "$ISSUER_ID"
+          echo "::notice title=TestFlight::Build ${{ github.run_number }} envoyé. Il apparaît dans l'app TestFlight après le traitement d'Apple (5 à 30 min)."

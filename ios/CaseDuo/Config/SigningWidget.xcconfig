@@ -1,0 +1,3 @@
+// Signing of the widget extension. Rewritten by the TestFlight job with the widget's own
+// provisioning profile (secret IOS_WIDGET_PROVISIONING_PROFILE_B64), see docs/ios-testflight.md.
+CODE_SIGN_STYLE = Automatic
