@@ -11,6 +11,7 @@ Jobs:
 - generation_catch_up   at boot +60 s → today never empty, missed nights redone
 - streak_rollover       hourly at :05 → missed days settled, freezes applied
 - push_tick             every 15 min  → streak saver at 20:00 local, disengagement
+- league_close          every 30 min  → promotion/relegation after Sunday 23:00 local
 """
 
 from __future__ import annotations
@@ -71,6 +72,12 @@ def setup_scheduler() -> AsyncIOScheduler:
         push_jobs.job_push_tick,
         CronTrigger(minute="0,15,30,45", timezone=JOBS_TZ),
         id="push_tick",
+        **_DAILY,
+    )
+    scheduler.add_job(
+        push_jobs.job_close_leagues,
+        CronTrigger(minute="10,40", timezone=JOBS_TZ),
+        id="league_close",
         **_DAILY,
     )
     logger.info("Scheduler configured: %d jobs (%s)", len(scheduler.get_jobs()), JOBS_TZ)

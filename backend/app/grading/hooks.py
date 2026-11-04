@@ -11,7 +11,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..db.models import Attempt, MockRun, Revenge
 from ..errors import ConflictError, InvalidRequestError, NotFoundError
+from ..game import badges as badge_rules
 from ..game import revenge as revenge_rules
+from ..services import badges as badge_service
 from ..services.clock import today_for
 from ..services.fit import fit_context
 
@@ -75,3 +77,14 @@ async def after_grading(
                 )
                 .on_conflict_do_nothing(constraint="uq_revenges_user_ex_step")
             )
+
+    codes = badge_rules.for_attempt(
+        exercise_type=p.exercise.type,
+        kind=attempt.kind,
+        score=attempt.score,
+        is_revenge=attempt.is_revenge,
+        streak=p.user.streak_current,
+        perfect_week=result.perfect_week,
+        fit_answers=await badge_service.fit_answer_count(session, p.user),
+    )
+    result.new_badges = await badge_service.award(session, p.user, codes)

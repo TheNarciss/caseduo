@@ -8,6 +8,7 @@ from sqlalchemy import select
 
 from ..auth import User
 from ..db import async_session_factory
+from ..services import leagues
 from ..services import streak as streak_service
 from ..services import today as today_service
 from ..services.clock import now_for, today_for
@@ -83,3 +84,16 @@ async def _maybe_push(session, user: User) -> None:
     if result.token_invalid:
         user.apns_token = None
     logger.info("Push %s to user %s: %s", push.kind, user.id, result.status)
+
+
+async def job_close_leagues() -> None:
+    """Promotion / relegation once Sunday 23:00 local has passed."""
+    async with async_session_factory() as session:
+        try:
+            stmt = select(User).where(User.is_active.is_(True))  # type: ignore[attr-defined]
+            for user in (await session.execute(stmt)).unique().scalars().all():
+                await leagues.close_due_weeks(session, user)
+            await session.commit()
+        except Exception:
+            logger.exception("League close failed")
+            await session.rollback()
