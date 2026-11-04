@@ -84,6 +84,27 @@ async def patch_me(
     return await me_view(session, user)
 
 
+class StoryIn(BaseModel):
+    story_text: str = Field(max_length=20_000)
+
+
+@router.put("/story")
+async def put_story(
+    body: StoryIn,
+    user: User = Depends(current_active_user),
+    session: AsyncSession = Depends(get_session),
+):
+    """The career story (schools, Thales Rungis, Thales Singapore, projects, why consulting…),
+    sent to the grader with every fit answer."""
+    story = await session.get(UserStory, user.id)
+    if story is None:
+        session.add(UserStory(user_id=user.id, story_text=body.story_text.strip()))
+    else:
+        story.story_text = body.story_text.strip()
+    await session.commit()
+    return await me_view(session, user)
+
+
 class PushToken(BaseModel):
     token: str = Field(min_length=32, max_length=200, pattern=r"^[0-9a-fA-F]+$")
     environment: Literal["sandbox", "production"] = "production"
