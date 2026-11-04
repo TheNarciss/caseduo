@@ -74,7 +74,7 @@ Le batch envoie une requête par exercice (`custom_id = gen:<date>:<slot>`). Une
 
 ## D11 — Pack de démarrage écrit à la main · **Appliqué**
 
-`backend/app/content/starter_pack.json` contient une journée d'exercices rédigés à la main. Ils ne servent que si une date n'a rien et que la génération est impossible (pas de clé API, plafond atteint, panne Anthropic), et pour le compte de démo. C'est le filet de sécurité contre un refus d'App Review dû à un écran vide.
+`backend/app/content/starter_pack.py` contient une journée d'exercices rédigés à la main. Ils ne servent que si une date n'a rien et que la génération est impossible (pas de clé API, plafond atteint, panne Anthropic), et pour le compte de démo. C'est le filet de sécurité contre un refus d'App Review dû à un écran vide.
 
 ## D12 — Format de sortie de la notation · **Appliqué**
 
