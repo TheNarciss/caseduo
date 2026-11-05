@@ -55,18 +55,18 @@ gh secret list -R $R
 
 Plus de `.p12` ou de clé API ? Les recettes sont dans `docs/testflight.md` de SingaSmoke (régénérer le certificat depuis la VM avec `openssl … -legacy`, recréer une clé App Manager), elles valent à l'identique.
 
-## 4. La clé APNs sur la VM
+## 4. La clé APNs pour le backend
 
-Le backend envoie le rappel de 20 h et le message d'au revoir après 7 jours d'absence. Dans `backend/.env` sur la VM :
+Le backend envoie le rappel de 20 h et le message d'au revoir après 7 jours d'absence. Comme tout le reste, la clé arrive sur la VM par la CD : trois secrets GitHub de plus, écrits dans `backend/.env` au déploiement suivant.
 
 ```bash
-APNS_TEAM_ID=XXXXXXXXXX            # le Team ID
-APNS_KEY_ID=YYYYYYYYYY             # le Key ID de la clé APNs
-APNS_PRIVATE_KEY_B64=$(base64 -w0 AuthKey_YYYYYYYYYY.p8)
-APNS_BUNDLE_ID=uk.riskybusinesses.caseduo
+R=TheNarciss/caseduo
+gh secret set APNS_PRIVATE_KEY_B64 -R $R --body "$(base64 -w0 AuthKey_YYYYYYYYYY.p8)"
+gh secret set APNS_KEY_ID  -R $R      # le Key ID de la clé APNs
+gh secret set APNS_TEAM_ID -R $R      # le Team ID
 ```
 
-Puis `docker compose -f docker-compose.yml -f docker-compose.prod.yml restart backend`. L'app envoie son jeton avec son environnement : `sandbox` pour une build Xcode, `production` pour TestFlight et l'App Store ; le backend choisit le serveur APNs en conséquence.
+L'app envoie son jeton avec son environnement : `sandbox` pour une build Xcode, `production` pour TestFlight et l'App Store. Le backend choisit le serveur APNs en conséquence.
 
 ## 5. Le compte de démonstration (revue Apple)
 
