@@ -99,7 +99,8 @@ Même schéma que Tangent, à côté de lui : une stack Compose séparée derri�
 
 | Secret | Pour |
 |---|---|
-| `ANTHROPIC_API_KEY` | la notation (et le secours de 05:30) |
+| `CLAUDE_CODE_OAUTH_TOKEN` | la notation sur ton abonnement Claude, sans frais d'API : `claude setup-token` sur un ordinateur (DEVIATIONS D14) |
+| `ANTHROPIC_API_KEY` | facultatif : le secours de génération de 05:30, et la notation si le jeton Claude Code est absent |
 | `OWNER_EMAIL`, `OWNER_PASSWORD` | facultatif : ton compte admin (pages `/admin`), créé au premier déploiement. Sans eux, connecte-toi avec Apple : le premier compte pilote le contenu du jour |
 | `APNS_PRIVATE_KEY_B64` | les push (le `.p8` en base64 ; Team ID et Key ID sont déjà dans `.env.example`) |
 | `CASEDUO_MODEL` | facultatif, pour changer de modèle (D1) |
@@ -144,7 +145,7 @@ Chaque génération écrit une ligne dans `cron_runs` : id du batch, statut, tok
 
 ## Coûts
 
-Avec la génération par Claude Code (D13), les exercices ne coûtent rien de plus que ton abonnement. En mode `api`, une journée en batch revient à ~0,40 $ avec Sonnet 4.5, ~0,30 $ avec Sonnet 5.5. La recherche web pèse lourd (0,01 $ par recherche, sans remise batch). Une notation coûte ~0,02 à 0,03 $. La cible de 0,10 $ par jour n'est pas tenable avec une recherche web sur chaque case : le détail est dans [DEVIATIONS D2](docs/DEVIATIONS.md). Le plafond journalier coupe tout au-delà de `LLM_DAILY_CAP_USD`.
+Avec la génération par Claude Code (D13), les exercices ne coûtent rien de plus que ton abonnement. En mode `api`, une journée en batch revient à ~0,40 $ avec Sonnet 4.5, ~0,30 $ avec Sonnet 5.5. La recherche web pèse lourd (0,01 $ par recherche, sans remise batch). La notation passe aussi par ton abonnement (D14) ; par l'API, elle coûterait ~0,02 à 0,03 $. La cible de 0,10 $ par jour n'est pas tenable avec une recherche web sur chaque case : le détail est dans [DEVIATIONS D2](docs/DEVIATIONS.md). Le plafond journalier coupe tout au-delà de `LLM_DAILY_CAP_USD`.
 
 ## L'app iPhone
 
