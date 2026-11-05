@@ -1,0 +1,67 @@
+# À poser dans TheNarciss/tangent, sur une branche jetable « caseduo-runner », sous
+# .github/workflows/caseduo-runner.yml (README de caseduo, section Déploiement).
+#
+# Le runner de Tangent, déjà sur la VM, installe à côté de lui celui de TheNarciss/caseduo :
+# pas besoin de terminal sur la VM. Le jeton d'enregistrement se copie depuis caseduo → Settings
+# → Actions → Runners → New self-hosted runner (ligne « ./config.sh … --token ») dans le secret
+# CASEDUO_RUNNER_TOKEN de Tangent. Il n'enregistre qu'un runner et expire au bout d'une heure.
+# Une fois le runner en ligne, la branche et le secret peuvent être supprimés.
+name: Installer le runner CaseDuo sur la VM
+
+on:
+  push:
+    branches: [caseduo-runner]
+
+permissions: {}
+
+jobs:
+  install:
+    name: Runner caseduo à côté de celui de Tangent
+    runs-on: [self-hosted, Linux, oracle, prod]
+    timeout-minutes: 15
+    steps:
+      - name: Télécharger, enregistrer et démarrer le runner
+        env:
+          TOKEN: ${{ secrets.CASEDUO_RUNNER_TOKEN }}
+        run: |
+          set -euo pipefail
+          DIR="$HOME/actions-runner-caseduo"
+          if [ -f "$DIR/.runner" ]; then
+            echo "Déjà enregistré dans $DIR : on vérifie seulement le service."
+          else
+            if [ -z "$TOKEN" ]; then
+              echo "::error::Secret CASEDUO_RUNNER_TOKEN absent dans Tangent. Ajoute-le, puis « Re-run jobs »."
+              exit 1
+            fi
+            case "$(uname -m)" in
+              aarch64 | arm64) ARCH=arm64 ;;
+              x86_64) ARCH=x64 ;;
+              *) echo "::error::Architecture inattendue : $(uname -m)"; exit 1 ;;
+            esac
+            VERSION=$(curl -fsSL https://api.github.com/repos/actions/runner/releases/latest \
+              | python3 -c 'import json, sys; print(json.load(sys.stdin)["tag_name"].lstrip("v"))')
+            echo "actions/runner $VERSION, linux-$ARCH → $DIR"
+            mkdir -p "$DIR"
+            cd "$DIR"
+            curl -fsSL -o runner.tar.gz \
+              "https://github.com/actions/runner/releases/download/v${VERSION}/actions-runner-linux-${ARCH}-${VERSION}.tar.gz"
+            tar xzf runner.tar.gz
+            rm runner.tar.gz
+            # Environnement propre : rien du job de Tangent ne passe dans la configuration du runner.
+            env -i HOME="$HOME" USER="$(whoami)" PATH="$PATH" LANG=C.UTF-8 \
+              ./config.sh --unattended \
+                --url https://github.com/TheNarciss/caseduo \
+                --token "$TOKEN" \
+                --name "caseduo-$(hostname)" \
+                --labels oracle,prod \
+                --work _work
+          fi
+          cd "$DIR"
+          # Un service systemd à lui, distinct de celui de Tangent : il survit à ce job et aux redémarrages.
+          if ! systemctl is-active --quiet "$(cat .service 2>/dev/null || echo absent)"; then
+            [ -f .service ] || sudo ./svc.sh install "$(whoami)"
+            sudo ./svc.sh start
+          fi
+          sleep 3
+          sudo ./svc.sh status | head -n 6
+          echo "Runner caseduo en ligne : caseduo → Settings → Actions → Runners doit l'afficher « Idle »."
