@@ -8,7 +8,6 @@ from . import (
     attempts,
     day,
     exercises,
-    generation_import,
     grade,
     history,
     league,
@@ -28,7 +27,6 @@ ROUTERS: list[APIRouter] = [
     mocks.router,
     league.router,
     admin.router,
-    generation_import.router,
 ]
 
 __all__ = ["ROUTERS", "admin_pages"]

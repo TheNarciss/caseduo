@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 
 TZ = ZoneInfo(os.getenv("JOBS_TIMEZONE", "Asia/Singapore"))
 # "api": the 03:00 Message Batch writes tomorrow. "claude_code": a Claude Code scheduled task
-# does (routers/generation_import.py, DEVIATIONS D13); the 05:30 fallback stays either way.
+# does, through GitHub (services/nightly.py, DEVIATIONS D13); the 05:30 fallback stays.
 PROVIDER = os.getenv("GENERATION_PROVIDER", "api").strip().lower()
 SUBMIT_AT = time(3, 0)
 FALLBACK_AT = time(5, 30)

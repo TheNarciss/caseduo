@@ -243,14 +243,6 @@ Déroulé dans l'app : pour chaque étape, réponse orale, `POST /grade` avec `m
 - `POST /admin/generate` `{"date": "…", "mode": "sync" | "batch", "force": false}`.
 - `GET /admin/cron-runs?limit=30`.
 
-## Génération par la tâche planifiée (jeton machine)
-
-`Authorization: Bearer <GENERATION_IMPORT_TOKEN>` ; 404 si le jeton n'est pas configuré (DEVIATIONS D13).
-
-- `GET /generation/plan?date=YYYY-MM-DD` (défaut : demain) → `{"date", "weekday", "sector", "system_prompt", "done": [slot], "slots": [{"slot", "type", "style", "language", "difficulty", "sector", "web_search", "parts", "user_message"}]}`
-- `POST /generation/import` `{"date", "slot", "exercise": {…l'objet JSON du format de prompts/generate.md…}, "search_urls": ["https://…"]}` → `{"inserted": true, "slot", "remaining": [slot]}` ; 422 avec la raison si l'exercice est refusé, 409 si le slot existe déjà.
-- `POST /generation/finish` `{"date", "summary"}` → `{"status": "ended" | "partial" | "failed", "inserted", "missing": [slot]}`.
-
 ## Santé
 
 `GET /health` → `{"status": "ok", "db": "up", "exercises_today": 9}`.

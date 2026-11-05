@@ -1,0 +1,63 @@
+name: Nightly - import des exercices générés
+
+# Toutes les 10 minutes de 01:00 à 05:50 à Singapour, sur la VM : ce que la tâche
+# planifiée Claude Code a poussé dans `nightly/generated/<date>/` est validé et inséré
+# (python -m app.nightly import) ; la réponse va dans `nightly/results/<date>.json`.
+# Idempotent : rien n'est refait tant que les fichiers ne changent pas. Le secours de
+# 05:30 sur la VM complète ce qui manquerait encore (DEVIATIONS D13).
+on:
+  schedule:
+    - cron: "*/10 17-21 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nightly-branch
+  cancel-in-progress: false
+
+jobs:
+  import:
+    name: Import generated exercises
+    runs-on: [self-hosted, Linux, oracle, prod]
+    timeout-minutes: 10
+    steps:
+      - name: Fetch the nightly branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          WORK="$RUNNER_TEMP/nightly"
+          rm -rf "$WORK"
+          REMOTE="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if ! git ls-remote --exit-code --heads "$REMOTE" nightly > /dev/null; then
+            echo "Pas encore de branche nightly."
+            echo "SKIP=1" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          git clone -q --depth 1 --branch nightly "$REMOTE" "$WORK"
+          echo "WORK=$WORK" >> "$GITHUB_ENV"
+
+      - name: Import what is new
+        if: env.SKIP != '1'
+        working-directory: /home/ubuntu/caseduo
+        run: |
+          set -euo pipefail
+          python3 ops/nightly_import.py "$WORK" /home/ubuntu/caseduo | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit the results
+        if: env.SKIP != '1'
+        run: |
+          set -euo pipefail
+          cd "$WORK"
+          git add -A results
+          git diff --cached --quiet && exit 0
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "import $(ls results | tail -1 | sed 's/.json//')"
+          for i in 1 2 3; do
+            git push -q origin HEAD:nightly && exit 0
+            git pull -q --rebase origin nightly || true
+            sleep 5
+          done
+          exit 1

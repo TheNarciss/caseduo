@@ -70,10 +70,9 @@ Le backend écoute sur `127.0.0.1:8001` et Postgres sur `127.0.0.1:5433`. Ces po
 | Variable | Rôle |
 |---|---|
 | `JWT_SECRET` | signe le cookie de session. `python -c "import secrets; print(secrets.token_urlsafe(48))"` |
-| `POSTGRES_PASSWORD` | mot de passe de la base (Compose construit `DATABASE_URL` avec) |
+| `POSTGRES_PASSWORD` | mot de passe de la base en dev ; en prod, la base n'a aucun port hors de Docker (comme Tangent) |
 | `ANTHROPIC_API_KEY` | génération et notation. Sans elle, l'app tourne sur le pack d'exercices écrit à la main et la notation répond 503 |
-| `GENERATION_PROVIDER` | `claude_code` (défaut conseillé) : les exercices sont écrits chaque nuit par une tâche planifiée Claude Code, sur ton abonnement ([D13](docs/DEVIATIONS.md)) ; `api` : batch Message Batches à 03:00 |
-| `GENERATION_IMPORT_TOKEN` | jeton partagé avec cette tâche planifiée (même valeur que `CASEDUO_IMPORT_TOKEN` dans l'environnement cloud) |
+| `GENERATION_PROVIDER` | `claude_code` (défaut) : les exercices sont écrits chaque nuit par une tâche planifiée Claude Code, sur ton abonnement, et arrivent par GitHub Actions ([D13](docs/DEVIATIONS.md)) ; `api` : batch Message Batches à 03:00 |
 | `CASEDUO_MODEL` | `claude-sonnet-4-5` par défaut, comme demandé. **Ce modèle est retiré le 30/11/2026** : voir [DEVIATIONS D1](docs/DEVIATIONS.md) (proposition : `claude-sonnet-5-5`) |
 | `LLM_DAILY_CAP_USD` | plafond global par jour, génération et notations confondues (1 $ par défaut) |
 | `GENERATION_WEB_SEARCH_MAX_USES` | recherches web par case (3 par défaut, 0 pour les couper) |
@@ -85,40 +84,27 @@ Le backend écoute sur `127.0.0.1:8001` et Postgres sur `127.0.0.1:5433`. Ces po
 
 ## Déploiement sur la VM (riskybusinesses.uk)
 
-Même schéma que Tangent, à côté de lui : une stack Compose séparée derrière le même tunnel Cloudflare, sur le sous-domaine `caseduo.riskybusinesses.uk` (DEVIATIONS D3).
+Même schéma que Tangent, à côté de lui : une stack Compose séparée derrière le même tunnel Cloudflare, sur le sous-domaine `caseduo.riskybusinesses.uk` (DEVIATIONS D3). **Tout passe par GitHub Actions** et le runner installé sur la VM. Ni SSH ni édition de fichier sur la VM : à chaque push sur `main`, la CD clone le dépôt la première fois, écrit `backend/.env` à partir des secrets GitHub (comme Finverse dans Tangent), reconstruit, vérifie la santé et revient au commit précédent si ça échoue.
 
-**Une seule fois**
+**Une seule fois, à la main** (ce que GitHub ne peut pas faire pour toi)
 
-```bash
-# 1. Le code
-cd /home/ubuntu && git clone https://github.com/TheNarciss/caseduo.git && cd caseduo
-cp backend/.env.example backend/.env && nano backend/.env    # secrets, clé Anthropic, APNs
+1. **Le runner** : GitHub → TheNarciss/caseduo → Settings → Actions → Runners → New self-hosted runner (Linux ARM64). Sur la VM, installe-le dans `~/actions-runner-caseduo` avec les labels `oracle,prod`, puis `sudo ./svc.sh install && sudo ./svc.sh start`. Un runner personnel ne sert qu'un dépôt, d'où ce deuxième, à côté de celui de Tangent.
+2. **Le tunnel** : Cloudflare Zero Trust → Networks → Tunnels → le tunnel de Tangent → Public Hostname → Add : `caseduo.riskybusinesses.uk` → HTTP → `localhost:8081`.
+3. **Les secrets GitHub** (Settings → Secrets and variables → Actions) :
 
-# 2. La stack (Caddy CaseDuo écoute sur 127.0.0.1:8081, le :80 reste à Tangent)
-docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+| Secret | Pour |
+|---|---|
+| `ANTHROPIC_API_KEY` | la notation (et le secours de 05:30) |
+| `OWNER_EMAIL`, `OWNER_PASSWORD` | ton compte admin, créé au premier déploiement |
+| `APNS_TEAM_ID`, `APNS_KEY_ID`, `APNS_PRIVATE_KEY_B64` | les push |
+| `CASEDUO_MODEL` | facultatif, pour changer de modèle (D1) |
+| `JWT_SECRET` | facultatif : sinon un secret aléatoire est généré au premier déploiement et gardé |
+| `DEMO_EMAIL`, `DEMO_PASSWORD` | le compte de démo App Review |
+| + les 8 secrets iOS | voir [docs/ios-testflight.md](docs/ios-testflight.md) |
 
-# 3. Le tunnel : Cloudflare Zero Trust → Networks → Tunnels → le tunnel de Tangent
-#    → Public Hostname → Add : caseduo.riskybusinesses.uk → HTTP → localhost:8081
-curl https://caseduo.riskybusinesses.uk/api/health
+Ensuite, un push sur `main` (ou Actions → CD → Run workflow) déploie. Le compte de démo se rafraîchit avec Actions → CD → Run workflow, case « Rafraîchir le compte de démo ». Les logs se lisent dans les runs GitHub ou avec `docker compose -f docker-compose.yml -f docker-compose.prod.yml logs -f backend` sur la VM.
 
-# 4. Ton compte, puis le contenu des premiers jours
-docker compose -f docker-compose.yml -f docker-compose.prod.yml exec backend \
-  python -m app.cli create-user moi@example.com --admin --name "Clément"
-docker compose -f docker-compose.yml -f docker-compose.prod.yml exec backend python -m app.seed
-
-# 5. La génération de nuit par Claude Code (D13)
-#    - dans backend/.env : GENERATION_PROVIDER=claude_code et GENERATION_IMPORT_TOKEN=<un jeton>
-#    - dans l'environnement cloud de Claude Code (menu de l'environnement → Edit) :
-#      variable CASEDUO_IMPORT_TOKEN = le même jeton
-#    - la tâche planifiée « CaseDuo — exercices du lendemain » tourne chaque nuit à 01:32 (Singapour)
-
-# 6. Le déploiement continu : un 2e runner GitHub sur la VM, pour ce dépôt
-#    (GitHub → TheNarciss/caseduo → Settings → Actions → Runners → New self-hosted runner,
-#    Linux ARM64), installé dans ~/actions-runner-caseduo avec les labels « oracle,prod »,
-#    puis ./svc.sh install && ./svc.sh start
-```
-
-**Ensuite** : chaque push sur `main` déclenche `.github/workflows/cd.yml`, comme dans Tangent : `git reset --hard origin/main`, `up -d --build`, health check sur l'URL publique, rollback au commit précédent si ça échoue. Les migrations Alembic s'appliquent au démarrage du backend. Les logs se lisent avec `docker compose -f docker-compose.yml -f docker-compose.prod.yml logs -f backend`.
+**La génération de nuit** se fait sans aucun réglage de plus, entre la tâche planifiée « CaseDuo — exercices du lendemain » (claude.ai, 01:32) et les workflows `nightly-plan.yml` et `nightly-import.yml` sur la VM. La branche `nightly` leur sert de boîte aux lettres (D13).
 
 ## Les jobs planifiés (et comment les lancer à la main)
 
@@ -126,7 +112,9 @@ Ils tournent dans le process du backend (APScheduler, comme Tangent), à l'heure
 
 | Quand | Quoi |
 |---|---|
-| 01:32 | **tâche planifiée Claude Code** (sur claude.ai, comme le projet Thales) : écrit les exercices du lendemain et les envoie au backend (`GENERATION_PROVIDER=claude_code`) |
+| 00:40 | GitHub Actions sur la VM (`nightly-plan.yml`) : le plan de demain part dans la branche `nightly` |
+| 01:32 | **tâche planifiée Claude Code** (claude.ai, comme le projet Thales) : écrit les exercices du lendemain, les vérifie et les pousse sur `nightly` |
+| 01:00 → 05:50 | GitHub Actions sur la VM (`nightly-import.yml`, toutes les 10 min) : import de ce qui a été poussé |
 | 03:00 | ou, avec `GENERATION_PROVIDER=api` : batch Message Batches (−50 %) des exercices du lendemain |
 | toutes les 30 min | lecture des batchs terminés, insertion dès réception, exercices ratés refaits en synchrone |
 | 05:30 | secours : ce qui manque au lendemain est généré en synchrone (le batch est annulé) ; aujourd'hui est vérifié aussi |
