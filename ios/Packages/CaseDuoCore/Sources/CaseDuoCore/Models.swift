@@ -461,6 +461,11 @@ public struct XPLine: Codable, Sendable, Equatable, Hashable {
 public struct XPInfo: Codable, Sendable, Equatable {
     public var earned: Int
     public var breakdown: [XPLine]?
+
+    public init(earned: Int, breakdown: [XPLine]? = nil) {
+        self.earned = earned
+        self.breakdown = breakdown
+    }
 }
 
 public struct Badge: Codable, Sendable, Equatable, Identifiable, Hashable {
@@ -496,6 +501,11 @@ public struct GradeResult: Codable, Sendable, Equatable {
 public struct ScoresPayload: Codable, Sendable, Equatable {
     public var rubricScores: [RubricScore]
     public var score: Int
+
+    public init(rubricScores: [RubricScore], score: Int) {
+        self.rubricScores = rubricScores
+        self.score = score
+    }
 }
 
 public struct StreamError: Codable, Sendable, Equatable, Error {

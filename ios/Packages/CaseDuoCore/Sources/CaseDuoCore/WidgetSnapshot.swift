@@ -85,6 +85,15 @@ public struct WidgetDisplay: Sendable, Equatable {
     public var xpToday: Int
     public var goalXp: Int
 
+    public init(isNewDay: Bool, streak: Int, status: StreakStatus, remaining: Int? = nil, xpToday: Int, goalXp: Int) {
+        self.isNewDay = isNewDay
+        self.streak = streak
+        self.status = status
+        self.remaining = remaining
+        self.xpToday = xpToday
+        self.goalXp = goalXp
+    }
+
     public var goalFraction: Double {
         guard goalXp > 0 else { return 0 }
         return min(1, Double(xpToday) / Double(goalXp))
