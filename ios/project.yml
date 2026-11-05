@@ -1,0 +1,130 @@
+# The Xcode project, described as text, like SingaSmoke. `xcodegen generate` (run from ios/) turns
+# it into CaseDuo.xcodeproj (not committed: CI generates it on every build). Nobody needs to open Xcode.
+name: CaseDuo
+
+options:
+  bundleIdPrefix: uk.riskybusinesses
+  deploymentTarget:
+    iOS: "17.0"
+  developmentLanguage: fr
+  createIntermediateGroups: true
+
+settings:
+  base:
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.0"
+    # The backend the app talks to. Debug builds can also be pointed elsewhere at launch with
+    # `-apiBaseURL http://localhost:8001/api` (see AppConfig.swift).
+    API_BASE_URL: "https://caseduo.riskybusinesses.uk/api"
+
+packages:
+  CaseDuoCore:
+    path: Packages/CaseDuoCore
+
+targets:
+  CaseDuo:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: CaseDuo
+        excludes:
+          - "Config/*.entitlements"
+    dependencies:
+      - package: CaseDuoCore
+      - target: CaseDuoWidget
+    configFiles:
+      Debug: CaseDuo/Config/Signing.xcconfig
+      Release: CaseDuo/Config/Signing.xcconfig
+    info:
+      path: CaseDuo/Info.plist
+      properties:
+        CFBundleDisplayName: CaseDuo
+        CFBundleDevelopmentRegion: fr
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSApplicationCategoryType: public.app-category.education
+        LSRequiresIPhoneOS: true
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+        UIApplicationSupportsIndirectInputEvents: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UIUserInterfaceStyle: Dark
+        ITSAppUsesNonExemptEncryption: false
+        APIBaseURL: $(API_BASE_URL)
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true
+        NSMicrophoneUsageDescription: >-
+          CaseDuo écoute ta réponse quand tu appuies sur le micro, pour la transcrire comme en entretien oral.
+        NSSpeechRecognitionUsageDescription: >-
+          CaseDuo transcrit ta réponse orale en texte pour que le correcteur puisse la noter.
+        CFBundleURLTypes:
+          - CFBundleURLName: uk.riskybusinesses.caseduo
+            CFBundleURLSchemes:
+              - caseduo
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: uk.riskybusinesses.caseduo
+        PRODUCT_NAME: CaseDuo
+        TARGETED_DEVICE_FAMILY: "1"
+        SUPPORTS_MACCATALYST: NO
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "AppIconStreak30 AppIconPerfectWeek"
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_PREVIEWS: YES
+      configs:
+        # Push: the development APNs environment for Xcode builds, production for TestFlight/App Store.
+        Debug:
+          CODE_SIGN_ENTITLEMENTS: CaseDuo/Config/CaseDuo.Debug.entitlements
+        Release:
+          CODE_SIGN_ENTITLEMENTS: CaseDuo/Config/CaseDuo.Release.entitlements
+
+  CaseDuoWidget:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: CaseDuoWidget
+        excludes:
+          - "*.entitlements"
+    dependencies:
+      - package: CaseDuoCore
+      - sdk: WidgetKit.framework
+      - sdk: SwiftUI.framework
+    configFiles:
+      Debug: CaseDuo/Config/SigningWidget.xcconfig
+      Release: CaseDuo/Config/SigningWidget.xcconfig
+    info:
+      path: CaseDuoWidget/Info.plist
+      properties:
+        CFBundleDisplayName: CaseDuo
+        CFBundleDevelopmentRegion: fr
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        APIBaseURL: $(API_BASE_URL)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: uk.riskybusinesses.caseduo.widget
+        PRODUCT_NAME: CaseDuoWidget
+        TARGETED_DEVICE_FAMILY: "1"
+        SKIP_INSTALL: YES
+        CODE_SIGN_ENTITLEMENTS: CaseDuoWidget/CaseDuoWidget.entitlements
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME: WidgetBackground
+
+schemes:
+  CaseDuo:
+    build:
+      targets:
+        CaseDuo: all
+        CaseDuoWidget: all
+    run:
+      config: Debug
+    archive:
+      config: Release

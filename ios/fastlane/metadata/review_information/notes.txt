@@ -1,0 +1,15 @@
+CaseDuo is a daily practice app for consulting job interviews (case interviews, brainteasers, fit questions). The interface is in French.
+
+Demo account (works without any external service):
+- E-mail: demo@riskybusinesses.uk
+- Password: provided in the "Sign-in information" fields of this submission.
+
+The demo account already has a few days of history (streak, corrections, league), so every screen has content. Today's exercises are on the "Aujourd'hui" tab. To see a grading: open any card, tap "Répondre", type two or three sentences (or use the microphone), then "Envoyer". The answer is graded by our own backend, which calls an AI model; the score appears first, then the written feedback. Grading takes 10 to 30 seconds.
+
+Nothing else needs a login: no third-party account, no in-app purchase, no subscription. Sign in with Apple is also available on the login screen.
+
+Permissions: microphone and speech recognition are asked only when the user taps the microphone (dictated answers). Notifications are used for at most one reminder a day (the evening streak reminder) and can be turned off in Profil.
+
+Account deletion: Profil > Supprimer mon compte.
+
+The exercises are fictional training cases built from public data; they do not represent any real company's recruitment process.

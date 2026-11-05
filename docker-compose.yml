@@ -1,0 +1,55 @@
+# docker-compose.yml — stack CaseDuo en dev (même organisation que Tangent)
+# Usage :
+#   docker compose up                  → postgres + backend
+#   docker compose logs -f backend     → suivre les logs du back
+#   docker compose down -v             → arrête + supprime la DB (RESET COMPLET)
+#
+# Ports décalés par rapport à Tangent (5432/8000) pour que les deux stacks
+# tournent côte à côte sur la même machine.
+
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: caseduo-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: caseduo
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-caseduo_dev}
+      POSTGRES_DB: caseduo
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U caseduo -d caseduo"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: caseduo-backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+asyncpg://caseduo:${POSTGRES_PASSWORD:-caseduo_dev}@postgres:5432/caseduo
+      PROMPTS_DIR: /app/prompts
+      WATCHFILES_FORCE_POLLING: "true"
+    env_file:
+      - ./backend/.env
+    ports:
+      - "127.0.0.1:8001:8000"
+    volumes:
+      - ./backend/app:/app/app
+      - ./backend/alembic:/app/alembic
+      # Les prompts se modifient sans rebuild (DEVIATIONS D4, PROMPT_TUNING.md)
+      - ./prompts:/app/prompts:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: uvicorn app.main:app --reload --reload-dir /app/app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips '*'
+
+volumes:
+  postgres_data:

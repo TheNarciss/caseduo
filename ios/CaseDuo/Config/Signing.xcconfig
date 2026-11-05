@@ -1,0 +1,4 @@
+// Signing of the app target only (Swift packages are never signed), as in SingaSmoke.
+// The TestFlight job in .github/workflows/ios.yml rewrites this file on the CI machine with the
+// team, distribution certificate and the app's provisioning profile taken from the repository secrets.
+CODE_SIGN_STYLE = Automatic

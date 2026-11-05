@@ -1,0 +1,121 @@
+{
+  "id": "6f0a9976-c321-46ae-b92d-f897aa4650ed",
+  "exercise_id": "ecfae89a-d882-424e-86f9-dd07f889f0ea",
+  "kind": "main",
+  "parent_attempt_id": null,
+  "answer_text": "Bottom-up par les vols, trois étapes.",
+  "duration_seconds": 240,
+  "input_mode": "voice",
+  "score": 45,
+  "rubric_scores": [
+    {
+      "key": "reformulation",
+      "label": "Reformulation et cadrage",
+      "quote": "je vois trois axes",
+      "score": 0,
+      "weight": 15,
+      "justification": "Une phrase."
+    },
+    {
+      "key": "structure",
+      "label": "Structure annoncée avant le déroulé",
+      "quote": "je vois trois axes",
+      "score": 1,
+      "weight": 25,
+      "justification": "Une phrase."
+    },
+    {
+      "key": "hypotheses",
+      "label": "Hypothèses explicites et chiffrage décomposé",
+      "quote": "je vois trois axes",
+      "score": 2,
+      "weight": 25,
+      "justification": "Une phrase."
+    },
+    {
+      "key": "business_sense",
+      "label": "Sens business et pertinence sectorielle",
+      "quote": "je vois trois axes",
+      "score": 0,
+      "weight": 20,
+      "justification": "Une phrase."
+    },
+    {
+      "key": "recommendation",
+      "label": "Recommandation claire et assumée",
+      "quote": "je vois trois axes",
+      "score": 1,
+      "weight": 15,
+      "justification": "Une phrase."
+    }
+  ],
+  "feedback": "### Ce qui était bien\n- Plan clair.\n### À corriger\n- Chiffre → « je pose 30 % »\n### En 30 secondes tu aurais dû dire\n« Je recommande… »",
+  "follow_up": "Et si le budget était divisé par deux ?",
+  "xp_earned": 15,
+  "is_revenge": false,
+  "revealed_data": true,
+  "mock_run_id": null,
+  "created_at": "2026-11-04T14:33:08.265731+00:00",
+  "exercise": {
+    "id": "ecfae89a-d882-424e-86f9-dd07f889f0ea",
+    "title": "Combien de passagers transitent chaque jour par l'aéroport de Changi ?",
+    "type": "market_sizing",
+    "type_label": "Market sizing",
+    "language": "fr",
+    "model_answer": "**Reformulation** : on cherche le nombre de passagers qui passent par Changi un jour moyen, arrivées et départs, correspondances comprises.\n\n**Approche bottom-up par les vols** :\n1. ~1 000 mouvements d'avions passagers par jour (500 départs, 500 arrivées).\n2. Capacité moyenne ~230 sièges (mix moyen et long-courrier) × 80 % de remplissage ≈ 185 passagers par vol.\n3. 1 000 × 185 ≈ **185 000 mouvements de passagers par jour**.\n\n**Vérification** : 185 000 × 365 ≈ 67 millions par an, cohérent avec l'ordre de grandeur publié de 65 à 70 millions.\n\n**Sensibilité** : ±10 points de remplissage déplacent le résultat de ±23 000 par jour.\n\n**Recommandation** : dimensionner l'offre bagages sur ~180 000 passagers par jour, avec des pointes de +20 % en période de vacances ; le risque principal est la part de correspondances, dont les bagages ne passent pas par les mêmes circuits : à vérifier avec l'aéroport.",
+    "sources": [],
+    "rubric": [
+      {
+        "key": "reformulation",
+        "label": "Reformulation et cadrage",
+        "levels": {
+          "0": "Se lance sans reformuler ni vérifier l'objectif.",
+          "1": "Reformule, mais sans préciser le périmètre ou l'objectif chiffré.",
+          "2": "Reformule en une phrase avec l'objectif, le périmètre et une question de clarification utile."
+        },
+        "weight": 15
+      },
+      {
+        "key": "structure",
+        "label": "Structure annoncée avant le déroulé",
+        "levels": {
+          "0": "Déroule sans plan annoncé.",
+          "1": "Annonce un plan, mais flou, non MECE ou abandonné en route.",
+          "2": "Annonce 3 ou 4 branches claires avant de dérouler, et s'y tient."
+        },
+        "weight": 25
+      },
+      {
+        "key": "hypotheses",
+        "label": "Hypothèses explicites et chiffrage décomposé",
+        "levels": {
+          "0": "Chiffres sortis de nulle part.",
+          "1": "Hypothèses posées mais calcul peu décomposé ou sans vérification.",
+          "2": "Chiffre décomposé étape par étape, hypothèses dites à voix haute, ordre de grandeur vérifié."
+        },
+        "weight": 25
+      },
+      {
+        "key": "business_sense",
+        "label": "Sens business et pertinence sectorielle",
+        "levels": {
+          "0": "Raisonnement générique ou purement technique.",
+          "1": "Quelques remarques sectorielles pertinentes, sans lien avec la décision.",
+          "2": "Lit la situation comme un dirigeant du secteur : enjeux, contraintes, ce qui fait bouger la décision."
+        },
+        "weight": 20
+      },
+      {
+        "key": "recommendation",
+        "label": "Recommandation claire et assumée",
+        "levels": {
+          "0": "Pas de recommandation.",
+          "1": "Recommandation molle ou sans risque identifié.",
+          "2": "Recommandation en une phrase, assumée, avec le risque principal et sa parade."
+        },
+        "weight": 15
+      }
+    ],
+    "flagged": false
+  }
+}

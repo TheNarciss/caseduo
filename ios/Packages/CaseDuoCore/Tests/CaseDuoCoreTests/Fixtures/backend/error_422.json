@@ -1,0 +1,4 @@
+{
+  "detail": "Requête invalide : daily_goal_xp — Input should be 30, 50 or 80",
+  "type": "ValidationError"
+}

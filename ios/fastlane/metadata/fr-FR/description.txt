@@ -1,0 +1,17 @@
+CaseDuo prépare aux entretiens de conseil (cabinets de transformation, practices Data & IA, stratégie) avec un rythme quotidien et une série à tenir.
+
+Chaque jour :
+- cinq cases : market sizing, note de cadrage, business case chiffré, diagnostic de maturité data, et un case plus difficile ;
+- deux ou trois brainteasers de logique, d'estimation ou de calcul mental ;
+- une question de fit, à rapprocher de ton récit de parcours.
+
+Tu réponds par écrit ou à l'oral, comme en entretien : la dictée transcrit ta réponse. Un correcteur IA note chaque critère d'une grille (reformulation, structure annoncée, hypothèses et chiffrage, sens business, recommandation), te dit ce qui était bien, ce qu'il fallait dire à la place, et la réponse en 30 secondes à retenir. Puis il te relance sur ton point faible, sous un chrono de 90 secondes.
+
+Pour rester accroché :
+- une série de jours, avec des freezes quand la vie s'en mêle ;
+- un objectif d'XP choisi, un rappel par jour au plus ;
+- les exercices ratés reviennent en « revanche » trois puis dix jours plus tard ;
+- une ligue hebdomadaire, des badges, un widget pour l'écran d'accueil ;
+- le dimanche, un mock entretien de 30 minutes à l'oral, sans retour en arrière.
+
+Les exercices sont générés chaque nuit à partir de données publiques sourcées. Ils servent à s'entraîner et ne garantissent rien d'un processus de recrutement réel.

@@ -1,0 +1,45 @@
+{
+  "rubric_scores": [
+    {
+      "key": "structure",
+      "label": "Structure annoncée avant le déroulé",
+      "weight": 20,
+      "score": 0,
+      "justification": "Une phrase.",
+      "quote": "je vois trois axes"
+    },
+    {
+      "key": "hypotheses",
+      "label": "Hypothèses explicites et chiffrage décomposé",
+      "weight": 20,
+      "score": 1,
+      "justification": "Une phrase.",
+      "quote": "je vois trois axes"
+    },
+    {
+      "key": "accuracy",
+      "label": "Bonne réponse ou bon ordre de grandeur",
+      "weight": 30,
+      "score": 2,
+      "justification": "Une phrase.",
+      "quote": "je vois trois axes"
+    },
+    {
+      "key": "sanity_check",
+      "label": "Vérification de cohérence",
+      "weight": 15,
+      "score": 0,
+      "justification": "Une phrase.",
+      "quote": "je vois trois axes"
+    },
+    {
+      "key": "concision",
+      "label": "Concision",
+      "weight": 15,
+      "score": 1,
+      "justification": "Une phrase.",
+      "quote": "je vois trois axes"
+    }
+  ],
+  "score": 48
+}

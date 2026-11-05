@@ -1,0 +1,156 @@
+name: CD - Deploy to Production
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "ios/**"
+      - "**.md"
+  workflow_dispatch:  # re-déployer à la main depuis l'UI GitHub
+    inputs:
+      demo:
+        description: "Rafraîchir le compte de démo App Review (secrets DEMO_EMAIL, DEMO_PASSWORD)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy main to caseduo.riskybusinesses.uk
+    # Un 2e runner sur la même VM que Tangent, enregistré pour ce dépôt (README, Déploiement).
+    runs-on: [self-hosted, Linux, oracle, prod]
+    timeout-minutes: 30
+    env:
+      PROJECT_DIR: /home/ubuntu/caseduo
+      COMPOSE: docker compose -f docker-compose.yml -f docker-compose.prod.yml
+
+    steps:
+      - name: First deploy - clone the repository on the VM
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ ! -d "$PROJECT_DIR/.git" ]; then
+            git clone -q "https://x-access-token:${GH_TOKEN}@github.com/TheNarciss/caseduo.git" "$PROJECT_DIR"
+            git -C "$PROJECT_DIR" remote set-url origin https://github.com/TheNarciss/caseduo.git
+          fi
+          echo "Runner: $(hostname) — commit actuel : $(git -C "$PROJECT_DIR" rev-parse --short HEAD)"
+
+      - name: Pull latest main
+        working-directory: /home/ubuntu/caseduo
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          PREV_COMMIT=$(git rev-parse HEAD)
+          echo "PREV_COMMIT=$PREV_COMMIT" >> $GITHUB_ENV
+          git fetch "https://x-access-token:${GH_TOKEN}@github.com/TheNarciss/caseduo.git" \
+              main:refs/remotes/origin/main
+          git checkout main
+          git reset --hard origin/main
+          echo "New commit: $(git rev-parse --short HEAD)"
+
+      - name: Write backend/.env from the GitHub secrets (as Tangent does for Finverse)
+        working-directory: /home/ubuntu/caseduo
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          APNS_TEAM_ID: ${{ secrets.APNS_TEAM_ID }}
+          APNS_KEY_ID: ${{ secrets.APNS_KEY_ID }}
+          APNS_PRIVATE_KEY_B64: ${{ secrets.APNS_PRIVATE_KEY_B64 }}
+          OWNER_EMAIL: ${{ secrets.OWNER_EMAIL }}
+          CASEDUO_MODEL: ${{ secrets.CASEDUO_MODEL }}
+        run: |
+          set -euo pipefail
+          umask 077
+          if [ ! -f backend/.env ]; then
+            # First deploy: the defaults of .env.example, and a random JWT secret (generated
+            # once, kept in backend/.env afterwards). Postgres keeps its default password, as
+            # Tangent's: the database has no port outside Docker.
+            cp backend/.env.example backend/.env
+            sed -i "s|^JWT_SECRET=.*|JWT_SECRET='$(python3 -c 'import secrets; print(secrets.token_urlsafe(48))')'|" backend/.env
+            echo "backend/.env créé."
+          fi
+          for name in ANTHROPIC_API_KEY JWT_SECRET APNS_TEAM_ID APNS_KEY_ID APNS_PRIVATE_KEY_B64 OWNER_EMAIL CASEDUO_MODEL; do
+            value="${!name:-}"
+            [ -z "$value" ] && continue          # secret absent: the file keeps its value
+            value="${value#"${value%%[![:space:]]*}"}"
+            value="${value%"${value##*[![:space:]]}"}"
+            case "$value" in
+              \"?*\"|\'?*\') value="${value:1:-1}" ;;
+            esac
+            case "$value" in
+              "" | *[[:space:]\'\"\\]*)
+                echo "::warning::$name contient un espace, un guillemet ou un saut de ligne : non écrit."
+                continue
+                ;;
+            esac
+            grep -v "^${name}=" backend/.env > backend/.env.tmp || true
+            printf "%s='%s'\n" "$name" "$value" >> backend/.env.tmp
+            cat backend/.env.tmp > backend/.env
+            rm -f backend/.env.tmp
+            echo "$name écrit."
+          done
+
+      - name: Rebuild + restart containers
+        working-directory: /home/ubuntu/caseduo
+        run: |
+          set -euo pipefail
+          $COMPOSE up -d --build
+          sleep 5
+          $COMPOSE ps
+
+      - name: Health check (60s timeout)
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 30); do
+            if curl -fs https://caseduo.riskybusinesses.uk/api/health > /dev/null; then
+              echo "✅ Healthy after $i attempts ($((i * 2))s)"
+              curl -s https://caseduo.riskybusinesses.uk/api/health
+              exit 0
+            fi
+            echo "Attempt $i/30 — waiting 2s..."
+            sleep 2
+          done
+          echo "❌ Health check failed after 60s"
+          cd "$PROJECT_DIR"
+          $COMPOSE logs --tail 50 backend
+          exit 1
+
+      - name: Owner account (secrets OWNER_EMAIL, OWNER_PASSWORD), created once
+        working-directory: /home/ubuntu/caseduo
+        env:
+          OWNER_EMAIL: ${{ secrets.OWNER_EMAIL }}
+          CASEDUO_PASSWORD: ${{ secrets.OWNER_PASSWORD }}
+        run: |
+          set -uo pipefail
+          if [ -z "$OWNER_EMAIL" ] || [ -z "$CASEDUO_PASSWORD" ]; then
+            echo "Secrets OWNER_EMAIL / OWNER_PASSWORD absents : compte non créé."
+            exit 0
+          fi
+          $COMPOSE exec -T -e CASEDUO_PASSWORD backend python -m app.cli create-user "$OWNER_EMAIL" --admin \
+            || echo "Compte déjà existant."
+
+      - name: Demo account for App Review (on demand)
+        if: github.event_name == 'workflow_dispatch' && inputs.demo
+        working-directory: /home/ubuntu/caseduo
+        env:
+          DEMO_EMAIL: ${{ secrets.DEMO_EMAIL }}
+          DEMO_PASSWORD: ${{ secrets.DEMO_PASSWORD }}
+        run: |
+          set -euo pipefail
+          $COMPOSE exec -T -e DEMO_EMAIL -e DEMO_PASSWORD backend python -m app.demo
+
+      - name: Rollback on failure
+        if: failure()
+        working-directory: /home/ubuntu/caseduo
+        run: |
+          set -euo pipefail
+          echo "::warning::Deployment failed, rolling back to $PREV_COMMIT"
+          git reset --hard $PREV_COMMIT
+          $COMPOSE up -d --build
+          sleep 5
+          curl -fs https://caseduo.riskybusinesses.uk/api/health && echo "✅ Rollback succeeded" || echo "❌ Rollback also failed — manual intervention needed"

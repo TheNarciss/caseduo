@@ -1,0 +1,76 @@
+name: Nightly - plan des exercices de demain
+
+# 00:40 à Singapour, sur la VM : le plan de demain (consignes, faiblesses, titres déjà vus)
+# part dans la branche `nightly`, où la tâche planifiée Claude Code de 01:32 le lit.
+# Comme pour Tangent et SingaSmoke, seule GitHub Actions touche la VM (DEVIATIONS D13).
+on:
+  schedule:
+    - cron: "40 16 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Date à planifier (AAAA-MM-JJ), demain par défaut"
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nightly-branch
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    name: Export the plan to the nightly branch
+    runs-on: [self-hosted, Linux, oracle, prod]
+    timeout-minutes: 10
+    env:
+      COMPOSE: docker compose -f docker-compose.yml -f docker-compose.prod.yml
+    steps:
+      - name: Export the plan from the production database
+        working-directory: /home/ubuntu/caseduo
+        env:
+          DATE_INPUT: ${{ inputs.date }}
+        run: |
+          set -euo pipefail
+          ARGS=()
+          if [ -n "${DATE_INPUT:-}" ]; then
+            [[ "$DATE_INPUT" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || { echo "::error::date invalide"; exit 1; }
+            ARGS=(--date "$DATE_INPUT")
+          fi
+          $COMPOSE exec -T backend python -m app.nightly plan "${ARGS[@]}" > "$RUNNER_TEMP/plan.json"
+          DATE=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["date"])' "$RUNNER_TEMP/plan.json")
+          N=$(python3 -c 'import json,sys; print(len(json.load(open(sys.argv[1]))["slots"]))' "$RUNNER_TEMP/plan.json")
+          echo "DATE=$DATE" >> "$GITHUB_ENV"
+          echo "### Plan du $DATE : $N exercice(s) à écrire" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit it to the nightly branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          WORK="$RUNNER_TEMP/nightly"
+          rm -rf "$WORK"
+          REMOTE="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git ls-remote --exit-code --heads "$REMOTE" nightly > /dev/null; then
+            git clone -q --depth 1 --branch nightly "$REMOTE" "$WORK"
+          else
+            git init -q -b nightly "$WORK"
+            git -C "$WORK" remote add origin "$REMOTE"
+            printf '%s\n' "# nightly" "" \
+              "Données de la génération de nuit (docs/DEVIATIONS.md D13), pas de code :" \
+              "plans/ (VM → Claude Code), generated/ (Claude Code → VM), results/ (import sur la VM)." \
+              > "$WORK/README.md"
+          fi
+          mkdir -p "$WORK/plans"
+          cp "$RUNNER_TEMP/plan.json" "$WORK/plans/$DATE.json"
+          cd "$WORK"
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "plan $DATE" || { echo "Plan inchangé."; exit 0; }
+          for i in 1 2 3; do
+            git push -q origin HEAD:nightly && exit 0
+            git pull -q --rebase origin nightly || true
+            sleep 5
+          done
+          exit 1

@@ -1,0 +1,18 @@
+{
+  "id": "aced77ab-223f-4bae-8e6f-70463e1cdc4d",
+  "email": "admin-7549bfd7@example.com",
+  "display_name": null,
+  "is_admin": true,
+  "timezone": "Asia/Singapore",
+  "daily_goal_xp": 50,
+  "sounds_enabled": true,
+  "notifications_enabled": true,
+  "streak_current": 0,
+  "streak_longest": 0,
+  "streak_freezes": 2,
+  "xp_total": 0,
+  "league": "bronze",
+  "story_text": "ESILV, Thales Rungis, Thales Singapour.",
+  "story_updated_at": "2026-11-04T14:33:08.210172+00:00",
+  "created_at": "2026-11-04T14:33:08.122140+00:00"
+}
