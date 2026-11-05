@@ -17,13 +17,16 @@ struct ConfettiView: View {
                 guard let start else { return }
                 let t = context.date.timeIntervalSince(start)
                 guard t < duration else { return }
+                let width = Double(size.width)
+                let height = Double(size.height)
                 for p in particles {
-                    let x = p.x * size.width + p.vx * t * size.width
-                    let y = -20 + p.vy * t * size.height + 0.5 * 900 * t * t * p.gravity
+                    let x: Double = p.x * width + p.vx * t * width
+                    let fall: Double = 0.5 * 900 * t * t * p.gravity
+                    let y: Double = -20 + p.vy * t * height + fall
                     let fade = max(0, 1 - t / duration)
                     var piece = canvas
                     piece.opacity = fade
-                    piece.translateBy(x: x, y: y)
+                    piece.translateBy(x: CGFloat(x), y: CGFloat(y))
                     piece.rotate(by: .degrees(p.spin * t * 360))
                     piece.fill(Path(CGRect(x: -p.size / 2, y: -p.size / 4, width: p.size, height: p.size / 2)),
                                with: .color(p.color))
