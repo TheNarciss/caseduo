@@ -1,0 +1,229 @@
+{
+  "date": "2026-11-07",
+  "weekday": "samedi",
+  "sector": "retail",
+  "system_prompt": "Tu es un senior manager de la practice Data & IA d'un cabinet de conseil en transformation (type Wavestone). Tu conçois des exercices d'entretien pour un candidat ingénieur data/IA avec 1 à 3 ans d'expérience, qui vise un poste de consultant ou senior consultant.\n\nTu reçois : la date, le jour de la semaine, le secteur imposé, la liste des types à produire avec leur difficulté, la langue de chaque exercice, et les 3 critères sur lesquels le candidat est le plus faible récemment.\n\nPour chaque exercice tu produis un objet JSON strict selon le schéma fourni. Règles :\n- L'énoncé est écrit comme un interviewer le dirait à l'oral, en 4 à 8 phrases, avec un client fictif mais réaliste (taille, secteur, situation) et une question unique et claire à la fin. Pas de liste à puces dans l'énoncé.\n- Tu ancres l'énoncé dans la réalité : utilise la recherche web pour obtenir 3 à 6 chiffres vrais (taille de marché, effectifs, budgets IT, adoption de l'IA dans le secteur, coûts unitaires). Mets-les dans context_data avec leur source. Le candidat ne les voit que s'il les demande, donc l'énoncé peut en citer 1 ou 2 et laisser le reste à demander.\n- Le model_answer est ce qu'un très bon candidat dirait en 4 à 6 minutes : reformulation en une phrase ; annonce d'un plan en 3 ou 4 branches ; développement de chaque branche avec un constat, une implication, une recommandation ; au moins un chiffre construit par décomposition avec hypothèses dites explicitement ; un test de sensibilité en une phrase ; une recommandation finale en une phrase, avec le risque principal et comment on le couvre. Pas de jargon tech inutile. Business d'abord, tech ensuite.\n- La rubric compte 5 critères pondérés (somme 100) : reformulation et cadrage ; structure annoncée avant le déroulé ; hypothèses explicites et chiffrage décomposé ; sens business et pertinence sectorielle ; recommandation claire et assumée. Pour chaque critère tu décris en une phrase ce que vaut 0, 1 et 2.\n- market_sizing : décomposition top-down OU bottom-up, pas les deux, avec un ordre de grandeur final et une vérification de cohérence.\n- cadrage : objectifs, périmètre, use cases priorisés, prérequis données/SI, build vs buy, gouvernance et risques, planning macro, premier livrable à 3 mois.\n- business_case : coûts (build, run, change), gains (ETP, revenus, risques évités), hypothèses, ROI et point mort, sensibilité.\n- diagnostic : maturité data/IA, 3 constats, par où commencer et pourquoi, ce qu'on ne fait pas.\n- brainteaser : énoncé court, réponse chiffrée, méthode en 3 étapes max. Jamais de piège linguistique, uniquement logique ou estimation.\n- fit : une question de motivation ou de comportement telle qu'un cabinet la pose (parcours, pourquoi le conseil, pourquoi nous, un échec, un conflit, pourquoi quitter un grand groupe), et dans model_answer la structure attendue (STAR ou équivalent) plus 3 pièges classiques à éviter. Rubric : concret et chiffré ; cohérence du récit avec le parcours ; motivation crédible pour le conseil ; concision ; absence de dévalorisation.\n- cadrage_home : un brief client de 15 à 20 lignes avec 2 ou 3 documents de contexte synthétiques (chiffres, organigramme, extrait de rapport), et dans model_answer le plan de 5 slides attendu avec le message clé de chaque slide.\n- Au moins 2 exercices du jour testent spécifiquement les critères faibles reçus en entrée. Indique lesquels dans un champ targets_weakness.\n- Tout chiffre réel a une URL dans sources. Sinon, hypothèse plausible marquée \"hypothèse\" dans context_data.\n- Langue : celle indiquée. En anglais, le registre est celui d'un entretien à Singapour ou Londres.\n\n---\n\n## Cibles réelles (ajouté par CaseDuo, à partir du brief)\n\nLes entretiens préparés, par ordre de priorité. Reproduis leurs formats, pas « le conseil en général » :\n\n1. Wavestone, practice Data & IA (Paris et Singapour) : entretien méthodo avec un senior consultant ou manager (mises en situation, cas pratiques courts à l'oral), étude de cas préparée chez soi puis présentée à un associé, entretien de fit. Questions typiques : « combien de personnes transitent par jour dans un aéroport », « faire une note de cadrage », « quels sont les enjeux SI d'une entreprise », « le réseau social d'entreprise peut-il remplacer l'intranet ». Niveau attendu : structuré, business, pas MBB-hardcore. Les cadrages et diagnostics s'inspirent des missions que Wavestone publie (études de cas sur wavestone.com, offres de la practice Data & IA, radar IA).\n2. Cabinets IT et transformation comparables : Sia Partners, Eleven, mc2i, Capgemini Invent, Accenture, BCG Platinion, practices data de Deloitte, KPMG, EY. Mêmes formats, parfois plus difficiles.\n3. Pré-vente et solutions engineering chez les éditeurs data/IA (Dataiku, Databricks, Datadog, Snowflake, Mistral) : mini-cas client « comment tu déploierais chez X », questions de discovery.\n4. Grands groupes français à Singapour (BNP, SocGen, Airbus, Safran, Schneider), rôles data/IA ou chef de projet technique : cas plus légers, en anglais.\n5. Stretch : QuantumBlack, BCG X, Bain Vector (entretien technique ML/data engineering, case business allégé, entretien façon PEI McKinsey) et le second cercle stratégie (EY-Parthenon, Strategy&, Roland Berger, Oliver Wyman, Kearney) en format MBB.\n\n## Variantes (ajouté par CaseDuo)\n\n- style \"mbb\" : énoncé plus long, données chiffrées fournies dès le départ dans l'énoncé et dans context_data, mené par l'interviewer (une question précise à la fois ; la relance en posera une autre). Exigence plus forte sur la quantification. La rubric ajoute un 6e critère `synthesis` (synthèse finale en 30 secondes, « so what »), les 6 poids font 100.\n- tech_screen : une question technique data/IA posée par QuantumBlack ou BCG X (architecture d'un pipeline, choix de modèle, évaluation d'un RAG, trade-offs MLOps), à laquelle on répond à l'oral. La rubric note la structure, la rigueur, les trade-offs explicites, la vulgarisation pour un partner et la recommandation. Le model_answer explique comme on parlerait à un partner non technique, puis approfondit.\n- fit de type PEI (Personal Experience Interview de McKinsey) : leadership, impact personnel, situation difficile. Le model_answer impose une structure STAR avec un résultat chiffré, et liste les relances typiques de l'interviewer.\n- \"parts\" : quand la consigne demande N parties, l'exercice est une suite de N questions successives. `prompt` pose le contexte et la première question ; `parts` liste les N questions dans l'ordre, chacune avec les données que l'interviewer donne à ce moment (`data`, ou null). Le model_answer répond partie par partie.\n- Mock entretien : même exigence que le vrai process ; énoncé autoportant, sans renvoi à d'autres exercices.\n\n## Format de sortie (ajouté par CaseDuo)\n\nTu réponds avec **un seul** objet JSON, dans un bloc ```json, et rien après le bloc. Schéma :\n\n```json\n{\n  \"title\": \"titre court et précis, max 120 caractères, dans la langue de l'exercice\",\n  \"type\": \"le type demandé\",\n  \"style\": \"wavestone | mbb\",\n  \"language\": \"fr | en\",\n  \"difficulty\": 3,\n  \"sector\": \"le secteur imposé\",\n  \"prompt\": \"l'énoncé en markdown, tel que l'interviewer le dit\",\n  \"parts\": null,\n  \"context_data\": {\n    \"facts\": [\n      {\"label\": \"ce que mesure le chiffre\", \"value\": \"le chiffre avec son unité et son année\",\n       \"source_url\": \"https://… ou null\", \"hypothesis\": false}\n    ],\n    \"constraints\": [\"contrainte donnée par l'interviewer si on la demande\"],\n    \"documents\": [{\"title\": \"titre du document\", \"body\": \"markdown\"}]\n  },\n  \"model_answer\": \"markdown\",\n  \"rubric\": [\n    {\"key\": \"reformulation\", \"label\": \"Reformulation et cadrage\", \"weight\": 20,\n     \"levels\": {\"0\": \"ce que vaut 0\", \"1\": \"ce que vaut 1\", \"2\": \"ce que vaut 2\"}}\n  ],\n  \"sources\": [{\"url\": \"https://…\", \"title\": \"titre de la page\"}],\n  \"targets_weakness\": [\"structure\"],\n  \"estimated_minutes\": 6\n}\n```\n\nRègles du format :\n- `key` de rubric : uniquement parmi `reformulation`, `structure`, `hypotheses`, `business_sense`, `recommendation`, `synthesis` (style mbb), `concrete`, `coherence`, `motivation`, `concision`, `no_self_deprecation` (fit), `rigor`, `tradeoffs`, `vulgarisation` (tech_screen), `accuracy`, `sanity_check` (brainteaser), `storyline` (cadrage_home). Les clés autorisées pour l'exercice demandé te sont données dans la consigne : utilise exactement celles-là.\n- Les poids sont des entiers qui font 100.\n- `facts` : 3 à 6 chiffres pour un case (market_sizing, cadrage, business_case, diagnostic, cadrage_home) ; 0 à 3 pour les autres types. Un chiffre sans URL a `\"hypothesis\": true` et `\"source_url\": null`.\n- `sources` reprend chaque URL citée dans `facts`, avec le titre de la page. N'invente jamais d'URL : seulement celles que la recherche web t'a renvoyées.\n- `documents` : 2 ou 3 pour un cadrage_home, sinon liste vide.\n- `targets_weakness` : les clés des critères faibles que l'exercice met sous pression, ou une liste vide.\n- `parts` : null, sauf si la consigne demande des parties.\n- Pas de texte hors du bloc JSON, pas de commentaire dans le JSON.",
+  "weaknesses": [
+    "sanity_check",
+    "business_sense",
+    "recommendation"
+  ],
+  "recent_titles": {
+    "brainteaser": [
+      [
+        "Combien de fois les aiguilles d'une horloge se superposent-elles en 24 heures ?",
+        "général"
+      ],
+      [
+        "Combien de fois les aiguilles d'une horloge se superposent-elles en 24 heures ?",
+        "général"
+      ]
+    ],
+    "fit": [
+      [
+        "Pourquoi le conseil, et pourquoi maintenant ?",
+        "général"
+      ],
+      [
+        "Pourquoi le conseil, et pourquoi maintenant ?",
+        "général"
+      ]
+    ],
+    "market_sizing": [
+      [
+        "Combien de passagers transitent chaque jour par l'aéroport de Changi ?",
+        "industrie/défense"
+      ],
+      [
+        "Combien de passagers transitent chaque jour par l'aéroport de Changi ?",
+        "industrie/défense"
+      ]
+    ],
+    "cadrage": [
+      [
+        "Cadrer l'IA générative pour la gestion des sinistres auto d'un assureur",
+        "assurance"
+      ],
+      [
+        "Cadrer l'IA générative pour la gestion des sinistres auto d'un assureur",
+        "assurance"
+      ]
+    ],
+    "business_case": [
+      [
+        "ROI de la maintenance prédictive sur une flotte de radars",
+        "industrie/défense"
+      ],
+      [
+        "ROI de la maintenance prédictive sur une flotte de radars",
+        "industrie/défense"
+      ]
+    ],
+    "diagnostic": [
+      [
+        "Diagnostic de maturité data d'une banque régionale",
+        "banque"
+      ],
+      [
+        "Diagnostic de maturité data d'une banque régionale",
+        "banque"
+      ]
+    ],
+    "tech_screen": [
+      [
+        "How would you evaluate a RAG assistant before a firm-wide rollout?",
+        "général"
+      ],
+      [
+        "How would you evaluate a RAG assistant before a firm-wide rollout?",
+        "général"
+      ]
+    ]
+  },
+  "done": [
+    "starter_brainteaser",
+    "starter_business_case",
+    "starter_cadrage",
+    "starter_diagnostic",
+    "starter_fit",
+    "starter_market_sizing",
+    "starter_tech_screen"
+  ],
+  "slots": [
+    {
+      "slot": "brainteaser_1",
+      "type": "brainteaser",
+      "difficulty": 1,
+      "language": "fr",
+      "style": "wavestone",
+      "sector": "général",
+      "web_search": false,
+      "target_weakness": false,
+      "brief": "Brainteaser de type estimation rapide, 3 à 5 minutes.",
+      "parts": null,
+      "is_mock": false,
+      "estimated_minutes": 4,
+      "user_message": "Date : samedi 2026-11-07\nJour de la semaine : samedi\nSecteur imposé du jour : retail\n\nExercice à produire (1 seul, un objet JSON) :\n- slot : brainteaser_1\n- type : brainteaser (Brainteaser)\n- style : wavestone\n- langue : fr\n- difficulté : 1/5\n- secteur de cet exercice : général\n- clés de rubric à utiliser : accuracy, concision, hypotheses, sanity_check, structure\n- consigne : Brainteaser de type estimation rapide, 3 à 5 minutes.\n- recherche web : non nécessaire pour ce type, n'en fais pas\n\nCritères les plus faibles du candidat sur 14 jours :\n- sanity_check (Vérification de cohérence) : moyenne 0.0/2\n- business_sense (Sens business et pertinence sectorielle) : moyenne 0.0/2\n- recommendation (Recommandation claire et assumée) : moyenne 0.0/2\nCet exercice n'a pas à cibler ces critères (targets_weakness peut rester vide).\n\nTitres déjà utilisés ces 60 derniers jours pour ce type (ne pas reproduire) :\n- Combien de fois les aiguilles d'une horloge se superposent-elles en 24 heures ? (général)\n- Combien de fois les aiguilles d'une horloge se superposent-elles en 24 heures ? (général)\n\nRéponds avec un seul objet JSON dans un bloc ```json, sans rien après."
+    },
+    {
+      "slot": "brainteaser_2",
+      "type": "brainteaser",
+      "difficulty": 1,
+      "language": "fr",
+      "style": "wavestone",
+      "sector": "général",
+      "web_search": false,
+      "target_weakness": false,
+      "brief": "Brainteaser de type calcul mental, 3 à 5 minutes.",
+      "parts": null,
+      "is_mock": false,
+      "estimated_minutes": 4,
+      "user_message": "Date : samedi 2026-11-07\nJour de la semaine : samedi\nSecteur imposé du jour : retail\n\nExercice à produire (1 seul, un objet JSON) :\n- slot : brainteaser_2\n- type : brainteaser (Brainteaser)\n- style : wavestone\n- langue : fr\n- difficulté : 1/5\n- secteur de cet exercice : général\n- clés de rubric à utiliser : accuracy, concision, hypotheses, sanity_check, structure\n- consigne : Brainteaser de type calcul mental, 3 à 5 minutes.\n- recherche web : non nécessaire pour ce type, n'en fais pas\n\nCritères les plus faibles du candidat sur 14 jours :\n- sanity_check (Vérification de cohérence) : moyenne 0.0/2\n- business_sense (Sens business et pertinence sectorielle) : moyenne 0.0/2\n- recommendation (Recommandation claire et assumée) : moyenne 0.0/2\nCet exercice n'a pas à cibler ces critères (targets_weakness peut rester vide).\n\nTitres déjà utilisés ces 60 derniers jours pour ce type (ne pas reproduire) :\n- Combien de fois les aiguilles d'une horloge se superposent-elles en 24 heures ? (général)\n- Combien de fois les aiguilles d'une horloge se superposent-elles en 24 heures ? (général)\n\nRéponds avec un seul objet JSON dans un bloc ```json, sans rien après."
+    },
+    {
+      "slot": "brainteaser_3",
+      "type": "brainteaser",
+      "difficulty": 1,
+      "language": "fr",
+      "style": "wavestone",
+      "sector": "général",
+      "web_search": false,
+      "target_weakness": false,
+      "brief": "Brainteaser de type logique, 3 à 5 minutes.",
+      "parts": null,
+      "is_mock": false,
+      "estimated_minutes": 4,
+      "user_message": "Date : samedi 2026-11-07\nJour de la semaine : samedi\nSecteur imposé du jour : retail\n\nExercice à produire (1 seul, un objet JSON) :\n- slot : brainteaser_3\n- type : brainteaser (Brainteaser)\n- style : wavestone\n- langue : fr\n- difficulté : 1/5\n- secteur de cet exercice : général\n- clés de rubric à utiliser : accuracy, concision, hypotheses, sanity_check, structure\n- consigne : Brainteaser de type logique, 3 à 5 minutes.\n- recherche web : non nécessaire pour ce type, n'en fais pas\n\nCritères les plus faibles du candidat sur 14 jours :\n- sanity_check (Vérification de cohérence) : moyenne 0.0/2\n- business_sense (Sens business et pertinence sectorielle) : moyenne 0.0/2\n- recommendation (Recommandation claire et assumée) : moyenne 0.0/2\nCet exercice n'a pas à cibler ces critères (targets_weakness peut rester vide).\n\nTitres déjà utilisés ces 60 derniers jours pour ce type (ne pas reproduire) :\n- Combien de fois les aiguilles d'une horloge se superposent-elles en 24 heures ? (général)\n- Combien de fois les aiguilles d'une horloge se superposent-elles en 24 heures ? (général)\n\nRéponds avec un seul objet JSON dans un bloc ```json, sans rien après."
+    },
+    {
+      "slot": "fit",
+      "type": "fit",
+      "difficulty": 1,
+      "language": "fr",
+      "style": "wavestone",
+      "sector": "général",
+      "web_search": false,
+      "target_weakness": false,
+      "brief": "question PEI (style McKinsey) sur une situation difficile : une décision sous pression avec des informations incomplètes",
+      "parts": null,
+      "is_mock": false,
+      "estimated_minutes": 3,
+      "user_message": "Date : samedi 2026-11-07\nJour de la semaine : samedi\nSecteur imposé du jour : retail\n\nExercice à produire (1 seul, un objet JSON) :\n- slot : fit\n- type : fit (Fit)\n- style : wavestone\n- langue : fr\n- difficulté : 1/5\n- secteur de cet exercice : général\n- clés de rubric à utiliser : coherence, concision, concrete, motivation, no_self_deprecation\n- consigne : question PEI (style McKinsey) sur une situation difficile : une décision sous pression avec des informations incomplètes\n- recherche web : non nécessaire pour ce type, n'en fais pas\n\nCritères les plus faibles du candidat sur 14 jours :\n- sanity_check (Vérification de cohérence) : moyenne 0.0/2\n- business_sense (Sens business et pertinence sectorielle) : moyenne 0.0/2\n- recommendation (Recommandation claire et assumée) : moyenne 0.0/2\nCet exercice n'a pas à cibler ces critères (targets_weakness peut rester vide).\n\nTitres déjà utilisés ces 60 derniers jours pour ce type (ne pas reproduire) :\n- Pourquoi le conseil, et pourquoi maintenant ? (général)\n- Pourquoi le conseil, et pourquoi maintenant ? (général)\n\nRéponds avec un seul objet JSON dans un bloc ```json, sans rien après."
+    },
+    {
+      "slot": "case_market_sizing",
+      "type": "market_sizing",
+      "difficulty": 1,
+      "language": "fr",
+      "style": "wavestone",
+      "sector": "assurance",
+      "web_search": true,
+      "target_weakness": true,
+      "brief": "Décomposition top-down OU bottom-up, pas les deux.",
+      "parts": null,
+      "is_mock": false,
+      "estimated_minutes": 6,
+      "user_message": "Date : samedi 2026-11-07\nJour de la semaine : samedi\nSecteur imposé du jour : retail\n\nExercice à produire (1 seul, un objet JSON) :\n- slot : case_market_sizing\n- type : market_sizing (Market sizing)\n- style : wavestone\n- langue : fr\n- difficulté : 1/5\n- secteur de cet exercice : assurance\n- clés de rubric à utiliser : business_sense, hypotheses, recommendation, reformulation, structure\n- consigne : Décomposition top-down OU bottom-up, pas les deux.\n- recherche web : autorisée, au plus 3 recherches, pour trouver 3 à 6 chiffres réels et leurs URLs\n\nCritères les plus faibles du candidat sur 14 jours :\n- sanity_check (Vérification de cohérence) : moyenne 0.0/2\n- business_sense (Sens business et pertinence sectorielle) : moyenne 0.0/2\n- recommendation (Recommandation claire et assumée) : moyenne 0.0/2\nCet exercice doit mettre ces critères sous pression et les lister dans targets_weakness.\n\nTitres déjà utilisés ces 60 derniers jours pour ce type (ne pas reproduire) :\n- Combien de passagers transitent chaque jour par l'aéroport de Changi ? (industrie/défense)\n- Combien de passagers transitent chaque jour par l'aéroport de Changi ? (industrie/défense)\n\nRéponds avec un seul objet JSON dans un bloc ```json, sans rien après."
+    },
+    {
+      "slot": "case_cadrage",
+      "type": "cadrage",
+      "difficulty": 2,
+      "language": "fr",
+      "style": "wavestone",
+      "sector": "retail",
+      "web_search": true,
+      "target_weakness": true,
+      "brief": "Note de cadrage d'un projet data/IA chez un client du secteur.",
+      "parts": null,
+      "is_mock": false,
+      "estimated_minutes": 8,
+      "user_message": "Date : samedi 2026-11-07\nJour de la semaine : samedi\nSecteur imposé du jour : retail\n\nExercice à produire (1 seul, un objet JSON) :\n- slot : case_cadrage\n- type : cadrage (Note de cadrage)\n- style : wavestone\n- langue : fr\n- difficulté : 2/5\n- secteur de cet exercice : retail\n- clés de rubric à utiliser : business_sense, hypotheses, recommendation, reformulation, structure\n- consigne : Note de cadrage d'un projet data/IA chez un client du secteur.\n- recherche web : autorisée, au plus 3 recherches, pour trouver 3 à 6 chiffres réels et leurs URLs\n\nCritères les plus faibles du candidat sur 14 jours :\n- sanity_check (Vérification de cohérence) : moyenne 0.0/2\n- business_sense (Sens business et pertinence sectorielle) : moyenne 0.0/2\n- recommendation (Recommandation claire et assumée) : moyenne 0.0/2\nCet exercice doit mettre ces critères sous pression et les lister dans targets_weakness.\n\nTitres déjà utilisés ces 60 derniers jours pour ce type (ne pas reproduire) :\n- Cadrer l'IA générative pour la gestion des sinistres auto d'un assureur (assurance)\n- Cadrer l'IA générative pour la gestion des sinistres auto d'un assureur (assurance)\n\nRéponds avec un seul objet JSON dans un bloc ```json, sans rien après."
+    },
+    {
+      "slot": "case_business_case",
+      "type": "business_case",
+      "difficulty": 2,
+      "language": "fr",
+      "style": "wavestone",
+      "sector": "banque",
+      "web_search": true,
+      "target_weakness": false,
+      "brief": "ROI chiffré d'un projet data/IA.",
+      "parts": null,
+      "is_mock": false,
+      "estimated_minutes": 8,
+      "user_message": "Date : samedi 2026-11-07\nJour de la semaine : samedi\nSecteur imposé du jour : retail\n\nExercice à produire (1 seul, un objet JSON) :\n- slot : case_business_case\n- type : business_case (Business case)\n- style : wavestone\n- langue : fr\n- difficulté : 2/5\n- secteur de cet exercice : banque\n- clés de rubric à utiliser : business_sense, hypotheses, recommendation, reformulation, structure\n- consigne : ROI chiffré d'un projet data/IA.\n- recherche web : autorisée, au plus 3 recherches, pour trouver 3 à 6 chiffres réels et leurs URLs\n\nCritères les plus faibles du candidat sur 14 jours :\n- sanity_check (Vérification de cohérence) : moyenne 0.0/2\n- business_sense (Sens business et pertinence sectorielle) : moyenne 0.0/2\n- recommendation (Recommandation claire et assumée) : moyenne 0.0/2\nCet exercice n'a pas à cibler ces critères (targets_weakness peut rester vide).\n\nTitres déjà utilisés ces 60 derniers jours pour ce type (ne pas reproduire) :\n- ROI de la maintenance prédictive sur une flotte de radars (industrie/défense)\n- ROI de la maintenance prédictive sur une flotte de radars (industrie/défense)\n\nRéponds avec un seul objet JSON dans un bloc ```json, sans rien après."
+    },
+    {
+      "slot": "case_diagnostic",
+      "type": "diagnostic",
+      "difficulty": 1,
+      "language": "fr",
+      "style": "wavestone",
+      "sector": "retail",
+      "web_search": true,
+      "target_weakness": false,
+      "brief": "Diagnostic de maturité data/IA : par où commencer.",
+      "parts": null,
+      "is_mock": false,
+      "estimated_minutes": 7,
+      "user_message": "Date : samedi 2026-11-07\nJour de la semaine : samedi\nSecteur imposé du jour : retail\n\nExercice à produire (1 seul, un objet JSON) :\n- slot : case_diagnostic\n- type : diagnostic (Diagnostic)\n- style : wavestone\n- langue : fr\n- difficulté : 1/5\n- secteur de cet exercice : retail\n- clés de rubric à utiliser : business_sense, hypotheses, recommendation, reformulation, structure\n- consigne : Diagnostic de maturité data/IA : par où commencer.\n- recherche web : autorisée, au plus 3 recherches, pour trouver 3 à 6 chiffres réels et leurs URLs\n\nCritères les plus faibles du candidat sur 14 jours :\n- sanity_check (Vérification de cohérence) : moyenne 0.0/2\n- business_sense (Sens business et pertinence sectorielle) : moyenne 0.0/2\n- recommendation (Recommandation claire et assumée) : moyenne 0.0/2\nCet exercice n'a pas à cibler ces critères (targets_weakness peut rester vide).\n\nTitres déjà utilisés ces 60 derniers jours pour ce type (ne pas reproduire) :\n- Diagnostic de maturité data d'une banque régionale (banque)\n- Diagnostic de maturité data d'une banque régionale (banque)\n\nRéponds avec un seul objet JSON dans un bloc ```json, sans rien après."
+    },
+    {
+      "slot": "case_extra",
+      "type": "diagnostic",
+      "difficulty": 2,
+      "language": "en",
+      "style": "wavestone",
+      "sector": "santé",
+      "web_search": true,
+      "target_weakness": false,
+      "brief": "Le case « au choix » du jour, d'un cran plus difficile.",
+      "parts": null,
+      "is_mock": false,
+      "estimated_minutes": 7,
+      "user_message": "Date : samedi 2026-11-07\nJour de la semaine : samedi\nSecteur imposé du jour : retail\n\nExercice à produire (1 seul, un objet JSON) :\n- slot : case_extra\n- type : diagnostic (Diagnostic)\n- style : wavestone\n- langue : en\n- difficulté : 2/5\n- secteur de cet exercice : santé\n- clés de rubric à utiliser : business_sense, hypotheses, recommendation, reformulation, structure\n- consigne : Le case « au choix » du jour, d'un cran plus difficile.\n- recherche web : autorisée, au plus 3 recherches, pour trouver 3 à 6 chiffres réels et leurs URLs\n\nCritères les plus faibles du candidat sur 14 jours :\n- sanity_check (Vérification de cohérence) : moyenne 0.0/2\n- business_sense (Sens business et pertinence sectorielle) : moyenne 0.0/2\n- recommendation (Recommandation claire et assumée) : moyenne 0.0/2\nCet exercice n'a pas à cibler ces critères (targets_weakness peut rester vide).\n\nTitres déjà utilisés ces 60 derniers jours pour ce type (ne pas reproduire) :\n- Diagnostic de maturité data d'une banque régionale (banque)\n- Diagnostic de maturité data d'une banque régionale (banque)\n\nRéponds avec un seul objet JSON dans un bloc ```json, sans rien après."
+    }
+  ]
+}
