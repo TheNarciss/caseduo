@@ -16,6 +16,8 @@ backend/.env
 *.p8
 *.p12
 *.mobileprovision
+# The App Store profiles hold no private key: they live in the repo (docs/ios-testflight.md).
+!ios/signing/*.mobileprovision
 
 # macOS / Xcode (same as SingaSmoke)
 .DS_Store

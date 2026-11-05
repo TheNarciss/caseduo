@@ -96,11 +96,11 @@ Même schéma que Tangent, à côté de lui : une stack Compose séparée derri�
 |---|---|
 | `ANTHROPIC_API_KEY` | la notation (et le secours de 05:30) |
 | `OWNER_EMAIL`, `OWNER_PASSWORD` | ton compte admin, créé au premier déploiement |
-| `APNS_TEAM_ID`, `APNS_KEY_ID`, `APNS_PRIVATE_KEY_B64` | les push |
+| `APNS_PRIVATE_KEY_B64` | les push (le `.p8` en base64 ; Team ID et Key ID sont déjà dans `.env.example`) |
 | `CASEDUO_MODEL` | facultatif, pour changer de modèle (D1) |
 | `JWT_SECRET` | facultatif : sinon un secret aléatoire est généré au premier déploiement et gardé |
 | `DEMO_EMAIL`, `DEMO_PASSWORD` | le compte de démo App Review |
-| + les 8 secrets iOS | voir [docs/ios-testflight.md](docs/ios-testflight.md) |
+| + les 5 secrets iOS (mêmes valeurs que SingaSmoke) | voir [docs/ios-testflight.md](docs/ios-testflight.md) |
 
 Ensuite, un push sur `main` (ou Actions → CD → Run workflow) déploie. Le compte de démo se rafraîchit avec Actions → CD → Run workflow, case « Rafraîchir le compte de démo ». Les logs se lisent dans les runs GitHub ou avec `docker compose -f docker-compose.yml -f docker-compose.prod.yml logs -f backend` sur la VM.
 

@@ -35,38 +35,33 @@ Pour la soumission à la revue, plus tard :
 
 ## 3. Les secrets GitHub
 
-Huit secrets dans **TheNarciss/caseduo → Settings → Secrets and variables → Actions**. Six sont les mêmes valeurs que dans Tangent et SingaSmoke (GitHub ne permet pas de les relire : reprends-les depuis tes fichiers) ; les deux profils sont propres à CaseDuo.
+Ce qui n'est pas secret est déjà dans le dépôt : les deux profils App Store dans `ios/signing/` (un profil ne contient aucune clé privée), le Team ID `FLCJTJCQM9` dans le workflow, le Key ID APNs `A47C7KD857` dans `backend/.env.example`. Un profil régénéré remplace simplement le fichier de `ios/signing/`.
+
+Restent **six secrets** dans **TheNarciss/caseduo → Settings → Secrets and variables → Actions**. Les cinq premiers ont les mêmes valeurs que dans Tangent et SingaSmoke (GitHub ne permet pas de les relire : reprends-les depuis tes fichiers, sur la VM). Le sixième est la clé APNs créée pour CaseDuo.
 
 Depuis la VM, dans le dossier où sont les fichiers (`gh auth status` doit être connecté) :
 
 ```bash
 R=TheNarciss/caseduo
-gh secret set IOS_PROVISIONING_PROFILE_B64        -R $R --body "$(base64 -w0 CaseDuo_App_Store.mobileprovision)"
-gh secret set IOS_WIDGET_PROVISIONING_PROFILE_B64 -R $R --body "$(base64 -w0 CaseDuo_Widget_App_Store.mobileprovision)"
-gh secret set IOS_CERTIFICATE_P12_B64             -R $R --body "$(base64 -w0 distribution.p12)"
-gh secret set APPSTORE_API_KEY_P8_B64             -R $R --body "$(base64 -w0 AuthKey_XXXXXXXXXX.p8)"
-# Ces quatre-là demandent la valeur au clavier (rien ne reste dans l'historique) :
+gh secret set IOS_CERTIFICATE_P12_B64  -R $R --body "$(base64 -w0 distribution.p12)"
+gh secret set APPSTORE_API_KEY_P8_B64  -R $R --body "$(base64 -w0 AuthKey_XXXXXXXXXX.p8)"   # la clé App Store Connect
+gh secret set APNS_PRIVATE_KEY_B64     -R $R --body "$(base64 -w0 AuthKey_A47C7KD857.p8)"   # la clé APNs
+# Ces trois-là demandent la valeur au clavier (rien ne reste dans l'historique) :
 gh secret set IOS_CERTIFICATE_PASSWORD -R $R
-gh secret set APPLE_TEAM_ID            -R $R
 gh secret set APPSTORE_API_KEY_ID      -R $R
 gh secret set APPSTORE_API_ISSUER_ID   -R $R
 gh secret list -R $R
 ```
 
+Le `.p8` APNs ne se télécharge qu'une fois : garde-le avec tes autres clés, pas dans git.
+
 Plus de `.p12` ou de clé API ? Les recettes sont dans `docs/testflight.md` de SingaSmoke (régénérer le certificat depuis la VM avec `openssl … -legacy`, recréer une clé App Manager), elles valent à l'identique.
 
 ## 4. La clé APNs pour le backend
 
-Le backend envoie le rappel de 20 h et le message d'au revoir après 7 jours d'absence. Comme tout le reste, la clé arrive sur la VM par la CD : trois secrets GitHub de plus, écrits dans `backend/.env` au déploiement suivant.
+Le backend envoie le rappel de 20 h et le message d'au revoir après 7 jours d'absence. Le Team ID et le Key ID sont dans `backend/.env.example`. Le `.p8` arrive par le secret `APNS_PRIVATE_KEY_B64` (section 3), que la CD écrit dans `backend/.env` au déploiement suivant.
 
-```bash
-R=TheNarciss/caseduo
-gh secret set APNS_PRIVATE_KEY_B64 -R $R --body "$(base64 -w0 AuthKey_YYYYYYYYYY.p8)"
-gh secret set APNS_KEY_ID  -R $R      # le Key ID de la clé APNs
-gh secret set APNS_TEAM_ID -R $R      # le Team ID
-```
-
-L'app envoie son jeton avec son environnement : `sandbox` pour une build Xcode, `production` pour TestFlight et l'App Store. Le backend choisit le serveur APNs en conséquence.
+La clé a été créée pour « Sandbox & Production », sur toute l'équipe. L'app envoie son jeton avec son environnement : `sandbox` pour une build Xcode, `production` pour TestFlight et l'App Store. Le backend choisit le serveur APNs en conséquence.
 
 ## 5. Le compte de démonstration (revue Apple)
 

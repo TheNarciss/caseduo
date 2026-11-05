@@ -109,16 +109,17 @@ jobs:
       (github.event_name == 'push' && github.ref_name == github.event.repository.default_branch)
     runs-on: macos-15
     timeout-minutes: 60
-    # Repository secrets (Settings → Secrets and variables → Actions). The same values as Tangent and
-    # SingaSmoke, except the two provisioning profiles, which are per bundle ID:
+    # Repository secrets (Settings → Secrets and variables → Actions), the same values as Tangent and
+    # SingaSmoke:
     #   IOS_CERTIFICATE_P12_B64, IOS_CERTIFICATE_PASSWORD   Apple Distribution certificate (.p12, base64)
-    #   IOS_PROVISIONING_PROFILE_B64                        App Store profile for uk.riskybusinesses.caseduo
-    #   IOS_WIDGET_PROVISIONING_PROFILE_B64                 App Store profile for uk.riskybusinesses.caseduo.widget
-    #   APPLE_TEAM_ID                                       ten characters
     #   APPSTORE_API_KEY_ID, APPSTORE_API_ISSUER_ID, APPSTORE_API_KEY_P8_B64   App Store Connect API key
+    # The two App Store profiles hold no private key and live in ios/signing/ (a secret
+    # IOS_PROVISIONING_PROFILE_B64 / IOS_WIDGET_PROVISIONING_PROFILE_B64 overrides them), and the
+    # Team ID is not a secret either (APPLE_TEAM_ID overrides it).
     env:
       BUNDLE_ID: uk.riskybusinesses.caseduo
       WIDGET_BUNDLE_ID: uk.riskybusinesses.caseduo.widget
+      TEAM_ID: ${{ secrets.APPLE_TEAM_ID || 'FLCJTJCQM9' }}
     steps:
       - name: Signing secrets present?
         id: secrets
@@ -126,15 +127,12 @@ jobs:
         env:
           P12_B64: ${{ secrets.IOS_CERTIFICATE_P12_B64 }}
           P12_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
-          PROFILE_B64: ${{ secrets.IOS_PROVISIONING_PROFILE_B64 }}
-          WIDGET_PROFILE_B64: ${{ secrets.IOS_WIDGET_PROVISIONING_PROFILE_B64 }}
-          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           KEY_ID: ${{ secrets.APPSTORE_API_KEY_ID }}
           ISSUER_ID: ${{ secrets.APPSTORE_API_ISSUER_ID }}
           KEY_P8_B64: ${{ secrets.APPSTORE_API_KEY_P8_B64 }}
         run: |
           missing=""
-          for name in P12_B64 P12_PASSWORD PROFILE_B64 WIDGET_PROFILE_B64 TEAM_ID KEY_ID ISSUER_ID KEY_P8_B64; do
+          for name in P12_B64 P12_PASSWORD KEY_ID ISSUER_ID KEY_P8_B64; do
             [ -n "${!name}" ] || missing="$missing $name"
           done
           if [ -n "$missing" ]; then
@@ -163,7 +161,6 @@ jobs:
           P12_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
           PROFILE_B64: ${{ secrets.IOS_PROVISIONING_PROFILE_B64 }}
           WIDGET_PROFILE_B64: ${{ secrets.IOS_WIDGET_PROVISIONING_PROFILE_B64 }}
-          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           set -euo pipefail
           KEYCHAIN="$RUNNER_TEMP/signing.keychain-db"
@@ -176,15 +173,19 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
           security list-keychain -d user -s "$KEYCHAIN"
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          install_profile() {
-            echo "$1" | base64 --decode > "$RUNNER_TEMP/$2.mobileprovision"
+          install_profile() {  # $1: base64 from a secret (may be empty), $2: name, $3: the profile in ios/signing
+            if [ -n "$1" ]; then
+              echo "$1" | base64 --decode > "$RUNNER_TEMP/$2.mobileprovision"
+            else
+              cp "$3" "$RUNNER_TEMP/$2.mobileprovision"
+            fi
             local uuid
             uuid=$(/usr/libexec/PlistBuddy -c "Print UUID" /dev/stdin <<< "$(security cms -D -i "$RUNNER_TEMP/$2.mobileprovision")")
             cp "$RUNNER_TEMP/$2.mobileprovision" ~/Library/MobileDevice/Provisioning\ Profiles/"$uuid".mobileprovision
             echo "$uuid"
           }
-          APP_UUID=$(install_profile "$PROFILE_B64" app)
-          WIDGET_UUID=$(install_profile "$WIDGET_PROFILE_B64" widget)
+          APP_UUID=$(install_profile "$PROFILE_B64" app signing/CaseDuo_App_Store.mobileprovision)
+          WIDGET_UUID=$(install_profile "$WIDGET_PROFILE_B64" widget signing/CaseDuo_Widget_App_Store.mobileprovision)
           echo "APP_PROFILE_UUID=$APP_UUID" >> "$GITHUB_ENV"
           echo "WIDGET_PROFILE_UUID=$WIDGET_UUID" >> "$GITHUB_ENV"
           # Manual signing per target: Swift packages must not get a profile.
@@ -216,8 +217,6 @@ jobs:
 
       - name: Export the .ipa
         if: steps.secrets.outputs.ready == 'true'
-        env:
-          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           set -euo pipefail
           cat > "$RUNNER_TEMP/ExportOptions.plist" <<PLIST
