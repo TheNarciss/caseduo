@@ -5,7 +5,7 @@ Deux fichiers pilotent toute la qualité de l'app :
 | Fichier | Rôle | Lu par |
 |---|---|---|
 | `prompts/generate.md` | le senior manager qui écrit les exercices, corrigés et rubrics | la génération (batch de 03:00, secours de 05:30, seed) |
-| `prompts/grade.md` | l'interviewer qui note, écrit le feedback et pose la relance | chaque `POST /api/grade` |
+| `prompts/grade.md` | l'interviewer qui note, écrit le feedback et pose la relance | chaque `POST /api/grade`, par Claude Code sur l'abonnement ou par l'API (DEVIATIONS D14) |
 
 Les deux sont **relus à chaque appel**. Une modification s'applique dès la génération ou la notation suivante, sans rebuild ni redémarrage. Sur la VM, le dossier `prompts/` est monté en lecture seule dans le conteneur (DEVIATIONS D4).
 
@@ -110,6 +110,10 @@ Le system prompt est mis en cache (5 minutes) : dans un batch de 10 exercices, l
 Le cache ne s'active qu'au-delà d'une taille minimale de prompt (1 024 tokens pour Sonnet 4.5). Les deux prompts la dépassent. Si tu les raccourcis beaucoup, regarde `cache_read_tokens` dans `cron_runs` ou `attempts` : s'il reste à 0, le cache ne joue plus.
 
 ## Changer de modèle
+
+**Notation par Claude Code** (le cas par défaut dès que `CLAUDE_CODE_OAUTH_TOKEN` est rempli) : `CLAUDE_CODE_MODEL` (`sonnet`, `opus` ou un identifiant complet) et `CLAUDE_CODE_EFFORT` (`low` par défaut ; `medium` ou `high` pour une correction plus fouillée, mais plus lente) dans `backend/.env`, puis `docker compose … up -d backend`. `prompt_lab grade` passe toujours par l'API.
+
+**Génération et notation par l'API** :
 
 Une ligne dans `backend/.env`, puis `docker compose … up -d backend` :
 

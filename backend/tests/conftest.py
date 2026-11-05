@@ -17,6 +17,9 @@ os.environ.setdefault("SCHEDULER_ENABLED", "false")
 os.environ.setdefault("APPLE_BUNDLE_ID", "uk.test.caseduo")
 os.environ.setdefault("JOBS_TIMEZONE", "Asia/Singapore")
 os.environ["ANTHROPIC_API_KEY"] = ""
+# Never the real Claude Code CLI: the tests that need it point CLAUDE_CODE_BIN at a fake.
+os.environ["CLAUDE_CODE_OAUTH_TOKEN"] = ""
+os.environ["GRADING_PROVIDER"] = "auto"
 os.environ.setdefault("APNS_TEAM_ID", "")
 
 import uuid

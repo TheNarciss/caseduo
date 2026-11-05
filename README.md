@@ -88,14 +88,20 @@ Même schéma que Tangent, à côté de lui : une stack Compose séparée derri�
 
 **Une seule fois, à la main** (ce que GitHub ne peut pas faire pour toi)
 
-1. **Le runner** : GitHub → TheNarciss/caseduo → Settings → Actions → Runners → New self-hosted runner (Linux ARM64). Sur la VM, installe-le dans `~/actions-runner-caseduo` avec les labels `oracle,prod`, puis `sudo ./svc.sh install && sudo ./svc.sh start`. Un runner personnel ne sert qu'un dépôt, d'où ce deuxième, à côté de celui de Tangent.
+1. **Le runner** : un runner personnel ne sert qu'un dépôt, il en faut donc un deuxième sur la VM, à côté de celui de Tangent. Sans terminal, c'est le runner de Tangent qui l'installe :
+   - caseduo → Settings → Actions → Runners → New self-hosted runner : copie le jeton de la ligne `./config.sh … --token`, valable une heure ;
+   - tangent → Settings → Secrets and variables → Actions : secret `CASEDUO_RUNNER_TOKEN` avec ce jeton ;
+   - dans tangent, une branche `caseduo-runner` avec [`ops/tangent-caseduo-runner.yml`](ops/tangent-caseduo-runner.yml) copié en `.github/workflows/caseduo-runner.yml`. Le push lance l'installation dans `~/actions-runner-caseduo` (labels `oracle,prod`, service systemd). Ensuite, la branche et le secret peuvent être supprimés.
+
+   Avec un terminal sur la VM, c'est la procédure de la page « New self-hosted runner », dans `~/actions-runner-caseduo`, avec `--labels oracle,prod`, puis `sudo ./svc.sh install && sudo ./svc.sh start`.
 2. **Le tunnel** : Cloudflare Zero Trust → Networks → Tunnels → le tunnel de Tangent → Public Hostname → Add : `caseduo.riskybusinesses.uk` → HTTP → `localhost:8081`.
 3. **Les secrets GitHub** (Settings → Secrets and variables → Actions) :
 
 | Secret | Pour |
 |---|---|
-| `ANTHROPIC_API_KEY` | la notation (et le secours de 05:30) |
-| `OWNER_EMAIL`, `OWNER_PASSWORD` | ton compte admin, créé au premier déploiement |
+| `CLAUDE_CODE_OAUTH_TOKEN` | la notation sur ton abonnement Claude, sans frais d'API : `claude setup-token` sur un ordinateur (DEVIATIONS D14) |
+| `ANTHROPIC_API_KEY` | facultatif : le secours de génération de 05:30, et la notation si le jeton Claude Code est absent |
+| `OWNER_EMAIL`, `OWNER_PASSWORD` | facultatif : ton compte admin (pages `/admin`), créé au premier déploiement. Sans eux, connecte-toi avec Apple : le premier compte pilote le contenu du jour |
 | `APNS_PRIVATE_KEY_B64` | les push (le `.p8` en base64 ; Team ID et Key ID sont déjà dans `.env.example`) |
 | `CASEDUO_MODEL` | facultatif, pour changer de modèle (D1) |
 | `JWT_SECRET` | facultatif : sinon un secret aléatoire est généré au premier déploiement et gardé |
@@ -139,7 +145,7 @@ Chaque génération écrit une ligne dans `cron_runs` : id du batch, statut, tok
 
 ## Coûts
 
-Avec la génération par Claude Code (D13), les exercices ne coûtent rien de plus que ton abonnement. En mode `api`, une journée en batch revient à ~0,40 $ avec Sonnet 4.5, ~0,30 $ avec Sonnet 5.5. La recherche web pèse lourd (0,01 $ par recherche, sans remise batch). Une notation coûte ~0,02 à 0,03 $. La cible de 0,10 $ par jour n'est pas tenable avec une recherche web sur chaque case : le détail est dans [DEVIATIONS D2](docs/DEVIATIONS.md). Le plafond journalier coupe tout au-delà de `LLM_DAILY_CAP_USD`.
+Avec la génération par Claude Code (D13), les exercices ne coûtent rien de plus que ton abonnement. En mode `api`, une journée en batch revient à ~0,40 $ avec Sonnet 4.5, ~0,30 $ avec Sonnet 5.5. La recherche web pèse lourd (0,01 $ par recherche, sans remise batch). La notation passe aussi par ton abonnement (D14) ; par l'API, elle coûterait ~0,02 à 0,03 $. La cible de 0,10 $ par jour n'est pas tenable avec une recherche web sur chaque case : le détail est dans [DEVIATIONS D2](docs/DEVIATIONS.md). Le plafond journalier coupe tout au-delà de `LLM_DAILY_CAP_USD`.
 
 ## L'app iPhone
 

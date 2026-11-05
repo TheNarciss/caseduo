@@ -95,3 +95,17 @@ Deux méthodes que tu utilises déjà, mises bout à bout : la tâche planifiée
 - **Prompt de la tâche** : versionné dans `ops/nightly-generation-prompt.md`. Le modifier là, puis mettre à jour la tâche planifiée avec le même texte.
 - **Visibilité** : le dépôt est public. Les plans (avec tes 3 critères les plus faibles) et les exercices générés y sont donc lisibles. Pour les cacher, passe le dépôt en privé : rien d'autre ne change.
 - **Retour au batch API** : `GENERATION_PROVIDER=api` dans `backend/.env`, puis désactiver la tâche planifiée.
+
+## D14 — La notation passe par Claude Code sur ton abonnement · **Appliqué (à ta demande)**
+
+Tu veux une note immédiate sans payer l'API. Le backend lance donc la ligne de commande Claude Code (`claude -p`) dans son conteneur, avec le jeton longue durée de ton abonnement (`claude setup-token`). Chaque réponse est un appel isolé : sans outils, sans MCP, sans réglages ni session gardée, avec `prompts/grade.md` pour prompt système et la même consigne que par l'API (exercice, corrigé, rubric, réponse).
+
+- **Rien ne change pour l'app** : la sortie est le même texte balisé (D12), découpé à la volée. Les notes arrivent toujours en premier, puis le feedback, puis la relance, et le serveur recalcule toujours le score. Mesuré avec Sonnet 5.5 en effort `low` : notes à ~5 s, correction complète à ~15 s.
+- **Plusieurs réponses à la fois** : chacune a son processus, au plus `CLAUDE_CODE_MAX_PARALLEL` (3) en même temps, les suivantes attendent leur tour.
+- **Coût** : 0 $ côté API. La notation compte dans l'usage de ton abonnement (fenêtres de 5 heures). Les tokens sont enregistrés dans `attempts` comme avant, avec `cost_usd = 0`. Le plafond `LLM_DAILY_CAP_USD` ne s'applique plus qu'à l'API.
+- **Limite atteinte ou jeton refusé** : l'app affiche « La limite d'usage de l'abonnement Claude est atteinte… » ou « Le jeton Claude Code du serveur est refusé… ». Rien n'est enregistré, et la réponse peut être renvoyée.
+- **Modèle** : `CLAUDE_CODE_MODEL=sonnet`, un alias qui suit le Sonnet courant, sans date de retrait à surveiller (D1 ne concerne plus que l'API).
+- **Image Docker** : le binaire officiel du canal stable (~290 Mo), vérifié par sa somme SHA-256, sans mise à jour automatique. Un rebuild prend la version stable du moment.
+- **Jeton** : secret GitHub `CLAUDE_CODE_OAUTH_TOKEN`, écrit dans `backend/.env` par la CD comme les autres. Il se crée avec `claude setup-token`, sur un ordinateur où Claude Code est connecté à ton compte, et dure un an.
+- **Écarté : une tâche planifiée déclenchée à chaque réponse.** Une session dans le cloud met 1 à 3 minutes à démarrer et à renvoyer le résultat par GitHub Actions. C'est trop lent pour une note qu'on attend devant l'écran.
+- **Retour à l'API** : `GRADING_PROVIDER=api` dans `backend/.env` (avec `ANTHROPIC_API_KEY`). En mode `auto`, l'API ne sert que si le jeton Claude Code est vide.
