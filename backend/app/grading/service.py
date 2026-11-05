@@ -9,6 +9,7 @@ as they come, or collected by `POST /grade`.
 from __future__ import annotations
 
 import logging
+import os
 import uuid
 from collections.abc import AsyncIterator
 from dataclasses import dataclass, field
@@ -29,8 +30,8 @@ from ..errors import (
     NotFoundError,
 )
 from ..game.xp import attempt_xp
-from ..llm import anthropic_client, cost_tracker, prompts
-from ..llm.cost_tracker import usage_of
+from ..llm import anthropic_client, claude_code, cost_tracker, prompts
+from ..llm.cost_tracker import Usage, usage_of
 from ..services import progress
 from ..services.clock import today_for
 from . import hooks, prompt
@@ -40,6 +41,24 @@ from .scoring import ScoresInvalid, parse_scores
 logger = logging.getLogger(__name__)
 
 MIN_ANSWER_CHARS = 10
+
+
+def provider() -> str | None:
+    """Who grades: "claude_code" (the subscription, DEVIATIONS D14), "api", or None.
+
+    GRADING_PROVIDER=auto (the default) takes Claude Code when its token is set,
+    otherwise the API when its key is set.
+    """
+    choice = os.getenv("GRADING_PROVIDER", "auto").strip().lower() or "auto"
+    if choice in ("auto", "claude_code") and claude_code.available():
+        return "claude_code"
+    if choice in ("auto", "api"):
+        try:
+            anthropic_client.get_client()
+        except RuntimeError:
+            return None
+        return "api"
+    return None
 
 
 class Slide(BaseModel):
@@ -70,6 +89,7 @@ class Prepared:
     is_revenge: bool = False
     mock_run: MockRun | None = None
     fit_context: str | None = None
+    provider: str = "api"
     extra: dict[str, Any] = field(default_factory=dict)
 
 
@@ -131,19 +151,20 @@ async def prepare(session: AsyncSession, user: User, body: GradeRequest) -> Prep
 
     await hooks.before_grading(session, prepared)
 
-    if not await cost_tracker.is_under_cap(session):
+    chosen = provider()
+    if chosen is None:
+        raise LLMUnavailableError("La notation n'est pas configurée sur le serveur.")
+    prepared.provider = chosen
+    # The daily cap guards API spending; the subscription has its own limits.
+    if chosen == "api" and not await cost_tracker.is_under_cap(session):
         raise BudgetExceededError(
             "Le budget IA du jour est atteint : la notation reprend demain. Ta réponse n'est pas perdue."
         )
-    try:
-        anthropic_client.get_client()
-    except RuntimeError as exc:
-        raise LLMUnavailableError("La notation n'est pas configurée sur le serveur.") from exc
     return prepared
 
 
-def _params(p: Prepared) -> dict[str, Any]:
-    attempt_text = prompt.attempt_block(
+def _attempt_text(p: Prepared) -> str:
+    return prompt.attempt_block(
         kind=p.body.kind,
         answer_text=p.answer_text,
         duration_seconds=p.body.duration_seconds,
@@ -153,20 +174,48 @@ def _params(p: Prepared) -> dict[str, Any]:
         fit_context=p.fit_context,
         in_mock=p.mock_run is not None,
     )
+
+
+def _params(p: Prepared) -> dict[str, Any]:
     model = anthropic_client.MODEL
     return {
         "model": model,
         "max_tokens": anthropic_client.GRADING_MAX_TOKENS,
         "system": anthropic_client.cached_system(prompts.load("grade")),
-        "messages": prompt.messages(p.exercise, attempt_text),
+        "messages": prompt.messages(p.exercise, _attempt_text(p)),
         **anthropic_client.reasoning_params(model, effort=anthropic_client.GRADING_EFFORT),
     }
+
+
+async def _text_chunks(p: Prepared, usage_box: list[Usage]) -> AsyncIterator[str]:
+    """The grader's answer as it is written, by Claude Code or by the API."""
+    if p.provider == "claude_code":
+        run = claude_code.Run()
+        try:
+            async for chunk in claude_code.stream(
+                prompts.load("grade"), prompt.as_text(p.exercise, _attempt_text(p)), run
+            ):
+                yield chunk
+        except claude_code.ClaudeCodeError as exc:
+            raise LLMUnavailableError(str(exc)) from exc
+        run.usage.models = {run.model} if run.model else run.usage.models
+        usage_box.append(run.usage)
+        return
+    client = anthropic_client.get_client()
+    try:
+        async with client.messages.stream(**_params(p)) as stream:
+            async for chunk in stream.text_stream:
+                yield chunk
+            final = await stream.get_final_message()
+    except (APIStatusError, APIConnectionError) as exc:
+        logger.warning("Grading API error: %s", exc)
+        raise LLMUnavailableError("Claude est surchargé, réessaie dans une minute.") from exc
+    usage_box.append(usage_of(final))
 
 
 async def stream_grade(
     session: AsyncSession, p: Prepared
 ) -> AsyncIterator[tuple[str, dict[str, Any]]]:
-    client = anthropic_client.get_client()
     parser = TaggedStreamParser()
     rubric = p.exercise.rubric
     rubric_scores: list[dict[str, Any]] | None = None
@@ -194,19 +243,14 @@ async def stream_grade(
                     out.append(("follow_up", {"text": follow_up}))
         return out
 
-    try:
-        async with client.messages.stream(**_params(p)) as stream:
-            async for chunk in stream.text_stream:
-                for item in handle(parser.feed(chunk)):
-                    yield item
-            final = await stream.get_final_message()
-    except (APIStatusError, APIConnectionError) as exc:
-        logger.warning("Grading API error: %s", exc)
-        raise LLMUnavailableError("Claude est surchargé, réessaie dans une minute.") from exc
+    usage_box: list[Usage] = []
+    async for chunk in _text_chunks(p, usage_box):
+        for item in handle(parser.feed(chunk)):
+            yield item
     for item in handle(parser.close()):
         yield item
 
-    usage = usage_of(final)
+    usage = usage_box[0]
     await cost_tracker.record_cost(session, usage.cost_usd, commit=False)
     if rubric_scores is None:
         await session.commit()
@@ -253,9 +297,10 @@ async def stream_grade(
     await hooks.after_grading(session, p, attempt, result)
     await session.commit()
     logger.info(
-        "Graded %s %s: score=%d xp=%d tokens=%d/%d cost=$%.4f",
+        "Graded %s %s via %s: score=%d xp=%d tokens=%d/%d cost=$%.4f",
         p.exercise.type,
         body.kind,
+        p.provider,
         score,
         xp.earned,
         usage.input_tokens + usage.cache_read_tokens,

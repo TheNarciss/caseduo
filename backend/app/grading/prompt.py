@@ -107,3 +107,8 @@ def messages(ex: Exercise, attempt_text: str) -> list[dict[str, Any]]:
             ],
         }
     ]
+
+
+def as_text(ex: Exercise, attempt_text: str) -> str:
+    """The same message as one text, for Claude Code (which caches on its own)."""
+    return exercise_block(ex) + "\n\n" + attempt_text
