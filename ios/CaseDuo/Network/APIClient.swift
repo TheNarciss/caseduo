@@ -7,6 +7,8 @@ enum APIError: LocalizedError, Equatable {
     case http(status: Int, detail: String?)
     case aiUnavailable(String?)
     case offline
+    /// The phone has network, but the CaseDuo server does not answer (down, being deployed, DNS).
+    case serverUnreachable
     case decoding(String)
     case stream(StreamError)
 
@@ -20,6 +22,8 @@ enum APIError: LocalizedError, Equatable {
             return detail ?? "Le correcteur IA est indisponible pour le moment. Réessaie dans quelques minutes."
         case .offline:
             return "Pas de connexion. Vérifie le réseau et réessaie."
+        case .serverUnreachable:
+            return "Le serveur CaseDuo ne répond pas. Ton réseau n'y est pour rien : réessaie dans quelques minutes."
         case .decoding:
             return "Réponse inattendue du serveur. Mets l'app à jour."
         case .stream(let error):
@@ -32,6 +36,8 @@ enum APIError: LocalizedError, Equatable {
     }
 
     var isOffline: Bool { self == .offline }
+    /// No answer from the server, whoever is at fault: the phone's network or the server.
+    var isUnreachable: Bool { self == .offline || self == .serverUnreachable }
 }
 
 /// Every call the app makes (docs/API.md). Live and demo implementations.
@@ -139,9 +145,11 @@ final class LiveService: CaseDuoService, @unchecked Sendable {
         if let api = error as? APIError { return api }
         if let url = error as? URLError {
             switch url.code {
-            case .notConnectedToInternet, .networkConnectionLost, .cannotConnectToHost, .cannotFindHost,
-                 .timedOut, .dataNotAllowed, .internationalRoamingOff:
+            case .notConnectedToInternet, .networkConnectionLost, .timedOut, .dataNotAllowed,
+                 .internationalRoamingOff:
                 return APIError.offline
+            case .cannotFindHost, .cannotConnectToHost, .dnsLookupFailed, .secureConnectionFailed:
+                return APIError.serverUnreachable
             default:
                 return error
             }
@@ -156,6 +164,8 @@ final class LiveService: CaseDuoService, @unchecked Sendable {
         switch http.statusCode {
         case 401: throw APIError.unauthorized
         case 503: throw APIError.aiUnavailable(detail)
+        // The proxy in front of the backend (Caddy, Cloudflare) answers for it when it is down.
+        case 502, 504, 520...530: throw APIError.serverUnreachable
         default: throw APIError.http(status: http.statusCode, detail: detail)
         }
     }

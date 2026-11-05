@@ -11,6 +11,7 @@ final class AppModel {
     enum Phase: Equatable {
         case launching
         case offline
+        case serverDown
         case signedOut
         case ready
     }
@@ -70,11 +71,11 @@ final class AppModel {
             try await service.renewSession()
             try await loadAfterSignIn()
         } catch {
-            if (error as? APIError) == .offline {
-                // The session cannot be checked without network: wait for it rather than ask to log in.
+            if let api = error as? APIError, api.isUnreachable {
+                // The session cannot be checked without the server: wait for it rather than ask to log in.
                 notifications.lastCallWasOffline = true
                 notifications.rescheduleStreakSaver(today: today, enabled: notificationsEnabled)
-                phase = .offline
+                phase = api == .offline ? .offline : .serverDown
             } else {
                 phase = .signedOut
             }
@@ -131,7 +132,7 @@ final class AppModel {
             clearSession()
             return
         }
-        notifications.lastCallWasOffline = (error as? APIError) == .offline
+        notifications.lastCallWasOffline = (error as? APIError)?.isUnreachable ?? false
         errorMessage = error.localizedDescription
     }
 

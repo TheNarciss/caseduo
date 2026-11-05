@@ -64,7 +64,9 @@ struct RootView: View {
                     ProgressView().tint(Brand.flame)
                 }
             case .offline:
-                OfflineView()
+                OfflineView(serverDown: false)
+            case .serverDown:
+                OfflineView(serverDown: true)
             case .signedOut:
                 LoginView()
             case .ready:
@@ -108,15 +110,20 @@ struct MainTabs: View {
     }
 }
 
+/// No answer at launch: either the phone has no network, or it has one and the server is down.
 struct OfflineView: View {
     @Environment(AppModel.self) private var model
+    let serverDown: Bool
 
     var body: some View {
         VStack(spacing: 18) {
             Spacer()
-            Image(systemName: "wifi.slash").font(.system(size: 44)).foregroundStyle(Brand.textSecondary)
-            Text("Pas de connexion").font(.title2.weight(.bold))
-            Text("Tes exercices du jour t'attendent. Reconnecte-toi au réseau pour les charger.")
+            Image(systemName: serverDown ? "server.rack" : "wifi.slash")
+                .font(.system(size: 44)).foregroundStyle(Brand.textSecondary)
+            Text(serverDown ? "Serveur injoignable" : "Pas de connexion").font(.title2.weight(.bold))
+            Text(serverDown
+                 ? "Ton réseau fonctionne, mais le serveur CaseDuo ne répond pas. Réessaie dans quelques minutes."
+                 : "Tes exercices du jour t'attendent. Reconnecte-toi au réseau pour les charger.")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(Brand.textSecondary)
             Spacer()

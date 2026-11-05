@@ -70,7 +70,7 @@ final class Notifications: NSObject, UNUserNotificationCenterDelegate {
             registeredToken = token
             pendingToken = nil
         } catch {
-            if (error as? APIError) == .offline { lastCallWasOffline = true }
+            if (error as? APIError)?.isUnreachable == true { lastCallWasOffline = true }
         }
     }
 
