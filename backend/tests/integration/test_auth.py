@@ -11,6 +11,7 @@ async def test_health(client):
     resp = await client.get("/api/health")
     assert resp.status_code == 200
     assert resp.json()["db"] == "up"
+    assert resp.json()["grading"] == "none"  # neither a Claude Code token nor an API key in tests
 
 
 async def test_login_sets_cookie_and_me_works(user_client):

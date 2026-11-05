@@ -22,6 +22,7 @@ from .auth.backend import COOKIE_NAME, cookie_transport
 from .db import ping as db_ping
 from .db.init_db import init_db
 from .errors import AppError
+from .grading.service import provider as grading_provider
 from .routers import ROUTERS, admin_pages
 
 logging_config.configure()
@@ -128,7 +129,12 @@ async def log_requests(request: Request, call_next):
 @app.get("/api/health", tags=["health"])
 async def health():
     db_ok = await db_ping()
-    return {"status": "ok" if db_ok else "degraded", "db": "up" if db_ok else "down"}
+    return {
+        "status": "ok" if db_ok else "degraded",
+        "db": "up" if db_ok else "down",
+        # Who grades the answers (DEVIATIONS D14): claude_code, api, or none.
+        "grading": grading_provider() or "none",
+    }
 
 
 # ─── Auth (fastapi-users) ─────────────────────────────────────────────────
