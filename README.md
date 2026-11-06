@@ -25,6 +25,12 @@ Construite pour un utilisateur (moi), préparant Wavestone (practice Data & IA),
 - Une relance qui attaque ton point le plus faible (90 secondes, +5 XP), puis « Refaire en 2 min à l'oral » (+10 XP).
 - Pour le fit, le correcteur reçoit ton récit de parcours et tes réponses de fit du mois, et relève les contradictions.
 
+**Le Parcours** (`docs/PARCOURS.md`, `content/path/`)
+
+- Un cours d'entretiens en chemin, à la Duolingo : des unités (anatomie de l'entretien, ouvrir un case, le calcul en entretien, structurer…), chacune une suite d'étapes de 10 à 12 items courts auto-corrigés (QCM, cartes à trier, phrases à trous, tuiles à ordonner, calcul chrono, ordre de grandeur, paires…) et un item à l'oral noté par Claude.
+- Le contenu est écrit dans le dépôt en JSON, relu et validé (`python -m app.path check`), chargé par le serveur au démarrage. Les erreurs sont reposées en fin de leçon, 30 % de chaque leçon révise les précédentes, le bilan d'unité se passe à 60 %, la légendaire à 75 %. Les XP comptent pour l'objectif et la série.
+- Le case du jour reste : l'étape « en situation » d'une unité l'ouvre.
+
 **Les mécaniques**
 
 - Série au fuseau de l'utilisateur. Freezes : 2 au départ, +1 tous les 7 jours, 3 au plus, appliqués automatiquement.
@@ -146,7 +152,7 @@ Avec la génération par Claude Code (D15), les exercices ne coûtent rien de pl
 
 ## L'app iPhone
 
-Cinq onglets : Aujourd'hui (la série, l'engagement, le plan du jour par famille), Entraîner (le pack bonus et les jours passés, par type), Historique, Ligue, Profil. Une couleur par type d'exercice, une flamme-mascotte dessinée en SwiftUI, des retours haptiques à chaque moment qui compte (DEVIATIONS D16).
+Cinq onglets : Aujourd'hui (la série, l'engagement, le **Parcours** : le cours d'entretiens en chemin, une leçon courte à la fois, puis le plan du jour par famille), Entraîner (le pack bonus et les jours passés, par type), Historique, Ligue, Profil. Une couleur par type d'exercice, une flamme-mascotte dessinée en SwiftUI, des retours haptiques à chaque moment qui compte (DEVIATIONS D16).
 
 Tout est dans `ios/` et suit SingaSmoke : `project.yml` (XcodeGen), un Mac de GitHub compile et envoie sur TestFlight. La mise en place, une seule fois, est dans **[docs/ios-testflight.md](docs/ios-testflight.md)** : App IDs, App Group, clé APNs, profils de l'app et du widget, secrets, compte de démo.
 
@@ -182,10 +188,12 @@ backend/
     push/           APNs et règles d'envoi
     auth/           fastapi-users, Sign in with Apple natif
     content/        pack d'exercices écrit à la main, pages légales
+    path/           le Parcours : schéma et validateur des items, chargement, composition des leçons, note de l'oral
     seed.py demo.py prompt_lab.py cli.py
   alembic/          migrations écrites à la main
   tests/            unit (pur) + integration (vrai Postgres, Claude simulé)
 prompts/            generate.md, grade.md (montés en lecture seule dans le conteneur)
+content/path/       le cours : unités et items en JSON, GUIDE.md pour en écrire (montés en lecture seule)
 ios/                l'app SwiftUI, le widget, CaseDuoCore, fastlane
 docs/               conventions, écarts, contrat d'API, TestFlight, prompts
 ```
