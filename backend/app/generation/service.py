@@ -9,14 +9,15 @@ import uuid
 from datetime import UTC, date, datetime
 from typing import Any
 
-from sqlalchemy import func, select
+from sqlalchemy import delete, exists, func, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..content import starter_pack
-from ..db.models import CronRun, Exercise
+from ..db.models import Attempt, CronRun, Exercise, Reveal
 from ..errors import LLMUnavailableError
-from ..llm import anthropic_client, cost_tracker
+from ..llm import cost_tracker
+from . import provider
 from .context import GenerationContext, build_context
 from .planner import DayPlan, SlotSpec, plan_day
 from .sync import generate_slot
@@ -24,6 +25,7 @@ from .sync import generate_slot
 logger = logging.getLogger(__name__)
 
 SYNC_CONCURRENCY = 3
+BONUS_MODE = "bonus"  # the bonus pack: not part of any day's plan (DEVIATIONS D15)
 
 
 async def plan_for(session: AsyncSession, day: date) -> tuple[DayPlan, GenerationContext]:
@@ -38,8 +40,29 @@ async def existing_slots(session: AsyncSession, day: date) -> set[str]:
 
 
 async def count_exercises(session: AsyncSession, day: date) -> int:
-    stmt = select(func.count()).select_from(Exercise).where(Exercise.date == day)
+    """The day's own exercises (the bonus pack does not make a day)."""
+    stmt = (
+        select(func.count())
+        .select_from(Exercise)
+        .where(Exercise.date == day, Exercise.generation_mode != BONUS_MODE)
+    )
     return int((await session.execute(stmt)).scalar() or 0)
+
+
+async def drop_unused_starter(session: AsyncSession, day: date) -> int:
+    """Once real exercises are in, the hand-written ones nobody touched leave the day.
+    Answered or revealed ones stay. Not committed."""
+    answered = exists().where(Attempt.exercise_id == Exercise.id)
+    revealed = exists().where(Reveal.exercise_id == Exercise.id)
+    result = await session.execute(
+        delete(Exercise).where(
+            Exercise.date == day,
+            Exercise.generation_mode == "starter",
+            ~answered,
+            ~revealed,
+        )
+    )
+    return int(result.rowcount or 0)  # type: ignore[attr-defined]
 
 
 async def missing_slots(session: AsyncSession, plan: DayPlan) -> list[SlotSpec]:
@@ -85,7 +108,7 @@ async def generate_day_sync(
     """Generate every missing slot of `day` synchronously. Idempotent.
 
     Returns the cron_runs row (None when nothing was missing). Raises
-    LLMUnavailableError when no API key is configured.
+    LLMUnavailableError when neither Claude Code nor the API is configured.
     """
     plan, ctx = await plan_for(session, day)
     todo = await missing_slots(session, plan)
@@ -94,23 +117,23 @@ async def generate_day_sync(
     if not todo:
         logger.info("Generation %s: nothing missing for %s", job, day)
         return None
-    try:
-        anthropic_client.get_client()
-    except RuntimeError as exc:
-        raise LLMUnavailableError(str(exc)) from exc
+    chosen = provider.provider()
+    if chosen is None:
+        raise LLMUnavailableError("ni jeton Claude Code ni clé API : génération impossible")
 
     run = CronRun(
         job=job,
         target_date=day,
         status="running",
-        model=anthropic_client.MODEL,
+        model=provider.model_name(chosen),
         n_requests=len(todo),
         errors=[],
     )
     session.add(run)
     await session.commit()
 
-    budget = await cost_tracker.budget_left_usd(session)
+    # The daily cap guards API spending; Claude Code runs on the subscription.
+    budget = await cost_tracker.budget_left_usd(session) if chosen == "api" else float("inf")
     spent = 0.0
     sem = asyncio.Semaphore(SYNC_CONCURRENCY)
     stop = asyncio.Event()
@@ -138,7 +161,7 @@ async def generate_day_sync(
                 result.fields,
                 mode=job,
                 run_id=run.id,
-                model=next(iter(result.usage.models), anthropic_client.MODEL),
+                model=next(iter(result.usage.models), provider.model_name(chosen)),
             )
             run.n_succeeded += int(inserted)
         else:
@@ -149,6 +172,10 @@ async def generate_day_sync(
         run.errors = list(errors)
         await session.commit()
 
+    if run.n_succeeded:
+        dropped = await drop_unused_starter(session, day)
+        if dropped:
+            logger.info("Generation %s for %s: %d starter exercise(s) replaced", job, day, dropped)
     skipped = run.n_requests - run.n_succeeded - run.n_failed
     run.n_failed += max(0, skipped)
     run.status = "ended" if run.n_failed == 0 else ("partial" if run.n_succeeded else "failed")

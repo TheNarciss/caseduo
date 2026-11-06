@@ -80,7 +80,9 @@ Le batch envoie une requête par exercice (`custom_id = gen:<date>:<slot>`). Une
 
 Tu demandes une réponse en streaming. Un JSON qui arrive token par token n'est pas affichable. Le correcteur écrit donc trois sections balisées dans l'ordre : `<scores>{…json…}</scores>`, puis `<feedback>…markdown…</feedback>`, puis `<follow_up>…</follow_up>`. Le serveur les découpe à la volée : l'app reçoit les notes en premier (animation du score et haptique tout de suite), puis le feedback qui s'écrit, puis la relance. Le score final est **recalculé par le serveur** à partir des notes 0/1/2 et des poids, sans se fier à l'arithmétique du modèle. `POST /api/grade` (sans streaming) renvoie la même chose en un seul JSON.
 
-## D13 — Les exercices sont écrits par une tâche planifiée Claude Code, livrés par GitHub Actions · **Appliqué (à ta demande)**
+## D13 — Les exercices sont écrits par une tâche planifiée Claude Code, livrés par GitHub Actions · **Remplacé par D15**
+
+> La tâche planifiée n'avait pas le droit d'écrire dans le dépôt (une tâche planifiée créée ainsi n'a aucun dépôt attaché) : la nuit du 5 au 6 novembre, elle s'est arrêtée sans rien produire. Elle est désactivée et les deux workflows sont en sommeil (lançables à la main). Ce qui suit décrit l'ancien circuit.
 
 Deux méthodes que tu utilises déjà, mises bout à bout : la tâche planifiée Claude Code de ton projet Thales, et le circuit de Tangent et SingaSmoke, où **seul GitHub Actions touche la VM** par le runner installé dessus. Il n'y a ni port ni route d'import à ouvrir sur la VM, et aucun secret de la VM dans l'environnement cloud. La branche `nightly` du dépôt sert de boîte aux lettres : elle ne contient que des données, aucun code.
 
@@ -109,3 +111,14 @@ Tu veux une note immédiate sans payer l'API. Le backend lance donc la ligne de 
 - **Jeton** : secret GitHub `CLAUDE_CODE_OAUTH_TOKEN`, écrit dans `backend/.env` par la CD comme les autres. Il se crée avec `claude setup-token`, sur un ordinateur où Claude Code est connecté à ton compte, et dure un an.
 - **Écarté : une tâche planifiée déclenchée à chaque réponse.** Une session dans le cloud met 1 à 3 minutes à démarrer et à renvoyer le résultat par GitHub Actions. C'est trop lent pour une note qu'on attend devant l'écran.
 - **Retour à l'API** : `GRADING_PROVIDER=api` dans `backend/.env` (avec `ANTHROPIC_API_KEY`). En mode `auto`, l'API ne sert que si le jeton Claude Code est vide.
+
+## D15 — Le serveur écrit lui-même les exercices avec Claude Code · **Appliqué (à ta demande)**
+
+D13 dépendait d'une tâche planifiée dans le cloud qui n'a pas pu pousser dans le dépôt. Depuis D14, Claude Code tourne déjà dans le conteneur du backend avec le jeton de ton abonnement : la génération y passe aussi. Il n'y a plus ni tâche planifiée, ni branche `nightly`, ni import.
+
+- **Quand** : à 03:00 (heure de Singapour) pour le lendemain. Au démarrage du serveur, s'il manque des exercices aujourd'hui, ils sont écrits tout de suite. Le secours de 05:30 complète ce qui manque encore.
+- **Comment** : chaque exercice est un appel `claude -p` isolé, avec `prompts/generate.md` et la même consigne que par l'API (faiblesses, titres déjà vus, style, langue). Les cases ont l'outil WebSearch, au plus 3 recherches comme avant. Les URL renvoyées par la recherche servent à vérifier les sources, et un exercice passe par le même validateur et les mêmes deux relances qu'avec l'API. Effort `high` (personne n'attend la nuit), au plus 2 exercices écrits en même temps. La notation garde ses propres places, pour qu'elle reste immédiate.
+- **Le pack écrit à la main** : quand de vrais exercices arrivent pour un jour qui n'avait que lui, ses exercices non entamés sont retirés. Ceux auxquels tu as répondu ou dont tu as vu les données restent.
+- **Pack bonus** : `backend/app/content/packs/*.json` contient des exercices écrits à l'avance (le premier : 15 brainteasers et 15 cases, difficultés 1 à 5, cases sourcés par recherche web). Ils passent par le même validateur au démarrage, sont importés une seule fois et ne dépendent d'aucun jour : l'écran du jour les montre après les cartes du jour, marqués « Bonus · quand tu veux », tant que tu ne les as pas faits. Ils ne comptent ni pour « journée complète » ni pour le badge des exercices restants, mais rapportent des XP comme les autres.
+- **Coût** : 0 $ côté API. La génération compte dans l'usage de ton abonnement, la nuit.
+- **Sans jeton** : `GENERATION_PROVIDER=auto` passe à l'API si `ANTHROPIC_API_KEY` est rempli, sinon le pack écrit à la main garde chaque jour non vide.

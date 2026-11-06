@@ -1,7 +1,9 @@
 """Today's cards for a user, in display order, and what is left to do.
 
 Order (spec §4): cadrage_home pinned Friday→Sunday, warm-up brainteaser,
-fit, cases by increasing difficulty, the other brainteasers, revenges last.
+fit, cases by increasing difficulty, the other brainteasers, revenges, then the
+bonus pack (DEVIATIONS D15): its exercises not done yet, and those done today.
+Bonus cards never count for "journée complète" nor for the remaining badge.
 The Sunday mock is not a card: `/today` carries it separately.
 """
 
@@ -18,6 +20,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from ..catalog import CASE_TYPES, TYPE_LABELS
 from ..db.models import Attempt, Exercise, Revenge
 from ..game.xp import base_xp
+from ..generation.service import BONUS_MODE
 
 REVENGE_MULTIPLIER = 1.2
 
@@ -30,6 +33,7 @@ class Card:
     pinned: bool = False
     done: bool = False
     best_score: int | None = None
+    bonus: bool = False
 
     def as_dict(self) -> dict[str, Any]:
         ex = self.exercise
@@ -52,7 +56,12 @@ class Card:
             "done": self.done,
             "best_score": self.best_score,
             "xp_potential": xp,
-            "due_label": "À rendre dimanche soir" if ex.type == "cadrage_home" else None,
+            "due_label": (
+                "À rendre dimanche soir"
+                if ex.type == "cadrage_home"
+                else ("Bonus · quand tu veux" if self.bonus else None)
+            ),
+            "is_bonus": self.bonus,
         }
 
 
@@ -96,7 +105,11 @@ async def build_cards(session: AsyncSession, user_id: uuid.UUID, day: date) -> l
             .limit(1)
         )
         pinned = (await session.execute(stmt)).scalars().first()
-    exercises = [e for e in exercises if e.type != "cadrage_home" and not _is_mock_slot(e)]
+    exercises = [
+        e
+        for e in exercises
+        if e.type != "cadrage_home" and not _is_mock_slot(e) and e.generation_mode != BONUS_MODE
+    ]
 
     revenges = (
         await session.execute(
@@ -138,15 +151,58 @@ async def build_cards(session: AsyncSession, user_id: uuid.UUID, day: date) -> l
             continue
         seen.add(ex.id)
         cards.append(Card(exercise=ex, is_revenge=True, revenge_step=revenge.step))
+    cards += await bonus_cards(session, user_id, day)
     return cards
 
 
+async def bonus_cards(session: AsyncSession, user_id: uuid.UUID, day: date) -> list[Card]:
+    """The bonus pack, brainteasers then cases by difficulty: not done yet, or done today."""
+    pack = list(
+        (
+            await session.execute(
+                select(Exercise).where(
+                    Exercise.generation_mode == BONUS_MODE,
+                    Exercise.date <= day,
+                    Exercise.flagged.is_(False),
+                )
+            )
+        )
+        .scalars()
+        .all()
+    )
+    if not pack:
+        return []
+    ids = [e.id for e in pack]
+    best = await best_main_scores(session, user_id, ids)
+    done_today = set(
+        (
+            await session.execute(
+                select(Attempt.exercise_id).where(
+                    Attempt.user_id == user_id,
+                    Attempt.kind == "main",
+                    Attempt.local_date == day,
+                    Attempt.exercise_id.in_(ids),
+                )
+            )
+        )
+        .scalars()
+        .all()
+    )
+    shown = [e for e in pack if e.id not in best or e.id in done_today]
+    shown.sort(key=lambda e: (e.type != "brainteaser", e.difficulty, e.slot))
+    return [
+        Card(exercise=e, done=e.id in best, best_score=best.get(e.id), bonus=True) for e in shown
+    ]
+
+
 def remaining(cards: list[Card]) -> int:
-    """Cards left today (the icon badge and the widget figure); cadrage_home excluded."""
-    return sum(1 for c in cards if not c.done and c.exercise.type != "cadrage_home")
+    """Cards left today (the icon badge and the widget figure); cadrage_home and bonus excluded."""
+    return sum(1 for c in cards if not c.done and not c.bonus and c.exercise.type != "cadrage_home")
 
 
 def day_complete(cards: list[Card]) -> bool:
-    """Every regular card of the day done (revenges and cadrage_home not required)."""
-    regular = [c for c in cards if not c.is_revenge and c.exercise.type != "cadrage_home"]
+    """Every regular card of the day done (revenges, bonus and cadrage_home not required)."""
+    regular = [
+        c for c in cards if not c.is_revenge and not c.bonus and c.exercise.type != "cadrage_home"
+    ]
     return bool(regular) and all(c.done for c in regular)

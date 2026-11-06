@@ -116,3 +116,25 @@ async def admin_client(client):
     )
     assert resp.status_code == 204, resp.text
     return client, user
+
+
+@pytest.fixture
+def fake_cli(tmp_path, monkeypatch):
+    """A fake Claude Code CLI (tests/fake_claude.py) as CLAUDE_CODE_BIN, with a token set."""
+    import stat
+    import sys
+    from pathlib import Path
+
+    from app.llm import anthropic_client
+
+    binary = tmp_path / "claude"
+    binary.write_text(
+        f"#!{sys.executable}\n" + (Path(__file__).parent / "fake_claude.py").read_text()
+    )
+    binary.chmod(binary.stat().st_mode | stat.S_IEXEC)
+    (tmp_path / "root.txt").write_text(str(Path(__file__).resolve().parents[1]))
+    monkeypatch.setenv("CLAUDE_CODE_BIN", str(binary))
+    monkeypatch.setenv("CLAUDE_CODE_OAUTH_TOKEN", "sk-ant-oat01-test")
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-ant-api-must-not-reach-the-cli")
+    anthropic_client.set_client_for_testing(None)
+    return tmp_path

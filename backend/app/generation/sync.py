@@ -1,7 +1,8 @@
 """Synchronous generation of one slot: call Claude, parse, validate, retry twice.
 
-Used by the seed script, the 05:30 fallback, and to redo slots a batch
-failed. Each attempt's tokens and cost are counted, failed or not.
+Used every night with Claude Code (DEVIATIONS D15), by the seed script, the 05:30
+fallback, and to redo slots a batch failed. Each attempt's tokens and cost are
+counted, failed or not.
 """
 
 from __future__ import annotations
@@ -12,10 +13,10 @@ from typing import Any
 
 from anthropic import APIConnectionError, APIStatusError
 
-from ..llm import anthropic_client
+from ..llm import anthropic_client, claude_code, prompts
 from ..llm.cost_tracker import Usage, usage_of
-from ..llm.messages import extract_json, final_text, search_urls
-from . import request, schema
+from ..llm.messages import extract_json, final_text, normalize_url, search_urls
+from . import provider, request, schema
 from .context import GenerationContext
 from .planner import DayPlan, SlotSpec
 
@@ -64,8 +65,49 @@ def parse_message(
     )
 
 
+async def _generate_slot_cli(plan: DayPlan, spec: SlotSpec, ctx: GenerationContext) -> SlotResult:
+    """The same three attempts, written by Claude Code; its web search replaces the API's."""
+    result = SlotResult(spec=spec)
+    tools = ["WebSearch"] if spec.web_search and anthropic_client.WEB_SEARCH_MAX_USES > 0 else []
+    for attempt in range(1, MAX_ATTEMPTS + 1):
+        run = claude_code.Run()
+        try:
+            await claude_code.ask(
+                prompts.load("generate"),
+                request.user_message(plan, spec, ctx),
+                run,
+                tools=tools,
+                pool="generation",
+                timeout=claude_code.GENERATION_TIMEOUT_SECONDS,
+                model_name=claude_code.generation_model(),
+                effort_level=claude_code.generation_effort(),
+            )
+        except claude_code.ClaudeCodeError as exc:
+            result.errors.append({"slot": spec.slot, "attempt": attempt, "error": str(exc)})
+            logger.warning("Generation %s attempt %d: %s", spec.slot, attempt, exc)
+            continue
+        run.usage.models = {run.model} if run.model else run.usage.models
+        result.usage.add(run.usage)
+        try:
+            result.fields = schema.validate(
+                extract_json(run.final_text or run.text),
+                spec,
+                search_urls={normalize_url(u) for u in run.urls} if spec.web_search else None,
+                weaknesses=ctx.weakness_keys,
+                recent_titles=ctx.recent_titles.get(spec.type),
+            )
+            return result
+        except ValueError as exc:
+            result.errors.append({"slot": spec.slot, "attempt": attempt, "error": str(exc)[:500]})
+            logger.warning("Generation %s attempt %d rejected: %s", spec.slot, attempt, exc)
+    return result
+
+
 async def generate_slot(plan: DayPlan, spec: SlotSpec, ctx: GenerationContext) -> SlotResult:
-    """Up to three attempts for one slot. Raises RuntimeError if no API key."""
+    """Up to three attempts for one slot, by Claude Code when its token is set, else by the
+    API. Raises RuntimeError if neither is configured."""
+    if provider.provider() == "claude_code":
+        return await _generate_slot_cli(plan, spec, ctx)
     client = anthropic_client.get_client()
     result = SlotResult(spec=spec)
     for attempt in range(1, MAX_ATTEMPTS + 1):
