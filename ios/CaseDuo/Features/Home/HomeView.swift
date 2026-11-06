@@ -68,7 +68,6 @@ struct HomeView: View {
                             ExerciseCardView(card: card)
                         }
                         .buttonStyle(.plain)
-                        .simultaneousGesture(TapGesture().onEnded { Haptics.shared.play(.tap) })
                     }
                 }
 
@@ -87,6 +86,7 @@ struct HomeView: View {
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 24)
+            .containerRelativeFrame(.horizontal)  // exactly the screen width: no sideways panning
         }
         .refreshable { await model.refreshToday() }
         .safeAreaInset(edge: .bottom) {

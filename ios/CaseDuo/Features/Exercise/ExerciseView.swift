@@ -63,6 +63,7 @@ struct ExerciseView: View {
 
     private func load() async {
         guard exercise == nil else { return }
+        Haptics.shared.play(.tap)
         do {
             let detail = try await model.service.exercise(id: exerciseId)
             exercise = detail
