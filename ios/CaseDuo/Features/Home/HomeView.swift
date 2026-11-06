@@ -1,9 +1,10 @@
 import CaseDuoCore
 import SwiftUI
 
-/// The day: the streak first and big, the commitment, then the cards by family (D16): the
-/// cadrage à domicile pinned, brainteasers, fit, cases by difficulty, revenges. Sunday's mock
-/// sits on top. The bonus pack lives in the Entraîner tab.
+/// The day: the streak first and big, the commitment, the Parcours (D17: the course as a
+/// winding path), then the day's cards by family (D16): the cadrage à domicile pinned,
+/// brainteasers, fit, cases by difficulty, revenges. Sunday's mock sits on top. The bonus pack
+/// lives in the Entraîner tab.
 struct HomeView: View {
     @Environment(AppModel.self) private var model
 
@@ -58,6 +59,20 @@ struct HomeView: View {
                         .foregroundStyle(Brand.success)
                 }
 
+                // The Parcours (D17): the course, step by step, before the day's exercises.
+                if let path = model.path {
+                    PathMapView(path: path)
+                } else if let pathError = model.pathError {
+                    ErrorBanner(message: "Parcours indisponible : \(pathError)")
+                }
+
+                HStack(spacing: 8) {
+                    Image(systemName: "calendar").font(.subheadline.weight(.bold)).foregroundStyle(Brand.textSecondary)
+                    Text("Le plan du jour").font(.title3.weight(.bold))
+                    Spacer()
+                }
+                .padding(.top, 10)
+
                 ForEach(sections) { section in
                     SectionHeader(title: section.title, symbol: section.symbol,
                                   tint: section.category.map { Brand.color(for: $0) } ?? Brand.revenge,
@@ -88,7 +103,10 @@ struct HomeView: View {
             .padding(.bottom, 24)
             .containerRelativeFrame(.horizontal)  // exactly the screen width: no sideways panning
         }
-        .refreshable { await model.refreshToday() }
+        .refreshable {
+            await model.refreshToday()
+            await model.refreshPath()
+        }
         .safeAreaInset(edge: .bottom) {
             if today.goal.met || today.dayComplete {
                 BottomActions {

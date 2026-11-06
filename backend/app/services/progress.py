@@ -40,7 +40,7 @@ class ProgressResult:
         return dict(self.__dict__)
 
 
-__all__ = ["ProgressResult", "apply_attempt", "daily_row", "goal_for"]
+__all__ = ["ProgressResult", "apply_attempt", "apply_xp", "daily_row", "goal_for"]
 
 
 def goal_for(user: User, day: date) -> int:
@@ -50,13 +50,22 @@ def goal_for(user: User, day: date) -> int:
 async def apply_attempt(
     session: AsyncSession, user: User, attempt: Attempt, exercise: Exercise
 ) -> ProgressResult:
-    day = attempt.local_date
+    return await apply_xp(
+        session, user, attempt.local_date, attempt.xp_earned, exercise_done=attempt.kind == "main"
+    )
+
+
+async def apply_xp(
+    session: AsyncSession, user: User, day: date, xp: int, *, exercise_done: bool = False
+) -> ProgressResult:
+    """XP earned by anything (an attempt, a lesson of the Parcours): the day's total, the
+    goal, the streak, the day-complete bonus, the cards left."""
     await streak_service.rollover(session, user, day)
     daily = await daily_row(session, user, day)
-    daily.xp_earned += attempt.xp_earned
-    if attempt.kind == "main":
+    daily.xp_earned += xp
+    if exercise_done:
         daily.exercises_done += 1
-    user.xp_total += attempt.xp_earned
+    user.xp_total += xp
     user.last_active_date = day
     user.push_disengaged = False
 

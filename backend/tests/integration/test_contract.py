@@ -17,8 +17,10 @@ import pytest
 from app.content import bonus
 from app.generation import service as gen_service
 from app.llm import anthropic_client
+from app.path.loader import import_content
 from app.routers import mocks as mocks_router
 from app.services.clock import today_for
+from tests import showcase_path
 from tests.fake_llm import FakeClient, attach_grader, grade_text
 
 pytestmark = pytest.mark.integration
@@ -44,7 +46,7 @@ def llm():
     anthropic_client.set_client_for_testing(None)
 
 
-async def test_every_screen_response(admin_client, db, llm, monkeypatch):
+async def test_every_screen_response(admin_client, db, llm, monkeypatch, tmp_path, fake_cli):
     client, user = admin_client
     out: dict[str, object] = {}
     await gen_service.insert_starter_pack(db, today_for(user))
@@ -112,6 +114,26 @@ async def test_every_screen_response(admin_client, db, llm, monkeypatch):
     await get("widget", "/api/widget")
     await get("day_summary", "/api/day/summary")
 
+    showcase = tmp_path / "showcase"
+    showcase_path.write(showcase)
+    await import_content(db, showcase)
+    await get("path", "/api/path")
+    lesson = (await client.post("/api/path/nodes/d1.showcase/start", json={"seed": 7})).json()
+    out["path_lesson"] = lesson
+    assert {it["format"] for it in lesson["items"]} == set(
+        it["format"] for it in showcase_path.items()
+    ), "every format in the showcase lesson"
+    results = [
+        {"item_id": it["id"], "correct": True, "first_try": it["difficulty"] < 3}
+        for it in lesson["items"]
+    ]
+    results[-1]["transcript"] = (
+        "Je reformule : réduire le délai d'admission sans ouvrir de lits. Je vois trois axes."
+    )
+    resp = await client.post("/api/path/nodes/d1.showcase/complete", json={"results": results})
+    assert resp.status_code == 200, resp.text
+    out["path_complete"] = resp.json()
+
     sunday = date(2026, 11, 8)
     monkeypatch.setattr(mocks_router, "today_for", lambda u: sunday)
     await gen_service.generate_day_sync(db, sunday)
@@ -148,7 +170,7 @@ async def test_every_screen_response(admin_client, db, llm, monkeypatch):
     resp = await client.patch("/api/me", json={"daily_goal_xp": 45})
     out["error_422"] = resp.json()
 
-    assert len(out) == 21
+    assert len(out) == 24
     if os.getenv("UPDATE_CONTRACT_FIXTURES") == "1":
         FIXTURES.mkdir(parents=True, exist_ok=True)
         for name, body in out.items():

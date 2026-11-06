@@ -75,7 +75,16 @@ protocol CaseDuoService: AnyObject, Sendable {
     func finishMock(id: ID) async throws -> MockFinish
 
     func flag(exerciseId: ID, flagged: Bool, note: String?) async throws
+
+    // The Parcours (docs/PARCOURS.md)
+    func path() async throws -> PathView
+    func startNode(code: String, seed: Int?) async throws -> LessonStart
+    func completeNode(code: String, _ body: LessonCompletionRequest) async throws -> LessonCompletion
+    func flagItem(id: String, note: String?) async throws -> FlagResult
 }
+
+struct LessonSeed: Encodable { var seed: Int? }
+struct ItemFlag: Encodable { var note: String? }
 
 /// The real backend, over URLSession. The session cookie (`caseduo_auth`) lives in the App
 /// Group's cookie storage, so the widget can make the same calls; URLSession keeps it and sends
@@ -268,6 +277,19 @@ final class LiveService: CaseDuoService, @unchecked Sendable {
 
     func flag(exerciseId: ID, flagged: Bool, note: String?) async throws {
         try await callNoContent("POST", "/admin/exercises/\(exerciseId)/flag", body: FlagRequest(flagged: flagged, note: note))
+    }
+
+    // MARK: Parcours
+
+    func path() async throws -> PathView { try await call("GET", "/path") }
+    func startNode(code: String, seed: Int?) async throws -> LessonStart {
+        try await call("POST", "/path/nodes/\(code)/start", body: LessonSeed(seed: seed))
+    }
+    func completeNode(code: String, _ body: LessonCompletionRequest) async throws -> LessonCompletion {
+        try await call("POST", "/path/nodes/\(code)/complete", body: body)
+    }
+    func flagItem(id: String, note: String?) async throws -> FlagResult {
+        try await call("POST", "/path/items/\(id)/flag", body: ItemFlag(note: note))
     }
 }
 

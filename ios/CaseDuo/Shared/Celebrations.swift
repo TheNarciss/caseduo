@@ -191,3 +191,87 @@ struct DayCompleteOverlay: View {
         .card(radius: 16)
     }
 }
+
+/// The end of a graded exercise: the mascot, the score, the XP and the streak on a full screen,
+/// then « Continuer » goes straight back to the day (or to Entraîner). « Lire la correction »
+/// keeps the feedback on screen for those who want it.
+struct ExerciseDoneOverlay: View {
+    let score: Int
+    let xp: XPInfo?
+    let progress: GradeProgress?
+    let type: ExerciseType
+    let isRevenge: Bool
+    let read: () -> Void
+    let leave: () -> Void
+    @Environment(\.palette) private var palette
+    @State private var burst = 0
+    @State private var shown = false
+
+    private var tint: Color { Brand.color(for: type) }
+
+    private var mood: MascotMood {
+        switch score {
+        case 80...: return .proud
+        case 50..<80: return .happy
+        default: return .sad
+        }
+    }
+
+    private var title: String {
+        switch score {
+        case 90...: return "Excellent !"
+        case 80..<90: return "Très bien"
+        case 65..<80: return "Bien joué"
+        case 50..<65: return "Ça progresse"
+        default: return "On s'accroche"
+        }
+    }
+
+    var body: some View {
+        ZStack {
+            Brand.background.ignoresSafeArea()
+            BurstView(trigger: burst, colors: [tint, tint.opacity(0.7), palette.accent, Brand.success, .white], count: 40)
+                .frame(width: 320, height: 320)
+                .offset(y: -80)
+            VStack(spacing: 18) {
+                Spacer()
+                FlameMascot(mood: mood, size: 140)
+                    .scaleEffect(shown ? 1 : 0.6)
+                Text(title)
+                    .font(.system(size: 34, weight: .heavy, design: .rounded))
+                    .foregroundStyle(score >= 50 ? AnyShapeStyle(palette.linear) : AnyShapeStyle(Brand.textSecondary))
+                HStack(spacing: 12) {
+                    VStack(spacing: 4) {
+                        Text("\(score)").font(.title.weight(.heavy)).monospacedDigit().foregroundStyle(Brand.scoreColor(score))
+                        Text("sur 100").font(.caption).foregroundStyle(Brand.textSecondary)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .card(radius: 16)
+                    VStack(spacing: 4) {
+                        XPPop(earned: xp?.earned ?? 0, tint: palette.accent)
+                        Text(isRevenge ? "revanche ×1,2" : "gagnés").font(.caption).foregroundStyle(Brand.textSecondary)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .card(radius: 16)
+                }
+                if let progress {
+                    ProgressLine(progress: progress)
+                }
+                Spacer()
+                Button("Continuer", action: leave)
+                    .buttonStyle(.pill(score >= 50 ? .success : .primary))
+                    .accessibilityIdentifier("result.continue")
+                Button("Lire la correction", action: read)
+                    .buttonStyle(.pill(.quiet))
+                    .accessibilityIdentifier("result.read")
+            }
+            .padding(24)
+        }
+        .onAppear {
+            withAnimation(.spring(duration: 0.5, bounce: 0.4)) { shown = true }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { burst += 1 }
+        }
+    }
+}

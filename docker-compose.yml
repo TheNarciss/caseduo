@@ -36,6 +36,7 @@ services:
     environment:
       DATABASE_URL: postgresql+asyncpg://caseduo:${POSTGRES_PASSWORD:-caseduo_dev}@postgres:5432/caseduo
       PROMPTS_DIR: /app/prompts
+      CONTENT_DIR: /app/content
       WATCHFILES_FORCE_POLLING: "true"
     env_file:
       - ./backend/.env
@@ -46,6 +47,7 @@ services:
       - ./backend/alembic:/app/alembic
       # Les prompts se modifient sans rebuild (DEVIATIONS D4, PROMPT_TUNING.md)
       - ./prompts:/app/prompts:ro
+      - ./content:/app/content:ro
     depends_on:
       postgres:
         condition: service_healthy

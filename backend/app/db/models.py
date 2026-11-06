@@ -211,6 +211,106 @@ class GoalCommitment(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
 
 
+# ── Le Parcours (docs/PARCOURS.md) ─────────────────────────────────────────
+
+
+class PathUnit(Base):
+    """One unit of the course, loaded from content/path/units/*.json."""
+
+    __tablename__ = "path_units"
+
+    code: Mapped[str] = mapped_column(String(16), primary_key=True)
+    order: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    track: Mapped[str] = mapped_column(String(16), nullable=False, default="common")
+    title: Mapped[str] = mapped_column(String(80), nullable=False)
+    subtitle: Mapped[str] = mapped_column(String(160), nullable=False, default="")
+    symbol: Mapped[str] = mapped_column(String(40), nullable=False, default="book.fill")
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=_now, onupdate=_now
+    )
+
+
+class PathNode(Base):
+    """One circle on the path: a lesson, a review, an applied step, a checkpoint, a legendary."""
+
+    __tablename__ = "path_nodes"
+
+    code: Mapped[str] = mapped_column(String(48), primary_key=True)
+    unit_code: Mapped[str] = mapped_column(
+        String(16), ForeignKey("path_units.code", ondelete="CASCADE"), nullable=False
+    )
+    position: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    kind: Mapped[str] = mapped_column(String(12), nullable=False)
+    title: Mapped[str] = mapped_column(String(80), nullable=False)
+    objective: Mapped[str] = mapped_column(String(240), nullable=False, default="")
+    errors: Mapped[list[str]] = mapped_column(JSONB, nullable=False, default=list)
+    formats: Mapped[list[str]] = mapped_column(JSONB, nullable=False, default=list)
+    items: Mapped[int] = mapped_column(SmallInteger, nullable=False, default=10)
+    applied_type: Mapped[str | None] = mapped_column(String(24), nullable=True)
+    active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+
+
+class PathItem(Base):
+    """One micro-exercise of the bank (validated by app/path/schema.py before insert)."""
+
+    __tablename__ = "path_items"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    format: Mapped[str] = mapped_column(String(24), nullable=False)
+    skill: Mapped[str] = mapped_column(String(48), nullable=False, index=True)
+    unit_code: Mapped[str] = mapped_column(String(16), nullable=False)
+    difficulty: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    lang: Mapped[str] = mapped_column(String(2), nullable=False, default="fr")
+    sector: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    stem: Mapped[str] = mapped_column(Text, nullable=False, default="")
+    media: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)
+    explanation: Mapped[str] = mapped_column(Text, nullable=False, default="")
+    payload: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False)
+    tags: Mapped[list[str]] = mapped_column(JSONB, nullable=False, default=list)
+    source: Mapped[str] = mapped_column(String(16), nullable=False, default="repo")
+    content_hash: Mapped[str] = mapped_column(String(16), nullable=False, default="")
+    flag_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    flag_note: Mapped[str | None] = mapped_column(String(300), nullable=True)
+    retired: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
+class PathProgress(Base):
+    """What a user did on a node: done, best score, how many times."""
+
+    __tablename__ = "path_progress"
+
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
+    node_code: Mapped[str] = mapped_column(
+        String(48), ForeignKey("path_nodes.code", ondelete="CASCADE"), primary_key=True
+    )
+    best_score: Mapped[int] = mapped_column(SmallInteger, nullable=False, default=0)
+    times: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    completed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
+class PathItemResult(Base):
+    """One answer to one item: what review, difficulty and the badge « mauvais » read."""
+
+    __tablename__ = "path_item_results"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
+    item_id: Mapped[str] = mapped_column(
+        String(64), ForeignKey("path_items.id", ondelete="CASCADE"), nullable=False
+    )
+    node_code: Mapped[str] = mapped_column(String(48), nullable=False)
+    correct: Mapped[bool] = mapped_column(Boolean, nullable=False)
+    first_try: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    ms: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    response: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
 class UserBadge(Base):
     __tablename__ = "user_badges"
 

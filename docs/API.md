@@ -254,6 +254,55 @@ Paliers : `bronze`, `silver` (Argent), `gold` (Or).
 ```
 Déroulé dans l'app : pour chaque étape, réponse orale, `POST /grade` avec `mock_run_id` (le feedback n'est pas montré pendant le mock) ; si `follow_up_after`, la relance renvoyée est posée tout de suite, puis `POST /grade` en `kind: follow_up`. Pas de retour en arrière. À la fin, `POST /mocks/{id}/finish`.
 
+## Parcours
+
+Le cours (docs/PARCOURS.md) : des unités, chacune une suite d'étapes (`lesson`, `review`, `applied`, `checkpoint`, `legendary`), chaque étape une leçon de 10 à 12 items. Le contenu vit dans `content/path` (JSON validé par `app/path/schema.py`) et se charge au démarrage.
+
+`GET /path` →
+```json
+{
+  "units": [{"code": "u1", "order": 1, "track": "common", "title": "Ouvrir un case", "subtitle": "…", "symbol": "door.left.hand.open",
+             "done": 2, "total": 6,
+             "nodes": [{"code": "u1.reformulate", "kind": "lesson", "title": "Reformuler", "objective": "…",
+                        "status": "done", "best_score": 90, "times": 1, "items": 10, "applied_type": null, "xp": 10},
+                       {"code": "u1.applied", "kind": "applied", "title": "En situation", "objective": null,
+                        "status": "available", "best_score": null, "times": 0, "items": 0, "applied_type": "case", "xp": 0}]}],
+  "active_node": "u1.clarify", "done": 2, "total": 23
+}
+```
+
+`status` : `done`, `active` (la prochaine étape obligatoire), `available` (une étape facultative ouverte : « en situation », légendaire), `locked`. Le déblocage est linéaire ; `done` et `total` ne comptent que les étapes obligatoires.
+
+`POST /path/nodes/{code}/start` `{"seed": 42}` (facultatif) → la leçon composée : la carte de concept d'abord, les items jamais vus avant les autres, 30 % de révision des leçons précédentes, du plus facile au plus dur, l'item oral en dernier. Chaque item porte sa clé : **la correction se fait sur le téléphone** (`PathGrader` dans CaseDuoCore), le serveur ne reçoit que les résultats.
+```json
+{"node": {"code": "u1.clarify", "kind": "lesson", "title": "Clarifier", "objective": "…"},
+ "items": [{"id": "u1.clarify.001", "format": "concept_card", "skill": "u1.clarify", "difficulty": 1, "lang": "fr", "sector": null,
+            "stem": "", "media": null, "explanation": "", "payload": {"screens": [{"title": "…", "body": "…"}]}},
+           {"id": "u1.clarify.004", "format": "first_question", "skill": "u1.clarify", "difficulty": 2, "lang": "fr", "sector": "retail",
+            "stem": "…", "media": null, "explanation": "La règle.",
+            "payload": {"options": [{"id": "a", "text": "…"}, {"id": "b", "text": "…", "why_wrong": "…"}], "correct": "a"}}],
+ "xp": 10, "perfect_bonus": 5, "pass_score": null}
+```
+409 si l'étape est verrouillée. Les 17 formats et leurs `payload` sont décrits dans `content/path/GUIDE.md` ; `media` (facultatif) est un petit graphique dessiné par l'app : `bar`, `line`, `table` ou `tree`.
+
+`POST /path/nodes/{code}/complete`
+```json
+{"results": [{"item_id": "u1.clarify.001", "correct": true, "first_try": true, "ms": 2100},
+             {"item_id": "u1.check.011", "correct": true, "transcript": "Je reformule : …"}],
+ "attempt_id": null}
+```
+→
+```json
+{"node": "u1.clarify", "passed": true, "score": 80, "xp": 10, "replay": false,
+ "oral": [{"item_id": "u1.check.011", "score": 67, "feedback": "### Ce qui était bien\n…",
+           "criteria": [{"key": "reformulation", "label": "…", "weight": 2, "score": 2, "justification": "…"}]}],
+ "progress": {"xp_today": 30, "goal_target": 50, "goal_met": false, "streak": {…}, "streak_extended": true, "day_complete": false, "remaining": 4, "new_badges": []},
+ "next_node": "u1.minute", "unit_done": false}
+```
+`score` : les items notés réussis **au premier essai**, en pourcentage. XP : leçon et révision 10 (+5 sans faute), bilan 20 (réussi à partir de 60 %), légendaire 40 (75 %), 5 quand on refait une étape déjà réussie. `progress` est le même objet qu'après une notation : les XP comptent pour l'objectif, l'engagement et la série. L'item oral (`transcript`) est noté par Claude avec la rubric de l'item ; sans jeton, `score` est `null` et le feedback le dit. Pour une étape `applied`, `results` est vide et `attempt_id` désigne une réponse du jour à un exercice de la famille voulue (`applied_type` : `case`, `cadrage`, `fit`, `brainteaser`) ; 400 sinon.
+
+`POST /path/items/{id}/flag` `{"note": "ambigu"}` → `{"id": "…", "flag_count": 1, "retired": false}`. Au troisième signalement l'item sort des leçons.
+
 ## Admin (superuser)
 
 - `GET /admin/review/{date}` (JSON) et la page HTML `GET /admin/review/{date}` hors `/api` (lisible dans un navigateur, se connecte avec le même cookie).

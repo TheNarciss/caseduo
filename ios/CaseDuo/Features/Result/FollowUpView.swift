@@ -153,7 +153,11 @@ struct FollowUpView: View {
             }
         } else if session?.isFinished == true {
             BottomActions {
-                Button("Terminer") { dismiss() }.buttonStyle(.pill)
+                Button("Terminer") {
+                    dismiss()
+                    model.popToRoot()
+                }
+                .buttonStyle(.pill)
             }
         }
     }

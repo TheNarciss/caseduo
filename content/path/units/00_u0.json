@@ -1,0 +1,83 @@
+{
+ "code": "u0",
+ "order": 0,
+ "track": "common",
+ "title": "Anatomie de l'entretien",
+ "symbol": "map.fill",
+ "subtitle": "Les formats, ce qu'on note, ce qui élimine.",
+ "nodes": [
+  {
+   "code": "u0.formats",
+   "kind": "lesson",
+   "title": "Les formats d'entretien",
+   "objective": "Reconnaître les formats (case mené par le candidat ou par l'interviewer, case écrit sur 48 h, test en ligne, entretien de fit) et ce que chacun attend du candidat.",
+   "errors": [
+    "Croire qu'un case mené par l'interviewer se « gagne » en parlant beaucoup",
+    "Préparer un seul format",
+    "Ignorer que le fit pèse autant que le case dans la plupart des cabinets"
+   ],
+   "formats": [
+    "concept_card",
+    "first_question",
+    "swipe_valid",
+    "match_pairs",
+    "fill_blank",
+    "order_steps"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u0.criteria",
+   "kind": "lesson",
+   "title": "Ce que l'interviewer note",
+   "objective": "Connaître la grille implicite (structure, analyse et chiffres, jugement business, communication, synthèse, présence) et ce qu'un « très bien » exige sur chacune.",
+   "errors": [
+    "Penser que la bonne réponse suffit",
+    "Négliger la communication (dire ce qu'on va faire avant de le faire)",
+    "Oublier la synthèse finale"
+   ],
+   "formats": [
+    "concept_card",
+    "match_pairs",
+    "swipe_valid",
+    "pick_so_what",
+    "fill_blank",
+    "mece_sort"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u0.mistakes",
+   "kind": "lesson",
+   "title": "Les erreurs qui éliminent",
+   "objective": "Repérer dans une réponse les sept erreurs classiques : résoudre une autre question, framework plaqué, chiffre sans sens, pas de recommandation, réponse enterrée, jargon à la place du raisonnement, se dévaloriser.",
+   "errors": [
+    "Enchaîner les analyses sans jamais conclure",
+    "Dire « je ne suis pas sûr » au lieu de poser une hypothèse",
+    "Réciter un framework sans l'adapter"
+   ],
+   "formats": [
+    "concept_card",
+    "spot_error",
+    "swipe_valid",
+    "choose_structure",
+    "fill_blank",
+    "headline_tiles"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u0.check",
+   "kind": "checkpoint",
+   "title": "Bilan : l'entretien vu d'en haut",
+   "formats": [
+    "swipe_valid",
+    "match_pairs",
+    "spot_error",
+    "fill_blank",
+    "oral_prompt"
+   ],
+   "items": 12
+  }
+ ]
+}

@@ -12,9 +12,11 @@ services:
       ENV: prod
       COOKIE_SECURE: "true"
       PROMPTS_DIR: /app/prompts
+      CONTENT_DIR: /app/content
     ports: !reset []                       # ← pas de port public
     volumes: !override                     # ← pas le code monté en dev, seulement les prompts
       - ./prompts:/app/prompts:ro
+      - ./content:/app/content:ro
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips '*'
 
   postgres:

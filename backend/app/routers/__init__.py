@@ -13,6 +13,7 @@ from . import (
     league,
     me,
     mocks,
+    path,
     today,
     training,
 )
@@ -20,6 +21,7 @@ from . import (
 ROUTERS: list[APIRouter] = [
     today.router,
     training.router,
+    path.router,
     exercises.router,
     grade.router,
     attempts.router,
