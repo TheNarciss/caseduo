@@ -112,9 +112,7 @@ struct CommitmentDots: View {
                 dot(day.state)
             }
         }
-        .onAppear {
-            withAnimation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true)) { pulse = true }
-        }
+        .onAppear { pulse = true }
         .accessibilityElement()
         .accessibilityLabel("\(days.filter { $0.state == "met" || $0.state == "frozen" }.count) jours tenus sur \(days.count)")
     }
@@ -133,6 +131,7 @@ struct CommitmentDots: View {
         case "today":
             Circle().fill(palette.accent).frame(width: 10, height: 10)
                 .scaleEffect(pulse ? 1.25 : 0.9)
+                .animation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true), value: pulse)
                 .frame(maxWidth: .infinity).frame(height: 18)
         default:
             Circle().fill(Color.white.opacity(0.14)).frame(width: 7, height: 7)

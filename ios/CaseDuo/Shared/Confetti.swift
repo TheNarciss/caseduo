@@ -79,9 +79,9 @@ struct FlameView: View {
                 .symbolEffect(.bounce, value: streak)
         }
         .frame(width: size * 1.3, height: size * 1.3)
-        .onAppear {
-            withAnimation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true)) { breathe = true }
-        }
+        // Scoped to this view: a global withAnimation(repeatForever) would leak into transitions.
+        .animation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true), value: breathe)
+        .onAppear { breathe = true }
         .accessibilityElement()
         .accessibilityLabel("Série de \(streak) jours")
     }
