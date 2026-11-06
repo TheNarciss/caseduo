@@ -197,6 +197,13 @@ final class DictationMergeTests: XCTestCase {
         // Shrank but still the same beginning: a rewrite, not a restart.
         XCTAssertFalse(DictationMerge.isNewUtterance(previous: "le client veut doubler sa marge en deux ans",
                                                      previousStart: nil, text: "le client veut", start: nil))
+        // The new sentence begins with the same short word as the old one ("je", "le", "on"): still new.
+        XCTAssertTrue(DictationMerge.isNewUtterance(previous: "je pense que le client veut doubler sa marge",
+                                                    previousStart: 0.3, text: "Je", start: 0.2))
+        XCTAssertTrue(DictationMerge.isNewUtterance(previous: "le client veut doubler sa marge",
+                                                    previousStart: nil, text: "Le deuxième", start: nil))
+        // Two words becoming two other words at the very start: an early rewrite, not a restart.
+        XCTAssertFalse(DictationMerge.isNewUtterance(previous: "le client", previousStart: 0.3, text: "les clients", start: 0.3))
     }
 
     func testJoinKeepsOneSpace() {
