@@ -21,6 +21,9 @@ final class AppModel {
     private(set) var phase: Phase = .launching
     private(set) var me: Me?
     private(set) var today: Today?
+    /// The Parcours (docs/PARCOURS.md): units, steps, what is open.
+    private(set) var path: PathView?
+    private(set) var pathError: String?
     private(set) var providers = Providers(apple: false)
     var errorMessage: String?
     var isRefreshing = false
@@ -116,6 +119,7 @@ final class AppModel {
         Sounds.shared.isEnabled = soundsEnabled
         phase = .ready
         await refreshToday()
+        await refreshPath()
         if notificationsEnabled, !AppConfig.isDemo {
             await notifications.requestAuthorizationAndRegister()
             await notifications.sendPendingToken()
@@ -137,6 +141,7 @@ final class AppModel {
         storage.cookies?.forEach { storage.deleteCookie($0) }
         me = nil
         today = nil
+        path = nil
         notifications.forgetToken()
         notifications.cancelAll()
         WidgetBridge.clear()
@@ -218,6 +223,78 @@ final class AppModel {
         }
         // Refresh in the background: revenge cards, unlocks, league position.
         Task { await refreshToday() }
+        Task { await completeAppliedStep(with: result.attempt) }
+    }
+
+    // MARK: Parcours
+
+    func refreshPath() async {
+        do {
+            path = try await service.path()
+            pathError = nil
+        } catch {
+            if (error as? APIError) == .unauthorized { clearSession(); return }
+            pathError = error.localizedDescription
+        }
+    }
+
+    /// What follows a lesson: XP into the day, streak, celebrations, then the path again.
+    func didCompleteLesson(_ done: LessonCompletion) {
+        if let progress = done.progress {
+            lastProgress = progress
+            if var day = today {
+                day.goal.xpToday = progress.xpToday
+                day.goal.met = progress.goalMet
+                if let target = progress.goalTarget { day.goal.targetXp = target }
+                day.streak = progress.streak
+                day.dayComplete = progress.dayComplete
+                today = day
+            }
+            WidgetBridge.update(from: progress)
+            notifications.rescheduleStreakSaver(today: today, enabled: notificationsEnabled)
+            if progress.perfectWeek == true {
+                celebrate(.perfectWeek)
+            } else if progress.streakExtended {
+                celebrate(.streakUp)
+            } else if progress.goalJustMet == true {
+                Haptics.shared.play(.goalMet)
+                Sounds.shared.play(.success)
+            }
+        }
+        if done.unitDone == true, done.passed { confettiTrigger += 1 }
+        Task { await refreshPath() }
+    }
+
+    /// The day's exercise that an « en situation » step opens: a card of the wanted family not
+    /// done yet, else the first card left.
+    func exerciseCard(forApplied type: String?) -> ExerciseCard? {
+        guard let cards = today?.cards else { return nil }
+        let wanted = type ?? "case"
+        let fits: (ExerciseCard) -> Bool = { card in
+            switch wanted {
+            case "case": return ![.brainteaser, .fit, .cadrageHome, .unknown].contains(card.type)
+            default: return card.type.rawValue == wanted
+            }
+        }
+        return cards.first { !$0.done && fits($0) } ?? cards.first { fits($0) } ?? cards.first { !$0.done }
+    }
+
+    /// After a grading, an open « en situation » step of the matching family is ticked.
+    private func completeAppliedStep(with attempt: Attempt) async {
+        guard attempt.kind == .main, let path else { return }
+        let open = path.allNodes.filter { $0.kind == .applied && ($0.status == .active || $0.status == .available) }
+        guard let node = open.first(where: { node in
+            let wanted = node.appliedType ?? "case"
+            guard let type = attempt.exercise?.type else { return wanted == "case" }
+            return wanted == "case" ? ![.brainteaser, .fit].contains(type) : type.rawValue == wanted
+        }) else { return }
+        do {
+            let done = try await service.completeNode(code: node.code, LessonCompletionRequest(results: [], attemptId: attempt.id))
+            if done.passed { Haptics.shared.play(.goalMet) }
+            await refreshPath()
+        } catch {
+            // The step stays open; the next grading tries again.
+        }
     }
 
     enum Celebration { case streakUp, perfectWeek, promotion, dayComplete }
@@ -270,7 +347,7 @@ final class AppModel {
     }
 
     #if DEBUG
-    /// CI screenshots: `-uiTab history|league|profile`, `-uiOpen exercise|result|dayclose|mock`.
+    /// CI screenshots: `-uiTab history|league|profile`, `-uiOpen exercise|result|dayclose|mock|lesson`.
     func applyDebugLaunchArguments() {
         let defaults = UserDefaults.standard
         switch defaults.string(forKey: "uiTab") {
@@ -292,6 +369,8 @@ final class AppModel {
             homePath = [.result(session)]
         case "dayclose":
             homePath = [.dayClose]
+        case "lesson":
+            homePath = [.lesson(code: "d1.showcase")]
         case "daycomplete":
             showDayComplete = true
         case "mock":

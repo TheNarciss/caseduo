@@ -101,6 +101,7 @@ stability 01-today 1300 900
 shoot 02-training 6 -uiTab training
 stability 02-training 900 1200
 shoot 03-exercise 6 -uiOpen exercise
+shoot 03b-lesson 7 -uiOpen lesson
 shoot 04-result 9 -uiOpen result
 shoot 05-day-complete 6 -uiOpen daycomplete
 shoot 06-history 6 -uiTab history

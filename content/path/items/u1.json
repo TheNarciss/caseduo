@@ -1,0 +1,4903 @@
+[
+ {
+  "id": "u1.reformulate.001",
+  "format": "concept_card",
+  "skill": "u1.reformulate",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Reformuler l'objectif",
+  "media": null,
+  "explanation": "",
+  "payload": {
+   "screens": [
+    {
+     "title": "L'idée",
+     "body": "Avant de structurer, tu redis la question **en une phrase à toi**, avec trois choses :\n\n- la **métrique** (profit ? CA ? coûts ? part de marché ?)\n- l'**horizon** (cette année ? d'ici 3 ans ?)\n- la **contrainte** (sans fermer de magasin ? budget plafonné ?)\n\nSi l'un des trois manque, tu risques de résoudre un autre problème que celui posé. Le cas classique : l'interviewer parle de *profit*, le candidat passe 20 minutes sur le *chiffre d'affaires*."
+    },
+    {
+     "title": "Exemple résolu",
+     "body": "**Énoncé :** « Notre client, une enseigne de bricolage, voit ses résultats baisser depuis deux ans alors que les ventes progressent. Le PDG veut un plan avant le prochain conseil, sans toucher au réseau de magasins. »\n\n**Reformulation :** « Si je comprends bien, l'objectif est de **rétablir la marge** (métrique) **d'ici le prochain conseil, donc à court terme** (horizon), **sans fermer de magasin** (contrainte). Le CA monte, donc le problème est sans doute côté coûts ou mix. C'est bien ça ? »\n\nTrois éléments, une question de validation, et déjà une direction."
+    },
+    {
+     "title": "À retenir",
+     "body": "- **Métrique** : profit ≠ CA ≠ volume. Si l'énoncé dit « résultats », « rentabilité », c'est le profit.\n- **Horizon** : s'il n'est pas dit, propose-le (« je prends 12 mois, ça vous va ? »).\n- **Contrainte** : ce que le client refuse de faire est souvent la clé de la structure.\n- Finis toujours par **« c'est bien ça ? »** : l'interviewer corrige ou confirme, et tu gagnes une info gratuite.\n- Ne répète pas l'énoncé mot pour mot : extrais, ne récite pas."
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.002",
+  "format": "choose_structure",
+  "skill": "u1.reformulate",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "« Notre client, une chaîne de supermarchés, voit son résultat net reculer de 15 % en deux ans. » Quelle est la métrique à reformuler ?",
+  "media": null,
+  "explanation": "« Résultat », « résultats », « rentabilité » = profit. Le CA n'est qu'une des deux moitiés du problème.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "La part de marché",
+     "why_wrong": "Rien dans l'énoncé ne parle de concurrents ou de parts."
+    },
+    {
+     "id": "b",
+     "text": "Le nombre de clients",
+     "why_wrong": "C'est un levier possible, pas la métrique visée."
+    },
+    {
+     "id": "c",
+     "text": "Le chiffre d'affaires",
+     "why_wrong": "Le CA peut monter pendant que le résultat baisse : ce n'est pas la question posée."
+    },
+    {
+     "id": "d",
+     "text": "Le résultat net (profit)"
+    }
+   ],
+   "correct": "d"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.003",
+  "format": "choose_structure",
+  "skill": "u1.reformulate",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "« La banque veut doubler le nombre de clients de son application mobile d'ici fin 2027. » Quel est l'horizon ?",
+  "media": null,
+  "explanation": "L'horizon se lit tel quel dans l'énoncé quand il y est ; il décide si on cherche des gains rapides ou un plan long.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Sur dix ans",
+     "why_wrong": "Trop long : aucun élément ne le justifie."
+    },
+    {
+     "id": "b",
+     "text": "Cette année",
+     "why_wrong": "L'énoncé dit fin 2027 : réduire l'horizon change les leviers possibles."
+    },
+    {
+     "id": "c",
+     "text": "D'ici fin 2027"
+    },
+    {
+     "id": "d",
+     "text": "Sans horizon précisé",
+     "why_wrong": "Il est bien précisé : relis la dernière partie de la phrase."
+    }
+   ],
+   "correct": "c"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.004",
+  "format": "choose_structure",
+  "skill": "u1.reformulate",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "« Un fournisseur d'électricité veut réduire ses coûts de service client de 20 % en 18 mois, sans dégrader la satisfaction. » Quelle est la contrainte ?",
+  "media": null,
+  "explanation": "La contrainte est ce que le client refuse de sacrifier. Elle élimine d'emblée des leviers (ici : couper le service).",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Le délai de 18 mois",
+     "why_wrong": "C'est l'horizon, pas la contrainte sur les moyens."
+    },
+    {
+     "id": "b",
+     "text": "Ne pas dégrader la satisfaction"
+    },
+    {
+     "id": "c",
+     "text": "Être fournisseur d'électricité",
+     "why_wrong": "C'est le contexte sectoriel, pas une condition sur la solution."
+    },
+    {
+     "id": "d",
+     "text": "Réduire les coûts de 20 %",
+     "why_wrong": "C'est l'objectif chiffré, pas la limite imposée."
+    }
+   ],
+   "correct": "b"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.005",
+  "format": "fill_blank",
+  "skill": "u1.reformulate",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "Complète la reformulation de ce case : « Un assureur auto perd des parts de marché depuis trois ans et veut inverser la tendance d'ici 2 ans. »",
+  "media": null,
+  "explanation": "Une reformulation = métrique + horizon + question de validation. Ici la métrique est la part de marché, pas le profit.",
+  "payload": {
+   "text": "« L'objectif est de regagner de la {{1}} d'ici {{2}}, c'est bien ça ? »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "part de marché",
+      "rentabilité",
+      "notoriété"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "la fin de l'année",
+      "2 ans",
+      "5 ans"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.006",
+  "format": "swipe_valid",
+  "skill": "u1.reformulate",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Énoncé : « Une clinique privée voit sa marge fondre depuis 2023 et veut revenir à 8 % d'ici 2 ans sans réduire ses effectifs soignants. » Valide ou non, chaque reformulation ?",
+  "media": null,
+  "explanation": "Une bonne reformulation garde les trois éléments et les traduit ; une mauvaise en perd un ou change la métrique.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Revenir à 8 % de marge en 2 ans sans toucher aux effectifs soignants. »",
+     "valid": true,
+     "reason": "Métrique, horizon, contrainte : tout y est, en une phrase."
+    },
+    {
+     "id": "c2",
+     "text": "« Augmenter le chiffre d'affaires de la clinique. »",
+     "valid": false,
+     "reason": "La métrique est la marge, pas le CA ; l'horizon et la contrainte ont disparu."
+    },
+    {
+     "id": "c3",
+     "text": "« Rétablir la rentabilité à 8 % d'ici 2 ans, sans réduire le personnel soignant. »",
+     "valid": true,
+     "reason": "Rentabilité = marge ici ; les trois éléments sont présents."
+    },
+    {
+     "id": "c4",
+     "text": "« Réduire les effectifs pour retrouver 8 % de marge. »",
+     "valid": false,
+     "reason": "C'est exactement le levier interdit par la contrainte."
+    },
+    {
+     "id": "c5",
+     "text": "« Comprendre pourquoi la clinique perd de l'argent. »",
+     "valid": false,
+     "reason": "Diagnostic utile, mais ni cible, ni horizon, ni contrainte : ce n'est pas l'objectif."
+    },
+    {
+     "id": "c6",
+     "text": "« Atteindre 8 % de marge d'ici 2 ans ; les effectifs soignants ne sont pas un levier. »",
+     "valid": true,
+     "reason": "Reformule et traduit déjà la contrainte en règle pour la structure."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.007",
+  "format": "headline_tiles",
+  "skill": "u1.reformulate",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "télécoms",
+  "stem": "Énoncé : « Un opérateur télécom veut réduire son churn de 15 % à 10 % en un an. » Remets les tuiles dans l'ordre pour former la reformulation ; laisse les intruses.",
+  "media": null,
+  "explanation": "Métrique (churn), cible chiffrée, horizon. « Augmenter le CA » est un autre problème.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "L'objectif est de"
+    },
+    {
+     "id": "t2",
+     "text": "faire passer le churn"
+    },
+    {
+     "id": "t3",
+     "text": "de 15 % à 10 %"
+    },
+    {
+     "id": "t4",
+     "text": "en un an"
+    },
+    {
+     "id": "t5",
+     "text": "augmenter le CA"
+    },
+    {
+     "id": "t6",
+     "text": "d'ici cinq ans"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4"
+   ],
+   "distractors": [
+    "t5",
+    "t6"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.008",
+  "format": "spot_error",
+  "skill": "u1.reformulate",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Énoncé : « Un équipementier automobile veut améliorer son EBITDA de 3 points en 2 ans, sans fermer d'usine. » Touche la ligne fautive de la reformulation.",
+  "media": null,
+  "explanation": "Points d'EBITDA = marge, pas chiffre d'affaires. Confondre les deux envoie vers les mauvais leviers.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Objectif : +3 points de marge EBITDA"
+    },
+    {
+     "id": "l2",
+     "text": "Horizon : 2 ans"
+    },
+    {
+     "id": "l3",
+     "text": "Donc il faut augmenter le CA de 3 %"
+    },
+    {
+     "id": "l4",
+     "text": "Contrainte : aucune fermeture d'usine"
+    }
+   ],
+   "wrong_line": "l3",
+   "fix": "3 points d'EBITDA ≠ 3 % de CA : on parle de marge, les leviers sont prix, mix et coûts."
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.009",
+  "format": "choose_structure",
+  "skill": "u1.reformulate",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "« Une métropole veut réduire de 30 % le temps d'attente aux guichets d'ici 2 ans, à budget constant. » Quelle reformulation est la plus juste ?",
+  "media": null,
+  "explanation": "La bonne reformulation traduit les trois éléments ; « à budget constant » est la contrainte qui structure tout.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Numériser les démarches de la métropole",
+     "why_wrong": "C'est une solution possible, pas l'objectif."
+    },
+    {
+     "id": "b",
+     "text": "Réduire le budget des guichets de 30 % en 2 ans",
+     "why_wrong": "Inverse l'objectif : le budget est la contrainte, pas la cible."
+    },
+    {
+     "id": "c",
+     "text": "Diviser par trois le temps d'attente",
+     "why_wrong": "−30 % n'est pas ÷3 : lis bien les chiffres."
+    },
+    {
+     "id": "d",
+     "text": "Baisser l'attente de 30 % en 2 ans sans budget supplémentaire"
+    }
+   ],
+   "correct": "d"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.010",
+  "format": "fill_blank",
+  "skill": "u1.reformulate",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "luxe",
+  "stem": "« Une maison de luxe veut ouvrir en Corée du Sud. Le comex demande si c'est rentable dans 5 ans. » Complète la reformulation.",
+  "media": null,
+  "explanation": "Entrée de marché : la métrique est la rentabilité à l'horizon donné, pas le simple CA ni la notoriété.",
+  "payload": {
+   "text": "« La question est : l'ouverture en Corée sera-t-elle {{1}} à horizon {{2}} ? »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "rentable",
+      "visible",
+      "rapide"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "1 an",
+      "5 ans",
+      "10 ans"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.011",
+  "format": "swipe_valid",
+  "skill": "u1.reformulate",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Énoncé : « Une scale-up SaaS veut atteindre l'équilibre (cash-flow positif) en 18 mois sans lever de fonds. » Quelles reformulations tiennent ?",
+  "media": null,
+  "explanation": "Cash-flow positif ≠ croissance du CA. La contrainte « sans lever » exclut une solution évidente : elle doit rester dans la phrase.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Devenir cash-flow positif en 18 mois, sans nouvelle levée. »",
+     "valid": true,
+     "reason": "Les trois éléments, dans l'ordre."
+    },
+    {
+     "id": "c2",
+     "text": "« Doubler le chiffre d'affaires en 18 mois. »",
+     "valid": false,
+     "reason": "On peut doubler le CA et brûler encore plus de cash."
+    },
+    {
+     "id": "c3",
+     "text": "« Atteindre l'équilibre de trésorerie d'ici un an et demi avec les moyens actuels. »",
+     "valid": true,
+     "reason": "Même contenu, autres mots : c'est bien reformuler, pas réciter."
+    },
+    {
+     "id": "c4",
+     "text": "« Lever un tour de série B pour tenir 18 mois. »",
+     "valid": false,
+     "reason": "C'est précisément ce que la contrainte interdit."
+    },
+    {
+     "id": "c5",
+     "text": "« Réduire les coûts de la scale-up. »",
+     "valid": false,
+     "reason": "Un levier parmi d'autres, sans cible ni horizon."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.012",
+  "format": "spot_error",
+  "skill": "u1.reformulate",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "Énoncé : « Une compagnie de bus régionale doit stabiliser son résultat dès cette année ; la région refuse toute hausse de tarif. » Repère la ligne fautive.",
+  "media": null,
+  "explanation": "L'horizon « dès cette année » exclut les investissements lourds à retour lointain : le garder change la structure.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Métrique : le résultat d'exploitation"
+    },
+    {
+     "id": "l2",
+     "text": "Horizon : un plan à 5 ans"
+    },
+    {
+     "id": "l3",
+     "text": "Contrainte : pas de hausse de tarif"
+    },
+    {
+     "id": "l4",
+     "text": "Donc les leviers sont le volume et les coûts"
+    }
+   ],
+   "wrong_line": "l2",
+   "fix": "L'énoncé dit « dès cette année » : horizon court, donc leviers rapides seulement."
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.013",
+  "format": "headline_tiles",
+  "skill": "u1.reformulate",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Énoncé : « Une banque régionale veut réduire de 25 % le coût de traitement des crédits immobiliers en 2 ans, sans dégrader le délai de réponse. » Compose la reformulation.",
+  "media": null,
+  "explanation": "La contrainte (délai de réponse) fait partie de l'objectif ; « gagner des clients » est hors sujet.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Réduire de 25 %"
+    },
+    {
+     "id": "t2",
+     "text": "le coût de traitement des crédits"
+    },
+    {
+     "id": "t3",
+     "text": "en 2 ans"
+    },
+    {
+     "id": "t4",
+     "text": "sans allonger le délai de réponse"
+    },
+    {
+     "id": "t5",
+     "text": "gagner des clients"
+    },
+    {
+     "id": "t6",
+     "text": "en fermant des agences"
+    },
+    {
+     "id": "t7",
+     "text": "dès ce trimestre"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4"
+   ],
+   "distractors": [
+    "t5",
+    "t6",
+    "t7"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.014",
+  "format": "choose_structure",
+  "skill": "u1.reformulate",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "« Nos ventes en ligne explosent mais le groupe gagne moins qu'avant. Le DG veut comprendre et corriger avant le budget 2027. » Que reformules-tu comme objectif ?",
+  "media": null,
+  "explanation": "Quand ventes et profit divergent, la métrique à reformuler est le profit ; le CA devient une piste de diagnostic (coût du canal).",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Rétablir le profit du groupe d'ici le budget 2027"
+    },
+    {
+     "id": "b",
+     "text": "Réduire les coûts logistiques du e-commerce",
+     "why_wrong": "C'est une hypothèse de cause, pas l'objectif reformulé."
+    },
+    {
+     "id": "c",
+     "text": "Fermer les magasins physiques non rentables",
+     "why_wrong": "Solution précipitée : rien ne dit que les magasins sont en cause."
+    },
+    {
+     "id": "d",
+     "text": "Accélérer encore la croissance du e-commerce",
+     "why_wrong": "Le CA monte déjà ; ce n'est pas le problème posé."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.015",
+  "format": "fill_blank",
+  "skill": "u1.reformulate",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "« Un énergéticien veut savoir s'il doit racheter un installateur de bornes de recharge. Le conseil veut un retour sur investissement sous 4 ans. » Complète.",
+  "media": null,
+  "explanation": "Due diligence : la question n'est pas « est-ce intéressant » mais « ce rachat rend-il la cible chiffrée (ROI) dans le délai ».",
+  "payload": {
+   "text": "« Il s'agit de savoir si le rachat {{1}} sous {{2}}. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "se rembourse",
+      "fait grossir le CA",
+      "renforce l'image"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "un an",
+      "4 ans",
+      "dix ans"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.016",
+  "format": "swipe_valid",
+  "skill": "u1.reformulate",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "Énoncé : « Un hôpital public veut diviser par deux les rendez-vous non honorés en un an, sans pénalité financière pour les patients. » Juge chaque reformulation.",
+  "media": null,
+  "explanation": "Le taux de rendez-vous manqués est la métrique ; ÷2 est la cible ; la contrainte supprime d'office un levier classique (la pénalité).",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Passer de X à X/2 rendez-vous non honorés en un an, sans pénaliser les patients. »",
+     "valid": true,
+     "reason": "Cible, horizon, contrainte, tout y est."
+    },
+    {
+     "id": "c2",
+     "text": "« Faire payer les rendez-vous manqués pour les diviser par deux. »",
+     "valid": false,
+     "reason": "C'est le levier explicitement exclu."
+    },
+    {
+     "id": "c3",
+     "text": "« Diminuer de moitié le taux d'absence aux rendez-vous d'ici 12 mois, sans sanction financière. »",
+     "valid": true,
+     "reason": "Reformule avec d'autres mots, sans rien perdre."
+    },
+    {
+     "id": "c4",
+     "text": "« Améliorer l'expérience patient à l'hôpital. »",
+     "valid": false,
+     "reason": "Trop vague : pas de métrique, pas de cible, pas d'horizon."
+    },
+    {
+     "id": "c5",
+     "text": "« Réduire de 50 % les absences aux rendez-vous d'ici 3 ans. »",
+     "valid": false,
+     "reason": "Horizon faux : l'énoncé dit un an, et la contrainte a disparu."
+    },
+    {
+     "id": "c6",
+     "text": "« Augmenter le nombre de consultations de l'hôpital. »",
+     "valid": false,
+     "reason": "Métrique différente : plus de consultations n'implique pas moins d'absences."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.017",
+  "format": "spot_error",
+  "skill": "u1.reformulate",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "Énoncé : « Un assureur veut lancer une offre habitation 100 % en ligne et atteindre 200 000 contrats en 3 ans, en restant rentable chaque année. » Touche la ligne fautive.",
+  "media": null,
+  "explanation": "« Rentable chaque année » est une contrainte forte : elle interdit la stratégie classique « perdre d'abord, gagner après ».",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Objectif : 200 000 contrats en ligne"
+    },
+    {
+     "id": "l2",
+     "text": "Horizon : 3 ans"
+    },
+    {
+     "id": "l3",
+     "text": "Contrainte : accepter des pertes la première année pour aller vite"
+    },
+    {
+     "id": "l4",
+     "text": "Validation : « c'est bien ça ? »"
+    }
+   ],
+   "wrong_line": "l3",
+   "fix": "La contrainte est l'inverse : rester rentable chaque année, donc pas de pertes initiales."
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.018",
+  "format": "choose_structure",
+  "skill": "u1.reformulate",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "« Un fabricant de pompes veut passer de 12 % à 20 % de part de marché en Europe en 5 ans. Le groupe exclut toute acquisition. » La reformulation qui manque un élément ?",
+  "media": null,
+  "explanation": "Teste chaque reformulation sur les trois éléments : celle qui en perd un est fausse, même si elle sonne bien.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Passer de 12 à 20 % de part en Europe sans acquisition, horizon 5 ans",
+     "why_wrong": "Complète : métrique, horizon, contrainte."
+    },
+    {
+     "id": "b",
+     "text": "Quasi doubler la part de marché européenne en 5 ans sans racheter de concurrent",
+     "why_wrong": "Complète aussi : 12 → 20 est bien presque un doublement."
+    },
+    {
+     "id": "c",
+     "text": "+8 points de part de marché en Europe en 5 ans, par croissance organique seulement",
+     "why_wrong": "Complète : métrique, horizon, et la contrainte traduite en « organique »."
+    },
+    {
+     "id": "d",
+     "text": "Atteindre 20 % de part de marché européenne d'ici 5 ans"
+    }
+   ],
+   "correct": "d"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.019",
+  "format": "headline_tiles",
+  "skill": "u1.reformulate",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Énoncé : « Un laboratoire veut décider s'il lance un générique en France : il exige 15 % de marge dès la 2e année. » Forme la reformulation.",
+  "media": null,
+  "explanation": "Une décision de lancement se reformule comme une condition : « lancer si… » avec la cible et l'horizon.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Lancer le générique"
+    },
+    {
+     "id": "t2",
+     "text": "si la marge atteint 15 %"
+    },
+    {
+     "id": "t3",
+     "text": "dès la 2e année"
+    },
+    {
+     "id": "t4",
+     "text": "en France"
+    },
+    {
+     "id": "t5",
+     "text": "si le CA dépasse 15 M€"
+    },
+    {
+     "id": "t6",
+     "text": "à l'international"
+    },
+    {
+     "id": "t7",
+     "text": "dès le lancement"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t4",
+    "t2",
+    "t3"
+   ],
+   "distractors": [
+    "t5",
+    "t6",
+    "t7"
+   ],
+   "accepted": [
+    [
+     "t1",
+     "t2",
+     "t3",
+     "t4"
+    ]
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.020",
+  "format": "fill_blank",
+  "skill": "u1.reformulate",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "« Un éditeur de logiciels bancaires veut passer ses clients de la licence à l'abonnement. Le CFO accepte une baisse de CA deux ans, pas plus. » Complète la reformulation.",
+  "media": null,
+  "explanation": "Ici la métrique n'est pas le CA mais le passage au modèle abonnement ; la contrainte est la durée tolérée de la baisse de CA.",
+  "payload": {
+   "text": "« L'objectif est de {{1}} ; la contrainte est que {{2}} ne dure pas plus de {{3}}. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "migrer les clients vers l'abonnement",
+      "augmenter le CA",
+      "baisser les prix"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "la baisse de CA",
+      "la hausse des coûts",
+      "la perte de clients"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 3,
+     "options": [
+      "un an",
+      "deux ans",
+      "cinq ans"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.021",
+  "format": "spot_error",
+  "skill": "u1.reformulate",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "luxe",
+  "stem": "Énoncé : « Une marque de maroquinerie voit sa marge brute passer de 68 % à 61 % en 3 ans malgré des prix en hausse. Elle veut revenir à 68 % en 2 ans sans délocaliser. » Repère l'erreur.",
+  "media": null,
+  "explanation": "Marge brute = (prix − coût de production) / prix. Si les prix montent et la marge baisse, les coûts ont monté encore plus vite.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Métrique : la marge brute, de 61 % à 68 %"
+    },
+    {
+     "id": "l2",
+     "text": "Horizon : 2 ans"
+    },
+    {
+     "id": "l3",
+     "text": "Contrainte : garder la production en France"
+    },
+    {
+     "id": "l4",
+     "text": "Prix en hausse, donc le problème vient du volume vendu"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "La marge brute ne dépend pas du volume : prix en hausse + marge en baisse ⇒ coûts unitaires en forte hausse."
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.022",
+  "format": "choose_structure",
+  "skill": "u1.reformulate",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "« Une compagnie aérienne régionale perd 20 M€ par an. L'actionnaire ne remettra pas d'argent après 2027. » Que dois-tu reformuler, puisque l'énoncé ne donne pas de cible explicite ?",
+  "media": null,
+  "explanation": "Quand la cible n'est pas dite, déduis-la de la contrainte : « plus d'argent après 2027 » signifie équilibre atteint avant 2027.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Trouver un nouvel actionnaire pour remplacer l'actuel d'ici 2027",
+     "why_wrong": "Solution possible, mais ce n'est pas l'objectif ; l'énoncé parle de pertes."
+    },
+    {
+     "id": "b",
+     "text": "Revenir à l'équilibre avant fin 2027, sans nouvel apport de l'actionnaire"
+    },
+    {
+     "id": "c",
+     "text": "Réduire les pertes de 20 M€ sur 5 ans",
+     "why_wrong": "L'horizon est imposé par l'actionnaire : fin 2027, pas 5 ans."
+    },
+    {
+     "id": "d",
+     "text": "Augmenter le CA de 20 M€ dès cette année",
+     "why_wrong": "Confond CA et résultat, et invente un horizon."
+    }
+   ],
+   "correct": "b"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.reformulate.023",
+  "format": "swipe_valid",
+  "skill": "u1.reformulate",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Chaque carte est une reformulation d'un case différent. Valide celles qui contiennent bien métrique, horizon ET contrainte (ou l'absence explicite de contrainte).",
+  "media": null,
+  "explanation": "Teste mécaniquement : métrique ? horizon ? contrainte ? Une phrase qui sonne « conseil » peut quand même en manquer deux.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Doubler l'EBITDA en 3 ans sans acquisition. »",
+     "valid": true,
+     "reason": "Métrique, horizon, contrainte."
+    },
+    {
+     "id": "c2",
+     "text": "« Devenir leader du marché. »",
+     "valid": false,
+     "reason": "Pas de métrique précise, pas d'horizon, pas de contrainte."
+    },
+    {
+     "id": "c3",
+     "text": "« Réduire les coûts IT de 15 % en 18 mois, sans licenciement. »",
+     "valid": true,
+     "reason": "Les trois éléments."
+    },
+    {
+     "id": "c4",
+     "text": "« Améliorer la satisfaction client de la banque. »",
+     "valid": false,
+     "reason": "Ni cible chiffrée, ni horizon."
+    },
+    {
+     "id": "c5",
+     "text": "« Atteindre 1 M d'utilisateurs actifs d'ici 2 ans ; pas de contrainte annoncée, je le vérifierai. »",
+     "valid": true,
+     "reason": "Dire explicitement qu'il n'y a pas de contrainte connue, c'est déjà la traiter."
+    },
+    {
+     "id": "c6",
+     "text": "« Lancer l'offre en Allemagne dès que possible. »",
+     "valid": false,
+     "reason": "« Dès que possible » n'est pas un horizon, et aucune métrique de succès."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.001",
+  "format": "concept_card",
+  "skill": "u1.clarify",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Les deux questions qui comptent",
+  "media": null,
+  "explanation": "",
+  "payload": {
+   "screens": [
+    {
+     "title": "L'idée",
+     "body": "Après la reformulation, tu as droit à **une ou deux questions**, pas cinq. Une bonne question de clarification **change ta structure** si la réponse change. Il y en a trois sortes :\n\n- **Définition de la métrique** : « profit » = marge opérationnelle ou résultat net ? « clients » = comptes ou foyers ?\n- **Périmètre** : quel pays, quelle activité, quel canal ?\n- **Critère de succès** : quel chiffre, à quelle date, ferait dire au client que c'est gagné ?\n\nTout le reste (taille du marché, nombre de magasins, prix moyen), tu peux le **supposer** à voix haute et avancer : « je prends 500 magasins, corrigez-moi si besoin »."
+    },
+    {
+     "title": "Exemple résolu",
+     "body": "**Énoncé :** « Un distributeur de fournitures de bureau veut réduire ses coûts logistiques de 15 % en 2 ans. »\n\n**Mauvaises questions :** « Combien de camions ? » « Quel est le CA ? » « Qui sont les concurrents ? » (des données à supposer ou du contexte sans effet sur la structure).\n\n**Les deux qui comptent :**\n1. « Les coûts logistiques incluent-ils les entrepôts, ou seulement le transport ? » (**définition** : avec les entrepôts, j'ajoute une branche immobilier/stock)\n2. « On parle de la France ou de tout le groupe ? » (**périmètre**)\n\nPuis : « Je suppose un réseau de 3 entrepôts et une flotte en propre, je corrige si vous avez d'autres chiffres. »"
+    },
+    {
+     "title": "À retenir",
+     "body": "- **Test** : « si la réponse est A ou B, est-ce que mon arbre change ? » Non ⇒ ne pose pas la question, suppose.\n- **Deux questions max**, posées tout de suite après la reformulation ; les autres viendront branche par branche.\n- **Supposer à voix haute** vaut mieux que demander : l'interviewer corrige si c'est faux, et tu as montré du jugement.\n- Ne rien demander est aussi une erreur : partir sur « profit = CA » coûte vingt minutes.\n- Une question « pour gagner du temps » se voit : l'interviewer attend la minute de réflexion, pas un interrogatoire."
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.002",
+  "format": "first_question",
+  "skill": "u1.clarify",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "« Une enseigne de vêtements veut augmenter sa rentabilité. » Quelle première question poses-tu ?",
+  "media": null,
+  "explanation": "« Rentabilité » a plusieurs sens (marge, ROCE, résultat net) : la définition change l'arbre. Le reste se suppose.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Rentabilité : vous parlez de marge opérationnelle, ou de résultat net ?"
+    },
+    {
+     "id": "b",
+     "text": "Quel est votre budget pour ce projet ?",
+     "why_wrong": "Utile plus tard pour les recommandations, pas pour structurer le diagnostic."
+    },
+    {
+     "id": "c",
+     "text": "Combien de magasins avez-vous ?",
+     "why_wrong": "Donnée que tu peux supposer (« je prends 200 magasins ») sans changer la structure."
+    },
+    {
+     "id": "d",
+     "text": "Qui sont vos principaux concurrents sur le marché français ?",
+     "why_wrong": "Contexte intéressant, mais la structure revenus/coûts ne changera pas selon la réponse."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.003",
+  "format": "first_question",
+  "skill": "u1.clarify",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "« Une banque veut gagner des clients. » La question qui change ta structure ?",
+  "media": null,
+  "explanation": "« Clients » peut vouloir dire particuliers, pros ou entreprises : les canaux et l'offre n'ont rien à voir. C'est une question de périmètre.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Depuis combien de temps ce problème existe-t-il ?",
+     "why_wrong": "Contexte : la réponse ne modifie pas les branches de ton arbre."
+    },
+    {
+     "id": "b",
+     "text": "Combien de clients avez-vous aujourd'hui ?",
+     "why_wrong": "Donnée de départ utile, mais tu peux la supposer et avancer."
+    },
+    {
+     "id": "c",
+     "text": "Particuliers, professionnels ou entreprises ?"
+    },
+    {
+     "id": "d",
+     "text": "Quels sont vos taux d'intérêt actuels ?",
+     "why_wrong": "Un détail de l'offre, pas ce qui organise l'analyse."
+    }
+   ],
+   "correct": "c"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.004",
+  "format": "swipe_valid",
+  "skill": "u1.clarify",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "Énoncé : « Un fournisseur de gaz veut réduire ses coûts de 10 %. » Glisse à droite les questions qui changent la structure, à gauche celles qu'on peut supposer.",
+  "media": null,
+  "explanation": "Change la structure = définition, périmètre, critère de succès. Les chiffres de taille se supposent.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Les 10 % portent sur tous les coûts, ou hors achat de gaz ? »",
+     "valid": true,
+     "reason": "Définition : l'achat de gaz peut peser 70 % des coûts, l'arbre change du tout au tout."
+    },
+    {
+     "id": "c2",
+     "text": "« Combien de salariés avez-vous ? »",
+     "valid": false,
+     "reason": "Donnée à supposer : « disons 2 000 », et on avance."
+    },
+    {
+     "id": "c3",
+     "text": "« Sur quel horizon, et est-ce 10 % par an ou au total ? »",
+     "valid": true,
+     "reason": "Critère de succès : la cible et l'horizon décident des leviers possibles."
+    },
+    {
+     "id": "c4",
+     "text": "« Quel est le prix du gaz en ce moment ? »",
+     "valid": false,
+     "reason": "Donnée de marché, à supposer si besoin ; elle ne réorganise pas l'analyse."
+    },
+    {
+     "id": "c5",
+     "text": "« Le périmètre inclut-il la filiale électricité ? »",
+     "valid": true,
+     "reason": "Périmètre : d'autres coûts, d'autres leviers."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.005",
+  "format": "fill_blank",
+  "skill": "u1.clarify",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète la règle.",
+  "media": null,
+  "explanation": "Une question de clarification se justifie si sa réponse change l'arbre ; sinon, on suppose à voix haute.",
+  "payload": {
+   "text": "Je pose une question seulement si sa réponse change ma {{1}} ; sinon je {{2}} à voix haute et j'avance.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "structure",
+      "conclusion",
+      "note"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "demande",
+      "suppose",
+      "calcule"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.006",
+  "format": "mece_sort",
+  "skill": "u1.clarify",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "Énoncé : « Un assureur santé veut améliorer sa marge technique. » Trie les questions.",
+  "media": null,
+  "explanation": "La définition de la métrique et le périmètre changent la structure ; les volumes et prix se supposent.",
+  "payload": {
+   "buckets": [
+    {
+     "id": "struct",
+     "label": "Change la structure"
+    },
+    {
+     "id": "data",
+     "label": "Donnée à supposer"
+    }
+   ],
+   "items": [
+    {
+     "id": "i1",
+     "text": "Marge technique = sinistres + frais, ou sinistres seuls ?",
+     "bucket": "struct"
+    },
+    {
+     "id": "i2",
+     "text": "Combien d'assurés ?",
+     "bucket": "data"
+    },
+    {
+     "id": "i3",
+     "text": "Individuel, collectif, ou les deux ?",
+     "bucket": "struct"
+    },
+    {
+     "id": "i4",
+     "text": "Quelle est la prime moyenne ?",
+     "bucket": "data"
+    },
+    {
+     "id": "i5",
+     "text": "Quel niveau de marge serait un succès ?",
+     "bucket": "struct"
+    },
+    {
+     "id": "i6",
+     "text": "Combien de sinistres par an ?",
+     "bucket": "data"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.007",
+  "format": "first_question",
+  "skill": "u1.clarify",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "« Une plateforme de livraison de repas perd de l'argent sur chaque commande. Que faire ? » Quelle première question ?",
+  "media": null,
+  "explanation": "Le périmètre géographique change les leviers (densité, concurrence) : c'est une question de structure. Le reste se suppose.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Combien coûte une livraison en moyenne ?",
+     "why_wrong": "Tu peux la supposer (« disons 4 € ») : la structure unit economics reste la même."
+    },
+    {
+     "id": "b",
+     "text": "Est-ce vrai dans toutes les villes, ou seulement dans certaines ?"
+    },
+    {
+     "id": "c",
+     "text": "Quelle est l'application la plus téléchargée ?",
+     "why_wrong": "Information de marché sans effet sur ton arbre."
+    },
+    {
+     "id": "d",
+     "text": "Combien de livreurs avez-vous ?",
+     "why_wrong": "Donnée de dimensionnement, à supposer."
+    }
+   ],
+   "correct": "b"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.008",
+  "format": "order_steps",
+  "skill": "u1.clarify",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Remets dans l'ordre l'ouverture d'un case sur la rentabilité d'une usine. Une tuile est de trop.",
+  "media": null,
+  "explanation": "Reformuler, puis une ou deux questions, puis supposer le reste, puis la minute. Jamais cinq questions d'affilée.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Reformuler l'objectif en une phrase"
+    },
+    {
+     "id": "t2",
+     "text": "Demander : « rentabilité = marge d'exploitation ou résultat net ? »"
+    },
+    {
+     "id": "t3",
+     "text": "Supposer à voix haute les volumes et le prix moyen"
+    },
+    {
+     "id": "t4",
+     "text": "Demander une minute pour structurer"
+    },
+    {
+     "id": "t5",
+     "text": "Poser cinq questions de contexte pour gagner du temps"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4"
+   ],
+   "distractors": [
+    "t5"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.009",
+  "format": "swipe_valid",
+  "skill": "u1.clarify",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Énoncé : « Un groupe de cliniques veut lancer une offre de télémédecine. » Quelles questions valent la peine ?",
+  "media": null,
+  "explanation": "Pour un lancement, le critère de succès et le périmètre comptent ; le prix d'un abonnement se suppose.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Qu'est-ce qui serait un succès : du CA, de la marge, ou désengorger les urgences ? »",
+     "valid": true,
+     "reason": "Critère de succès : trois réponses, trois arbres différents."
+    },
+    {
+     "id": "c2",
+     "text": "« Combien coûterait un abonnement ? »",
+     "valid": false,
+     "reason": "C'est au candidat de proposer une hypothèse de prix, pas de la demander."
+    },
+    {
+     "id": "c3",
+     "text": "« Pour les patients existants, ou pour en conquérir de nouveaux ? »",
+     "valid": true,
+     "reason": "Périmètre : fidélisation et acquisition ne se structurent pas pareil."
+    },
+    {
+     "id": "c4",
+     "text": "« Combien de médecins travaillent dans le groupe ? »",
+     "valid": false,
+     "reason": "Donnée de capacité : suppose-la, elle n'organise pas l'analyse."
+    },
+    {
+     "id": "c5",
+     "text": "« Quelle est la part de la population ayant un smartphone ? »",
+     "valid": false,
+     "reason": "Chiffre de référence que tu connais ou supposes (≈ 85 %)."
+    },
+    {
+     "id": "c6",
+     "text": "« Le client dispose-t-il déjà d'une plateforme, ou faut-il tout construire ? »",
+     "valid": true,
+     "reason": "Change la branche coûts/faisabilité : build, buy ou partenariat."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.010",
+  "format": "fill_blank",
+  "skill": "u1.clarify",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "télécoms",
+  "stem": "« Un opérateur veut réduire son churn. » Complète la question de clarification la plus utile.",
+  "media": null,
+  "explanation": "Définir la métrique d'abord : churn mobile ou fixe, volontaire ou subi, l'arbre n'est pas le même.",
+  "payload": {
+   "text": "« Quand vous dites churn, parlez-vous du {{1}} ou de l'ensemble, et comptez-vous les {{2}} ? »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "mobile seul",
+      "nombre d'antennes",
+      "prix de l'abonnement"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "impayés résiliés",
+      "nouveaux clients",
+      "salariés"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.011",
+  "format": "mece_sort",
+  "skill": "u1.clarify",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "Énoncé : « Un port veut augmenter son trafic conteneurs. » Trie chaque question.",
+  "media": null,
+  "explanation": "Deux ou trois questions changent la structure ; le reste, tu le supposes et tu le dis.",
+  "payload": {
+   "buckets": [
+    {
+     "id": "struct",
+     "label": "Change la structure"
+    },
+    {
+     "id": "data",
+     "label": "Donnée à supposer"
+    },
+    {
+     "id": "hors",
+     "label": "Hors sujet"
+    }
+   ],
+   "items": [
+    {
+     "id": "i1",
+     "text": "Trafic en nombre de conteneurs ou en valeur des droits ?",
+     "bucket": "struct"
+    },
+    {
+     "id": "i2",
+     "text": "Quelle est la capacité actuelle en conteneurs/an ?",
+     "bucket": "data"
+    },
+    {
+     "id": "i3",
+     "text": "Import, export, ou transbordement ?",
+     "bucket": "struct"
+    },
+    {
+     "id": "i4",
+     "text": "Combien de grues possède le port ?",
+     "bucket": "data"
+    },
+    {
+     "id": "i5",
+     "text": "Quelle est la couleur du logo du port ?",
+     "bucket": "hors"
+    },
+    {
+     "id": "i6",
+     "text": "Le directeur a-t-il fait une grande école ?",
+     "bucket": "hors"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.012",
+  "format": "first_question",
+  "skill": "u1.clarify",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "« Un ministère veut améliorer l'efficacité de son service de délivrance des passeports. » Ta question de clarification ?",
+  "media": null,
+  "explanation": "« Efficacité » n'est pas une métrique : délai, coût par dossier, satisfaction ? C'est la question de définition par excellence.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Les autres pays font-ils mieux ?",
+     "why_wrong": "Benchmark possible plus tard ; ne définit pas l'objectif."
+    },
+    {
+     "id": "b",
+     "text": "Combien de passeports délivrez-vous chaque année en France ?",
+     "why_wrong": "Volume : à supposer (environ 5 M en France)."
+    },
+    {
+     "id": "c",
+     "text": "Efficacité : vous visez le délai, le coût par dossier, ou la satisfaction ?"
+    },
+    {
+     "id": "d",
+     "text": "Avez-vous déjà un prestataire informatique ?",
+     "why_wrong": "Détail de mise en œuvre, pas de structure."
+    }
+   ],
+   "correct": "c"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.013",
+  "format": "swipe_valid",
+  "skill": "u1.clarify",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "luxe",
+  "stem": "Énoncé : « Une maison de champagne voit ses volumes baisser aux États-Unis. » Juge ces questions.",
+  "media": null,
+  "explanation": "Même avec un périmètre déjà donné (États-Unis), la définition de « volumes » et le critère de succès restent à clarifier.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Volumes = bouteilles vendues aux distributeurs, ou aux consommateurs finaux ? »",
+     "valid": true,
+     "reason": "Définition : un déstockage des distributeurs n'est pas une perte de consommateurs."
+    },
+    {
+     "id": "c2",
+     "text": "« Dans quels États américains êtes-vous présents ? »",
+     "valid": false,
+     "reason": "Donnée de périmètre fine : tu peux supposer « les grandes métropoles » et avancer."
+    },
+    {
+     "id": "c3",
+     "text": "« Est-ce le marché entier qui baisse, ou seulement vous ? »",
+     "valid": true,
+     "reason": "Change la structure : problème de marché ≠ problème de part de marché."
+    },
+    {
+     "id": "c4",
+     "text": "« Quel est le prix moyen d'une bouteille ? »",
+     "valid": false,
+     "reason": "À supposer (« disons 50 $ ») : ne réorganise pas l'arbre."
+    },
+    {
+     "id": "c5",
+     "text": "« Depuis quand exactement, et de combien ? »",
+     "valid": false,
+     "reason": "Utile, mais l'interviewer le donnera ; ça ne change pas la structure."
+    },
+    {
+     "id": "c6",
+     "text": "« Le but est de retrouver les volumes, ou de préserver la marge même avec moins de volume ? »",
+     "valid": true,
+     "reason": "Critère de succès : la réponse change toute la recommandation."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.014",
+  "format": "order_steps",
+  "skill": "u1.clarify",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Un candidat ouvre un case « réduire les coûts d'une banque de détail ». Remets ses phrases dans le bon ordre ; une est à écarter.",
+  "media": null,
+  "explanation": "L'ordre : reformuler, clarifier (périmètre), supposer le reste, puis la minute. La question sur les concurrents est du remplissage.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "« Si je comprends bien, il s'agit de réduire les coûts de la banque de détail d'ici 2 ans. »"
+    },
+    {
+     "id": "t2",
+     "text": "« Parle-t-on des coûts du réseau d'agences, ou de toute la banque de détail, y compris le siège ? »"
+    },
+    {
+     "id": "t3",
+     "text": "« Je suppose un réseau de 800 agences ; corrigez-moi si je suis loin. »"
+    },
+    {
+     "id": "t4",
+     "text": "« Puis-je prendre une minute pour structurer ? »"
+    },
+    {
+     "id": "t5",
+     "text": "« Quels sont vos trois principaux concurrents ? »"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4"
+   ],
+   "distractors": [
+    "t5"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.015",
+  "format": "fill_blank",
+  "skill": "u1.clarify",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "« Un distributeur veut doubler ses ventes en ligne. » Complète la phrase du candidat qui suppose plutôt que demander.",
+  "media": null,
+  "explanation": "Supposer à voix haute : chiffre plausible + invitation à corriger. L'interviewer apprécie le jugement, pas la question.",
+  "payload": {
+   "text": "« Je {{1}} que le e-commerce fait aujourd'hui {{2}} du CA, {{3}} si vous avez un autre chiffre. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "suppose",
+      "demande",
+      "sais"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "environ 10 %",
+      "exactement 9,7 %",
+      "la totalité"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 3,
+     "options": [
+      "corrigez-moi",
+      "ne dites rien",
+      "tant pis"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.016",
+  "format": "first_question",
+  "skill": "u1.clarify",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "« Un producteur d'électricité envisage d'investir 2 Md€ dans l'éolien en mer. Faut-il y aller ? » Quelle question poser en premier ?",
+  "media": null,
+  "explanation": "Pour une décision d'investissement, le critère de décision (rendement attendu, horizon) organise toute l'analyse.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Quel taux de rendement et quel horizon le conseil exige-t-il pour dire oui ?"
+    },
+    {
+     "id": "b",
+     "text": "Combien d'éoliennes cela représente-t-il ?",
+     "why_wrong": "Donnée technique : tu peux la déduire (≈ 15 MW par éolienne)."
+    },
+    {
+     "id": "c",
+     "text": "Quel est le prix de marché de l'électricité aujourd'hui ?",
+     "why_wrong": "Donnée de marché, à supposer ; ton arbre revenus/coûts/risques ne change pas."
+    },
+    {
+     "id": "d",
+     "text": "Le client a-t-il déjà de l'éolien terrestre ?",
+     "why_wrong": "Contexte : intéressant pour les synergies, pas pour la structure."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.017",
+  "format": "mece_sort",
+  "skill": "u1.clarify",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Énoncé : « Un éditeur de logiciel RH veut entrer sur le marché allemand. » Trie les questions.",
+  "media": null,
+  "explanation": "Entrée de marché : le critère de succès et le mode d'entrée changent l'arbre ; la taille du marché, tu l'estimes.",
+  "payload": {
+   "buckets": [
+    {
+     "id": "struct",
+     "label": "Change la structure"
+    },
+    {
+     "id": "data",
+     "label": "Donnée à supposer"
+    }
+   ],
+   "items": [
+    {
+     "id": "i1",
+     "text": "Objectif : CA, part de marché, ou rentabilité, et à quel horizon ?",
+     "bucket": "struct"
+    },
+    {
+     "id": "i2",
+     "text": "Combien d'entreprises de plus de 50 salariés en Allemagne ?",
+     "bucket": "data"
+    },
+    {
+     "id": "i3",
+     "text": "Le client envisage-t-il une acquisition, ou seulement une entrée organique ?",
+     "bucket": "struct"
+    },
+    {
+     "id": "i4",
+     "text": "Quel est le prix moyen d'une licence ?",
+     "bucket": "data"
+    },
+    {
+     "id": "i5",
+     "text": "Quelle part des entreprises a déjà un logiciel RH ?",
+     "bucket": "data"
+    },
+    {
+     "id": "i6",
+     "text": "Le périmètre inclut-il l'Autriche et la Suisse germanophone ?",
+     "bucket": "struct"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.018",
+  "format": "swipe_valid",
+  "skill": "u1.clarify",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Énoncé : « Un sous-traitant aéronautique veut réduire ses délais de livraison. » Trop de questions tuent la question : ne garde que celles qui changent la structure.",
+  "media": null,
+  "explanation": "Si la réponse ne change pas ton arbre, la question n'est pas une clarification, c'est du temps gagné (et ça se voit).",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Délai = de la commande à la livraison, ou seulement le temps de production ? »",
+     "valid": true,
+     "reason": "Définition : la branche logistique entre ou sort de l'arbre."
+    },
+    {
+     "id": "c2",
+     "text": "« Quelle cible de délai serait un succès ? »",
+     "valid": true,
+     "reason": "Critère de succès : −10 % ou −50 %, ce ne sont pas les mêmes leviers."
+    },
+    {
+     "id": "c3",
+     "text": "« Combien de pièces produisez-vous par mois ? »",
+     "valid": false,
+     "reason": "Donnée de volume, à supposer."
+    },
+    {
+     "id": "c4",
+     "text": "« Vos clients sont-ils Airbus, Boeing, ou les deux ? »",
+     "valid": false,
+     "reason": "Contexte : la structure délais ne dépend pas du nom du client."
+    },
+    {
+     "id": "c5",
+     "text": "« Quel est le délai moyen aujourd'hui ? »",
+     "valid": false,
+     "reason": "L'interviewer te le donnera à la première analyse ; ça n'organise rien."
+    },
+    {
+     "id": "c6",
+     "text": "« Est-ce sur une ligne de produits ou sur toute l'usine ? »",
+     "valid": true,
+     "reason": "Périmètre."
+    },
+    {
+     "id": "c7",
+     "text": "« Avez-vous un ERP ? »",
+     "valid": false,
+     "reason": "Détail de solution, à garder pour la branche « pilotage » plus tard."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.019",
+  "format": "first_question",
+  "skill": "u1.clarify",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "« Un assureur veut savoir si racheter un courtier en ligne est une bonne idée. » Quelle question poser avant de structurer ?",
+  "media": null,
+  "explanation": "Due diligence : la « bonne idée » doit être définie (synergies, croissance, prix). C'est le critère de succès qui structure.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Combien de courtiers en ligne existent aujourd'hui sur le marché français ?",
+     "why_wrong": "Chiffre de marché, à estimer."
+    },
+    {
+     "id": "b",
+     "text": "Quel est le CA du courtier ?",
+     "why_wrong": "Donnée : tu peux la supposer ou la demander plus tard, elle ne change pas l'arbre."
+    },
+    {
+     "id": "c",
+     "text": "Le courtier est-il rentable ?",
+     "why_wrong": "Donnée importante, mais c'est une analyse à faire, pas une clarification."
+    },
+    {
+     "id": "d",
+     "text": "Qu'attend le client du rachat : des clients, de la techno, ou neutraliser un concurrent ?"
+    }
+   ],
+   "correct": "d"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.020",
+  "format": "order_steps",
+  "skill": "u1.clarify",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Case : « Un laboratoire d'analyses veut améliorer sa rentabilité. » Remets l'ouverture dans l'ordre ; deux tuiles sont en trop.",
+  "media": null,
+  "explanation": "La bonne séquence tient en quatre temps. Trois questions d'affilée ou une question dont la réponse ne change rien sont des intruses.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Reformuler : « rétablir la rentabilité, horizon à confirmer »"
+    },
+    {
+     "id": "t2",
+     "text": "Clarifier : « rentabilité = marge ou résultat ? et à quel horizon ? »"
+    },
+    {
+     "id": "t3",
+     "text": "Supposer : « disons 50 laboratoires et 2 M d'analyses par an »"
+    },
+    {
+     "id": "t4",
+     "text": "Demander une minute"
+    },
+    {
+     "id": "t5",
+     "text": "Demander combien de machines le labo possède"
+    },
+    {
+     "id": "t6",
+     "text": "Enchaîner trois questions sur les concurrents"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4"
+   ],
+   "distractors": [
+    "t5",
+    "t6"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.021",
+  "format": "fill_blank",
+  "skill": "u1.clarify",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "« Une région veut réduire le coût de ses lycées. » Choisis les deux questions qui changent la structure.",
+  "media": null,
+  "explanation": "Périmètre (bâtiments vs personnel) et critère (coût total vs coût par élève) décident de l'arbre ; le nombre de lycées se suppose.",
+  "payload": {
+   "text": "Question 1 : « {{1}} ? » Question 2 : « {{2}} ? » Et je suppose : « {{3}} ».",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "Coûts des bâtiments, du personnel, ou les deux",
+      "Combien de lycées avez-vous",
+      "Qui est le président de région"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "Combien d'élèves par classe",
+      "Coût total ou coût par élève",
+      "Quelle est la marque des ordinateurs"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 3,
+     "options": [
+      "disons 200 lycées",
+      "disons que le périmètre est le personnel",
+      "disons que l'objectif est le coût total"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.022",
+  "format": "first_question",
+  "skill": "u1.clarify",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "« Une compagnie ferroviaire veut augmenter la fréquentation de sa ligne Paris–Lyon. Elle ne peut pas ajouter de trains. » Quelle question ?",
+  "media": null,
+  "explanation": "La contrainte capacitaire est donnée ; ce qui reste à clarifier est le critère : passagers, taux de remplissage ou recettes ?",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Quel est le prix d'un billet ?",
+     "why_wrong": "Donnée à supposer (≈ 70 €)."
+    },
+    {
+     "id": "b",
+     "text": "Combien de trains par jour ?",
+     "why_wrong": "Donnée connue ou supposable (≈ 25 par sens) ; et l'énoncé fixe déjà la capacité."
+    },
+    {
+     "id": "c",
+     "text": "Fréquentation : nombre de passagers, taux de remplissage, ou recettes ?"
+    },
+    {
+     "id": "d",
+     "text": "Pourquoi la compagnie ne peut-elle pas ajouter de trains ?",
+     "why_wrong": "La contrainte est donnée, la discuter ne change pas ton arbre."
+    }
+   ],
+   "correct": "c"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.clarify.023",
+  "format": "swipe_valid",
+  "skill": "u1.clarify",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Chaque carte est une question posée par un candidat juste après sa reformulation. Valide celles qui méritent d'être posées à ce moment-là.",
+  "media": null,
+  "explanation": "Le bon moment pour une question : juste après la reformulation, et seulement si elle change la structure.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Quand vous dites coûts, incluez-vous les coûts d'achat de marchandises ? »",
+     "valid": true,
+     "reason": "Définition de la métrique."
+    },
+    {
+     "id": "c2",
+     "text": "« Quelle est la marge nette actuelle du client ? »",
+     "valid": false,
+     "reason": "Donnée d'analyse : elle viendra plus tard, elle ne structure rien."
+    },
+    {
+     "id": "c3",
+     "text": "« Pouvez-vous me donner le compte de résultat ? »",
+     "valid": false,
+     "reason": "C'est demander la solution avant d'avoir structuré."
+    },
+    {
+     "id": "c4",
+     "text": "« L'objectif est-il le groupe entier, ou seulement la filiale en difficulté ? »",
+     "valid": true,
+     "reason": "Périmètre."
+    },
+    {
+     "id": "c5",
+     "text": "« Y a-t-il une contrainte, par exemple un investissement que le client refuse ? »",
+     "valid": true,
+     "reason": "Quand l'énoncé ne donne pas de contrainte, la demander est légitime : elle change l'arbre."
+    },
+    {
+     "id": "c6",
+     "text": "« Je peux vous poser cinq questions avant de commencer ? »",
+     "valid": false,
+     "reason": "Non : une ou deux, puis la minute."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.001",
+  "format": "concept_card",
+  "skill": "u1.minute",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Une minute, puis le plan",
+  "media": null,
+  "explanation": "",
+  "payload": {
+   "screens": [
+    {
+     "title": "L'idée",
+     "body": "Entre la clarification et l'analyse, il y a un **script** que les interviewers attendent :\n\n1. **« Je reformule… c'est bien ça ? »**\n2. **« Puis-je prendre une minute pour structurer ? »** (ils disent toujours oui)\n3. Tu écris en silence, **60 à 90 secondes**, pas plus.\n4. **« Je vois trois axes : … , … , … . Je propose de commencer par le premier, parce que… »**\n\nAnnoncer son plan en trois phrases **avant** le détail, c'est ce qui fait la différence entre « il réfléchit » et « il structure ». Et un plan annoncé est un plan qu'on suit : l'interviewer coche les axes au fur et à mesure."
+    },
+    {
+     "title": "Exemple résolu",
+     "body": "**Énoncé :** « Un loueur de voitures voit sa marge baisser depuis 18 mois. »\n\n**Candidat :** « Si je comprends bien, il faut retrouver la marge d'avant, disons sous 12 mois. C'est bien ça ? … Puis-je prendre une minute ? »\n\n*(il écrit, 70 secondes)*\n\n« Je vois trois axes. **Un**, les revenus : volume de locations et prix moyen par jour. **Deux**, les coûts : flotte, agences, personnel. **Trois**, le mix : segments ou villes qui tirent la marge vers le bas. Je propose de commencer par les revenus, parce qu'une baisse de marge en 18 mois vient souvent d'une pression sur les prix. »\n\nTrois phrases, un point de départ justifié, et il attaque."
+    },
+    {
+     "title": "À retenir",
+     "body": "- **Demande** la minute, ne la prends pas en silence : « puis-je prendre une minute ? ». Sans ça, deux minutes muettes paraissent une panne.\n- **Trois axes**, pas six : si tu en as plus, regroupe.\n- **Annonce puis suis** : « je commence par l'axe 1 » et tu y vas. Changer d'axe sans le dire casse le fil.\n- Dis **pourquoi** tu commences par là : c'est du jugement, et ça se note.\n- Si tu dépasses 90 secondes, préviens : « encore quelques secondes, je termine mon plan »."
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.002",
+  "format": "choose_structure",
+  "skill": "u1.minute",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Après ta reformulation validée, que dis-tu ?",
+  "media": null,
+  "explanation": "Le script : on demande explicitement la minute. L'interviewer attend cette phrase ; parler avant d'avoir structuré est l'erreur n°1.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "(rester silencieux et commencer à écrire)",
+     "why_wrong": "Sans prévenir, le silence passe pour une panne."
+    },
+    {
+     "id": "b",
+     "text": "« Pouvez-vous me donner les chiffres de ventes ? »",
+     "why_wrong": "Demander des données avant d'avoir un plan, c'est chercher sans savoir quoi."
+    },
+    {
+     "id": "c",
+     "text": "« Puis-je prendre une minute pour structurer ma réflexion ? »"
+    },
+    {
+     "id": "d",
+     "text": "« Je pense que le problème vient des coûts, regardons ça. »",
+     "why_wrong": "Tu pars avant d'avoir structuré : une intuition n'est pas un plan."
+    }
+   ],
+   "correct": "c"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.003",
+  "format": "fill_blank",
+  "skill": "u1.minute",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Complète le script d'ouverture.",
+  "media": null,
+  "explanation": "Reformuler, demander la minute, annoncer trois axes : le trio qui rassure l'interviewer.",
+  "payload": {
+   "text": "« Je {{1}}… c'est bien ça ? Puis-je prendre {{2}} ? … Je vois {{3}} axes. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "reformule",
+      "conclus",
+      "devine"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "une minute",
+      "dix minutes",
+      "vos chiffres"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 3,
+     "options": [
+      "six",
+      "trois",
+      "un"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.004",
+  "format": "order_steps",
+  "skill": "u1.minute",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "Remets l'ouverture dans l'ordre. Une tuile est en trop.",
+  "media": null,
+  "explanation": "Reformuler → minute → annoncer le plan → dire par où commencer. Le détail d'une branche vient après l'annonce du plan.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "« Je reformule : réduire la facture énergétique de 20 % en 2 ans. »"
+    },
+    {
+     "id": "t2",
+     "text": "« Puis-je prendre une minute ? »"
+    },
+    {
+     "id": "t3",
+     "text": "« Je vois trois axes : volume consommé, prix unitaire, périmètre des sites. »"
+    },
+    {
+     "id": "t4",
+     "text": "« Je commence par le volume, car c'est le levier le plus direct. »"
+    },
+    {
+     "id": "t5",
+     "text": "« Les tarifs réglementés ont augmenté de 10 % l'an dernier, donc… »"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4"
+   ],
+   "distractors": [
+    "t5"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.005",
+  "format": "swipe_valid",
+  "skill": "u1.minute",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Un candidat ouvre un case sur la rentabilité d'une pharmacie. Valide les comportements corrects.",
+  "media": null,
+  "explanation": "Les trois erreurs : parler sans plan, rester muet sans prévenir, annoncer un plan et faire autre chose.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "Il demande une minute, écrit 60 s, puis annonce trois axes.",
+     "valid": true,
+     "reason": "Le script attendu."
+    },
+    {
+     "id": "c2",
+     "text": "Il commence par « je pense que c'est un problème de stock » sans structurer.",
+     "valid": false,
+     "reason": "Une intuition avant le plan : l'interviewer ne voit pas de structure."
+    },
+    {
+     "id": "c3",
+     "text": "Il écrit pendant deux minutes sans rien dire.",
+     "valid": false,
+     "reason": "Sans annoncer la minute ni prévenir du dépassement, c'est un trou noir."
+    },
+    {
+     "id": "c4",
+     "text": "Il annonce « je commence par les revenus », puis parle des coûts.",
+     "valid": false,
+     "reason": "Plan annoncé non suivi : l'interviewer perd le fil et le note."
+    },
+    {
+     "id": "c5",
+     "text": "Il dit « encore dix secondes, je termine mon plan » quand il dépasse.",
+     "valid": true,
+     "reason": "Prévenir d'un dépassement est exactement ce qu'il faut faire."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.006",
+  "format": "headline_tiles",
+  "skill": "u1.minute",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "télécoms",
+  "stem": "Compose la phrase d'annonce du plan pour un case « churn d'un opérateur mobile ». Laisse les intruses.",
+  "media": null,
+  "explanation": "« Je vois trois axes : A, B, C » puis le point de départ. Une tuile détaillée ou hors sujet n'a pas sa place dans l'annonce.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Je vois trois axes :"
+    },
+    {
+     "id": "t2",
+     "text": "pourquoi les clients partent,"
+    },
+    {
+     "id": "t3",
+     "text": "qui part,"
+    },
+    {
+     "id": "t4",
+     "text": "et ce qu'on peut faire pour les retenir."
+    },
+    {
+     "id": "t5",
+     "text": "le prix du forfait est de 19,99 €"
+    },
+    {
+     "id": "t6",
+     "text": "les concurrents baissent leurs prix"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t3",
+    "t2",
+    "t4"
+   ],
+   "distractors": [
+    "t5",
+    "t6"
+   ],
+   "accepted": [
+    [
+     "t1",
+     "t2",
+     "t3",
+     "t4"
+    ]
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.007",
+  "format": "choose_structure",
+  "skill": "u1.minute",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Tu as pris ta minute et noté cinq idées. Que dis-tu ?",
+  "media": null,
+  "explanation": "Trois axes, pas cinq : regrouper avant d'annoncer. Lire ses notes dans le désordre n'est pas un plan.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "« J'ai cinq pistes, je vais vous les lire. »",
+     "why_wrong": "Cinq, c'est une liste, pas une structure : regroupe."
+    },
+    {
+     "id": "b",
+     "text": "« Je vois trois axes, que je vais détailler, puis je vous dis par où je commence. »"
+    },
+    {
+     "id": "c",
+     "text": "« Je n'ai pas fini, laissez-moi encore deux minutes. »",
+     "why_wrong": "Au-delà de 90 s, on annonce son plan même imparfait ; on ne redemande pas deux minutes."
+    },
+    {
+     "id": "d",
+     "text": "« Avant tout, pouvez-vous me donner les coûts par usine ? »",
+     "why_wrong": "Les données viennent après l'annonce du plan, pas à la place."
+    }
+   ],
+   "correct": "b"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.008",
+  "format": "fill_blank",
+  "skill": "u1.minute",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "Complète la fin de l'annonce du plan pour un case « retards d'une compagnie ferroviaire ».",
+  "media": null,
+  "explanation": "Annoncer par où l'on commence et pourquoi : c'est le jugement qui est noté, pas seulement la liste.",
+  "payload": {
+   "text": "« Je propose de {{1}} par les causes techniques, {{2}} elles représentent en général la majorité des retards. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "commencer",
+      "finir",
+      "passer"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "parce qu'",
+      "bien qu'",
+      "sauf si"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.009",
+  "format": "order_steps",
+  "skill": "u1.minute",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "Case « un assureur veut réduire ses frais de gestion ». Remets le script dans l'ordre ; deux tuiles sont en trop.",
+  "media": null,
+  "explanation": "Le plan est annoncé en entier avant d'entrer dans la première branche ; redemander une minute après l'annonce est un faux pas.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Reformuler l'objectif et le faire valider"
+    },
+    {
+     "id": "t2",
+     "text": "Demander une minute"
+    },
+    {
+     "id": "t3",
+     "text": "Annoncer trois axes : processus, systèmes, organisation"
+    },
+    {
+     "id": "t4",
+     "text": "Dire qu'on commence par les processus, et pourquoi"
+    },
+    {
+     "id": "t5",
+     "text": "Détailler les coûts de chaque processus"
+    },
+    {
+     "id": "t6",
+     "text": "Redemander une minute avant la première branche"
+    },
+    {
+     "id": "t7",
+     "text": "Demander à l'interviewer par où il aimerait commencer"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5"
+   ],
+   "distractors": [
+    "t6",
+    "t7"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.010",
+  "format": "swipe_valid",
+  "skill": "u1.minute",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Chaque carte est une phrase prononcée à la sortie de la minute. Valide celles qui annoncent correctement un plan.",
+  "media": null,
+  "explanation": "Une annonce de plan a trois branches nommées et un point de départ ; une liste de données ou une conclusion n'en est pas une.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Trois axes : revenus par utilisateur, coûts d'acquisition, coûts d'infrastructure. Je commence par l'acquisition. »",
+     "valid": true,
+     "reason": "Trois branches et un point de départ."
+    },
+    {
+     "id": "c2",
+     "text": "« Il faut baisser le prix de l'abonnement. »",
+     "valid": false,
+     "reason": "C'est une conclusion, pas un plan."
+    },
+    {
+     "id": "c3",
+     "text": "« Je vais regarder un peu les revenus, un peu les coûts, et on verra. »",
+     "valid": false,
+     "reason": "« On verra » n'annonce rien ; aucune branche nommée, aucun départ."
+    },
+    {
+     "id": "c4",
+     "text": "« Deux axes, revenus et coûts, et dans les revenus je distingue nouveaux clients et existants. Je commence par les existants. »",
+     "valid": true,
+     "reason": "Deux axes bien découpés valent trois ; le point de départ est là."
+    },
+    {
+     "id": "c5",
+     "text": "« Avez-vous le détail des coûts serveurs par mois ? »",
+     "valid": false,
+     "reason": "Une question de données à la place de l'annonce du plan."
+    },
+    {
+     "id": "c6",
+     "text": "« Je structure en marché, client, concurrence, coûts, revenus, risques, équipe. »",
+     "valid": false,
+     "reason": "Sept branches : c'est un inventaire, pas un plan. Regroupe."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.011",
+  "format": "choose_structure",
+  "skill": "u1.minute",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "Tu annonces « je commence par la demande ». L'interviewer dit : « regardons plutôt les coûts ». Que fais-tu ?",
+  "media": null,
+  "explanation": "Un plan annoncé se suit, sauf si l'interviewer redirige : alors tu le dis explicitement et tu suis. Ne pas s'obstiner, ne pas se perdre.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "« Je préfère finir la demande d'abord. »",
+     "why_wrong": "S'obstiner contre l'interviewer est une faute : il a une raison."
+    },
+    {
+     "id": "b",
+     "text": "(passer aux coûts sans rien dire)",
+     "why_wrong": "Change d'axe sans le nommer : l'interviewer perd le fil."
+    },
+    {
+     "id": "c",
+     "text": "« Puis-je reprendre une minute pour refaire mon plan ? »",
+     "why_wrong": "Ton plan contenait déjà les coûts : pas besoin de le refaire."
+    },
+    {
+     "id": "d",
+     "text": "« D'accord, je passe à l'axe coûts, que j'avais noté en deuxième. »"
+    }
+   ],
+   "correct": "d"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.012",
+  "format": "headline_tiles",
+  "skill": "u1.minute",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Compose l'annonce de plan pour « une banque veut réduire le coût de traitement des crédits ». Trois intruses.",
+  "media": null,
+  "explanation": "Trois axes MECE sur un processus (volume, coût unitaire, organisation) puis un point de départ. Les chiffres détaillés attendent.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Trois axes :"
+    },
+    {
+     "id": "t2",
+     "text": "le volume de dossiers,"
+    },
+    {
+     "id": "t3",
+     "text": "le coût par dossier,"
+    },
+    {
+     "id": "t4",
+     "text": "et l'organisation des équipes."
+    },
+    {
+     "id": "t5",
+     "text": "Je commence par le coût par dossier."
+    },
+    {
+     "id": "t6",
+     "text": "le taux directeur de la BCE"
+    },
+    {
+     "id": "t7",
+     "text": "la couleur des agences"
+    },
+    {
+     "id": "t8",
+     "text": "et je conclus que c'est l'informatique"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5"
+   ],
+   "distractors": [
+    "t6",
+    "t7",
+    "t8"
+   ],
+   "accepted": [
+    [
+     "t1",
+     "t3",
+     "t2",
+     "t4",
+     "t5"
+    ]
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.013",
+  "format": "fill_blank",
+  "skill": "u1.minute",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "luxe",
+  "stem": "Tu es à 100 secondes de silence sur un case « ouverture d'une boutique à Dubaï ». Complète ce que tu dis.",
+  "media": null,
+  "explanation": "Au-delà de 90 s, préviens et annonce le plan même imparfait ; mieux vaut un plan à trois axes à affiner qu'un silence.",
+  "payload": {
+   "text": "« {{1}}, je termine mon plan. … Je vois trois axes : {{2}}. Je commence par la demande. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "Encore quelques secondes",
+      "Laissez-moi dix minutes",
+      "Je n'y arrive pas"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "demande locale, coûts d'implantation, faisabilité",
+      "demande, demande, demande",
+      "le climat, la langue, le visa"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.014",
+  "format": "order_steps",
+  "skill": "u1.minute",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Un candidat annonce « revenus, coûts, mix magasins ; je commence par les revenus ». Remets la suite dans l'ordre ; une tuile casse le plan.",
+  "media": null,
+  "explanation": "Suivre le plan annoncé : finir un axe, faire une synthèse intermédiaire, annoncer le passage au suivant. Sauter d'un axe à l'autre sans le dire est l'erreur.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Analyser les revenus : volume × prix, par format de magasin"
+    },
+    {
+     "id": "t2",
+     "text": "Synthèse intermédiaire : « les revenus tiennent, le problème n'est pas là »"
+    },
+    {
+     "id": "t3",
+     "text": "« Je passe donc au deuxième axe, les coûts »"
+    },
+    {
+     "id": "t4",
+     "text": "Analyser les coûts : fixes, variables, par magasin"
+    },
+    {
+     "id": "t5",
+     "text": "Parler du mix magasins au milieu des revenus sans prévenir"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4"
+   ],
+   "distractors": [
+    "t5"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.015",
+  "format": "swipe_valid",
+  "skill": "u1.minute",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "Case « un fournisseur d'énergie veut lancer une offre pour les PME ». Valide les points de départ bien justifiés.",
+  "media": null,
+  "explanation": "Un bon point de départ est justifié par l'énoncé ou par un ordre de grandeur, pas par le hasard ni par « c'est le plus facile ».",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Je commence par la demande, car si les PME n'en veulent pas, le reste ne sert à rien. »",
+     "valid": true,
+     "reason": "Justification logique : la branche qui peut tout invalider d'abord."
+    },
+    {
+     "id": "c2",
+     "text": "« Je commence par les coûts, c'est le plus simple à calculer. »",
+     "valid": false,
+     "reason": "La facilité n'est pas un critère ; l'interviewer attend un raisonnement."
+    },
+    {
+     "id": "c3",
+     "text": "« Je commence par la concurrence, parce que l'énoncé dit que trois acteurs se sont lancés récemment. »",
+     "valid": true,
+     "reason": "S'appuyer sur un indice de l'énoncé est la meilleure justification."
+    },
+    {
+     "id": "c4",
+     "text": "« Je commence au hasard par le premier axe. »",
+     "valid": false,
+     "reason": "Dire « au hasard » annule le jugement que l'on note."
+    },
+    {
+     "id": "c5",
+     "text": "« Par où voulez-vous que je commence ? »",
+     "valid": false,
+     "reason": "Dans un case mené par le candidat, c'est à toi de proposer ; l'interviewer corrigera s'il veut."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.016",
+  "format": "choose_structure",
+  "skill": "u1.minute",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Pendant ta minute sur « réduire les délais aux urgences », tu trouves un plan « avant l'arrivée / à l'accueil / dans le service ». Comment l'annoncer ?",
+  "media": null,
+  "explanation": "Annoncer, c'est nommer les axes et dire ce que chacun contient en un mot, puis le point de départ. Pas de détail, pas de conclusion.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "« Je vois trois temps : avant l'arrivée (flux entrant), l'accueil (tri), le service (prise en charge). Je commence par le tri, souvent le goulot. »"
+    },
+    {
+     "id": "b",
+     "text": "« Il faut recruter des infirmières de tri, c'est évident. »",
+     "why_wrong": "Conclusion avant analyse : ton plan n'a servi à rien."
+    },
+    {
+     "id": "c",
+     "text": "« Je vais regarder les délais. »",
+     "why_wrong": "Trop vague : aucun axe nommé."
+    },
+    {
+     "id": "d",
+     "text": "« Avant l'arrivée, il y a les ambulances, les médecins de ville, le SAMU, les patients qui viennent seuls, les… »",
+     "why_wrong": "Tu entres dans le détail d'une branche avant d'avoir annoncé les trois."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.017",
+  "format": "headline_tiles",
+  "skill": "u1.minute",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "Case « une compagnie de ferries perd de l'argent ». Compose l'annonce complète (axes + départ). Trois intruses.",
+  "media": null,
+  "explanation": "Annonce = trois axes + point de départ justifié. Les tuiles qui concluent ou qui demandent des données n'en font pas partie.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Trois axes :"
+    },
+    {
+     "id": "t2",
+     "text": "les recettes par traversée,"
+    },
+    {
+     "id": "t3",
+     "text": "les coûts de la flotte,"
+    },
+    {
+     "id": "t4",
+     "text": "et le réseau de lignes."
+    },
+    {
+     "id": "t5",
+     "text": "Je commence par les lignes,"
+    },
+    {
+     "id": "t6",
+     "text": "car certaines sont peut-être déficitaires."
+    },
+    {
+     "id": "t7",
+     "text": "donc il faut vendre un bateau"
+    },
+    {
+     "id": "t8",
+     "text": "pouvez-vous me donner le compte de résultat ?"
+    },
+    {
+     "id": "t9",
+     "text": "le carburant coûte 600 € la tonne"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5",
+    "t6"
+   ],
+   "distractors": [
+    "t7",
+    "t8",
+    "t9"
+   ],
+   "accepted": [
+    [
+     "t1",
+     "t3",
+     "t2",
+     "t4",
+     "t5",
+     "t6"
+    ]
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.018",
+  "format": "fill_blank",
+  "skill": "u1.minute",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète la règle sur le silence.",
+  "media": null,
+  "explanation": "Le silence est accepté s'il a été annoncé et s'il reste court ; au-delà, on prévient.",
+  "payload": {
+   "text": "Un silence est acceptable s'il a été {{1}} (« puis-je prendre une minute ? ») et s'il dure {{2}} ; sinon je {{3}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "annoncé",
+      "imposé",
+      "excusé"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "moins de 90 secondes",
+      "cinq minutes",
+      "autant qu'il faut"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 3,
+     "options": [
+      "préviens que je termine",
+      "me tais davantage",
+      "abandonne le case"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.019",
+  "format": "order_steps",
+  "skill": "u1.minute",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Case « une marketplace veut doubler sa marge en 2 ans ». Reconstitue l'ouverture complète, de la reformulation au premier axe. Deux intruses.",
+  "media": null,
+  "explanation": "La séquence complète tient en six temps ; toute donnée chiffrée ou conclusion avant l'annonce du plan est hors séquence.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "« Je reformule : doubler la marge en 2 ans, sans contrainte annoncée. C'est bien ça ? »"
+    },
+    {
+     "id": "t2",
+     "text": "« Marge = commission nette, ou résultat de la marketplace ? »"
+    },
+    {
+     "id": "t3",
+     "text": "« Puis-je prendre une minute ? »"
+    },
+    {
+     "id": "t4",
+     "text": "« Trois axes : taux de commission, volume d'affaires, coûts de la plateforme. »"
+    },
+    {
+     "id": "t5",
+     "text": "« Je commence par le taux de commission : c'est le levier le plus rapide sur 2 ans. »"
+    },
+    {
+     "id": "t6",
+     "text": "Analyser le taux de commission par catégorie"
+    },
+    {
+     "id": "t7",
+     "text": "« Le taux de commission moyen du marché est de 12 %, donc… »"
+    },
+    {
+     "id": "t8",
+     "text": "« Il faut augmenter les commissions, c'est sûr. »"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5",
+    "t6"
+   ],
+   "distractors": [
+    "t7",
+    "t8"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.020",
+  "format": "swipe_valid",
+  "skill": "u1.minute",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Case « un cimentier veut réduire ses émissions de CO2 de 30 % en 5 ans ». Valide les annonces de plan.",
+  "media": null,
+  "explanation": "Même sur un case non financier, le script tient : trois axes qui couvrent le problème, un départ justifié. Les listes de solutions ne sont pas des plans.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Trois axes : le procédé (clinker), l'énergie des fours, la logistique. Je commence par le clinker, qui pèse 60 % des émissions. »",
+     "valid": true,
+     "reason": "Trois branches, un départ justifié par un ordre de grandeur."
+    },
+    {
+     "id": "c2",
+     "text": "« Il faut capter le CO2 et planter des arbres. »",
+     "valid": false,
+     "reason": "Deux solutions, zéro structure."
+    },
+    {
+     "id": "c3",
+     "text": "« Je sépare ce qu'on émet directement et ce qu'on achète (énergie, transport). Je commence par le direct, le plus gros. »",
+     "valid": true,
+     "reason": "Deux axes disjoints, départ justifié : correct."
+    },
+    {
+     "id": "c4",
+     "text": "« Je regarde d'abord les subventions disponibles. »",
+     "valid": false,
+     "reason": "Ce n'est pas un plan, c'est une branche prise au hasard sans annonce d'ensemble."
+    },
+    {
+     "id": "c5",
+     "text": "« Axes : procédé, énergie, logistique, fournisseurs, clients, réglementation, finance. »",
+     "valid": false,
+     "reason": "Sept axes, aucun point de départ : regroupe en trois."
+    },
+    {
+     "id": "c6",
+     "text": "« Pouvez-vous me dire d'où viennent les émissions aujourd'hui ? »",
+     "valid": false,
+     "reason": "Question de données à la place du plan ; propose d'abord ta structure."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.021",
+  "format": "choose_structure",
+  "skill": "u1.minute",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "Tu as annoncé « sinistralité, frais, prix ; je commence par la sinistralité ». Après 5 minutes sur la sinistralité, rien n'explique la baisse de marge. Que dis-tu ?",
+  "media": null,
+  "explanation": "Suivre son plan, c'est aussi savoir clore un axe : synthèse intermédiaire, puis passage annoncé au suivant.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "« Je vais plutôt regarder la concurrence. »",
+     "why_wrong": "Nouvel axe hors plan annoncé : l'interviewer ne te suit plus."
+    },
+    {
+     "id": "b",
+     "text": "« Je ne sais plus quoi faire. »",
+     "why_wrong": "Tu as un plan : il te dit exactement quoi faire ensuite."
+    },
+    {
+     "id": "c",
+     "text": "« La sinistralité est stable : le problème n'est pas là. Je passe au deuxième axe, les frais. »"
+    },
+    {
+     "id": "d",
+     "text": "« Je continue à creuser la sinistralité, il doit y avoir quelque chose. »",
+     "why_wrong": "S'accrocher à un axe vide fait perdre du temps à tout le monde."
+    }
+   ],
+   "correct": "c"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.022",
+  "format": "headline_tiles",
+  "skill": "u1.minute",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "Case « une commune veut réduire le coût de la collecte des déchets de 15 % ». Compose l'annonce de plan avec sa justification. Trois intruses.",
+  "media": null,
+  "explanation": "L'annonce complète : trois axes + départ + raison. Les tuiles « solution » ou « donnée » sont hors de l'annonce.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Trois axes :"
+    },
+    {
+     "id": "t2",
+     "text": "la fréquence des tournées,"
+    },
+    {
+     "id": "t3",
+     "text": "le coût par tournée,"
+    },
+    {
+     "id": "t4",
+     "text": "et le périmètre collecté."
+    },
+    {
+     "id": "t5",
+     "text": "Je commence par la fréquence,"
+    },
+    {
+     "id": "t6",
+     "text": "car c'est le levier qui agit le plus vite."
+    },
+    {
+     "id": "t7",
+     "text": "donc il faut passer à une collecte par semaine"
+    },
+    {
+     "id": "t8",
+     "text": "le camion coûte 250 000 €"
+    },
+    {
+     "id": "t9",
+     "text": "je ne sais pas par où commencer"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5",
+    "t6"
+   ],
+   "distractors": [
+    "t7",
+    "t8",
+    "t9"
+   ],
+   "accepted": [
+    [
+     "t1",
+     "t3",
+     "t2",
+     "t4",
+     "t5",
+     "t6"
+    ]
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.minute.023",
+  "format": "fill_blank",
+  "skill": "u1.minute",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "luxe",
+  "stem": "Case « une marque de joaillerie hésite à vendre en ligne ». Complète l'annonce, en respectant le script.",
+  "media": null,
+  "explanation": "Annoncer trois axes, choisir un départ et le justifier par l'énoncé ou un ordre de grandeur.",
+  "payload": {
+   "text": "« Je vois trois axes : {{1}}, l'impact sur l'image, et l'économie du canal. Je commence par {{2}}, parce que {{3}}. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "la demande en ligne",
+      "le nom du site",
+      "la police d'écriture"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "l'image",
+      "l'économie du canal",
+      "le choix du logo"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 3,
+     "options": [
+      "dans le luxe, c'est ce qui peut tout bloquer",
+      "c'est le plus facile",
+      "je n'ai pas d'idée pour le reste"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.001",
+  "format": "concept_card",
+  "skill": "u1.hypothesis",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "L'hypothèse de départ",
+  "media": null,
+  "explanation": "",
+  "payload": {
+   "screens": [
+    {
+     "title": "L'idée",
+     "body": "Une fois le plan annoncé, tu proposes une **hypothèse de départ** : une réponse provisoire que des données peuvent **confirmer ou infirmer**.\n\nUne bonne hypothèse a trois propriétés :\n- elle **répond** à la question (pas une reformulation : « je pense que la marge baisse » ne dit rien)\n- elle est **précise** : une cause, un segment, un levier\n- elle est **testable** : tu sais quelle donnée demander et quel résultat la tuerait\n\nLa phrase type : **« Mon hypothèse est que X. Si c'est vrai, on devrait voir Y ; sinon, Z. »**"
+    },
+    {
+     "title": "Exemple résolu",
+     "body": "**Énoncé :** « Une chaîne de salles de sport voit sa marge baisser depuis 2 ans alors que le nombre d'adhérents est stable. »\n\n**Mauvaise hypothèse :** « Je pense qu'il y a un problème de coûts. » (vague, invérifiable en l'état)\n\n**Bonne hypothèse :** « Adhérents stables + marge en baisse : mon hypothèse est que **le revenu par adhérent a chuté**, parce que les nouveaux entrants sont recrutés à prix cassé. **Si c'est vrai**, le prix moyen des abonnements signés les 2 dernières années est nettement sous celui du stock. **Sinon**, je bascule sur les coûts fixes (loyers). »\n\nL'interviewer sait quoi te donner ; toi, tu sais quoi en faire."
+    },
+    {
+     "title": "À retenir",
+     "body": "- **Hypothèse ≠ question** : « la marge baisse à cause de X » oui ; « il faut comprendre pourquoi la marge baisse » non.\n- **Testable** = tu nommes la donnée et le seuil : « si le prix moyen a baissé de plus de 5 %… ».\n- **Une hypothèse se lâche** : quand les chiffres la contredisent, tu le dis et tu passes à la suivante. S'accrocher est la faute la plus coûteuse.\n- Pars de l'**indice de l'énoncé** (« les ventes montent mais… », « depuis 18 mois… ») : c'est là qu'est la bonne hypothèse.\n- Une hypothèse par axe, pas dix."
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.002",
+  "format": "choose_structure",
+  "skill": "u1.hypothesis",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "« Une enseigne de jouets voit son profit baisser alors que ses ventes sont stables. » Quelle est une hypothèse de départ, et pas une reformulation ?",
+  "media": null,
+  "explanation": "Une hypothèse propose une cause précise et testable ; redire que le profit baisse n'engage à rien.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Les coûts logistiques ont augmenté plus vite que les ventes."
+    },
+    {
+     "id": "b",
+     "text": "Il se passe quelque chose du côté des coûts ou des revenus.",
+     "why_wrong": "Couvre tout, donc ne tranche rien : impossible à infirmer."
+    },
+    {
+     "id": "c",
+     "text": "Le profit de l'enseigne a baissé ces dernières années.",
+     "why_wrong": "C'est l'énoncé : aucune cause, rien à tester."
+    },
+    {
+     "id": "d",
+     "text": "Il faut comprendre pourquoi le profit baisse.",
+     "why_wrong": "C'est la question, pas une réponse provisoire."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.003",
+  "format": "swipe_valid",
+  "skill": "u1.hypothesis",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "« Une banque en ligne n'arrive pas à rentabiliser ses nouveaux clients. » Glisse à droite les hypothèses testables.",
+  "media": null,
+  "explanation": "Testable = on peut nommer la donnée qui la confirme ou l'infirme. « Quelque chose ne va pas » ne se teste pas.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Le coût d'acquisition dépasse la valeur d'un client sur 3 ans. »",
+     "valid": true,
+     "reason": "Deux chiffres à comparer : CAC et valeur client."
+    },
+    {
+     "id": "c2",
+     "text": "« La banque a un problème. »",
+     "valid": false,
+     "reason": "Aucune donnée ne peut l'infirmer."
+    },
+    {
+     "id": "c3",
+     "text": "« Les nouveaux clients ouvrent un compte pour la prime et n'y déposent rien. »",
+     "valid": true,
+     "reason": "Testable : encours moyen des nouveaux comptes à 6 mois."
+    },
+    {
+     "id": "c4",
+     "text": "« Il faut mieux comprendre les clients. »",
+     "valid": false,
+     "reason": "C'est un vœu, pas une hypothèse : rien à mesurer."
+    },
+    {
+     "id": "c5",
+     "text": "« Le marché est difficile en ce moment. »",
+     "valid": false,
+     "reason": "Vrai partout, ne désigne aucune cause propre au client."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.004",
+  "format": "fill_blank",
+  "skill": "u1.hypothesis",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "Complète la phrase type d'une hypothèse.",
+  "media": null,
+  "explanation": "Hypothèse + ce qui la confirmerait + ce qu'on fait sinon : la phrase complète que l'interviewer attend.",
+  "payload": {
+   "text": "« Mon hypothèse est que {{1}}. Si c'est vrai, on devrait {{2}} ; sinon, je {{3}}. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "les coûts réseau ont augmenté",
+      "il faut analyser",
+      "c'est compliqué"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "voir le coût par client monter",
+      "attendre",
+      "réfléchir"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 3,
+     "options": [
+      "passe à l'axe suivant",
+      "garde mon hypothèse",
+      "arrête le case"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.005",
+  "format": "choose_structure",
+  "skill": "u1.hypothesis",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "télécoms",
+  "stem": "« Le churn d'un opérateur est passé de 12 à 18 % en un an. Un concurrent a lancé une offre à 5 € en janvier. » Ton hypothèse de départ ?",
+  "media": null,
+  "explanation": "L'indice de l'énoncé (l'offre à 5 €) désigne l'hypothèse la plus probable ; une hypothèse de départ part de là.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "La hausse du churn vient des clients sensibles au prix qui partent vers l'offre à 5 €."
+    },
+    {
+     "id": "b",
+     "text": "Il y a plusieurs raisons possibles au churn.",
+     "why_wrong": "Vrai mais vide : on ne peut rien tester."
+    },
+    {
+     "id": "c",
+     "text": "Les clients partent parce que le réseau est de mauvaise qualité.",
+     "why_wrong": "Possible, mais l'énoncé donne un indice plus fort : l'offre concurrente."
+    },
+    {
+     "id": "d",
+     "text": "Le churn a augmenté de 6 points.",
+     "why_wrong": "Reformulation de l'énoncé, pas une hypothèse."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.006",
+  "format": "spot_error",
+  "skill": "u1.hypothesis",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Un candidat pose son hypothèse sur « une clinique dont la marge baisse ». Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Une hypothèse se formule avec son test : la donnée ET le seuil qui la confirmeraient. Sans seuil, on ne sait pas quand elle est fausse.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Hypothèse : la marge baisse car la durée moyenne de séjour a augmenté"
+    },
+    {
+     "id": "l2",
+     "text": "Test : comparer la durée moyenne de séjour sur 3 ans"
+    },
+    {
+     "id": "l3",
+     "text": "Seuil : je regarderai si ça a l'air d'avoir bougé"
+    },
+    {
+     "id": "l4",
+     "text": "Sinon : je passe à l'hypothèse prix des actes"
+    }
+   ],
+   "wrong_line": "l3",
+   "fix": "Un seuil, c'est un chiffre : « si la durée a augmenté de plus de 10 %, l'hypothèse tient »."
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.007",
+  "format": "swipe_valid",
+  "skill": "u1.hypothesis",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "« Un fabricant de machines-outils perd des appels d'offres depuis un an. » Valide les hypothèses testables et précises.",
+  "media": null,
+  "explanation": "Précise = un segment, une cause ; testable = une donnée que l'interviewer peut avoir. L'hypothèse qui couvre tout ne dit rien.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Nos prix sont 10 % au-dessus du concurrent asiatique sur les machines standard. »",
+     "valid": true,
+     "reason": "Segment, cause, chiffre : test immédiat sur les offres perdues."
+    },
+    {
+     "id": "c2",
+     "text": "« Nos délais de livraison annoncés sont plus longs que ceux des concurrents. »",
+     "valid": true,
+     "reason": "Comparable sur les appels d'offres perdus."
+    },
+    {
+     "id": "c3",
+     "text": "« On perd pour des raisons de prix, de délai, de qualité ou de relation. »",
+     "valid": false,
+     "reason": "C'est la liste des branches, pas une hypothèse : rien ne peut l'infirmer."
+    },
+    {
+     "id": "c4",
+     "text": "« Les clients ne nous aiment plus. »",
+     "valid": false,
+     "reason": "Aucune donnée ne tranche « aimer »."
+    },
+    {
+     "id": "c5",
+     "text": "« Les appels d'offres perdus sont surtout ceux où le client exige un service après-vente local. »",
+     "valid": true,
+     "reason": "Testable : croiser les pertes avec le critère SAV."
+    },
+    {
+     "id": "c6",
+     "text": "« L'économie mondiale ralentit. »",
+     "valid": false,
+     "reason": "N'explique pas pourquoi NOUS perdons face aux autres."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.008",
+  "format": "fill_blank",
+  "skill": "u1.hypothesis",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "« Une compagnie de bus voit ses recettes baisser alors que le nombre de voyages est stable. » Complète l'hypothèse.",
+  "media": null,
+  "explanation": "Recettes = voyages × prix moyen. Voyages stables ⇒ l'hypothèse porte sur le prix moyen payé, donc sur le mix de titres.",
+  "payload": {
+   "text": "« Voyages stables, recettes en baisse : mon hypothèse est que le {{1}} a baissé, par exemple parce que plus de voyageurs utilisent {{2}}. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "nombre de bus",
+      "prix moyen par voyage",
+      "nombre de chauffeurs"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "des abonnements à tarif réduit",
+      "le train",
+      "la voiture"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.009",
+  "format": "synth_order",
+  "skill": "u1.hypothesis",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "Remets dans l'ordre la façon d'énoncer une hypothèse sur « un assureur dont le ratio sinistres/primes se dégrade ». Une tuile est de trop.",
+  "media": null,
+  "explanation": "Hypothèse → ce qui la confirmerait → ce qu'on fait sinon. L'énoncé répété n'apporte rien.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Mon hypothèse : la dégradation vient de l'auto, où les coûts de réparation ont flambé"
+    },
+    {
+     "id": "t2",
+     "text": "Si c'est vrai, le coût moyen d'un sinistre auto a monté plus vite que la prime"
+    },
+    {
+     "id": "t3",
+     "text": "Sinon, je regarde la fréquence des sinistres plutôt que leur coût"
+    },
+    {
+     "id": "t4",
+     "text": "Le ratio S/P se dégrade depuis deux ans"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3"
+   ],
+   "distractors": [
+    "t4"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.010",
+  "format": "choose_structure",
+  "skill": "u1.hypothesis",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "« Les recettes de stationnement d'une ville ont baissé de 20 % en 2 ans ; aucun tarif n'a changé. » Quelle hypothèse testable ?",
+  "media": null,
+  "explanation": "Tarifs inchangés ⇒ la baisse vient du volume payé : moins de voitures, ou plus de fraude. L'hypothèse doit choisir et se tester.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Les gens paient moins le stationnement.",
+     "why_wrong": "C'est l'énoncé dit autrement : pas de cause, pas de test."
+    },
+    {
+     "id": "b",
+     "text": "Le taux de fraude a augmenté depuis la baisse des contrôles."
+    },
+    {
+     "id": "c",
+     "text": "La ville devrait augmenter ses tarifs.",
+     "why_wrong": "Une recommandation, pas une hypothèse de diagnostic."
+    },
+    {
+     "id": "d",
+     "text": "Les habitants n'aiment plus se garer en ville.",
+     "why_wrong": "Invérifiable en l'état ; « ne plus aimer » ne se mesure pas."
+    }
+   ],
+   "correct": "b"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.011",
+  "format": "spot_error",
+  "skill": "u1.hypothesis",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Hypothèse d'un candidat sur « une appli de VTC dont la marge par course baisse ». Trouve la ligne qui pose problème.",
+  "media": null,
+  "explanation": "S'accrocher à l'hypothèse quand les données la contredisent est la troisième erreur classique : on la lâche et on passe à la suivante.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Hypothèse : la marge baisse car les primes versées aux chauffeurs ont augmenté"
+    },
+    {
+     "id": "l2",
+     "text": "Test : prime moyenne par course sur 2 ans"
+    },
+    {
+     "id": "l3",
+     "text": "Donnée reçue : prime moyenne stable à 1,20 €"
+    },
+    {
+     "id": "l4",
+     "text": "Conclusion : l'hypothèse est confirmée, les primes sont trop élevées"
+    },
+    {
+     "id": "l5",
+     "text": "Hypothèse suivante : le prix moyen payé par le client a baissé"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "Prime stable = hypothèse infirmée. On le dit et on passe à l'hypothèse suivante (ligne 5)."
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.012",
+  "format": "swipe_valid",
+  "skill": "u1.hypothesis",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "luxe",
+  "stem": "« Une marque de montres voit son CA stagner en Chine alors que le marché croît de 8 % par an. » Hypothèses testables ?",
+  "media": null,
+  "explanation": "Marché en croissance + CA stable = perte de part. L'hypothèse doit expliquer la perte relative, pas le marché.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Nos nouveaux modèles ne sont pas distribués dans les villes de rang 2, où la croissance se fait. »",
+     "valid": true,
+     "reason": "Testable : croissance du marché par ville vs présence de la marque."
+    },
+    {
+     "id": "c2",
+     "text": "« Le marché chinois est difficile. »",
+     "valid": false,
+     "reason": "Le marché croît de 8 % : la difficulté est la nôtre, pas celle du marché."
+    },
+    {
+     "id": "c3",
+     "text": "« Les concurrents ont pris des parts grâce aux ventes en ligne, où nous sommes absents. »",
+     "valid": true,
+     "reason": "Testable : part du e-commerce dans le marché vs dans nos ventes."
+    },
+    {
+     "id": "c4",
+     "text": "« Il faut regarder la Chine de plus près. »",
+     "valid": false,
+     "reason": "C'est une intention, pas une hypothèse."
+    },
+    {
+     "id": "c5",
+     "text": "« Les ventes en Chine stagnent. »",
+     "valid": false,
+     "reason": "L'énoncé, répété."
+    },
+    {
+     "id": "c6",
+     "text": "« Notre prix d'entrée de gamme a dépassé le seuil psychologique des 3 000 € après les hausses de 2024. »",
+     "valid": true,
+     "reason": "Précise, datée, testable sur les volumes par gamme."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.013",
+  "format": "fill_blank",
+  "skill": "u1.hypothesis",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "« Les frais généraux d'une banque augmentent de 6 % par an, trois fois plus vite que ses revenus. » Complète l'hypothèse et son test.",
+  "media": null,
+  "explanation": "Une hypothèse bien posée nomme le poste suspect ET la donnée qui tranche.",
+  "payload": {
+   "text": "« Mon hypothèse : la hausse vient des {{1}}, pas des salaires. Si c'est vrai, {{2}} ; sinon, je regarde les effectifs. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "coûts informatiques",
+      "frais de représentation",
+      "primes des traders"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "le budget IT croît de plus de 6 % par an",
+      "les effectifs sont stables",
+      "le cours de l'action monte"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.014",
+  "format": "choose_structure",
+  "skill": "u1.hypothesis",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "« Un supermarché a perdu 10 % de ses clients en un an. Un concurrent discount a ouvert à 500 m. » Quelle hypothèse inclut déjà son test ?",
+  "media": null,
+  "explanation": "La meilleure hypothèse dit ce qu'on verrait si elle était vraie : ici, une perte concentrée sur les clients sensibles au prix.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Le magasin a perdu des clients à cause de l'ouverture du concurrent discount.",
+     "why_wrong": "Hypothèse plausible, mais sans test : on ne sait pas ce qui la confirmerait."
+    },
+    {
+     "id": "b",
+     "text": "Il faut baisser les prix pour récupérer les clients.",
+     "why_wrong": "Une solution avant le diagnostic."
+    },
+    {
+     "id": "c",
+     "text": "Les clients sont partis pour diverses raisons.",
+     "why_wrong": "Ne tranche rien."
+    },
+    {
+     "id": "d",
+     "text": "Les clients perdus sont partis chez le discounter ; si c'est vrai, la perte porte surtout sur les paniers à petit budget."
+    }
+   ],
+   "correct": "d"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.015",
+  "format": "synth_order",
+  "skill": "u1.hypothesis",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "Un candidat traite « un installateur de panneaux solaires dont la marge chute ». Remets ses phrases dans l'ordre logique ; une est à exclure.",
+  "media": null,
+  "explanation": "Indice → hypothèse → test → résultat → décision (garder ou lâcher). Une phrase qui répète le contexte n'avance pas.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "L'énoncé dit que les volumes ont doublé : mon hypothèse est que la marge chute à cause des coûts de sous-traitance"
+    },
+    {
+     "id": "t2",
+     "text": "Si c'est vrai, le coût de pose par chantier a augmenté plus vite que le prix de vente"
+    },
+    {
+     "id": "t3",
+     "text": "Les données montrent un coût de pose stable"
+    },
+    {
+     "id": "t4",
+     "text": "Donc je lâche cette hypothèse et je regarde le prix de vente par chantier"
+    },
+    {
+     "id": "t5",
+     "text": "Le solaire est un marché en forte croissance en France"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4"
+   ],
+   "distractors": [
+    "t5"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.016",
+  "format": "spot_error",
+  "skill": "u1.hypothesis",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Hypothèse d'un candidat sur « une aciérie dont les coûts unitaires augmentent ». Repère la ligne fautive.",
+  "media": null,
+  "explanation": "Une hypothèse qui couvre toutes les causes possibles n'en est pas une : impossible à infirmer, donc inutile.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Indice : les volumes produits ont baissé de 15 %"
+    },
+    {
+     "id": "l2",
+     "text": "Hypothèse : les coûts unitaires montent soit à cause des volumes, soit des prix, soit de l'organisation"
+    },
+    {
+     "id": "l3",
+     "text": "Test : coût fixe par tonne avant et après la baisse de volume"
+    },
+    {
+     "id": "l4",
+     "text": "Sinon : regarder le prix des matières premières"
+    }
+   ],
+   "wrong_line": "l2",
+   "fix": "Choisis : « les coûts fixes se répartissent sur moins de tonnes ». Une hypothèse qui liste tout ne se teste pas."
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.017",
+  "format": "swipe_valid",
+  "skill": "u1.hypothesis",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "« Un laboratoire pharmaceutique voit les ventes de son produit phare baisser de 25 % en un an. » Valide les hypothèses qui partent d'un indice plausible et se testent.",
+  "media": null,
+  "explanation": "Une chute brutale de −25 % sur un an appelle une cause datée (générique, déremboursement, retrait), pas une tendance lente.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Un générique est arrivé cette année et a pris les volumes ; si c'est vrai, les ventes du marché total sont stables. »",
+     "valid": true,
+     "reason": "Cause datée, test clair : marché stable, part en baisse."
+    },
+    {
+     "id": "c2",
+     "text": "« Le produit a été déremboursé ; si c'est vrai, la chute coïncide avec la date de la décision. »",
+     "valid": true,
+     "reason": "Testable à la date près."
+    },
+    {
+     "id": "c3",
+     "text": "« Les médecins prescrivent moins en général. »",
+     "valid": false,
+     "reason": "Une tendance lente n'explique pas −25 % en un an."
+    },
+    {
+     "id": "c4",
+     "text": "« Le produit phare se vend moins. »",
+     "valid": false,
+     "reason": "L'énoncé."
+    },
+    {
+     "id": "c5",
+     "text": "« La force de vente est moins motivée. »",
+     "valid": false,
+     "reason": "« Motivée » ne se mesure pas ; et une baisse de motivation ne fait pas −25 % en un an."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.018",
+  "format": "choose_structure",
+  "skill": "u1.hypothesis",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "Ton hypothèse était « la compagnie aérienne perd de l'argent sur les lignes régionales ». Les données montrent que ces lignes sont rentables. Que dis-tu ?",
+  "media": null,
+  "explanation": "Quand les chiffres contredisent l'hypothèse, on le dit, on en tire une conclusion partielle, et on passe à la suivante.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "« Regardons quand même le détail des lignes régionales. »",
+     "why_wrong": "Creuser un axe déjà exclu fait perdre du temps."
+    },
+    {
+     "id": "b",
+     "text": "« Je ne comprends pas. »",
+     "why_wrong": "Tu as un plan : l'hypothèse infirmée désigne la suivante."
+    },
+    {
+     "id": "c",
+     "text": "« Ces chiffres doivent être faux, les lignes régionales sont toujours déficitaires. »",
+     "why_wrong": "Contester les données plutôt que son hypothèse : la faute la plus coûteuse."
+    },
+    {
+     "id": "d",
+     "text": "« Les lignes régionales sont rentables, donc mon hypothèse tombe ; les pertes viennent du long-courrier. »"
+    }
+   ],
+   "correct": "d"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.019",
+  "format": "fill_blank",
+  "skill": "u1.hypothesis",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "« Une plateforme SaaS a un churn de 3 % par mois chez les PME, contre 0,5 % chez les grands comptes. » Complète l'hypothèse et le test.",
+  "media": null,
+  "explanation": "L'écart entre segments est l'indice : l'hypothèse porte sur ce qui diffère entre PME et grands comptes, et le test compare les deux.",
+  "payload": {
+   "text": "« Mon hypothèse : les PME partent parce qu'elles n'ont pas {{1}}. Si c'est vrai, le churn des PME {{2}} est proche de celui des grands comptes. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "d'accompagnement au démarrage",
+      "de logo sur le site",
+      "de bureaux à Paris"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "ayant eu une formation",
+      "installées en province",
+      "créées avant 2010"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.020",
+  "format": "synth_order",
+  "skill": "u1.hypothesis",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "Case « un hôpital public a un déficit croissant ». Remets dans l'ordre le raisonnement complet du candidat, de l'indice à la deuxième hypothèse. Deux intruses.",
+  "media": null,
+  "explanation": "Indice → hypothèse → test → donnée → décision → hypothèse suivante. Les phrases qui s'accrochent à une hypothèse infirmée sont à écarter.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "L'activité a baissé de 8 % alors que les effectifs sont stables"
+    },
+    {
+     "id": "t2",
+     "text": "Hypothèse : le déficit vient des coûts fixes de personnel répartis sur moins de séjours"
+    },
+    {
+     "id": "t3",
+     "text": "Test : coût de personnel par séjour sur 3 ans"
+    },
+    {
+     "id": "t4",
+     "text": "Donnée : le coût par séjour a monté de 12 %"
+    },
+    {
+     "id": "t5",
+     "text": "Conclusion : l'hypothèse tient ; j'explore maintenant pourquoi l'activité a baissé"
+    },
+    {
+     "id": "t6",
+     "text": "Les données doivent être fausses, l'hôpital a toujours été bien géré"
+    },
+    {
+     "id": "t7",
+     "text": "Je garde l'hypothèse quoi qu'il arrive"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5"
+   ],
+   "distractors": [
+    "t6",
+    "t7"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.021",
+  "format": "spot_error",
+  "skill": "u1.hypothesis",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "Un candidat traite « un assureur dont les ventes d'assurance-vie reculent ». Trouve la ligne fautive.",
+  "media": null,
+  "explanation": "Le test doit pouvoir infirmer l'hypothèse. Un test dont les deux issues « confirment » n'en est pas un.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Hypothèse : le recul vient de la hausse des taux, qui rend le livret plus attractif"
+    },
+    {
+     "id": "l2",
+     "text": "Test : comparer notre recul à celui du marché de l'assurance-vie"
+    },
+    {
+     "id": "l3",
+     "text": "Si le marché recule autant, c'est les taux ; s'il recule moins, c'est aussi les taux"
+    },
+    {
+     "id": "l4",
+     "text": "Sinon : regarder notre réseau de distribution"
+    }
+   ],
+   "wrong_line": "l3",
+   "fix": "Si le marché recule moins que nous, le problème est propre à nous, pas aux taux : l'hypothèse tombe."
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.022",
+  "format": "swipe_valid",
+  "skill": "u1.hypothesis",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Chaque carte est une hypothèse de départ sur un case différent. Valide celles qui sont à la fois une réponse, précises et testables.",
+  "media": null,
+  "explanation": "Trois tests : répond-elle à la question ? désigne-t-elle une cause précise ? peut-on nommer la donnée qui la tuerait ?",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« La baisse de marge vient du mix : les produits à faible marge pèsent plus qu'avant. »",
+     "valid": true,
+     "reason": "Cause précise, test : marge par produit × poids dans les ventes."
+    },
+    {
+     "id": "c2",
+     "text": "« L'entrée en Italie sera rentable si on atteint 5 % de part en 3 ans. »",
+     "valid": true,
+     "reason": "Hypothèse chiffrée et datée : on peut calculer le seuil et l'atteignable."
+    },
+    {
+     "id": "c3",
+     "text": "« Le client doit se transformer digitalement. »",
+     "valid": false,
+     "reason": "Une injonction, pas une hypothèse : rien ne la teste."
+    },
+    {
+     "id": "c4",
+     "text": "« Les coûts ont probablement augmenté quelque part. »",
+     "valid": false,
+     "reason": "« Quelque part » : aucune donnée précise à demander."
+    },
+    {
+     "id": "c5",
+     "text": "« Le programme CRM échouera si moins de 60 % des commerciaux l'utilisent après 6 mois. »",
+     "valid": true,
+     "reason": "Seuil, délai, donnée : testable."
+    },
+    {
+     "id": "c6",
+     "text": "« Il y a un problème de rentabilité. »",
+     "valid": false,
+     "reason": "C'est la question posée."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.hypothesis.023",
+  "format": "choose_structure",
+  "skill": "u1.hypothesis",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "luxe",
+  "stem": "« Une maison de couture veut savoir si lancer une ligne de parfums est une bonne idée. » Quelle hypothèse de départ est la plus utile pour structurer l'analyse ?",
+  "media": null,
+  "explanation": "Sur un case de décision, l'hypothèse de départ fixe la condition de succès à vérifier ; elle guide les analyses, elle ne décide pas.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Oui, car dans le luxe les parfums rapportent toujours beaucoup d'argent.",
+     "why_wrong": "Un préjugé non testable tel quel : « beaucoup » n'est pas un seuil."
+    },
+    {
+     "id": "b",
+     "text": "Pertinent si la marque peut vendre 500 000 flacons par an sans cannibaliser la couture."
+    },
+    {
+     "id": "c",
+     "text": "Non, le marché du parfum est saturé.",
+     "why_wrong": "Conclusion avant analyse, et « saturé » n'est pas défini."
+    },
+    {
+     "id": "d",
+     "text": "Il faut étudier le marché du parfum.",
+     "why_wrong": "Une intention, pas une hypothèse."
+    }
+   ],
+   "correct": "b"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.review.001",
+  "format": "choose_structure",
+  "skill": "u1.review",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "« Un fabricant de fenêtres voit son EBITDA passer de 11 % à 7 % en 3 ans ; le CA est stable. La famille refuse de vendre l'usine historique. » Reformule.",
+  "media": null,
+  "explanation": "Métrique (EBITDA en %), cible implicite (revenir à 11), contrainte (usine historique). Le CA stable est un indice, pas l'objectif.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Revenir à 11 % d'EBITDA en gardant l'usine historique"
+    },
+    {
+     "id": "b",
+     "text": "Vendre l'usine historique pour remonter la marge",
+     "why_wrong": "Exactement ce que la contrainte interdit."
+    },
+    {
+     "id": "c",
+     "text": "Comprendre pourquoi les fenêtres se vendent moins bien",
+     "why_wrong": "Elles ne se vendent pas moins : le CA est stable."
+    },
+    {
+     "id": "d",
+     "text": "Augmenter le CA pour compenser la baisse d'EBITDA",
+     "why_wrong": "Le CA est stable et n'est pas la métrique ; c'est la marge qu'il faut rétablir."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.review.002",
+  "format": "first_question",
+  "skill": "u1.review",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "« Une banque privée veut améliorer la satisfaction de ses clients fortunés. » Quelle question de clarification ?",
+  "media": null,
+  "explanation": "« Satisfaction » n'est pas une métrique : NPS, attrition, réclamations ? C'est la définition qui structure l'analyse.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Quels sont les frais de gestion facturés ?",
+     "why_wrong": "Détail de l'offre : peut-être une cause, pas une clarification de l'objectif."
+    },
+    {
+     "id": "b",
+     "text": "Vos concurrents ont-ils le même problème ?",
+     "why_wrong": "Contexte, sans effet sur ta structure."
+    },
+    {
+     "id": "c",
+     "text": "Combien de clients fortunés avez-vous aujourd'hui ?",
+     "why_wrong": "Donnée à supposer."
+    },
+    {
+     "id": "d",
+     "text": "Satisfaction mesurée comment : NPS, taux d'attrition, réclamations ?"
+    }
+   ],
+   "correct": "d"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.review.003",
+  "format": "swipe_valid",
+  "skill": "u1.review",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Case « une chaîne de boulangeries veut doubler son résultat en 3 ans ». Valide les bonnes phrases d'ouverture, tous gestes confondus.",
+  "media": null,
+  "explanation": "Reformulation complète, question qui change la structure, minute demandée, hypothèse testable : les quatre gestes de l'ouverture.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Doubler le résultat net en 3 ans ; y a-t-il une contrainte, par exemple sur les ouvertures ? »",
+     "valid": true,
+     "reason": "Reformulation + la question contrainte, qui change l'arbre."
+    },
+    {
+     "id": "c2",
+     "text": "« Combien de baguettes vendez-vous par jour ? »",
+     "valid": false,
+     "reason": "Donnée à supposer, pas une clarification."
+    },
+    {
+     "id": "c3",
+     "text": "« Puis-je prendre une minute pour structurer ? »",
+     "valid": true,
+     "reason": "Le script."
+    },
+    {
+     "id": "c4",
+     "text": "« Mon hypothèse : doubler passera par de nouvelles boutiques plutôt que par la marge des existantes. »",
+     "valid": true,
+     "reason": "Hypothèse qui tranche et se teste (marge actuelle vs potentiel d'ouverture)."
+    },
+    {
+     "id": "c5",
+     "text": "« Je pense qu'il faut augmenter les prix, c'est le plus simple. »",
+     "valid": false,
+     "reason": "Conclusion avant plan, justifiée par la facilité."
+    },
+    {
+     "id": "c6",
+     "text": "« Je vais regarder un peu tout et on verra. »",
+     "valid": false,
+     "reason": "Aucun axe nommé : pas un plan."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.review.004",
+  "format": "fill_blank",
+  "skill": "u1.review",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "télécoms",
+  "stem": "« Un opérateur veut lancer une box 5G fixe. Le comex veut 300 000 clients en 2 ans. » Complète l'ouverture en une phrase.",
+  "media": null,
+  "explanation": "Reformulation avec métrique, horizon, et la question de périmètre qui change tout (nouveaux clients vs migration des clients ADSL).",
+  "payload": {
+   "text": "« Objectif : {{1}} en 2 ans. Une question : s'agit-il de {{2}} ? Puis-je prendre une minute ? »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "300 000 clients box 5G",
+      "doubler le CA",
+      "couvrir tout le territoire"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "nouveaux clients, ou de migrer vos clients ADSL",
+      "savoir combien coûte une antenne",
+      "la couleur de la box"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.review.005",
+  "format": "order_steps",
+  "skill": "u1.review",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Remets l'ouverture complète dans l'ordre, pour « un groupe de maisons de retraite dont la marge baisse ». Deux intruses.",
+  "media": null,
+  "explanation": "Reformuler → clarifier → minute → plan + départ → hypothèse. Une donnée demandée trop tôt ou une conclusion n'ont pas leur place.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "« Je reformule : rétablir la marge, horizon à préciser. C'est bien ça ? »"
+    },
+    {
+     "id": "t2",
+     "text": "« Marge = marge d'exploitation ou résultat net ? »"
+    },
+    {
+     "id": "t3",
+     "text": "« Puis-je prendre une minute ? »"
+    },
+    {
+     "id": "t4",
+     "text": "« Trois axes : taux d'occupation, prix de journée, coûts de personnel. Je commence par l'occupation. »"
+    },
+    {
+     "id": "t5",
+     "text": "« Mon hypothèse : l'occupation a baissé ; si c'est vrai, le taux est passé sous 90 %. »"
+    },
+    {
+     "id": "t6",
+     "text": "« Pouvez-vous me donner le taux d'occupation par établissement ? »"
+    },
+    {
+     "id": "t7",
+     "text": "« Il faut fermer les établissements déficitaires. »"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5"
+   ],
+   "distractors": [
+    "t6",
+    "t7"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.review.006",
+  "format": "headline_tiles",
+  "skill": "u1.review",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "« Un distributeur de fioul voit ses volumes chuter de 10 % par an. » Compose l'hypothèse de départ, avec son test. Trois intruses.",
+  "media": null,
+  "explanation": "Hypothèse = cause précise + ce qu'on verrait si elle est vraie. Les tuiles « énoncé » ou « solution » sont hors de l'hypothèse.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Mon hypothèse :"
+    },
+    {
+     "id": "t2",
+     "text": "les clients passent aux pompes à chaleur ;"
+    },
+    {
+     "id": "t3",
+     "text": "si c'est vrai,"
+    },
+    {
+     "id": "t4",
+     "text": "la perte se concentre sur les maisons rénovées."
+    },
+    {
+     "id": "t5",
+     "text": "les volumes chutent de 10 % par an"
+    },
+    {
+     "id": "t6",
+     "text": "il faut baisser les prix"
+    },
+    {
+     "id": "t7",
+     "text": "le fioul est polluant"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4"
+   ],
+   "distractors": [
+    "t5",
+    "t6",
+    "t7"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.review.007",
+  "format": "first_question",
+  "skill": "u1.review",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "« Un éditeur de jeux vidéo veut rendre son dernier jeu rentable. » Tu as droit à une seule question. Laquelle ?",
+  "media": null,
+  "explanation": "Le critère de succès (rentable sur quoi, à quelle date) est la question qui change le plus la structure pour un produit déjà lancé.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Combien le jeu a-t-il coûté à développer et à commercialiser ?",
+     "why_wrong": "Donnée : tu la demanderas en analysant, ou tu la supposes (disons 30 M€)."
+    },
+    {
+     "id": "b",
+     "text": "Rentable en comptant le développement passé, ou sur les coûts futurs seuls, et à quelle date ?"
+    },
+    {
+     "id": "c",
+     "text": "Sur quelles plateformes le jeu est-il disponible ?",
+     "why_wrong": "Périmètre fin, à supposer : « disons PC et consoles »."
+    },
+    {
+     "id": "d",
+     "text": "Le jeu a-t-il eu de bonnes critiques ?",
+     "why_wrong": "Contexte : ne réorganise pas revenus/coûts."
+    }
+   ],
+   "correct": "b"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.review.008",
+  "format": "swipe_valid",
+  "skill": "u1.review",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "luxe",
+  "stem": "Case « une maison de champagne veut entrer en Inde ». Valide les hypothèses de départ qui sont testables ET répondent à la question.",
+  "media": null,
+  "explanation": "Sur une entrée de marché, l'hypothèse fixe la condition de succès (seuil, horizon) ; les généralités sur le pays ne se testent pas.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« L'entrée est pertinente si on atteint 100 000 bouteilles/an en 5 ans via les hôtels de luxe. »",
+     "valid": true,
+     "reason": "Seuil, horizon, canal : on sait quoi calculer."
+    },
+    {
+     "id": "c2",
+     "text": "« L'Inde est un grand pays avec une classe moyenne qui monte. »",
+     "valid": false,
+     "reason": "Vrai et invérifiable comme hypothèse ; ne répond pas à « faut-il y aller »."
+    },
+    {
+     "id": "c3",
+     "text": "« Les droits de douane (150 %) rendent le prix inaccessible hors des 10 plus grandes villes. »",
+     "valid": true,
+     "reason": "Précise, testable sur le prix de sortie et le pouvoir d'achat par ville."
+    },
+    {
+     "id": "c4",
+     "text": "« Il faut étudier le marché indien. »",
+     "valid": false,
+     "reason": "Intention, pas hypothèse."
+    },
+    {
+     "id": "c5",
+     "text": "« Entrer en Inde, c'est risqué. »",
+     "valid": false,
+     "reason": "« Risqué » sans mesure ne se teste pas."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.review.009",
+  "format": "fill_blank",
+  "skill": "u1.review",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "« Un transporteur routier voit sa marge passer de 5 % à 2 % en un an ; le prix du gazole a augmenté de 30 %. » Complète l'hypothèse.",
+  "media": null,
+  "explanation": "Un indice daté (+30 % gazole) donne l'hypothèse ; le test compare la hausse du coût à ce qui a été répercuté aux clients.",
+  "payload": {
+   "text": "« Mon hypothèse : la hausse du gazole {{1}} aux clients. Si c'est vrai, {{2}} ; sinon, je regarde le taux de remplissage. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "n'a pas été répercutée",
+      "a été répercutée",
+      "n'a pas eu lieu"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "le prix moyen par km facturé est resté stable",
+      "le nombre de camions a baissé",
+      "les chauffeurs ont été augmentés"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.review.010",
+  "format": "order_steps",
+  "skill": "u1.review",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "« Un assureur veut réduire de 20 % les coûts de gestion des sinistres auto en 18 mois. » Remets l'ouverture dans l'ordre ; une tuile est hors script.",
+  "media": null,
+  "explanation": "Après la minute, le plan est annoncé en entier avant la première analyse ; l'hypothèse vient après le plan, pas avant.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Reformuler : « −20 % de coûts de gestion des sinistres auto en 18 mois, c'est bien ça ? »"
+    },
+    {
+     "id": "t2",
+     "text": "Clarifier : « coûts de gestion = frais internes seuls, ou aussi les prestataires (experts, garages) ? »"
+    },
+    {
+     "id": "t3",
+     "text": "Demander une minute"
+    },
+    {
+     "id": "t4",
+     "text": "Annoncer : « volume de sinistres, coût par sinistre, organisation ; je commence par le coût unitaire »"
+    },
+    {
+     "id": "t5",
+     "text": "Hypothèse : « le coût unitaire a monté à cause des expertises systématiques ; si c'est vrai, le taux d'expertise dépasse 50 % »"
+    },
+    {
+     "id": "t6",
+     "text": "Annoncer l'hypothèse avant d'avoir donné le plan"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5"
+   ],
+   "distractors": [
+    "t6"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.check.001",
+  "format": "first_question",
+  "skill": "u1.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "« Une enseigne de sport veut doubler sa part de marché en ligne d'ici 3 ans. » Une seule question avant de structurer. Laquelle ?",
+  "media": null,
+  "explanation": "Périmètre : « en ligne » peut inclure les marketplaces ou seulement le site propre, et l'arbre change du tout au tout.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Part en ligne = sur votre site seulement, ou aussi via les marketplaces ?"
+    },
+    {
+     "id": "b",
+     "text": "Combien de références vendez-vous en ligne ?",
+     "why_wrong": "Donnée de catalogue, sans effet sur la structure."
+    },
+    {
+     "id": "c",
+     "text": "Quel est votre budget marketing digital ?",
+     "why_wrong": "Levier possible, pas une clarification de l'objectif."
+    },
+    {
+     "id": "d",
+     "text": "Quelle est votre part de marché en ligne aujourd'hui ?",
+     "why_wrong": "Chiffre de départ : à supposer ou à demander pendant l'analyse."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.check.002",
+  "format": "fill_blank",
+  "skill": "u1.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "« Un gestionnaire de réseau veut réduire de 30 % les coupures en 5 ans sans augmenter le tarif. » Complète la reformulation.",
+  "media": null,
+  "explanation": "Métrique, horizon, contrainte, puis validation : la reformulation complète tient en une phrase.",
+  "payload": {
+   "text": "« Si je comprends bien : réduire de 30 % {{1}} en {{2}}, {{3}}. C'est bien ça ? »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "le nombre de coupures",
+      "le tarif",
+      "les investissements"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "un an",
+      "5 ans",
+      "10 ans"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 3,
+     "options": [
+      "sans hausse de tarif",
+      "en augmentant le tarif",
+      "sans investir"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.check.003",
+  "format": "spot_error",
+  "skill": "u1.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Un candidat ouvre « une banque veut réduire de 15 % ses coûts d'agence en 2 ans sans fermer d'agence ». Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Une contrainte reformulée doit être respectée dans le plan : annoncer un axe « fermetures » contredit l'énoncé.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "« Réduire de 15 % les coûts du réseau en 2 ans, sans fermeture. C'est bien ça ? »"
+    },
+    {
+     "id": "l2",
+     "text": "« Les coûts d'agence incluent-ils les effectifs du siège qui les supportent ? »"
+    },
+    {
+     "id": "l3",
+     "text": "« Puis-je prendre une minute ? »"
+    },
+    {
+     "id": "l4",
+     "text": "« Trois axes : fermer les agences les moins rentables, effectifs, immobilier. »"
+    },
+    {
+     "id": "l5",
+     "text": "« Je commence par les effectifs, premier poste de coût. »"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "Les fermetures sont interdites par la contrainte : les axes sont effectifs, immobilier, processus."
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.check.004",
+  "format": "synth_order",
+  "skill": "u1.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Remets l'ouverture dans l'ordre pour « une mutuelle veut lancer une offre pour les indépendants ». Deux intruses.",
+  "media": null,
+  "explanation": "Reformuler → question de critère → minute → plan et départ → hypothèse. Pas de conclusion avant l'analyse.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "« Lancer une offre indépendants ; succès = CA, marge ou nombre d'adhérents ? »"
+    },
+    {
+     "id": "t2",
+     "text": "« Puis-je prendre une minute ? »"
+    },
+    {
+     "id": "t3",
+     "text": "« Trois axes : la demande, l'offre et son prix, la distribution. Je commence par la demande. »"
+    },
+    {
+     "id": "t4",
+     "text": "« Mon hypothèse : les indépendants sont mal couverts ; si c'est vrai, leur taux d'équipement est sous 70 %. »"
+    },
+    {
+     "id": "t5",
+     "text": "« Lancez l'offre, les indépendants sont nombreux. »"
+    },
+    {
+     "id": "t6",
+     "text": "« Combien d'indépendants en France ? » (à supposer : ≈ 3,5 M)"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4"
+   ],
+   "distractors": [
+    "t5",
+    "t6"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.check.005",
+  "format": "first_question",
+  "skill": "u1.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "« Un fabricant de batteries veut savoir s'il doit construire une deuxième usine en Europe. » Quelle question avant de structurer ?",
+  "media": null,
+  "explanation": "Pour un investissement, le critère de décision (rendement, horizon) organise l'analyse ; le reste se suppose ou se calcule.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Où se trouve la première usine ?",
+     "why_wrong": "Contexte, sans effet sur l'arbre demande / coûts / risques."
+    },
+    {
+     "id": "b",
+     "text": "Vos concurrents construisent-ils aussi des usines en Europe en ce moment ?",
+     "why_wrong": "Information de marché à traiter dans l'analyse de la demande."
+    },
+    {
+     "id": "c",
+     "text": "Combien coûte une usine ?",
+     "why_wrong": "Donnée que tu peux supposer (≈ 2 Md€ pour 20 GWh) et que l'analyse affinera."
+    },
+    {
+     "id": "d",
+     "text": "Quel critère décidera : rendement attendu, part de marché, ou sécurité d'approvisionnement ?"
+    }
+   ],
+   "correct": "d"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.check.006",
+  "format": "fill_blank",
+  "skill": "u1.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "« Une fintech veut réduire son coût d'acquisition client de 40 % en un an. » Complète l'annonce de plan.",
+  "media": null,
+  "explanation": "Trois axes qui couvrent le coût d'acquisition (mix de canaux, coût par canal, conversion) et un départ justifié par l'ordre de grandeur.",
+  "payload": {
+   "text": "« Trois axes : le mix de canaux, {{1}}, et le taux de conversion. Je commence par {{2}}, {{3}}. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "le coût par canal",
+      "le logo de l'appli",
+      "le salaire du CEO"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "le coût par canal",
+      "le taux de conversion",
+      "le logo"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 3,
+     "options": [
+      "car c'est le poste le plus lourd en général",
+      "car c'est le plus facile",
+      "au hasard"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.check.007",
+  "format": "spot_error",
+  "skill": "u1.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "Un candidat pose son hypothèse sur « un aéroport régional dont le résultat baisse ». Repère la ligne fautive.",
+  "media": null,
+  "explanation": "L'hypothèse doit répondre à l'indice de l'énoncé et rester testable ; une hypothèse qui liste toutes les causes n'est pas une hypothèse.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Indice : le trafic passagers a baissé de 12 % après le départ d'une compagnie low-cost"
+    },
+    {
+     "id": "l2",
+     "text": "Hypothèse : le résultat baisse soit à cause du trafic, soit des coûts, soit des redevances"
+    },
+    {
+     "id": "l3",
+     "text": "Test : part des revenus liés à la compagnie partie"
+    },
+    {
+     "id": "l4",
+     "text": "Sinon : regarder les coûts fixes de l'aéroport"
+    }
+   ],
+   "wrong_line": "l2",
+   "fix": "Choisis l'hypothèse portée par l'indice : « la baisse vient des revenus perdus avec le départ de la compagnie »."
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.check.008",
+  "format": "synth_order",
+  "skill": "u1.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "« Une université veut augmenter ses ressources propres de 20 % en 4 ans. » Remets l'ouverture dans l'ordre ; deux intruses.",
+  "media": null,
+  "explanation": "L'ordre reste le même sur tout case : reformuler, clarifier ce qui change la structure, minute, plan, hypothèse.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "« +20 % de ressources propres en 4 ans, c'est bien ça ? »"
+    },
+    {
+     "id": "t2",
+     "text": "« Ressources propres = hors subventions publiques ; incluent-elles la recherche partenariale ? »"
+    },
+    {
+     "id": "t3",
+     "text": "« Puis-je prendre une minute ? »"
+    },
+    {
+     "id": "t4",
+     "text": "« Trois axes : formation continue, partenariats recherche, mécénat. Je commence par la formation continue. »"
+    },
+    {
+     "id": "t5",
+     "text": "« Hypothèse : la formation continue est sous-exploitée ; si c'est vrai, elle pèse moins de 10 % des ressources propres. »"
+    },
+    {
+     "id": "t6",
+     "text": "« Combien d'étudiants avez-vous ? »"
+    },
+    {
+     "id": "t7",
+     "text": "« La solution, c'est d'augmenter les frais d'inscription. »"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5"
+   ],
+   "distractors": [
+    "t6",
+    "t7"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.check.009",
+  "format": "first_question",
+  "skill": "u1.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "« Un assureur veut savoir si son programme de digitalisation de 50 M€ est un succès. » Que demandes-tu en premier ?",
+  "media": null,
+  "explanation": "Sans critère de succès défini, un programme ne s'évalue pas : c'est la question de définition, avant tout chiffre.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Les salariés sont-ils satisfaits des nouveaux outils ?",
+     "why_wrong": "Un critère possible parmi d'autres ; d'abord savoir lesquels ont été fixés."
+    },
+    {
+     "id": "b",
+     "text": "Le programme a-t-il respecté le budget ?",
+     "why_wrong": "C'est une analyse à mener, pas la définition du succès."
+    },
+    {
+     "id": "c",
+     "text": "Quels objectifs chiffrés avaient été fixés au lancement, et sur quel horizon ?"
+    },
+    {
+     "id": "d",
+     "text": "Quel prestataire a réalisé le programme ?",
+     "why_wrong": "Sans effet sur la structure d'évaluation."
+    }
+   ],
+   "correct": "c"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.check.010",
+  "format": "fill_blank",
+  "skill": "u1.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "luxe",
+  "stem": "« Une maison de joaillerie voit sa marge baisser de 3 points alors que les prix ont augmenté de 8 %. » Complète l'hypothèse avec son test.",
+  "media": null,
+  "explanation": "Prix en hausse et marge en baisse ⇒ coûts en hausse plus forte (or, pierres) ou mix. Le test compare la hausse des coûts à celle des prix.",
+  "payload": {
+   "text": "« Mon hypothèse : {{1}} ont augmenté plus vite que les prix. Si c'est vrai, {{2}} ; sinon, je regarde le mix de produits. »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "les coûts matières (or, pierres)",
+      "les ventes",
+      "les effectifs"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "le coût matière par pièce a monté de plus de 8 %",
+      "le nombre de boutiques a baissé",
+      "le CA a augmenté"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.check.011",
+  "format": "oral_prompt",
+  "skill": "u1.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Ouvre ce case à voix haute en 75 secondes : « Notre client, une chaîne de magasins de bricolage (200 magasins), voit son résultat baisser depuis 2 ans alors que le CA progresse. Le PDG veut un plan avant le conseil de juin, sans fermer de magasin. »",
+  "media": null,
+  "explanation": "Reformulation (profit, juin, pas de fermeture), une question qui change la structure, minute, trois axes et un départ justifié.",
+  "payload": {
+   "seconds": 75,
+   "rubric": [
+    {
+     "key": "reformulation",
+     "label": "Objectif reformulé : métrique, horizon, contrainte",
+     "weight": 2
+    },
+    {
+     "key": "question",
+     "label": "Une question qui change la structure (définition, périmètre, critère)",
+     "weight": 1
+    },
+    {
+     "key": "plan",
+     "label": "Minute demandée, trois axes annoncés, point de départ justifié",
+     "weight": 2
+    }
+   ],
+   "model_answer": "« Si je comprends bien, l'objectif est de rétablir le résultat d'ici le conseil de juin, donc à court terme, sans fermer de magasin ; le CA monte, donc le problème est côté coûts ou mix. C'est bien ça ? Une question : par résultat, vous entendez la marge d'exploitation ou le résultat net ? … Puis-je prendre une minute ? … Je vois trois axes : un, la marge brute, prix et mix produits ; deux, les coûts des magasins, personnel et loyers ; trois, les coûts centraux, logistique et siège. Je commence par la marge brute, parce qu'un CA qui monte avec un résultat qui baisse évoque souvent un mix moins rentable ou des promotions. »"
+  },
+  "tags": []
+ },
+ {
+  "id": "u1.check.012",
+  "format": "oral_prompt",
+  "skill": "u1.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Ouvre ce case à voix haute en 75 secondes : « Une banque régionale veut doubler le nombre de clients de son application mobile en 2 ans. Elle refuse de baisser ses tarifs. »",
+  "media": null,
+  "explanation": "Reformulation (clients appli ×2, 2 ans, pas de baisse de tarif), une question de périmètre ou de définition, minute, trois axes, départ.",
+  "payload": {
+   "seconds": 75,
+   "rubric": [
+    {
+     "key": "reformulation",
+     "label": "Objectif reformulé : métrique, horizon, contrainte",
+     "weight": 2
+    },
+    {
+     "key": "question",
+     "label": "Une question qui change la structure (définition, périmètre, critère)",
+     "weight": 1
+    },
+    {
+     "key": "plan",
+     "label": "Minute demandée, trois axes annoncés, point de départ justifié",
+     "weight": 2
+    }
+   ],
+   "model_answer": "« Je reformule : doubler le nombre de clients actifs sur l'application en 2 ans, sans jouer sur les tarifs. C'est bien ça ? Une question : s'agit-il d'équiper vos clients existants, ou de conquérir de nouveaux clients par l'application ? … Puis-je prendre une minute ? … Je vois trois axes : un, l'activation des clients existants qui n'utilisent pas l'appli ; deux, l'acquisition de nouveaux clients via le canal mobile ; trois, la rétention, pour que les clients activés restent actifs. Je commence par l'activation des existants, parce que c'est le levier le moins coûteux et le plus rapide, et qu'il n'exige aucune baisse de tarif. »"
+  },
+  "tags": []
+ }
+]

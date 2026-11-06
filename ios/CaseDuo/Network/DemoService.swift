@@ -109,4 +109,21 @@ final class DemoService: CaseDuoService, @unchecked Sendable {
     func mock(id: ID) async throws -> MockRun { try load(DemoFixtures.mockRun) }
     func finishMock(id: ID) async throws -> MockFinish { await pause(1.0); return try load(DemoFixtures.mockFinish) }
     func flag(exerciseId: ID, flagged: Bool, note: String?) async throws {}
+
+    // MARK: Parcours (the showcase lesson, every format once; progress is not kept)
+
+    func path() async throws -> PathView { try load(DemoFixtures.path) }
+    func startNode(code: String, seed: Int?) async throws -> LessonStart { await pause(); return try load(DemoFixtures.pathLesson) }
+    func completeNode(code: String, _ body: LessonCompletionRequest) async throws -> LessonCompletion {
+        await pause(0.6)
+        var done: LessonCompletion = try load(DemoFixtures.pathComplete)
+        let graded = body.results.filter { $0.transcript == nil }
+        if !graded.isEmpty { done.score = Int((Double(graded.filter(\.correct).count) / Double(graded.count) * 100).rounded()) }
+        done.xp = done.score == 100 ? 15 : 10
+        if body.results.allSatisfy({ $0.transcript == nil }) { done.oral = nil }
+        return done
+    }
+    func flagItem(id: String, note: String?) async throws -> FlagResult {
+        try load(#"{"id": "\(id)", "flag_count": 1, "retired": false}"#)
+    }
 }

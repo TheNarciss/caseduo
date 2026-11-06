@@ -1,0 +1,3422 @@
+[
+ {
+  "id": "u0.formats.001",
+  "format": "concept_card",
+  "skill": "u0.formats",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Les formats d'entretien",
+  "media": null,
+  "explanation": "",
+  "payload": {
+   "screens": [
+    {
+     "title": "Deux blocs, quatre formats de case",
+     "body": "Un entretien de conseil = **un case** (un problème business résolu à voix haute) + **du fit** (parcours, motivations). Quatre formes de case :\n\n- **Mené par l'interviewer** (McKinsey) : il pose des questions précises, une à une. Tu réponds de façon structurée, puis tu lui rends la parole.\n- **Mené par le candidat** (BCG, Bain, la plupart des cabinets de stratégie) : tu reformules, tu structures, tu choisis la branche, tu demandes les données.\n- **Écrit sur 48 h puis soutenu à l'oral** (conseil en transformation) : un dossier préparé chez toi, 15-20 min de présentation, puis des questions.\n- **Test en ligne** avant les entretiens : jeu de résolution de problèmes (McKinsey Solve), case avec un chatbot (BCG), tests d'aptitude.\n\nLe fit a aussi ses formats : PEI McKinsey (Leadership, Connection, Drive, Growth), motivations, et en transaction services des questions techniques de finance."
+    },
+    {
+     "title": "Exemple : le même case, trois formats",
+     "body": "**Case : un assureur perd des clients.**\n\n*Mené par l'interviewer* — « Quels facteurs expliqueraient ces départs ? » Tu annonces 3-4 facteurs (prix, sinistres mal gérés, concurrence en ligne, mix de clients), tu les détailles en une phrase chacun… et tu t'arrêtes. Il choisit la suite.\n\n*Mené par le candidat* — Tu reformules (« réduire le churn de 8 % à 5 % en deux ans ? »), tu demandes une minute, tu annonces ton arbre, tu dis par où tu commences et pourquoi, tu demandes les données.\n\n*Écrit 48 h + oral* — Tu rends un document : diagnostic, recommandation en première page, plan d'action en phases, risques. À l'oral, le jury te pousse : « et si le budget était divisé par deux ? »"
+    },
+    {
+     "title": "À retenir",
+     "body": "1. **Identifie le format avant l'entretien** : demande au recruteur, et prépare *chaque* format du process, pas un seul.\n2. **Mené par l'interviewer** : on ne gagne pas en parlant beaucoup. Réponse structurée, courte, puis silence : il reprend la main.\n3. **Mené par le candidat** : tu pilotes. Reformuler, structurer, prioriser, conclure.\n4. **Le fit pèse autant que le case** dans la plupart des cabinets : prépare 8-12 histoires, deux par dimension.\n5. **Les tests en ligne éliminent avant les entretiens** : entraîne-toi aussi à ceux-là."
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.002",
+  "format": "fill_blank",
+  "skill": "u0.formats",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète la définition des deux grands formats de case.",
+  "media": null,
+  "explanation": "Mené par l'interviewer : il pilote, tu réponds question par question. Mené par le candidat : tu pilotes, il fournit les données.",
+  "payload": {
+   "text": "Dans un case mené par {{1}}, c'est lui qui pose les questions une à une ; dans un case mené par {{2}}, c'est toi qui proposes la structure et choisis par où commencer.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "l'interviewer",
+      "le recruteur",
+      "le partner"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "le candidat",
+      "l'interviewer",
+      "le jury"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.003",
+  "format": "match_pairs",
+  "skill": "u0.formats",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Associe chaque format à ce qu'il attend de toi.",
+  "media": null,
+  "explanation": "Chaque format a son geste : répondre (interviewer), piloter (candidat), rendre puis défendre (48 h), filtrer (test).",
+  "payload": {
+   "pairs": [
+    {
+     "left": "Case mené par l'interviewer",
+     "right": "Répondre de façon structurée à chaque question posée"
+    },
+    {
+     "left": "Case mené par le candidat",
+     "right": "Proposer la structure et choisir la branche à creuser"
+    },
+    {
+     "left": "Case écrit sur 48 h",
+     "right": "Rendre un document, puis le défendre à l'oral"
+    },
+    {
+     "left": "Test en ligne",
+     "right": "Filtre avant les entretiens, souvent sans interlocuteur"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.004",
+  "format": "first_question",
+  "skill": "u0.formats",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Le recruteur t'annonce : « un case interactif avec un chatbot, puis deux entretiens ». Quelle question poses-tu en premier pour préparer ?",
+  "media": null,
+  "explanation": "La première chose à savoir d'un process, c'est le format de chaque étape : c'est lui qui dicte ta préparation.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Combien d'années d'expérience ont les interviewers ?",
+     "why_wrong": "Sans effet sur ta préparation ; le format de leur case, si."
+    },
+    {
+     "id": "b",
+     "text": "Le chatbot pénalise-t-il les fautes d'orthographe ?",
+     "why_wrong": "Détail : le case avec chatbot évalue le raisonnement et les chiffres, pas la forme."
+    },
+    {
+     "id": "c",
+     "text": "Les cases en entretien seront-ils menés par l'interviewer ou par moi ?"
+    },
+    {
+     "id": "d",
+     "text": "Est-il possible de sauter le test en ligne ?",
+     "why_wrong": "Le test est un filtre non négociable ; demander à l'éviter envoie un mauvais signal."
+    }
+   ],
+   "correct": "c"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.005",
+  "format": "swipe_valid",
+  "skill": "u0.formats",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Glisse à droite ce qu'on peut vraiment rencontrer dans un process de conseil, à gauche ce qui n'existe pas.",
+  "media": null,
+  "explanation": "Tests, cases menés par l'interviewer ou par toi, case écrit, fit avec questions techniques : tout ça existe. Un fit sans parcours, non.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "Un test en ligne de type jeu avant tout entretien",
+     "valid": true,
+     "reason": "McKinsey Solve ou des tests d'aptitude filtrent avant les entretiens."
+    },
+    {
+     "id": "c2",
+     "text": "Un case à préparer chez soi sur 48 h puis à présenter",
+     "valid": true,
+     "reason": "Classique des cabinets de conseil en transformation."
+    },
+    {
+     "id": "c3",
+     "text": "Un entretien de fit sans aucune question sur ton parcours",
+     "valid": false,
+     "reason": "Le fit porte justement sur ton parcours, tes motivations et tes expériences."
+    },
+    {
+     "id": "c4",
+     "text": "Un case où l'interviewer pose des questions précises l'une après l'autre",
+     "valid": true,
+     "reason": "C'est le case mené par l'interviewer."
+    },
+    {
+     "id": "c5",
+     "text": "Un case où tu ne dois jamais poser de question",
+     "valid": false,
+     "reason": "Clarifier l'objectif est attendu dans tous les formats."
+    },
+    {
+     "id": "c6",
+     "text": "Des questions sur l'EBITDA ou le BFR dans un entretien transaction services",
+     "valid": true,
+     "reason": "En transaction services, le fit inclut des questions techniques de finance."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.006",
+  "format": "first_question",
+  "skill": "u0.formats",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Case mené par l'interviewer. Il demande : « Quels facteurs regarderais-tu pour expliquer la baisse de marge de cette banque de détail ? » Quelle réponse attend-il ?",
+  "media": null,
+  "explanation": "Mené par l'interviewer : à chaque question, une réponse structurée (3-4 branches annoncées puis détaillées), puis tu lui rends la parole.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Trois ou quatre facteurs annoncés d'abord, puis détaillés un par un"
+    },
+    {
+     "id": "b",
+     "text": "Une question de clarification, puis une minute de silence pour structurer",
+     "why_wrong": "Clarifier est possible, mais sa question est déjà cadrée : il attend une réponse structurée."
+    },
+    {
+     "id": "c",
+     "text": "Le facteur le plus probable, défendu longuement",
+     "why_wrong": "Une seule idée n'est pas une structure ; il veut voir ta couverture du problème."
+    },
+    {
+     "id": "d",
+     "text": "Une demande des comptes de résultat pour commencer l'analyse",
+     "why_wrong": "Dans ce format, c'est lui qui fournit les données, quand il le décide."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.007",
+  "format": "fill_blank",
+  "skill": "u0.formats",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète la règle du silence dans un case mené par l'interviewer.",
+  "media": null,
+  "explanation": "Mené par l'interviewer : réponse structurée, puis tu rends la parole. Le volume de parole n'est pas noté ; la qualité de chaque réponse, si.",
+  "payload": {
+   "text": "Dans un case mené par l'interviewer, le silence après ta réponse n'est pas un vide à combler : il signifie que {{1}}. Parler plus ne te rapporte {{2}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "tu as oublié un point",
+      "il attend que tu conclues",
+      "l'interviewer reprend la main"
+     ],
+     "correct": 2
+    },
+    {
+     "id": 2,
+     "options": [
+      "rien",
+      "des points de communication",
+      "un meilleur score de structure"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.008",
+  "format": "match_pairs",
+  "skill": "u0.formats",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Associe chaque étape de sélection à ce qu'elle mesure.",
+  "media": null,
+  "explanation": "Les tests en ligne mesurent le raisonnement, pas la connaissance du conseil ; le fit mesure ton parcours et ta motivation.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "Solve (McKinsey)",
+     "right": "Jeux de résolution de problèmes, sans connaissance business requise"
+    },
+    {
+     "left": "Case avec un chatbot (BCG)",
+     "right": "Mini-case chronométré : questions, calculs, lecture de graphiques"
+    },
+    {
+     "left": "Test d'aptitude numérique",
+     "right": "Lecture rapide de tableaux et calculs de pourcentages"
+    },
+    {
+     "left": "Entretien de fit",
+     "right": "Parcours, motivations, histoires personnelles creusées"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.009",
+  "format": "order_steps",
+  "skill": "u0.formats",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Remets dans l'ordre les étapes d'un process classique en cabinet de stratégie. Une tuile est en trop.",
+  "media": null,
+  "explanation": "Candidature → test en ligne → premier tour (cases + fit) → tour final avec des partners → offre. La période d'essai vient après l'offre, pas avant.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Candidature et CV"
+    },
+    {
+     "id": "t2",
+     "text": "Test en ligne (jeu ou case avec chatbot)"
+    },
+    {
+     "id": "t3",
+     "text": "Premier tour : deux entretiens case + fit"
+    },
+    {
+     "id": "t4",
+     "text": "Tour final avec des partners"
+    },
+    {
+     "id": "t5",
+     "text": "Offre et choix du bureau"
+    },
+    {
+     "id": "t6",
+     "text": "Période d'essai avant l'offre"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5"
+   ],
+   "distractors": [
+    "t6"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.010",
+  "format": "swipe_valid",
+  "skill": "u0.formats",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Case mené par le candidat : glisse à droite les attitudes attendues.",
+  "media": null,
+  "explanation": "Mené par le candidat : tu reformules, tu structures, tu choisis la branche, tu demandes les données, tu résumes et tu conclus.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "Reformuler l'objectif et demander une minute pour structurer",
+     "valid": true,
+     "reason": "Ouverture standard : tu pilotes, tu annonces ton plan."
+    },
+    {
+     "id": "c2",
+     "text": "Attendre que l'interviewer te dise quelle branche analyser",
+     "valid": false,
+     "reason": "C'est toi qui choisis la branche et qui justifies le choix."
+    },
+    {
+     "id": "c3",
+     "text": "Demander les données dont tu as besoin, en précisant pourquoi",
+     "valid": true,
+     "reason": "L'interviewer fournit les données que tu demandes, pas celles que tu oublies."
+    },
+    {
+     "id": "c4",
+     "text": "Faire une synthèse intermédiaire après chaque analyse",
+     "valid": true,
+     "reason": "Le fil rouge tient parce que tu rappelles où on en est."
+    },
+    {
+     "id": "c5",
+     "text": "Suivre le plan initial même si une analyse l'invalide",
+     "valid": false,
+     "reason": "La structure est un outil : on l'ajuste quand les données changent la question."
+    },
+    {
+     "id": "c6",
+     "text": "Dérouler toutes les branches avant de conclure",
+     "valid": false,
+     "reason": "On priorise : une ou deux branches creusées, puis une recommandation."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.011",
+  "format": "first_question",
+  "skill": "u0.formats",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "Un cabinet de conseil en transformation t'envoie un dossier : « une compagnie ferroviaire veut digitaliser sa relation client », à rendre sous 48 h, puis 20 min de présentation. Que fais-tu en premier ?",
+  "media": null,
+  "explanation": "Case écrit : d'abord la question exacte et les livrables attendus. Chiffrer ou mettre en forme avant de cadrer, c'est travailler à côté.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Je cherche un modèle de présentation de cabinet pour soigner la forme",
+     "why_wrong": "La forme compte, mais après le fond : la question et les livrables d'abord."
+    },
+    {
+     "id": "b",
+     "text": "J'ouvre un tableur pour chiffrer le projet",
+     "why_wrong": "Chiffrer avant de cadrer, c'est chiffrer la mauvaise chose."
+    },
+    {
+     "id": "c",
+     "text": "Je choisis un framework de transformation digitale",
+     "why_wrong": "Framework plaqué : la structure doit sortir de la question du dossier."
+    },
+    {
+     "id": "d",
+     "text": "Je lis tout le dossier et je note la question posée et les livrables attendus"
+    }
+   ],
+   "correct": "d"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.012",
+  "format": "first_question",
+  "skill": "u0.formats",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Entretien PEI chez McKinsey. L'interviewer : « Parle-moi d'une fois où tu as dû convaincre quelqu'un qui n'était pas d'accord avec toi. » Quel est le bon réflexe ?",
+  "media": null,
+  "explanation": "Au PEI, une seule histoire est creusée 10-15 min : situation précise, ta décision, tes actions à toi (« je »), le résultat, puis les relances.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Raconter trois situations différentes pour montrer de la variété",
+     "why_wrong": "Le PEI creuse UNE histoire pendant 10-15 min : la profondeur, pas la variété."
+    },
+    {
+     "id": "b",
+     "text": "Raconter une situation précise, ta décision, tes actions, le résultat, puis attendre les relances"
+    },
+    {
+     "id": "c",
+     "text": "Décrire ce que l'équipe a réussi grâce à sa cohésion",
+     "why_wrong": "L'interviewer veut ton rôle à toi : « je », pas « nous »."
+    },
+    {
+     "id": "d",
+     "text": "Demander quelle dimension il évalue pour adapter l'histoire",
+     "why_wrong": "Tu dois reconnaître seul ce qu'on cherche ; demander la grille montre que tu ne l'as pas préparée."
+    }
+   ],
+   "correct": "b"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.013",
+  "format": "match_pairs",
+  "skill": "u0.formats",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "PEI McKinsey (2025) : associe chaque dimension à la question qui la cible.",
+  "media": null,
+  "explanation": "Leadership : mener les autres. Connection : convaincre et créer la relation. Drive : objectif ambitieux. Growth : apprendre d'un échec.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "Leadership",
+     "right": "Une fois où tu as mobilisé une équipe vers un objectif"
+    },
+    {
+     "left": "Connection",
+     "right": "Une fois où tu as convaincu quelqu'un qui n'était pas d'accord"
+    },
+    {
+     "left": "Drive",
+     "right": "Un objectif ambitieux que tu t'es fixé malgré les obstacles"
+    },
+    {
+     "left": "Growth",
+     "right": "Un échec dont tu as tiré une leçon et changé ta façon de faire"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.014",
+  "format": "fill_blank",
+  "skill": "u0.formats",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète la règle sur le poids du fit.",
+  "media": null,
+  "explanation": "Dans la plupart des cabinets, case et fit pèsent à peu près autant : un fit faible n'est pas rattrapé par un bon case.",
+  "payload": {
+   "text": "La plupart des cabinets pondèrent le case et le fit {{1}} : un excellent case avec un fit faible donne {{2}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "à 80 / 20 pour le case",
+      "uniquement sur le case",
+      "à parts à peu près égales"
+     ],
+     "correct": 2
+    },
+    {
+     "id": 2,
+     "options": [
+      "toujours une offre",
+      "souvent un refus",
+      "une seconde chance au case"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.015",
+  "format": "swipe_valid",
+  "skill": "u0.formats",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Case écrit 48 h + oral chez un cabinet de transformation : glisse à droite ce que le jury attend.",
+  "media": null,
+  "explanation": "Case écrit : recommandation en tête, hypothèses explicites, démarche en phases, et à l'oral on raisonne au-delà du dossier.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "Une recommandation claire dès la première slide",
+     "valid": true,
+     "reason": "Réponse d'abord : le jury lit la conclusion avant le détail."
+    },
+    {
+     "id": "c2",
+     "text": "Vingt slides de diagnostic avant la moindre recommandation",
+     "valid": false,
+     "reason": "Ça enterre la réponse ; la synthèse vient en tête, le diagnostic l'étaye."
+    },
+    {
+     "id": "c3",
+     "text": "Des hypothèses explicites quand le dossier ne donne pas le chiffre",
+     "valid": true,
+     "reason": "On ne bloque pas sur une donnée manquante : on pose une hypothèse et on la dit."
+    },
+    {
+     "id": "c4",
+     "text": "Une démarche en phases, avec jalons et charges",
+     "valid": true,
+     "reason": "Le cœur du métier de transformation : comment on fait, en combien de temps, avec qui."
+    },
+    {
+     "id": "c5",
+     "text": "Refuser de répondre aux questions qui sortent du dossier",
+     "valid": false,
+     "reason": "L'oral teste justement ta capacité à raisonner au-delà du document."
+    },
+    {
+     "id": "c6",
+     "text": "Reprendre un plan de transformation trouvé sur internet",
+     "valid": false,
+     "reason": "Le jury repère le plaqué ; il veut un raisonnement propre au client."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.016",
+  "format": "order_steps",
+  "skill": "u0.formats",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Remets dans l'ordre les étapes d'un case mené par le candidat, de l'énoncé à la fin. Une tuile vient d'un autre format.",
+  "media": null,
+  "explanation": "Candidat-led : reformuler → structurer → choisir une branche et demander les données → analyser et dire le so what → synthèse. Attendre la question suivante, c'est l'autre format.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Reformuler l'objectif et clarifier"
+    },
+    {
+     "id": "t2",
+     "text": "Demander une minute et annoncer la structure"
+    },
+    {
+     "id": "t3",
+     "text": "Choisir une branche et demander les données"
+    },
+    {
+     "id": "t4",
+     "text": "Analyser, calculer, dire le « so what »"
+    },
+    {
+     "id": "t5",
+     "text": "Synthèse finale : recommandation, raisons, prochaine étape"
+    },
+    {
+     "id": "t6",
+     "text": "Attendre la question suivante de l'interviewer"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5"
+   ],
+   "distractors": [
+    "t6"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.017",
+  "format": "first_question",
+  "skill": "u0.formats",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Transaction services, Big Four. Après le fit, l'associée demande : « Un hôpital privé passe 10 M€ d'amortissements. Quel impact sur les trois états financiers ? » De quoi s'agit-il ?",
+  "media": null,
+  "explanation": "En transaction services, le fit inclut des questions techniques de finance : on répond directement, court et juste, sans structurer un case.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "D'un case à structurer : je demande une minute pour poser un arbre",
+     "why_wrong": "Pas de structure à inventer : c'est une question de connaissance, on répond directement."
+    },
+    {
+     "id": "b",
+     "text": "D'un piège : l'amortissement ne touche pas la trésorerie, donc rien à dire",
+     "why_wrong": "Il y a bien un impact : résultat net, puis flux de trésorerie (réintégration) et bilan."
+    },
+    {
+     "id": "c",
+     "text": "D'une question technique de fit : il vérifie tes bases, réponse courte et sûre"
+    },
+    {
+     "id": "d",
+     "text": "D'une estimation déguisée : je chiffre l'actif de l'hôpital",
+     "why_wrong": "Aucun volume à estimer ; c'est de la mécanique comptable."
+    }
+   ],
+   "correct": "c"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.018",
+  "format": "fill_blank",
+  "skill": "u0.formats",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète ce que mesure le test en ligne Solve de McKinsey.",
+  "media": null,
+  "explanation": "Les tests en ligne mesurent la façon de raisonner avec des données incomplètes ; ils ne demandent ni connaissance business ni framework.",
+  "payload": {
+   "text": "Dans le test Solve (McKinsey), les jeux n'exigent {{1}} ; ce qu'on y mesure, c'est {{2}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "la maîtrise d'un tableur",
+      "aucune connaissance business",
+      "la connaissance du cabinet"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "la mémoire des frameworks",
+      "la culture générale",
+      "la façon de raisonner avec des données incomplètes"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.019",
+  "format": "first_question",
+  "skill": "u0.formats",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "Case mené par l'interviewer, énergéticien. Après tes quatre facteurs, il enchaîne : « Si le prix du gaz double, que devient la marge du client ? » Tu n'as aucun chiffre. Que fais-tu ?",
+  "media": null,
+  "explanation": "Mené par l'interviewer : on suit sa question, on pose une hypothèse chiffrée à voix haute et on calcule. Il donnera les vrais chiffres s'il le veut.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Je lui demande les comptes détaillés avant de répondre",
+     "why_wrong": "Il teste ta capacité à raisonner sous hypothèse ; il donnera les chiffres s'il le souhaite."
+    },
+    {
+     "id": "b",
+     "text": "Je pose une hypothèse sur la part du gaz dans les coûts, je l'annonce, je calcule"
+    },
+    {
+     "id": "c",
+     "text": "Je réponds que la marge baisse, sans chiffrer, pour rester prudent",
+     "why_wrong": "Trop vague : « ça baisse » n'est pas une réponse de consultant, un ordre de grandeur l'est."
+    },
+    {
+     "id": "d",
+     "text": "Je reviens sur mes quatre facteurs pour montrer que j'avais prévu le prix",
+     "why_wrong": "Il a changé de question ; y répondre, c'est suivre le fil, pas défendre ton plan."
+    }
+   ],
+   "correct": "b"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.020",
+  "format": "swipe_valid",
+  "skill": "u0.formats",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Tu as deux process : stratégie (test en ligne + cases) et transformation (case 48 h). Glisse à droite les bons choix de préparation.",
+  "media": null,
+  "explanation": "Prépare chaque format du process, y compris les tests en ligne et le fit ; les frameworks se maîtrisent comme des briques, pas comme un script.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "S'entraîner aux deux formats, même si le case oral est prioritaire",
+     "valid": true,
+     "reason": "Préparer un seul format, c'est perdre un des deux process."
+    },
+    {
+     "id": "c2",
+     "text": "Rédiger la présentation 48 h avec la réponse en première slide",
+     "valid": true,
+     "reason": "Le case écrit se juge comme un oral : réponse d'abord."
+    },
+    {
+     "id": "c3",
+     "text": "Ne pas préparer le test en ligne : « ce n'est qu'un jeu »",
+     "valid": false,
+     "reason": "Le test élimine une large part des candidats avant tout entretien."
+    },
+    {
+     "id": "c4",
+     "text": "Préparer deux histoires par dimension du fit",
+     "valid": true,
+     "reason": "Le fit pèse autant que le case ; 8-12 histoires couvrent les relances."
+    },
+    {
+     "id": "c5",
+     "text": "Apprendre dix frameworks par cœur pour couvrir tous les cases",
+     "valid": false,
+     "reason": "Les frameworks sont des briques ; réciter sans adapter élimine."
+    },
+    {
+     "id": "c6",
+     "text": "Faire des mocks où un partenaire joue l'interviewer qui mène le case",
+     "valid": true,
+     "reason": "Le format mené par l'interviewer se travaille en conditions."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.021",
+  "format": "match_pairs",
+  "skill": "u0.formats",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Associe chaque phrase du recruteur au format qu'elle annonce.",
+  "media": null,
+  "explanation": "Les mots du recruteur trahissent le format : « 48 heures » = écrit, « série de questions » = interviewer, « comme bon vous semble » = candidat.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "« Vous aurez 48 heures pour préparer une restitution »",
+     "right": "Case écrit puis soutenance orale"
+    },
+    {
+     "left": "« L'interviewer vous posera une série de questions »",
+     "right": "Case mené par l'interviewer"
+    },
+    {
+     "left": "« Vous conduirez l'analyse comme bon vous semble »",
+     "right": "Case mené par le candidat"
+    },
+    {
+     "left": "« Une heure devant votre ordinateur, sans interlocuteur »",
+     "right": "Test en ligne"
+    },
+    {
+     "left": "« On vous demandera le lien entre résultat net et trésorerie »",
+     "right": "Questions techniques (transaction services)"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.022",
+  "format": "fill_blank",
+  "skill": "u0.formats",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète la description d'un tour final.",
+  "media": null,
+  "explanation": "En tour final, le partner mène souvent un case plus court et conceptuel, et un fit plus ouvert : il juge si on peut te mettre devant un client.",
+  "payload": {
+   "text": "Au tour final, un partner mène souvent un case plus {{1}} et une discussion de fit plus {{2}} : il juge si on peut te mettre devant un client.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "long et chiffré",
+      "court et conceptuel",
+      "écrit"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "scriptée",
+      "courte",
+      "ouverte"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.formats.023",
+  "format": "order_steps",
+  "skill": "u0.formats",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "Remets dans l'ordre un case écrit 48 h + oral (une collectivité veut dématérialiser ses démarches). Une tuile appartient à un case oral.",
+  "media": null,
+  "explanation": "Case écrit : lire et identifier la question → cadrer (hypothèses, périmètre) → analyser → rédiger, réponse en premier → soutenir. « Demander une minute » est un geste d'oral.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Lire le dossier, identifier la question et les livrables"
+    },
+    {
+     "id": "t2",
+     "text": "Cadrer : hypothèses, périmètre, structure de la réponse"
+    },
+    {
+     "id": "t3",
+     "text": "Analyser et chiffrer les options"
+    },
+    {
+     "id": "t4",
+     "text": "Rédiger la présentation, recommandation en premier"
+    },
+    {
+     "id": "t5",
+     "text": "Soutenir à l'oral et répondre au jury"
+    },
+    {
+     "id": "t6",
+     "text": "Demander une minute au jury pour structurer"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5"
+   ],
+   "distractors": [
+    "t6"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.001",
+  "format": "concept_card",
+  "skill": "u0.criteria",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Ce que l'interviewer note",
+  "media": null,
+  "explanation": "",
+  "payload": {
+   "screens": [
+    {
+     "title": "La grille implicite",
+     "body": "Après l'entretien, l'interviewer remplit une grille. Six lignes reviennent partout, avec des poids proches de ceux-ci :\n\n- **Structure (~25 %)** : découper le problème sans trou ni doublon, et dire par où commencer.\n- **Analyse et chiffres (~20 %)** : calcul juste, arrondi intelligent, et surtout *ce que le chiffre veut dire*.\n- **Jugement business (~15 %)** : hypothèses réalistes, sens de ce qui compte pour le client.\n- **Communication (~10 %)** : dire ce qu'on va faire avant de le faire, parler en 1-2-3.\n- **Synthèse (~10 %)** : à la fin, une recommandation, des raisons, un risque, une prochaine étape.\n- **Présence (~10-20 %)** : calme, écoute, accepte d'être corrigé. « Est-ce que je le mettrais devant un client demain ? »\n\nLa bonne réponse ne suffit pas : elle n'est qu'une partie de deux lignes sur six."
+    },
+    {
+     "title": "Exemple : même réponse, deux notes",
+     "body": "**Case retail : la rentabilité baisse.** La cause est une hausse de 15 % des coûts logistiques.\n\n*Candidat A* la trouve, mais en sautant d'une idée à l'autre, sans annoncer de plan, en marmonnant ses calculs, et finit par : « voilà, c'est la logistique ».\n\n*Candidat B* annonce : « je regarde revenus puis coûts ; je commence par les coûts, le CA est stable ». Il calcule à voix haute, résume après chaque étape, puis conclut : « je recommande de renégocier le contrat logistique ; deux raisons ; un risque ; prochaine étape ».\n\nMême réponse. A : « moyen » presque partout. B : « très bien ». La grille note le chemin, pas seulement l'arrivée."
+    },
+    {
+     "title": "À retenir : « très bien » ligne par ligne",
+     "body": "- **Structure** : complète, sans doublon, *et* priorisée.\n- **Chiffres** : justes, arrondis, interprétés (« donc… »).\n- **Jugement** : hypothèses dites à voix haute et plausibles pour le secteur.\n- **Communication** : annoncer, puis faire ; numéroter.\n- **Synthèse** : réponse d'abord, sans qu'on te la demande.\n- **Présence** : écouter, intégrer l'indice, rester calme.\n\nLa règle en une phrase : **dis ce que tu vas faire, fais-le, dis ce que ça veut dire.**"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.002",
+  "format": "match_pairs",
+  "skill": "u0.criteria",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Associe chaque critère de la grille à ce qu'il évalue.",
+  "media": null,
+  "explanation": "Six lignes : structure, chiffres, jugement, communication, synthèse, présence. Chacune se note sur un geste précis.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "Structure",
+     "right": "Découpage complet, sans doublon, priorisé"
+    },
+    {
+     "left": "Analyse et chiffres",
+     "right": "Calcul juste, arrondi, interprété"
+    },
+    {
+     "left": "Communication",
+     "right": "Annoncer le plan avant d'agir, parler en 1-2-3"
+    },
+    {
+     "left": "Synthèse",
+     "right": "Recommandation, raisons, risque, prochaine étape"
+    },
+    {
+     "left": "Présence",
+     "right": "Calme, écoute, accepte d'être corrigé"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.003",
+  "format": "fill_blank",
+  "skill": "u0.criteria",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète la règle sur le poids des critères.",
+  "media": null,
+  "explanation": "La structure pèse le plus (environ un quart). La bonne réponse seule ne suffit pas : elle n'est qu'une partie de la note.",
+  "payload": {
+   "text": "Sur la grille, la {{1}} pèse le plus (environ un quart), et la bonne réponse seule {{2}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "synthèse",
+      "présence",
+      "structure"
+     ],
+     "correct": 2
+    },
+    {
+     "id": 2,
+     "options": [
+      "ne suffit pas",
+      "garantit un très bien",
+      "compte pour moitié"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.004",
+  "format": "swipe_valid",
+  "skill": "u0.criteria",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Communication : glisse à droite les phrases qui disent ce qu'on va faire avant de le faire.",
+  "media": null,
+  "explanation": "Communiquer, c'est annoncer le plan, numéroter et justifier : l'interviewer doit savoir où tu vas avant que tu y ailles.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Je vais d'abord regarder les revenus, puis les coûts. »",
+     "valid": true,
+     "reason": "Annonce le plan : l'interviewer peut te suivre."
+    },
+    {
+     "id": "c2",
+     "text": "« Donc 12 M€… non, 14… attendez. »",
+     "valid": false,
+     "reason": "Calcul à voix haute sans annonce : brouillon, pas communication."
+    },
+    {
+     "id": "c3",
+     "text": "« Trois raisons : un, deux, trois. »",
+     "valid": true,
+     "reason": "Numéroter rend le discours suivable."
+    },
+    {
+     "id": "c4",
+     "text": "« Je commence par les coûts, car le chiffre d'affaires est stable. »",
+     "valid": true,
+     "reason": "Annonce ET justifie : le niveau « très bien »."
+    },
+    {
+     "id": "c5",
+     "text": "« Hum, je ne sais pas trop par où commencer. »",
+     "valid": false,
+     "reason": "Pensée à voix haute sans structure ; demande plutôt une minute."
+    },
+    {
+     "id": "c6",
+     "text": "« Avant de calculer, je précise que je cherche un coût par colis. »",
+     "valid": true,
+     "reason": "Dire ce qu'on va faire inclut dire ce qu'on cherche."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.005",
+  "format": "mece_sort",
+  "skill": "u0.criteria",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Trie chaque geste dans le critère qu'il fait monter.",
+  "media": null,
+  "explanation": "Structure = découper et prioriser ; chiffres = calculer et interpréter ; synthèse = recommander et proposer la suite.",
+  "payload": {
+   "buckets": [
+    {
+     "id": "str",
+     "label": "Structure"
+    },
+    {
+     "id": "num",
+     "label": "Analyse et chiffres"
+    },
+    {
+     "id": "syn",
+     "label": "Synthèse"
+    }
+   ],
+   "items": [
+    {
+     "id": "i1",
+     "text": "Découper le problème en revenus et coûts",
+     "bucket": "str"
+    },
+    {
+     "id": "i2",
+     "text": "Dire par quelle branche on commence et pourquoi",
+     "bucket": "str"
+    },
+    {
+     "id": "i3",
+     "text": "Arrondir 487 M€ à 500 M€ pour calculer de tête",
+     "bucket": "num"
+    },
+    {
+     "id": "i4",
+     "text": "Dire ce que signifie le résultat du calcul",
+     "bucket": "num"
+    },
+    {
+     "id": "i5",
+     "text": "Conclure par une recommandation",
+     "bucket": "syn"
+    },
+    {
+     "id": "i6",
+     "text": "Proposer une prochaine étape",
+     "bucket": "syn"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.006",
+  "format": "pick_so_what",
+  "skill": "u0.criteria",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Débrief d'un candidat après un case retail. Quel commentaire l'interviewer écrit-il probablement ?",
+  "media": {
+   "type": "table",
+   "title": "Grille du candidat",
+   "header": [
+    "Critère",
+    "Note / 5"
+   ],
+   "rows": [
+    [
+     "Structure",
+     "4"
+    ],
+    [
+     "Chiffres",
+     "4"
+    ],
+    [
+     "Jugement",
+     "3"
+    ],
+    [
+     "Communication",
+     "2"
+    ],
+    [
+     "Synthèse",
+     "1"
+    ],
+    [
+     "Présence",
+     "3"
+    ]
+   ]
+  },
+  "explanation": "Lis la grille comme l'interviewer : le point bloquant est la ligne la plus basse, ici la synthèse et la communication, pas la technique.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "« Trop faible en calcul pour passer au tour suivant »",
+     "why_wrong": "Les chiffres sont à 4/5 : ce n'est pas le point bloquant."
+    },
+    {
+     "id": "b",
+     "text": "« Raisonne bien, mais on ne le suit pas et il ne conclut pas »"
+    },
+    {
+     "id": "c",
+     "text": "« Excellent profil, à recruter sans réserve »",
+     "why_wrong": "Avec 2/5 en communication et 1/5 en synthèse, le mettre devant un client est risqué."
+    },
+    {
+     "id": "d",
+     "text": "« Manque de structure : il faut retravailler les arbres »",
+     "why_wrong": "Structure à 4/5 : le problème est après l'analyse, pas avant."
+    }
+   ],
+   "correct": "b"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.007",
+  "format": "fill_blank",
+  "skill": "u0.criteria",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète ce qu'est un « très bien » en analyse et chiffres.",
+  "media": null,
+  "explanation": "Un calcul juste ne vaut qu'un « bien ». Le « très bien » : arrondi intelligemment pour aller vite, puis interprété par un « donc… ».",
+  "payload": {
+   "text": "Un très bien en analyse n'est pas seulement un calcul juste : c'est un chiffre {{1}} et {{2}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "exact au centime",
+      "arrondi intelligemment",
+      "vérifié trois fois"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "écrit au tableau",
+      "répété deux fois",
+      "interprété (« donc… »)"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.008",
+  "format": "swipe_valid",
+  "skill": "u0.criteria",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Jugement business : glisse à droite les hypothèses réalistes.",
+  "media": null,
+  "explanation": "Le jugement se note sur les ordres de grandeur : avant de poser une hypothèse, demande-toi si un consultant du secteur hocherait la tête.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "Un supermarché de ville a un panier moyen d'environ 30 €",
+     "valid": true,
+     "reason": "Ordre de grandeur juste pour un magasin de proximité."
+    },
+    {
+     "id": "c2",
+     "text": "Un consultant junior est facturé au client 100 € par jour",
+     "valid": false,
+     "reason": "Un junior se facture plutôt 1 000 à 1 500 € par jour."
+    },
+    {
+     "id": "c3",
+     "text": "Une banque de détail perd environ 5 % de ses clients par an",
+     "valid": true,
+     "reason": "Churn bancaire faible (inertie, contrats) : quelques pour cent."
+    },
+    {
+     "id": "c4",
+     "text": "Une appli grand public convertit 80 % de ses visiteurs en payants",
+     "valid": false,
+     "reason": "Les conversions grand public se comptent en quelques pour cent."
+    },
+    {
+     "id": "c5",
+     "text": "Un parc éolien terrestre produit l'équivalent de 25 % du temps à pleine puissance",
+     "valid": true,
+     "reason": "Facteur de charge terrestre typique : 20 à 30 %."
+    },
+    {
+     "id": "c6",
+     "text": "Un smartphone se renouvelle tous les six mois en France",
+     "valid": false,
+     "reason": "Durée de détention moyenne : plutôt trois ans."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.009",
+  "format": "mece_sort",
+  "skill": "u0.criteria",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Trie chaque comportement dans le critère qu'il nourrit.",
+  "media": null,
+  "explanation": "Communication = rendre suivable ; présence = calme et coachabilité ; synthèse = conclure sans qu'on le demande.",
+  "payload": {
+   "buckets": [
+    {
+     "id": "com",
+     "label": "Communication"
+    },
+    {
+     "id": "pre",
+     "label": "Présence"
+    },
+    {
+     "id": "syn",
+     "label": "Synthèse"
+    }
+   ],
+   "items": [
+    {
+     "id": "i1",
+     "text": "Annoncer le plan avant de commencer",
+     "bucket": "com"
+    },
+    {
+     "id": "i2",
+     "text": "Numéroter ses idées",
+     "bucket": "com"
+    },
+    {
+     "id": "i3",
+     "text": "Garder son calme quand l'interviewer te contredit",
+     "bucket": "pre"
+    },
+    {
+     "id": "i4",
+     "text": "Reformuler l'indice reçu et l'intégrer au plan",
+     "bucket": "pre"
+    },
+    {
+     "id": "i5",
+     "text": "Terminer par une recommandation sans qu'on te la demande",
+     "bucket": "syn"
+    },
+    {
+     "id": "i6",
+     "text": "Donner un risque et une prochaine étape",
+     "bucket": "syn"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.010",
+  "format": "match_pairs",
+  "skill": "u0.criteria",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Associe chaque remarque de débrief au critère concerné.",
+  "media": null,
+  "explanation": "Chaque remarque de débrief pointe une ligne de la grille : trou = structure, erreur = chiffres, ordre de grandeur = jugement, fil = communication.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "« Il a oublié toute la partie coûts »",
+     "right": "Structure"
+    },
+    {
+     "left": "« 12 % de 300 M€, il a dit 3,6 M€ »",
+     "right": "Analyse et chiffres"
+    },
+    {
+     "left": "« Il a supposé qu'une clinique a 10 000 lits »",
+     "right": "Jugement business"
+    },
+    {
+     "left": "« On ne savait jamais où il allait »",
+     "right": "Communication"
+    },
+    {
+     "left": "« Il s'est arrêté après l'analyse, sans recommandation »",
+     "right": "Synthèse"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.011",
+  "format": "fill_blank",
+  "skill": "u0.criteria",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète la composition d'une synthèse finale.",
+  "media": null,
+  "explanation": "Synthèse : la recommandation d'abord, les raisons chiffrées, un risque et sa parade, la prochaine étape.",
+  "payload": {
+   "text": "La synthèse finale a quatre éléments : la {{1}} d'abord, puis les raisons chiffrées, un {{2}} et la prochaine étape.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "méthode",
+      "liste des analyses",
+      "recommandation"
+     ],
+     "correct": 2
+    },
+    {
+     "id": 2,
+     "options": [
+      "risque et sa parade",
+      "remerciement",
+      "rappel du contexte"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.012",
+  "format": "pick_so_what",
+  "skill": "u0.criteria",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Voici la pondération d'une grille type. Un candidat a passé 80 % de son temps sur des calculs, tous justes. Que risque-t-il ?",
+  "media": {
+   "type": "bar",
+   "title": "Poids des critères",
+   "unit": "%",
+   "categories": [
+    "Structure",
+    "Chiffres",
+    "Jugement",
+    "Communication",
+    "Synthèse",
+    "Présence"
+   ],
+   "series": [
+    {
+     "name": "Poids",
+     "values": [
+      25,
+      20,
+      15,
+      10,
+      10,
+      20
+     ]
+    }
+   ]
+  },
+  "explanation": "Les chiffres pèsent environ 20 % : y exceller ne compense pas une structure bâclée et une synthèse absente.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Rien : la justesse des chiffres sécurise l'entretien",
+     "why_wrong": "Les chiffres pèsent 20 % ; un très bien dessus ne compense pas le reste."
+    },
+    {
+     "id": "b",
+     "text": "Une pénalité en jugement, car trop de calcul nuit au bon sens",
+     "why_wrong": "Calculer n'abîme pas le jugement ; le risque est le temps volé à la structure et à la synthèse."
+    },
+    {
+     "id": "c",
+     "text": "De plaire : les interviewers préfèrent les profils quantitatifs",
+     "why_wrong": "Ils préfèrent les profils équilibrés qu'on peut mettre devant un client."
+    },
+    {
+     "id": "d",
+     "text": "D'être moyen partout ailleurs : 80 % de la note vient d'autres critères"
+    }
+   ],
+   "correct": "d"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.013",
+  "format": "swipe_valid",
+  "skill": "u0.criteria",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "télécoms",
+  "stem": "Fin de case télécoms (lancer une offre fibre pro ?). Glisse à droite les synthèses au niveau « très bien ».",
+  "media": null,
+  "explanation": "Une synthèse « très bien » commence par la recommandation, s'appuie sur les analyses chiffrées et traite un risque.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Je recommande de lancer l'offre fibre pro : +15 M€ en 2 ans ; risque : le réseau ; prochaine étape : pilote sur 2 régions. »",
+     "valid": true,
+     "reason": "Recommandation, raison chiffrée, risque, prochaine étape : complet."
+    },
+    {
+     "id": "c2",
+     "text": "« Pour résumer, on a regardé le marché, puis les coûts, puis la concurrence. »",
+     "valid": false,
+     "reason": "Récit du chemin, pas une réponse : la synthèse commence par la recommandation."
+    },
+    {
+     "id": "c3",
+     "text": "« Il faudrait creuser davantage avant de se prononcer. »",
+     "valid": false,
+     "reason": "Refus de conclure ; pose une recommandation sous hypothèse."
+    },
+    {
+     "id": "c4",
+     "text": "« Lancer, oui : les deux analyses vont dans le même sens, et le risque réseau est gérable par un pilote. »",
+     "valid": true,
+     "reason": "Réponse d'abord, appui sur les analyses, risque traité."
+    },
+    {
+     "id": "c5",
+     "text": "« C'est compliqué, il y a des pour et des contre. »",
+     "valid": false,
+     "reason": "Pas de position : l'interviewer attend un choix argumenté."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.014",
+  "format": "mece_sort",
+  "skill": "u0.criteria",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Trie ces gestes « très bien » dans leur critère.",
+  "media": null,
+  "explanation": "Le « très bien » : structure priorisée et sans chevauchement ; jugement qui sait ce qui est normal ; chiffres vérifiés et traduits.",
+  "payload": {
+   "buckets": [
+    {
+     "id": "str",
+     "label": "Structure"
+    },
+    {
+     "id": "jug",
+     "label": "Jugement business"
+    },
+    {
+     "id": "num",
+     "label": "Analyse et chiffres"
+    }
+   ],
+   "items": [
+    {
+     "id": "i1",
+     "text": "Dire quelle branche on creuse en premier et pourquoi",
+     "bucket": "str"
+    },
+    {
+     "id": "i2",
+     "text": "Vérifier que les branches ne se chevauchent pas",
+     "bucket": "str"
+    },
+    {
+     "id": "i3",
+     "text": "Dire qu'un churn de 40 % est anormal pour le secteur",
+     "bucket": "jug"
+    },
+    {
+     "id": "i4",
+     "text": "Choisir l'hypothèse qui compte le plus pour le client",
+     "bucket": "jug"
+    },
+    {
+     "id": "i5",
+     "text": "Vérifier l'ordre de grandeur avant d'annoncer le résultat",
+     "bucket": "num"
+    },
+    {
+     "id": "i6",
+     "text": "Traduire 3,6 M€ en « 2 % du CA, négligeable »",
+     "bucket": "num"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.015",
+  "format": "fill_blank",
+  "skill": "u0.criteria",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète la règle de communication en trois temps.",
+  "media": null,
+  "explanation": "Dis ce que tu vas faire, fais-le, dis ce que ça veut dire. Sans l'annonce, l'interviewer a l'impression que tu tâtonnes.",
+  "payload": {
+   "text": "« Dis ce que tu vas faire, {{1}}, dis ce que ça veut dire. » C'est la règle de communication ; l'oublier donne l'impression que tu {{2}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "demande la permission",
+      "fais-le",
+      "réfléchis en silence"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "es trop rapide",
+      "tâtonnes",
+      "es trop structuré"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.016",
+  "format": "match_pairs",
+  "skill": "u0.criteria",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Associe chaque « très bien » au critère qu'il illustre.",
+  "media": null,
+  "explanation": "Un « très bien » est un geste observable : priorité annoncée, hypothèse plausible, calme sous contradiction, chiffre suivi d'un « donc ».",
+  "payload": {
+   "pairs": [
+    {
+     "left": "Branches disjointes qui couvrent tout, et une priorité annoncée",
+     "right": "Structure"
+    },
+    {
+     "left": "Hypothèse dite à voix haute et plausible pour le secteur",
+     "right": "Jugement business"
+    },
+    {
+     "left": "Calme quand l'interviewer dit « je ne suis pas d'accord »",
+     "right": "Présence"
+    },
+    {
+     "left": "Résultat de calcul suivi d'un « donc »",
+     "right": "Analyse et chiffres"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.017",
+  "format": "pick_so_what",
+  "skill": "u0.criteria",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Même case industriel, même conclusion. Lequel l'interviewer note-t-il « très bien », et pourquoi ?",
+  "media": {
+   "type": "table",
+   "title": "Deux candidats, un case",
+   "header": [
+    "",
+    "Candidat A",
+    "Candidat B"
+   ],
+   "rows": [
+    [
+     "Bonne cause trouvée",
+     "Oui",
+     "Oui"
+    ],
+    [
+     "Plan annoncé",
+     "Non",
+     "Oui"
+    ],
+    [
+     "Synthèse finale",
+     "Non",
+     "Oui"
+    ],
+    [
+     "Durée",
+     "35 min",
+     "25 min"
+    ]
+   ]
+  },
+  "explanation": "La grille note le chemin : plan annoncé, synthèse livrée, efficacité. À conclusion égale, le candidat suivable l'emporte.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "A : il a pris le temps d'être exhaustif",
+     "why_wrong": "Plus long sans plan ni synthèse, c'est du tâtonnement, pas de l'exhaustivité."
+    },
+    {
+     "id": "b",
+     "text": "Les deux, puisque la conclusion est la même",
+     "why_wrong": "La grille note le chemin : structure, communication, synthèse, pas seulement l'arrivée."
+    },
+    {
+     "id": "c",
+     "text": "B : il a rendu son raisonnement suivable et a conclu, en moins de temps"
+    },
+    {
+     "id": "d",
+     "text": "Ni l'un ni l'autre : 25 minutes, c'est trop court pour un case",
+     "why_wrong": "Un case dure souvent 25-30 min ; vite et clair est un plus."
+    }
+   ],
+   "correct": "c"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.018",
+  "format": "swipe_valid",
+  "skill": "u0.criteria",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Présence : l'interviewer te donne un indice. Glisse à droite les bonnes réactions.",
+  "media": null,
+  "explanation": "La coachabilité se note : reformuler l'indice, l'intégrer sans se justifier, repartir. Ni défense, ni excuses à rallonge.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Bonne remarque : donc je devrais plutôt regarder le mix produit. Je reprends. »",
+     "valid": true,
+     "reason": "Intégrer l'indice sans se justifier : coachable."
+    },
+    {
+     "id": "c2",
+     "text": "« Oui, c'est ce que j'allais dire. »",
+     "valid": false,
+     "reason": "Défensif ; l'interviewer voit que tu refuses la correction."
+    },
+    {
+     "id": "c3",
+     "text": "Se taire et poursuivre son plan initial",
+     "valid": false,
+     "reason": "Ignorer un indice, c'est ignorer un client qui te réoriente."
+    },
+    {
+     "id": "c4",
+     "text": "« Vous voulez dire que le volume n'explique pas tout ? Je vérifie que j'ai compris. »",
+     "valid": true,
+     "reason": "Reformuler l'indice pour vérifier qu'on l'a compris est un signe d'écoute."
+    },
+    {
+     "id": "c5",
+     "text": "S'excuser longuement d'avoir manqué le point",
+     "valid": false,
+     "reason": "Une excuse d'un mot suffit ; s'enfoncer coûte de la présence."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.019",
+  "format": "pick_so_what",
+  "skill": "u0.criteria",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Un cabinet a compilé les notes moyennes des candidats refusés en tour final. Quel « so what » pour ta préparation ?",
+  "media": {
+   "type": "bar",
+   "title": "Refusés en tour final : note moyenne",
+   "unit": "/5",
+   "categories": [
+    "Structure",
+    "Chiffres",
+    "Jugement",
+    "Communication",
+    "Synthèse"
+   ],
+   "series": [
+    {
+     "name": "Note",
+     "values": [
+      4.1,
+      4.0,
+      3.2,
+      2.9,
+      2.5
+     ]
+    }
+   ]
+  },
+  "explanation": "Lire un graphique pour agir : les refusés en finale sont bons en technique ; l'écart est sur jugement, communication et synthèse.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "En finale, on est éliminé sur jugement, communication et synthèse, pas sur la technique"
+    },
+    {
+     "id": "b",
+     "text": "Les refusés étaient trop forts en structure : il faut simplifier ses arbres",
+     "why_wrong": "Une bonne note en structure n'est pas la cause du refus ; c'est l'écart ailleurs."
+    },
+    {
+     "id": "c",
+     "text": "La synthèse est mal notée parce que les cases finissent trop tôt",
+     "why_wrong": "Rien dans les données ne parle de temps : c'est une invention."
+    },
+    {
+     "id": "d",
+     "text": "Il faut surtout s'entraîner davantage au calcul mental",
+     "why_wrong": "Les chiffres sont déjà à 4/5 : travailler là ne change pas le verdict."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.020",
+  "format": "fill_blank",
+  "skill": "u0.criteria",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète ce que se demande un partner en tour final.",
+  "media": null,
+  "explanation": "En finale, la question du partner est « puis-je le mettre devant un client demain ? » : présence et synthèse pèsent plus qu'au premier tour.",
+  "payload": {
+   "text": "En tour final, un partner se demande moins « a-t-il trouvé ? » que « {{1}} ? ». C'est pourquoi la {{2}} et la synthèse y pèsent davantage qu'au premier tour.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "connaît-il tous les frameworks",
+      "puis-je le mettre devant un client demain",
+      "est-il le plus rapide en calcul"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "mémoire",
+      "vitesse",
+      "présence"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.021",
+  "format": "mece_sort",
+  "skill": "u0.criteria",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Trie chaque phrase de candidat selon la note qu'elle vaut.",
+  "media": null,
+  "explanation": "« Très bien » = annoncer, justifier, interpréter, conclure. « Moyen » = vague, chiffre nu, conclusion sans structure.",
+  "payload": {
+   "buckets": [
+    {
+     "id": "tb",
+     "label": "Très bien"
+    },
+    {
+     "id": "moy",
+     "label": "Moyen"
+    }
+   ],
+   "items": [
+    {
+     "id": "i1",
+     "text": "« Je commence par les coûts, car les revenus sont stables depuis 3 ans. »",
+     "bucket": "tb"
+    },
+    {
+     "id": "i2",
+     "text": "« Je vais regarder un peu tout. »",
+     "bucket": "moy"
+    },
+    {
+     "id": "i3",
+     "text": "« 36 M€, soit 12 % du CA : c'est le gros du problème. »",
+     "bucket": "tb"
+    },
+    {
+     "id": "i4",
+     "text": "« 36 M€. Ensuite ? »",
+     "bucket": "moy"
+    },
+    {
+     "id": "i5",
+     "text": "« Je recommande X ; deux raisons ; un risque ; prochaine étape. »",
+     "bucket": "tb"
+    },
+    {
+     "id": "i6",
+     "text": "« Donc voilà, c'est la logistique, comme je le pensais. »",
+     "bucket": "moy"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.022",
+  "format": "swipe_valid",
+  "skill": "u0.criteria",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Ce que l'interviewer pense vraiment : glisse à droite les affirmations vraies.",
+  "media": null,
+  "explanation": "La grille se remplit pendant le case, ligne par ligne : le tâtonnement est noté même si tu trouves ; se corriger soi-même coûte peu.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "Une bonne réponse mal communiquée vaut moins qu'une réponse partielle bien menée",
+     "valid": true,
+     "reason": "La grille note six critères ; la réponse n'en est qu'une partie."
+    },
+    {
+     "id": "c2",
+     "text": "Si je trouve la cause, l'interviewer oubliera que j'ai tâtonné",
+     "valid": false,
+     "reason": "Il note pendant le case, ligne par ligne ; le tâtonnement est déjà écrit."
+    },
+    {
+     "id": "c3",
+     "text": "Une synthèse intermédiaire après chaque analyse fait perdre du temps pour rien",
+     "valid": false,
+     "reason": "Elle rapporte en communication et prépare la synthèse finale."
+    },
+    {
+     "id": "c4",
+     "text": "Demander une minute pour structurer est bien vu",
+     "valid": true,
+     "reason": "C'est attendu : réfléchir avant de parler est un signe de maîtrise."
+    },
+    {
+     "id": "c5",
+     "text": "Une erreur de calcul corrigée soi-même pèse peu",
+     "valid": true,
+     "reason": "Se corriger montre le sanity check ; l'erreur non vue coûte beaucoup plus."
+    },
+    {
+     "id": "c6",
+     "text": "Le silence de l'interviewer veut dire que je me trompe",
+     "valid": false,
+     "reason": "Souvent il note ou te laisse piloter ; c'est de l'espace, pas un jugement."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.criteria.023",
+  "format": "match_pairs",
+  "skill": "u0.criteria",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "Associe chaque phrase de candidat au critère qu'elle abîme.",
+  "media": null,
+  "explanation": "Une liste sans hiérarchie abîme la structure ; un ordre de grandeur faux, le jugement ; le brouillon, la communication ; finir sans conclure, la synthèse.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "« Je regarde le marché, la concurrence, les clients, les coûts, les produits… »",
+     "right": "Structure"
+    },
+    {
+     "left": "« Disons qu'un TGV transporte 5 000 passagers »",
+     "right": "Jugement business"
+    },
+    {
+     "left": "« Attendez… non… en fait… »",
+     "right": "Communication"
+    },
+    {
+     "left": "« Voilà, j'ai fini mes calculs. »",
+     "right": "Synthèse"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.001",
+  "format": "concept_card",
+  "skill": "u0.mistakes",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Les erreurs qui éliminent",
+  "media": null,
+  "explanation": "",
+  "payload": {
+   "screens": [
+    {
+     "title": "Les sept erreurs",
+     "body": "Un interviewer pardonne une erreur de calcul. Il ne pardonne pas ces sept-là, parce qu'elles disent quelque chose de ta façon de travailler :\n\n1. **Résoudre une autre question** que celle posée (on demande « fermer ou non », tu optimises).\n2. **Plaquer un framework** (« je fais un SWOT ») au lieu de découper la question.\n3. **Le chiffre sans sens** : « 20 M€. Ensuite ? » sans dire ce que ça implique.\n4. **Pas de recommandation** : « il faudrait plus de données ».\n5. **La réponse enterrée** : le récit du chemin d'abord, la conclusion à la fin.\n6. **Le jargon à la place du raisonnement** : « activer les leviers de synergie ».\n7. **Se dévaloriser** : « je ne suis pas sûr », « je suis nul en calcul ».\n\nChacune a une parade d'une phrase."
+    },
+    {
+     "title": "Exemple : une fin de case, trois erreurs",
+     "body": "**Case retail, la marge baisse.** Le candidat conclut :\n\n« Je ne suis pas sûr, mais on a regardé les revenus, puis les coûts, et les coûts logistiques ont augmenté de 15 %, donc 36 M€. C'est assez compliqué, il faudrait plus de données pour trancher. »\n\n- *Se dévaloriser* (« je ne suis pas sûr ») → « Mon hypothèse est que… »\n- *Réponse enterrée* (le chemin d'abord) → la recommandation en première phrase.\n- *Pas de recommandation* (« plus de données ») → recommander sous hypothèse, puis dire ce qu'on vérifierait.\n\n**Version corrigée :** « Je recommande de renégocier le contrat logistique. Raison : +15 % de coûts, soit 36 M€, l'essentiel de l'écart. Risque : la qualité de service ; prochaine étape : benchmarker deux prestataires. »"
+    },
+    {
+     "title": "À retenir : les parades",
+     "body": "- Autre question → **reformule l'objectif** et fais-le valider avant de structurer.\n- Framework plaqué → **pars de la question**, construis l'arbre pour elle.\n- Chiffre sans sens → termine chaque calcul par **« donc… »**.\n- Pas de recommandation → **recommande sous hypothèse** et nomme le risque.\n- Réponse enterrée → **la réponse d'abord**, les raisons ensuite.\n- Jargon → dis **ce que tu vas regarder**, concrètement.\n- Se dévaloriser → **« je fais l'hypothèse que… »** à la place de « je ne suis pas sûr »."
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.002",
+  "format": "fill_blank",
+  "skill": "u0.mistakes",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète l'erreur n° 7 et sa parade.",
+  "media": null,
+  "explanation": "Se dévaloriser, c'est dire « je ne suis pas sûr ». La parade : poser une hypothèse à voix haute, « je fais l'hypothèse que… ».",
+  "payload": {
+   "text": "Dire « je ne suis pas sûr » au lieu de {{1}}, c'est l'erreur n° 7 : se dévaloriser. Le consultant dit plutôt : « {{2}} ».",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "demander une pause",
+      "poser une hypothèse",
+      "changer de sujet"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "Je fais l'hypothèse que…",
+      "Je ne sais vraiment pas…",
+      "Vous avez la réponse ?"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.003",
+  "format": "swipe_valid",
+  "skill": "u0.mistakes",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Glisse à droite les phrases acceptables en entretien, à gauche celles qui contiennent une des sept erreurs.",
+  "media": null,
+  "explanation": "Hypothèse posée, chiffre interprété, recommandation claire : acceptable. Se dévaloriser, framework plaqué, jargon : éliminatoire.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Je ne suis pas très bon en calcul, mais je vais essayer. »",
+     "valid": false,
+     "reason": "Se dévaloriser : l'interviewer te croit sur parole."
+    },
+    {
+     "id": "c2",
+     "text": "« Je fais l'hypothèse que la marge est de 10 %, à confirmer. »",
+     "valid": true,
+     "reason": "Hypothèse posée et annoncée : attitude de consultant."
+    },
+    {
+     "id": "c3",
+     "text": "« Il faut faire un SWOT puis un PESTEL. »",
+     "valid": false,
+     "reason": "Framework plaqué, sans lien avec la question posée."
+    },
+    {
+     "id": "c4",
+     "text": "« Donc 36 M€, soit 12 % du CA : l'essentiel de l'écart. »",
+     "valid": true,
+     "reason": "Chiffre interprété : c'est le « so what »."
+    },
+    {
+     "id": "c5",
+     "text": "« On va leverager les synergies via un deep dive holistique. »",
+     "valid": false,
+     "reason": "Jargon à la place du raisonnement : dis ce que tu vas regarder."
+    },
+    {
+     "id": "c6",
+     "text": "« Je recommande de fermer les 20 magasins déficitaires ; voici pourquoi. »",
+     "valid": true,
+     "reason": "Recommandation claire, suivie des raisons."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.004",
+  "format": "choose_structure",
+  "skill": "u0.mistakes",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "Case : un assureur veut savoir s'il doit lancer une assurance pour trottinettes. Quelle ouverture évite le framework plaqué ?",
+  "media": null,
+  "explanation": "Une structure non plaquée se construit à partir de la question (« faut-il lancer ? ») : marché, rentabilité, capacité à distribuer.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "« J'appliquerais les cinq forces de Porter au marché de la mobilité urbaine. »",
+     "why_wrong": "Outil générique annoncé pour lui-même : rien n'est relié à « faut-il lancer ? »."
+    },
+    {
+     "id": "b",
+     "text": "« Je regarderais la taille du marché, la rentabilité par contrat et notre capacité à distribuer. »"
+    },
+    {
+     "id": "c",
+     "text": "« Je ferais un SWOT complet de l'assureur : forces, faiblesses, opportunités, menaces. »",
+     "why_wrong": "Grille descriptive plaquée ; elle ne tranche pas « faut-il lancer ? »."
+    }
+   ],
+   "correct": "b"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.005",
+  "format": "fill_blank",
+  "skill": "u0.mistakes",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète l'erreur n° 1 et sa parade.",
+  "media": null,
+  "explanation": "Résoudre une autre question que celle posée est l'erreur la plus coûteuse ; on l'évite en reformulant l'objectif et en le faisant valider.",
+  "payload": {
+   "text": "L'erreur n° 1 : {{1}}. Pour l'éviter, le candidat {{2}} avant de structurer.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "parler trop vite",
+      "résoudre une autre question que celle posée",
+      "oublier de sourire"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "demande des données",
+      "annonce un framework",
+      "reformule l'objectif et le fait valider"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.006",
+  "format": "spot_error",
+  "skill": "u0.mistakes",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Un candidat conclut un case retail. Touche la ligne qui contient l'erreur qui élimine.",
+  "media": null,
+  "explanation": "Pas de recommandation = erreur n° 4. On conclut toujours, sous hypothèse s'il le faut, puis on dit ce qu'on vérifierait.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "« Les ventes baissent de 8 % en deux ans, surtout en magasin. »"
+    },
+    {
+     "id": "l2",
+     "text": "« Le trafic chute de 12 %, le panier moyen monte de 4 %. »"
+    },
+    {
+     "id": "l3",
+     "text": "« Donc la cause est le trafic, pas le panier. »"
+    },
+    {
+     "id": "l4",
+     "text": "« Bref, c'est compliqué, il faudrait plus de données pour conclure. »"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "Conclure quand même : « Je recommande de travailler le trafic (drive, promotions ciblées) ; à valider par… »."
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.007",
+  "format": "choose_structure",
+  "skill": "u0.mistakes",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "L'interviewer : « Le client veut savoir s'il doit fermer sa centrale au charbon. » Quelle réponse résout la question posée ?",
+  "media": null,
+  "explanation": "Erreur n° 1 : résoudre une autre question. « Fermer ou non » appelle une comparaison fermer / garder, pas une optimisation ni un autre projet.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "« Je compare garder la centrale et la fermer, en incluant les coûts de démantèlement. »"
+    },
+    {
+     "id": "b",
+     "text": "« Je propose d'étudier comment rendre la centrale plus performante. »",
+     "why_wrong": "Autre question : on te demande fermer ou non, pas optimiser."
+    },
+    {
+     "id": "c",
+     "text": "« Je regarde comment le client pourrait investir dans le renouvelable. »",
+     "why_wrong": "Hors sujet : tu changes la question au lieu d'y répondre."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.008",
+  "format": "spot_error",
+  "skill": "u0.mistakes",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Touche la ligne qui contient le « chiffre sans sens ».",
+  "media": null,
+  "explanation": "Chiffre sans sens = résultat annoncé sans interprétation. Termine chaque calcul par « donc… » : ce que ça pèse, ce que ça change.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "« La banque a 4 M de clients, 50 € de revenus par client et par an. »"
+    },
+    {
+     "id": "l2",
+     "text": "« Soit 200 M€ de revenus sur ce segment. »"
+    },
+    {
+     "id": "l3",
+     "text": "« Une hausse de frais de 5 € par client donnerait 20 M€. »"
+    },
+    {
+     "id": "l4",
+     "text": "« Voilà pour le calcul. Quelle est la question suivante ? »"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "« 20 M€, soit +10 % de revenus : significatif, mais à tester contre le risque de départs de clients. »"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.009",
+  "format": "swipe_valid",
+  "skill": "u0.mistakes",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Jargon ou raisonnement ? Glisse à droite les phrases qui disent vraiment ce qu'on va analyser.",
+  "media": null,
+  "explanation": "Le jargon remplace l'idée par des mots creux. Un raisonnement nomme l'analyse, la mesure et son but.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Il faut un alignement stratégique transverse. »",
+     "valid": false,
+     "reason": "Mots creux : on ne sait pas ce que tu vas faire."
+    },
+    {
+     "id": "c2",
+     "text": "« Je vérifie si les magasins déficitaires partagent une caractéristique, comme la taille. »",
+     "valid": true,
+     "reason": "Dit concrètement l'analyse et son but."
+    },
+    {
+     "id": "c3",
+     "text": "« On doit activer les leviers de croissance. »",
+     "valid": false,
+     "reason": "Quels leviers ? Nomme-les : prix, volume, mix."
+    },
+    {
+     "id": "c4",
+     "text": "« Je compare le coût par colis des deux entrepôts. »",
+     "valid": true,
+     "reason": "Analyse précise, mesurable."
+    },
+    {
+     "id": "c5",
+     "text": "« L'idée est de scaler la value proposition. »",
+     "valid": false,
+     "reason": "Anglicismes à la place d'une idée ; traduis : « vendre la même offre à plus de clients »."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.010",
+  "format": "headline_tiles",
+  "skill": "u0.mistakes",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Forme le titre-message de la slide de recommandation, sans les mots qui enterrent la réponse.",
+  "media": null,
+  "explanation": "Un titre-message dit la conclusion (action + effet chiffré). « On observe que » et les titres-sujets enterrent la réponse.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Fermer"
+    },
+    {
+     "id": "t2",
+     "text": "les 20 magasins déficitaires"
+    },
+    {
+     "id": "t3",
+     "text": "ramène"
+    },
+    {
+     "id": "t4",
+     "text": "la marge"
+    },
+    {
+     "id": "t5",
+     "text": "à 5 %"
+    },
+    {
+     "id": "t6",
+     "text": "dès 2027"
+    },
+    {
+     "id": "t7",
+     "text": "On observe que"
+    },
+    {
+     "id": "t8",
+     "text": "il semblerait que"
+    },
+    {
+     "id": "t9",
+     "text": "Analyse des magasins"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5",
+    "t6"
+   ],
+   "distractors": [
+    "t7",
+    "t8",
+    "t9"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.011",
+  "format": "fill_blank",
+  "skill": "u0.mistakes",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète l'erreur n° 3 et sa parade.",
+  "media": null,
+  "explanation": "Le chiffre sans sens : annoncer un résultat sans dire ce qu'il implique. Parade : « donc… » après chaque calcul.",
+  "payload": {
+   "text": "Le « chiffre sans sens » : annoncer {{1}} sans dire ce qu'il implique. La parade : terminer chaque calcul par « {{2}} ».",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "un résultat",
+      "une hypothèse",
+      "une question"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "voilà",
+      "ensuite ?",
+      "donc…"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.012",
+  "format": "choose_structure",
+  "skill": "u0.mistakes",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Case santé : « un laboratoire veut réduire de 20 % son délai de mise sur le marché ». Quelle structure n'est pas plaquée ?",
+  "media": null,
+  "explanation": "Une structure adaptée découpe la grandeur visée (ici un délai, donc des étapes). Une grille générique ne découpe rien.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "« Forces, faiblesses, opportunités, menaces du laboratoire. »",
+     "why_wrong": "Grille générique qui ne découpe pas un délai en étapes."
+    },
+    {
+     "id": "b",
+     "text": "« Les 4P : produit, prix, place, promotion. »",
+     "why_wrong": "Outil marketing sans rapport avec un délai de développement."
+    },
+    {
+     "id": "c",
+     "text": "« Les étapes : recherche, essais, autorisation, production ; où se perd le temps ? »"
+    },
+    {
+     "id": "d",
+     "text": "« Revenus et coûts du laboratoire. »",
+     "why_wrong": "Arbre de rentabilité ; la question porte sur le temps, pas sur la marge."
+    }
+   ],
+   "correct": "c"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.013",
+  "format": "spot_error",
+  "skill": "u0.mistakes",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "télécoms",
+  "stem": "Repère l'erreur dans cette ouverture de case (un opérateur veut gagner 2 points de marge).",
+  "media": null,
+  "explanation": "Framework plaqué = erreur n° 2. Chaque branche se découpe avec une logique propre à la question (ici, les postes de coûts), pas avec une grille toute faite.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "« L'opérateur veut gagner 2 points de marge en 3 ans, c'est bien ça ? »"
+    },
+    {
+     "id": "l2",
+     "text": "« Je vais regarder les revenus, puis les coûts. »"
+    },
+    {
+     "id": "l3",
+     "text": "« Côté revenus : nombre d'abonnés et revenu par abonné. »"
+    },
+    {
+     "id": "l4",
+     "text": "« Côté coûts : je ferais un PESTEL pour voir l'environnement. »"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "Côté coûts, décomposer : réseau, acquisition clients, service client, frais généraux. Le PESTEL ne découpe pas des coûts."
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.014",
+  "format": "headline_tiles",
+  "skill": "u0.mistakes",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "Le graphique montre la part de marché du fret ferroviaire en recul de 3 points par an. Compose le titre-message.",
+  "media": null,
+  "explanation": "Le titre porte le message (qui, quoi, combien, par rapport à quoi), pas le sujet du graphique ni une formule d'introduction.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Le fret ferroviaire"
+    },
+    {
+     "id": "t2",
+     "text": "perd"
+    },
+    {
+     "id": "t3",
+     "text": "3 points de part de marché"
+    },
+    {
+     "id": "t4",
+     "text": "par an"
+    },
+    {
+     "id": "t5",
+     "text": "face à la route"
+    },
+    {
+     "id": "t6",
+     "text": "Évolution des parts de marché"
+    },
+    {
+     "id": "t7",
+     "text": "Comme on peut le voir,"
+    },
+    {
+     "id": "t8",
+     "text": "Divers éléments"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5"
+   ],
+   "distractors": [
+    "t6",
+    "t7",
+    "t8"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.015",
+  "format": "swipe_valid",
+  "skill": "u0.mistakes",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Se dévaloriser ou rester lucide ? Glisse à droite les formulations acceptables.",
+  "media": null,
+  "explanation": "Lucide = dire ce qu'on ne sait pas ET comment on avance. Se dévaloriser = disqualifier sa réponse avant que l'interviewer la juge.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Je ne connais pas ce secteur, je vais raisonner par analogie avec le retail. »",
+     "valid": true,
+     "reason": "Lucide ET constructif : tu dis comment tu avances quand même."
+    },
+    {
+     "id": "c2",
+     "text": "« Je suis nul en calcul mental, désolé d'avance. »",
+     "valid": false,
+     "reason": "Auto-sabotage : l'interviewer note ce que tu annonces."
+    },
+    {
+     "id": "c3",
+     "text": "« Ce n'est sûrement pas la bonne réponse, mais… »",
+     "valid": false,
+     "reason": "Tu disqualifies ta réponse avant qu'il la juge."
+    },
+    {
+     "id": "c4",
+     "text": "« Je me suis trompé : 36 M€, pas 3,6. Donc 12 % du CA. »",
+     "valid": true,
+     "reason": "Corriger sans drame, puis continuer : c'est de la présence."
+    },
+    {
+     "id": "c5",
+     "text": "« Je ne suis pas sûr, à vous de me dire. »",
+     "valid": false,
+     "reason": "Tu rends le pilotage ; pose une hypothèse et avance."
+    },
+    {
+     "id": "c6",
+     "text": "« Mon hypothèse est 10 % ; si vous avez le chiffre réel, je le prends. »",
+     "valid": true,
+     "reason": "Hypothèse puis ouverture : exactement l'attitude attendue."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.016",
+  "format": "choose_structure",
+  "skill": "u0.mistakes",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "Une mairie demande s'il faut externaliser sa cantine. Quelle synthèse évite la réponse enterrée ?",
+  "media": null,
+  "explanation": "Réponse d'abord : le choix, chiffré, puis les raisons et le risque. Le récit du chemin ou l'hésitation font décrocher l'interviewer.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "« Nous avons d'abord analysé les coûts, puis la qualité, puis le social, et nous arrivons à… »",
+     "why_wrong": "Récit du chemin : la réponse arrive en dernier, l'interviewer décroche."
+    },
+    {
+     "id": "b",
+     "text": "« Oui, externaliser : −15 % par repas, qualité tenue par un cahier des charges ; risque social à traiter. »"
+    },
+    {
+     "id": "c",
+     "text": "« Le sujet est complexe, il y a des arguments dans les deux sens, mais on penche pour oui. »",
+     "why_wrong": "Hésitation puis réponse molle ; commence par le choix et chiffre-le."
+    }
+   ],
+   "correct": "b"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.017",
+  "format": "fill_blank",
+  "skill": "u0.mistakes",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète le bon réflexe face à une donnée qui contredit ton hypothèse.",
+  "media": null,
+  "explanation": "Une donnée qui contredit l'hypothèse n'est pas un échec : on dit ce qu'elle change et on ajuste le plan, sans la défendre ni l'ignorer.",
+  "payload": {
+   "text": "L'interviewer te donne une donnée qui contredit ton hypothèse. Le bon réflexe : {{1}}, et surtout pas {{2}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "défendre l'hypothèse initiale",
+      "dire ce que ça change et ajuster le plan",
+      "s'excuser et tout reprendre à zéro"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "poser une question",
+      "la noter",
+      "enchaîner l'analyse suivante comme si de rien n'était"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.018",
+  "format": "spot_error",
+  "skill": "u0.mistakes",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "luxe",
+  "stem": "Case luxe : une maison veut ouvrir à Séoul. Touche la ligne qui résout une autre question.",
+  "media": null,
+  "explanation": "Résoudre une autre question = erreur n° 1. Chaque analyse doit aider à trancher la question posée (ouvrir, et sous quel format).",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "« Faut-il ouvrir une boutique à Séoul, et si oui, en flagship ou en corner ? »"
+    },
+    {
+     "id": "l2",
+     "text": "« Je regarde le marché coréen : taille, croissance, concurrents. »"
+    },
+    {
+     "id": "l3",
+     "text": "« Je regarde comment améliorer les ventes en ligne de la maison en Asie. »"
+    },
+    {
+     "id": "l4",
+     "text": "« Puis l'économie d'une boutique : loyer, CA par m², marge. »"
+    }
+   ],
+   "wrong_line": "l3",
+   "fix": "Hors question : le e-commerce asiatique n'aide pas à décider Séoul. Rester sur marché, économie de la boutique, format."
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.019",
+  "format": "headline_tiles",
+  "skill": "u0.mistakes",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Un éditeur SaaS perd ses clients PME. Compose le titre qui porte le message, pas le sujet.",
+  "media": null,
+  "explanation": "Titre-message : cause + effet chiffré. « Analyse du churn » est un titre-sujet ; « il est à noter que » est du remplissage.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Le churn des PME"
+    },
+    {
+     "id": "t2",
+     "text": "a doublé"
+    },
+    {
+     "id": "t3",
+     "text": "depuis la hausse de prix de janvier"
+    },
+    {
+     "id": "t4",
+     "text": "et explique"
+    },
+    {
+     "id": "t5",
+     "text": "80 % des départs"
+    },
+    {
+     "id": "t6",
+     "text": "Analyse du churn"
+    },
+    {
+     "id": "t7",
+     "text": "Il est à noter que"
+    },
+    {
+     "id": "t8",
+     "text": "Quelques réflexions"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4",
+    "t5"
+   ],
+   "distractors": [
+    "t6",
+    "t7",
+    "t8"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.020",
+  "format": "spot_error",
+  "skill": "u0.mistakes",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Fin de case industriel : deux usines, l'une plus chère. Touche la ligne qui contient l'erreur qui élimine.",
+  "media": null,
+  "explanation": "Pas de recommandation = erreur n° 4. Le consultant recommande ; le client décide. « Il choisira » n'est pas une conclusion.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "« L'usine B a un coût unitaire 18 % plus élevé que l'usine A. »"
+    },
+    {
+     "id": "l2",
+     "text": "« L'écart vient à 70 % de la main-d'œuvre, le reste de l'énergie. »"
+    },
+    {
+     "id": "l3",
+     "text": "« Avec une automatisation, l'écart tomberait à 5 % en trois ans. »"
+    },
+    {
+     "id": "l4",
+     "text": "« Voilà ce que je dirais au client ; à lui de choisir ensuite. »"
+    },
+    {
+     "id": "l5",
+     "text": "« Risque principal : le dialogue social ; prochaine étape : chiffrer le capex. »"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "« Je recommande d'automatiser B plutôt que de la fermer », puis les raisons, le risque, l'étape suivante."
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.021",
+  "format": "choose_structure",
+  "skill": "u0.mistakes",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "Mi-case, l'interviewer te coupe : « Et si le régulateur interdisait cette tarification ? » Quelle réaction évite à la fois le framework plaqué et la dévalorisation ?",
+  "media": null,
+  "explanation": "Face à une hypothèse de l'interviewer : on la prend, on dit ce qu'elle change et on bascule sur le levier suivant. Ni grille neuve, ni « je ne suis pas spécialiste ».",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "« Je ne suis pas spécialiste de la réglementation, je préfère ne pas me prononcer. »",
+     "why_wrong": "Se dévaloriser (erreur 7) : raisonne avec ce que tu sais."
+    },
+    {
+     "id": "b",
+     "text": "« Je reprends mon arbre depuis le début avec un PESTEL pour le volet réglementaire. »",
+     "why_wrong": "Framework plaqué (erreur 2) : la question appelle un ajustement, pas une nouvelle grille."
+    },
+    {
+     "id": "c",
+     "text": "« Ça n'arrivera probablement pas, je continue sur le prix. »",
+     "why_wrong": "Ignorer l'hypothèse de l'interviewer : il te teste, suis-le."
+    },
+    {
+     "id": "d",
+     "text": "« Alors le levier prix disparaît ; je bascule sur la sinistralité, qui pèse 70 % des coûts. »"
+    }
+   ],
+   "correct": "d"
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.022",
+  "format": "swipe_valid",
+  "skill": "u0.mistakes",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Chaque carte propose un diagnostic. Glisse à droite ceux qui nomment la bonne erreur.",
+  "media": null,
+  "explanation": "Sept erreurs, sept diagnostics distincts : le jargon n'est pas le framework plaqué, se dévaloriser n'est pas un chiffre sans sens.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Nous allons synergiser l'écosystème » → jargon",
+     "valid": true,
+     "reason": "Mots creux, aucune analyse derrière."
+    },
+    {
+     "id": "c2",
+     "text": "« Je ne sais pas, désolé » → chiffre sans sens",
+     "valid": false,
+     "reason": "C'est se dévaloriser (et refuser l'hypothèse), pas un chiffre sans sens."
+    },
+    {
+     "id": "c3",
+     "text": "« 20 M€. Suite ? » → chiffre sans sens",
+     "valid": true,
+     "reason": "Résultat annoncé sans interprétation."
+    },
+    {
+     "id": "c4",
+     "text": "« On a vu A, puis B, puis C, donc… » → réponse enterrée",
+     "valid": true,
+     "reason": "La conclusion arrive après le récit."
+    },
+    {
+     "id": "c5",
+     "text": "« Je ferais un SWOT » (à une question de prix) → résoudre une autre question",
+     "valid": false,
+     "reason": "C'est le framework plaqué ; résoudre une autre question, c'est changer d'objectif."
+    },
+    {
+     "id": "c6",
+     "text": "« Il faudrait plus de données pour conclure » → pas de recommandation",
+     "valid": true,
+     "reason": "Refus de conclure sous hypothèse."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.mistakes.023",
+  "format": "fill_blank",
+  "skill": "u0.mistakes",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète les parades de trois erreurs.",
+  "media": null,
+  "explanation": "Framework plaqué → partir de la question. Réponse enterrée → la réponse d'abord. Pas de recommandation → recommander sous hypothèse, avec le risque.",
+  "payload": {
+   "text": "Framework plaqué → {{1}} ; réponse enterrée → {{2}} ; pas de recommandation → {{3}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "apprendre plus de frameworks",
+      "partir de la question et construire l'arbre",
+      "éviter toute structure"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "plus de contexte",
+      "une slide de méthodologie",
+      "la réponse d'abord, puis les raisons"
+     ],
+     "correct": 2
+    },
+    {
+     "id": 3,
+     "options": [
+      "recommander sous hypothèse et dire le risque",
+      "demander plus de temps",
+      "lister les analyses faites"
+     ],
+     "correct": 0
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.check.001",
+  "format": "match_pairs",
+  "skill": "u0.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Associe chaque format à l'erreur qui y coûte le plus cher.",
+  "media": null,
+  "explanation": "Chaque format a son piège : trop parler (interviewer), ne pas prioriser (candidat), enterrer la réponse (écrit), dire « nous » (fit).",
+  "payload": {
+   "pairs": [
+    {
+     "left": "Case mené par l'interviewer",
+     "right": "Parler longtemps au lieu de répondre à la question posée"
+    },
+    {
+     "left": "Case mené par le candidat",
+     "right": "Dérouler toutes les branches sans prioriser ni conclure"
+    },
+    {
+     "left": "Case écrit 48 h + oral",
+     "right": "Enterrer la recommandation en fin de document"
+    },
+    {
+     "left": "Entretien de fit (PEI)",
+     "right": "Raconter « nous » sans dire son rôle à soi"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.check.002",
+  "format": "swipe_valid",
+  "skill": "u0.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Formats et grille : glisse à droite les affirmations vraies.",
+  "media": null,
+  "explanation": "Le PEI creuse une histoire ; le test en ligne mesure le raisonnement ; en TS le fit est technique ; un fit faible n'est pas rattrapé par le case.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "Au PEI, une seule histoire est creusée pendant 10-15 minutes",
+     "valid": true,
+     "reason": "Profondeur : décision, obstacles, ce que tu as fait toi."
+    },
+    {
+     "id": "c2",
+     "text": "Dans un case mené par l'interviewer, demander les données est le réflexe principal",
+     "valid": false,
+     "reason": "Il les donne quand il veut ; ton réflexe, c'est répondre de façon structurée."
+    },
+    {
+     "id": "c3",
+     "text": "Une bonne réponse sans synthèse finale est notée « moyen » en synthèse",
+     "valid": true,
+     "reason": "La ligne synthèse se note sur ce que tu dis à la fin, pas sur la justesse."
+    },
+    {
+     "id": "c4",
+     "text": "Le test en ligne mesure surtout la connaissance des frameworks",
+     "valid": false,
+     "reason": "Il mesure le raisonnement avec des données incomplètes, sans business."
+    },
+    {
+     "id": "c5",
+     "text": "En transaction services, le fit inclut des questions techniques",
+     "valid": true,
+     "reason": "États financiers, EBITDA, BFR : vérifiés à l'oral."
+    },
+    {
+     "id": "c6",
+     "text": "Un fit faible se rattrape toujours par un excellent case",
+     "valid": false,
+     "reason": "Dans la plupart des cabinets, un fit faible élimine."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.check.003",
+  "format": "fill_blank",
+  "skill": "u0.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète trois réflexes, un par format.",
+  "media": null,
+  "explanation": "Écrit : recommandation en slide 1. PEI : « je ». Mené par l'interviewer : réponse structurée, puis on rend la parole.",
+  "payload": {
+   "text": "Dans le case écrit 48 h, la slide 1 porte {{1}} ; au PEI, l'histoire se raconte à la {{2}} ; dans un case mené par l'interviewer, après ta réponse tu {{3}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "le sommaire",
+      "le contexte",
+      "la recommandation"
+     ],
+     "correct": 2
+    },
+    {
+     "id": 2,
+     "options": [
+      "première personne du singulier",
+      "première personne du pluriel",
+      "troisième personne"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 3,
+     "options": [
+      "enchaînes sur la branche suivante",
+      "rends la parole",
+      "demandes les données"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.check.004",
+  "format": "spot_error",
+  "skill": "u0.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "Case mené par l'interviewer : « Pourquoi la sinistralité auto augmente-t-elle ? » Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Mené par l'interviewer : on répond à la question posée avec une structure propre et on priorise ; aucune grille plaquée au passage.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "« Pour expliquer la hausse de la sinistralité auto, je vois trois pistes. »"
+    },
+    {
+     "id": "l2",
+     "text": "« La fréquence des sinistres, le coût moyen par sinistre et le mix du portefeuille. »"
+    },
+    {
+     "id": "l3",
+     "text": "« Avant de commencer, je vais faire un PESTEL de l'assurance auto. »"
+    },
+    {
+     "id": "l4",
+     "text": "« Je commencerais par le coût moyen, car l'inflation des réparations est forte. »"
+    }
+   ],
+   "wrong_line": "l3",
+   "fix": "Supprimer la ligne : les trois pistes suffisent, on enchaîne sur la priorité et sa justification."
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.check.005",
+  "format": "match_pairs",
+  "skill": "u0.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Débrief : associe chaque phrase de l'interviewer au critère noté.",
+  "media": null,
+  "explanation": "Les remarques de débrief suivent la grille : couverture et priorité = structure, indice intégré = présence, ordres de grandeur = jugement.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "« Il a couvert tout le problème et dit par où commencer »",
+     "right": "Structure"
+    },
+    {
+     "left": "« Il a repris mon indice sans se justifier »",
+     "right": "Présence"
+    },
+    {
+     "left": "« Ses hypothèses de volumes étaient à côté de la plaque »",
+     "right": "Jugement business"
+    },
+    {
+     "left": "« J'ai toujours su où il allait »",
+     "right": "Communication"
+    },
+    {
+     "left": "« Il a fini par une recommandation sans que je la demande »",
+     "right": "Synthèse"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.check.006",
+  "format": "swipe_valid",
+  "skill": "u0.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Soutenance d'un case 48 h : le jury te pose ces questions. Glisse à droite les bonnes réponses.",
+  "media": null,
+  "explanation": "À l'oral du case écrit, on justifie par la source et l'hypothèse, on raisonne au-delà du document, on assume le risque avec sa parade.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« Pourquoi ce chiffre ? » — « Hypothèse de 30 % de marge, dossier page 4 ; sans elle, l'écart serait de 10 M€. »",
+     "valid": true,
+     "reason": "Source, hypothèse, sensibilité : on sait d'où ça vient."
+    },
+    {
+     "id": "c2",
+     "text": "« Et si le budget était divisé par deux ? » — « Je ne l'ai pas étudié, je ne peux pas répondre. »",
+     "valid": false,
+     "reason": "Raisonne à voix haute : on t'évalue sur l'adaptation, pas sur le document seul."
+    },
+    {
+     "id": "c3",
+     "text": "« Votre recommandation est risquée » — « Oui, le risque est X ; la parade est un pilote de 3 mois. »",
+     "valid": true,
+     "reason": "Accepter le risque et donner la parade : jugement et présence."
+    },
+    {
+     "id": "c4",
+     "text": "« Pourquoi cette démarche ? » — « C'est la démarche standard de transformation. »",
+     "valid": false,
+     "reason": "Framework plaqué ; justifie par le client : urgence, maturité, budget."
+    },
+    {
+     "id": "c5",
+     "text": "« Avec une semaine de plus ? » — « J'interrogerais cinq responsables de site pour tester l'hypothèse 2. »",
+     "valid": true,
+     "reason": "Montre que tu sais ce qui manque et comment le combler."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.check.007",
+  "format": "fill_blank",
+  "skill": "u0.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète ce que signifie une interruption de l'interviewer.",
+  "media": null,
+  "explanation": "Une interruption teste ta capacité à intégrer une information nouvelle : on l'accueille (« bonne remarque, donc… ») et on ajuste.",
+  "payload": {
+   "text": "Un interviewer qui te coupe en plein calcul ne {{1}} pas : il teste ta {{2}}. Reprends par « bonne remarque, donc… ».",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "te sanctionne",
+      "t'aide",
+      "s'ennuie"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "vitesse de calcul",
+      "mémoire du plan",
+      "capacité à intégrer une information nouvelle"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.check.008",
+  "format": "spot_error",
+  "skill": "u0.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Fin de case tech : garder l'offre gratuite ou passer à l'abonnement ? Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Une raison est un fait ou un chiffre, jamais une impression sur le client : c'est du jugement business, noté à part.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "« Je recommande de garder l'offre gratuite et de monétiser par la publicité. »"
+    },
+    {
+     "id": "l2",
+     "text": "« Raison 1 : 60 % des utilisateurs partiraient avec un abonnement. »"
+    },
+    {
+     "id": "l3",
+     "text": "« Raison 2 : la pub rapporterait 4 € par utilisateur, soit 8 M€ sur 2 M d'utilisateurs. »"
+    },
+    {
+     "id": "l4",
+     "text": "« Raison 3 : le CEO m'a semblé préférer cette option. »"
+    },
+    {
+     "id": "l5",
+     "text": "« Risque : la pression sur l'expérience utilisateur ; prochaine étape : test A/B sur 10 %. »"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "Remplacer par un argument chiffré (ex. coût d'acquisition inchangé) ou retirer : deux bonnes raisons valent mieux qu'une impression."
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.check.009",
+  "format": "swipe_valid",
+  "skill": "u0.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Plusieurs process en parallèle : glisse à droite les plans de préparation cohérents.",
+  "media": null,
+  "explanation": "Chaque voie a son format (tests + cases + PEI, case 48 h, questions techniques) ; le fit est commun ; on entraîne des réflexes, pas un texte.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "Stratégie : tests en ligne, cases menés par le candidat et par l'interviewer, PEI",
+     "valid": true,
+     "reason": "Couvre les trois blocs de ce type de process."
+    },
+    {
+     "id": "c2",
+     "text": "Transformation : case 48 h avec note de cadrage, soutenance, fit",
+     "valid": true,
+     "reason": "Format propre à cette voie, écrit et oral."
+    },
+    {
+     "id": "c3",
+     "text": "Transaction services : des cases seulement, les questions techniques « viendront d'elles-mêmes »",
+     "valid": false,
+     "reason": "Les bases de finance se révisent ; elles sont posées à l'oral."
+    },
+    {
+     "id": "c4",
+     "text": "Tout process : apprendre le script d'un case et le réciter",
+     "valid": false,
+     "reason": "Chaque case est différent ; on entraîne des réflexes, pas un texte."
+    },
+    {
+     "id": "c5",
+     "text": "Tout process : 8 à 12 histoires de fit, deux par dimension",
+     "valid": true,
+     "reason": "Le fit est commun à tous les cabinets et pèse autant que le case."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.check.010",
+  "format": "fill_blank",
+  "skill": "u0.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète les durées et la forme d'un case mené par le candidat.",
+  "media": null,
+  "explanation": "Un case candidat-led dure 25 à 40 minutes et finit par une synthèse de 30 à 60 secondes qui commence par la recommandation.",
+  "payload": {
+   "text": "Un case mené par le candidat dure souvent {{1}} ; il se termine par une synthèse de {{2}} qui commence par {{3}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "5 à 10 minutes",
+      "25 à 40 minutes",
+      "deux heures"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "5 minutes",
+      "30 à 60 secondes",
+      "10 minutes"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 3,
+     "options": [
+      "le rappel du contexte",
+      "la liste des analyses",
+      "la recommandation"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.check.011",
+  "format": "oral_prompt",
+  "skill": "u0.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "En 60 secondes, explique à un ami qui postule ce qui change entre un case mené par l'interviewer et un case mené par le candidat, et ce que l'interviewer note dans les deux cas.",
+  "media": null,
+  "explanation": "Deux formats, une grille : qui pilote change, mais structure, chiffres interprétés, communication et synthèse sont notés dans les deux.",
+  "payload": {
+   "seconds": 60,
+   "rubric": [
+    {
+     "key": "formats",
+     "label": "Distingue qui pilote et ce que chaque format attend",
+     "weight": 2
+    },
+    {
+     "key": "grille",
+     "label": "Cite au moins trois critères de la grille",
+     "weight": 2
+    },
+    {
+     "key": "action",
+     "label": "Donne une règle d'action concrète ou un exemple",
+     "weight": 1
+    }
+   ],
+   "model_answer": "Dans un case mené par l'interviewer, c'est lui qui pose les questions une à une : tu réponds de façon structurée, trois ou quatre points annoncés puis détaillés, et tu lui rends la parole ; parler plus ne rapporte rien. Dans un case mené par le candidat, c'est toi qui pilotes : tu reformules l'objectif, tu demandes une minute, tu annonces ta structure, tu choisis la branche à creuser et tu demandes les données. Dans les deux cas, la grille est la même : la structure, qui pèse le plus ; les chiffres, justes et surtout interprétés ; le jugement business, avec des hypothèses réalistes ; la communication, dire ce qu'on va faire avant de le faire ; la synthèse finale, recommandation d'abord ; et la présence, rester calme et intégrer les indices. La règle : dis ce que tu vas faire, fais-le, dis ce que ça veut dire, et conclus toujours."
+  },
+  "tags": []
+ },
+ {
+  "id": "u0.check.012",
+  "format": "oral_prompt",
+  "skill": "u0.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Fin de case ratée : « Voilà, j'ai regardé les coûts et le marché, c'est assez compliqué, il faudrait plus de données. » En 60 s, nomme les erreurs qu'elle contient, puis refais la synthèse : la marge d'un distributeur baisse à cause de coûts logistiques en hausse de 15 % (36 M€).",
+  "media": null,
+  "explanation": "Pas de recommandation, réponse enterrée, chiffre absent : la synthèse corrigée commence par la recommandation, chiffre la raison, nomme un risque et une étape.",
+  "payload": {
+   "seconds": 60,
+   "rubric": [
+    {
+     "key": "diagnostic",
+     "label": "Nomme au moins deux erreurs de la phrase",
+     "weight": 2
+    },
+    {
+     "key": "synthese",
+     "label": "Refait une synthèse : recommandation d'abord, raison chiffrée",
+     "weight": 2
+    },
+    {
+     "key": "risque",
+     "label": "Donne un risque et une prochaine étape",
+     "weight": 1
+    }
+   ],
+   "model_answer": "Cette fin de case contient trois erreurs : pas de recommandation (« il faudrait plus de données »), une réponse enterrée (le récit des analyses sans conclusion) et un chiffre absent alors qu'on l'a calculé. Synthèse corrigée : « Je recommande de renégocier le contrat logistique, et d'ouvrir un appel d'offres si le prestataire refuse. Raison principale : les coûts logistiques ont augmenté de 15 %, soit 36 M€, ce qui explique l'essentiel de la baisse de marge, alors que le chiffre d'affaires est stable. Risque : une dégradation du service de livraison pendant la transition ; parade : un pilote sur une région. Prochaine étape : benchmarker deux prestataires sous un mois et vérifier l'hypothèse sur le reste de l'écart. »"
+  },
+  "tags": []
+ }
+]

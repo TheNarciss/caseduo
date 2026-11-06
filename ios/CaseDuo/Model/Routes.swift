@@ -9,6 +9,8 @@ enum HomeRoute: Hashable {
     case result(GradingSession)
     case attempt(id: ID)
     case dayClose
+    /// A step of the Parcours: a lesson, a review, a checkpoint, the legendary one.
+    case lesson(code: String)
 }
 
 /// How a screen pushes the next one, whichever tab's stack it lives in: the tab's root view
@@ -37,6 +39,8 @@ struct RouteDestinations: ViewModifier {
                 AttemptDetailView(attemptId: id)
             case .dayClose:
                 DayCloseView()
+            case .lesson(let code):
+                LessonPlayerView(nodeCode: code)
             }
         }
     }

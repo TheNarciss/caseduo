@@ -22,6 +22,12 @@ public enum HapticPattern: String, Sendable, Equatable, CaseIterable {
     case dayComplete
     /// « Je m'engage » : two firm taps, a handshake.
     case commit
+    /// A lesson item right: one crisp tick.
+    case correct
+    /// A lesson item wrong: one soft, dull bump. Never a punishment.
+    case wrong
+    /// A lesson finished: three rising taps, then success.
+    case lessonDone
 
     public static func forScore(_ score: Int) -> HapticPattern {
         switch score {
@@ -33,7 +39,7 @@ public enum HapticPattern: String, Sendable, Equatable, CaseIterable {
 
     /// Whether the system success notification follows the pattern.
     public var endsWithSuccess: Bool {
-        self == .scoreHigh || self == .perfectWeek || self == .goalMet || self == .dayComplete
+        self == .scoreHigh || self == .perfectWeek || self == .goalMet || self == .dayComplete || self == .lessonDone
     }
 
     /// The pattern as pulses: what CoreHaptics plays, and what the fallback imitates.
@@ -77,6 +83,14 @@ public enum HapticPattern: String, Sendable, Equatable, CaseIterable {
         case .commit:
             return [HapticPulse(time: 0, intensity: 0.8, sharpness: 0.7),
                     HapticPulse(time: 0.16, intensity: 0.8, sharpness: 0.7)]
+        case .correct:
+            return [HapticPulse(time: 0, intensity: 0.6, sharpness: 0.9)]
+        case .wrong:
+            return [HapticPulse(time: 0, intensity: 0.5, sharpness: 0.15, duration: 0.12)]
+        case .lessonDone:
+            return [HapticPulse(time: 0, intensity: 0.5, sharpness: 0.5),
+                    HapticPulse(time: 0.12, intensity: 0.7, sharpness: 0.6),
+                    HapticPulse(time: 0.24, intensity: 0.9, sharpness: 0.7)]
         }
     }
 }
