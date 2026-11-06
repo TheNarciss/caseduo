@@ -1,0 +1,2309 @@
+[
+ {
+  "slot": "bonus1_bt_01",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_01",
+   "type": "brainteaser",
+   "difficulty": 1,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type logique, 3 à 5 minutes. Thème imposé : pesées et balances.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Huit bagues et une balance à deux plateaux : trouver l'intruse en un minimum de pesées",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 1,
+   "sector": "général",
+   "prompt": "Un joaillier, client du cabinet, nous demande un coup de main pour un contrôle qualité express. Il a 8 bagues en or identiques en apparence, mais l'une d'elles, coulée dans un mauvais alliage, est légèrement plus lourde ; les 7 autres pèsent exactement le même poids. Il ne dispose que d'une balance à deux plateaux, sans masse étalon : chaque pesée dit seulement quel plateau est le plus lourd, ou s'il y a équilibre. Il peut bien sûr choisir chaque pesée en fonction du résultat de la précédente. Combien de pesées faut-il au minimum pour être certain, dans tous les cas, d'identifier la bague défectueuse ?",
+   "parts": null,
+   "context_data": {
+    "facts": [],
+    "constraints": [
+     "On sait que la bague défectueuse est plus lourde, pas seulement « différente ».",
+     "Chaque pesée a trois issues possibles : gauche plus lourd, droite plus lourd, équilibre.",
+     "On peut poser n'importe quel nombre de bagues sur chaque plateau."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation (10 s).** « Parmi 8 bagues, une seule est plus lourde ; avec une balance à deux plateaux, je cherche le plus petit nombre de pesées qui garantit de la trouver, y compris dans le pire cas. »\n\n**Structure annoncée.** « Je procède en 3 étapes : 1) ce qu'apporte une pesée ; 2) une stratégie concrète ; 3) la preuve qu'on ne peut pas faire mieux. »\n\n**Étape 1 – Une pesée a trois issues, pas deux.** Plateau gauche plus lourd, plateau droit plus lourd, ou équilibre. L'équilibre est une information à part entière : il dit que la bague lourde est restée hors de la balance. Il faut donc raisonner en **trois** groupes, pas en deux moitiés.\n\n**Étape 2 – Stratégie en 2 pesées.**\n- Pesée 1 : bagues A, B, C contre D, E, F ; G et H restent de côté.\n- Si un plateau penche, la lourde est dans son trio. Pesée 2 : on pose 1 bague du trio contre 1 autre. Si ça penche, c'est la plus lourde des deux ; si équilibre, c'est la troisième.\n- Si équilibre, la lourde est G ou H. Pesée 2 : G contre H, le plateau qui descend la désigne.\n- Toutes les branches se terminent en **2 pesées**.\n\n**Étape 3 – Impossible en 1 pesée.** Une pesée n'a que 3 issues, elle ne peut donc distinguer que 3 situations au plus ; or il y en a 8 (chacune des 8 bagues peut être la lourde). Avec 2 pesées, on a 3 × 3 = 9 issues, et 9 ≥ 8 : 2 est atteignable, et c'est le minimum.\n\n**Réponse : 2 pesées.**\n\n**Vérification de cohérence.**\n- Toutes les branches ont été parcourues : après la pesée 1, il reste au plus 3 candidates (trio) ou 2 (paire), et une pesée à 3 issues suffit à trancher dans les deux cas.\n- Règle générale : n pesées permettent de traiter jusqu'à 3^n bagues (3, 9, 27…). On a 8 ≤ 9 : cohérent. Avec 9 bagues, ce serait encore 2 pesées (3 contre 3, 3 de côté) ; à partir de 10, il en faut 3.\n\n**Piège classique.** Couper en deux (4 contre 4, puis 2 contre 2, puis 1 contre 1) fonctionne mais demande 3 pesées : cette méthode n'exploite pas l'issue « équilibre ».\n\n**Relance possible de l'interviewer.** « Et avec 30 bagues ? » Comme 3^3 = 27 < 30 ≤ 81 = 3^4, il faut 4 pesées.",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 15,
+     "levels": {
+      "0": "Enchaîne des pesées au hasard sans annoncer de démarche.",
+      "1": "Annonce une démarche mais mélange la stratégie et la preuve que c'est le minimum.",
+      "2": "Annonce en une phrase les étapes (information d'une pesée, stratégie, preuve du minimum) avant de dérouler."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 15,
+     "levels": {
+      "0": "Ne précise ni ce que donne une pesée ni qu'on raisonne au pire cas.",
+      "1": "Pose les règles mais n'exploite pas l'issue « équilibre ».",
+      "2": "Explicite les trois issues d'une pesée, le raisonnement au pire cas et l'adaptation de la pesée 2 au résultat de la pesée 1."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 35,
+     "levels": {
+      "0": "Donne 1 ou 3 pesées comme minimum, ou aucune réponse ferme.",
+      "1": "Trouve 2 pesées mais sa stratégie oublie une branche (par exemple le cas de l'équilibre).",
+      "2": "Répond 2 pesées avec une stratégie complète couvrant les cas « penche » et « équilibre »."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 20,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Rejoue la stratégie sur un exemple mais ne montre pas qu'une seule pesée ne suffit pas.",
+      "2": "Montre qu'une pesée (3 issues) ne peut pas départager 8 cas et généralise avec la règle des 3^n."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 15,
+     "levels": {
+      "0": "Plus de 4 minutes, hésitations et retours en arrière.",
+      "1": "Réponse juste mais déroulé laborieux ou digressions.",
+      "2": "Réponse complète en moins de 3 minutes, phrases courtes, conclusion nette."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 4
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_02",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_02",
+   "type": "brainteaser",
+   "difficulty": 2,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type estimation rapide, 3 à 5 minutes. Thème imposé : probabilités simples (dés, cartes).",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Le stand de dés de la soirée client : au moins un 6 en quatre lancers, rentable ou pas ?",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 2,
+   "sector": "général",
+   "prompt": "Pour sa soirée de fin d'année, un client organise un stand de jeu dont les bénéfices iront à une association. Le joueur mise 10 € et lance quatre fois un dé classique à six faces : s'il obtient au moins un 6, on lui rend sa mise plus 10 € ; sinon, il perd sa mise. L'organisateur est convaincu que le stand est gagnant, parce qu'« un 6, c'est rare ». Il prévoit environ 500 parties dans la soirée. En moyenne, combien le stand va-t-il gagner ou perdre sur la soirée ?",
+   "parts": null,
+   "context_data": {
+    "facts": [],
+    "constraints": [
+     "Le dé est équilibré et les lancers sont indépendants.",
+     "Si le joueur gagne, il récupère 20 € pour 10 € misés, soit un gain net de 10 €.",
+     "Que le joueur s'arrête ou non au premier 6 ne change pas sa probabilité de gagner.",
+     "Pas de frais de stand à prendre en compte."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation (10 s).** « Je dois calculer la probabilité qu'un joueur obtienne au moins un 6 en 4 lancers, en déduire le gain moyen du stand par partie, puis l'extrapoler à 500 parties. »\n\n**Structure annoncée.** « 1) Probabilité de gagner pour le joueur, via l'événement contraire ; 2) gain moyen du stand par partie ; 3) total sur la soirée, puis vérification et recommandation. »\n\n**Étape 1 – Probabilité, par l'événement contraire.** Les lancers sont indépendants et chaque lancer donne « pas de 6 » avec une probabilité de 5/6.\n- P(aucun 6 en 4 lancers) = (5/6)^4.\n- De tête : 5/6 ≈ 0,83 ; (5/6)² = 25/36 ≈ 0,69 ; 0,69² ≈ 0,48. Valeur exacte : 625/1296 ≈ 48,2 %.\n- Donc P(au moins un 6) ≈ 51,8 % : le joueur gagne un peu plus d'une fois sur deux.\n\n**Étape 2 – Gain moyen du stand par partie.** Le stand gagne 10 € avec une probabilité de 48,2 % et perd 10 € avec une probabilité de 51,8 %.\n- Espérance = 10 × (0,482 − 0,518) ≈ −0,36 € par partie, soit −3,5 % de la mise.\n\n**Étape 3 – Sur la soirée.** 500 × (−0,36 €) ≈ **−180 €** (exactement −177 €), pour 5 000 € misés.\n\n**Réponse : en moyenne, le stand perd environ 180 € sur la soirée.** L'intuition « un 6, c'est rare » est fausse dès qu'on a quatre essais.\n\n**Vérification de cohérence.**\n- L'erreur classique est d'additionner : 4 × 1/6 ≈ 67 %. C'est absurde, car avec 6 lancers on trouverait 100 % et avec 7 plus de 100 %.\n- Encadrement : (5/6)^3 ≈ 58 % et (5/6)^5 ≈ 40 %, donc 48 % pour 4 lancers est bien entre les deux.\n- Pour aller plus loin : chaque partie vaut ±10 €, donc l'écart-type sur 500 parties est d'environ 10 × √500 ≈ 220 €. Sur une seule soirée, le stand peut finir gagnant par chance, mais il perd en moyenne.\n\n**Recommandation en une phrase.** Passer à 3 lancers : P(gain joueur) = 1 − 125/216 ≈ 42 %, le stand gagne alors en moyenne 10 × (0,58 − 0,42) ≈ +1,6 € par partie, soit environ +790 € sur la soirée, tout en restant attractif.\n\n*Clin d'œil historique : c'est le pari du chevalier de Méré, à l'origine de la correspondance entre Pascal et Fermat.*",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 15,
+     "levels": {
+      "0": "Calcule au fil de l'eau sans dire où il va.",
+      "1": "Annonce le calcul de probabilité mais oublie le passage à l'espérance ou au total.",
+      "2": "Annonce les 3 étapes (probabilité, espérance par partie, total sur 500 parties) avant de calculer."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 20,
+     "levels": {
+      "0": "Ne pose ni l'indépendance des lancers ni le gain net du joueur (+10 €).",
+      "1": "Pose les hypothèses mais confond gain brut (20 € rendus) et gain net.",
+      "2": "Explicite dé équilibré, lancers indépendants, gain net ±10 € et passe par l'événement contraire."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 30,
+     "levels": {
+      "0": "Additionne les probabilités (≈ 67 %) ou conclut que le stand est gagnant.",
+      "1": "Trouve environ 52 % mais se trompe sur l'espérance ou sur le total.",
+      "2": "Trouve environ 52 %, environ −0,36 € par partie et environ −180 € sur la soirée."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 20,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Signale que le résultat est proche de 50 % sans le justifier.",
+      "2": "Montre pourquoi l'addition des probabilités est absurde ou encadre (5/6)^4 entre (5/6)^3 et (5/6)^5."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 15,
+     "levels": {
+      "0": "Plus de 5 minutes, calculs refaits plusieurs fois.",
+      "1": "Juste mais avec des détours, la conclusion n'arrive qu'à la fin.",
+      "2": "Moins de 4 minutes, approximations de tête assumées, réponse chiffrée et recommandation en une phrase."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 4
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_03",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_03",
+   "type": "brainteaser",
+   "difficulty": 3,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type calcul mental, 3 à 5 minutes. Thème imposé : pourcentages successifs.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Hausse de 25 %, « −30 % » puis « −10 % supplémentaires » : quelle remise afficher pour un vrai −40 % ?",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 3,
+   "sector": "général",
+   "prompt": "Un e-commerçant d'électroménager, client de la practice, vendait un robot cuiseur 200 € en août. En septembre, il a relevé ce prix de 25 %. Pour le Black Friday, il affiche « −30 % », et les membres de son programme de fidélité ont en plus un code « −10 % supplémentaires », appliqué sur le prix déjà remisé. Son directeur commercial affirme qu'avec le code, un membre paie 40 % de moins qu'en août ; le DAF a des doutes. Sans calculatrice, quelle remise faudrait-il afficher à la place des « −30 % » pour qu'un membre paie réellement 40 % de moins qu'en août ?",
+   "parts": null,
+   "context_data": {
+    "facts": [],
+    "constraints": [
+     "Le code fidélité s'applique sur le prix déjà remisé, pas sur le prix de septembre.",
+     "On raisonne sur le prix TTC affiché, sans frais de livraison.",
+     "Calculatrice interdite ; un arrondi au point de pourcentage près suffit."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation (10 s).** « Je cherche le taux affiché x tel que prix d'août × 1,25 × (1 − x) × 0,9 = prix d'août × 0,6. Je vérifie d'abord l'affirmation du directeur commercial. »\n\n**Structure annoncée.** « 1) Je traduis chaque pourcentage en coefficient multiplicateur ; 2) je mesure la remise réelle actuelle ; 3) je résous pour x et je vérifie. »\n\n**Étape 1 – Des coefficients, pas des points de pourcentage.** +25 % donne ×1,25 ; −30 % donne ×0,70 ; −10 % donne ×0,90. Des pourcentages successifs se **multiplient**, ils ne s'additionnent pas : (1 + a)(1 + b) = 1 + a + b + ab, et le terme croisé ab pèse dès que les taux sont gros.\n\n**Étape 2 – La situation actuelle.**\n- 1,25 × 0,70 = 0,875 ; 0,875 × 0,9 = 0,7875.\n- Prix payé : 200 × 0,7875 = **157,50 €**, soit une remise réelle de **21,25 %** par rapport à août, pas 40 %.\n- L'erreur du directeur commercial : il additionne −30 et −10 en oubliant la hausse de 25 % et le fait que le −10 % s'applique sur une base déjà réduite.\n\n**Étape 3 – Le taux à afficher.**\n- Cible : 200 × 0,6 = 120 €. Prix de septembre : 250 €. Le code fait ×0,9.\n- 250 × (1 − x) × 0,9 = 120, donc 225 × (1 − x) = 120, donc 1 − x = 120/225 = 8/15 ≈ 0,533.\n- Astuce de tête : 1,25 × 0,9 = 1,125 = 9/8, et 0,6 × 8/9 = 4,8/9 ≈ 0,533.\n- x ≈ 46,7 %.\n\n**Réponse : il faut afficher environ −47 % (exactement −46,7 %) au lieu de −30 %.** Aujourd'hui, un membre n'économise que 21,25 % par rapport à août.\n\n**Vérification de cohérence.**\n- Calcul direct : 250 × 0,533 ≈ 133,33 €, puis × 0,9 = 120,00 €, soit 200 × 0,6. ✓\n- Second chemin : annuler la hausse revient à ×0,8 (car 1/1,25 = 0,8) ; pour finir à 0,6 après le code, il faut être à 0,6/0,9 ≈ 0,667 avant le code ; 0,8 × 0,667 ≈ 0,533. ✓\n- Bon sens : la remise affichée doit dépasser 40 % puisqu'il faut d'abord effacer la hausse ; le code de 10 % aide, mais pas assez pour compenser. Cohérent avec 47 %.\n\n**Remarque business (une phrase).** Annoncer une remise calculée sur un prix récemment relevé expose le client à un risque de pratique commerciale trompeuse : il faut faire valider le prix de référence par le juridique avant la campagne.",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 15,
+     "levels": {
+      "0": "Enchaîne les calculs sans plan et se perd entre les prix.",
+      "1": "Annonce un plan mais saute la vérification de la situation actuelle.",
+      "2": "Annonce les 3 étapes (coefficients, remise réelle actuelle, résolution et vérification) avant de calculer."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 15,
+     "levels": {
+      "0": "N'explicite pas sur quelle base s'applique chaque pourcentage.",
+      "1": "Pose les coefficients mais hésite sur la base du code de 10 %.",
+      "2": "Traduit explicitement chaque pourcentage en coefficient et précise que le code s'applique sur le prix déjà remisé."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 35,
+     "levels": {
+      "0": "Additionne les pourcentages ou propose un taux faux (par exemple −30 % ou −40 %).",
+      "1": "Trouve la remise réelle actuelle (21,25 %) mais se trompe sur le taux à afficher, ou l'inverse.",
+      "2": "Trouve 157,50 € soit −21,25 % aujourd'hui, et un affichage d'environ −47 % (46,7 %)."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 20,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Revérifie le calcul en le refaisant de la même façon.",
+      "2": "Recalcule le prix final (120 €) par un second chemin ou justifie pourquoi le taux doit dépasser 40 %."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 15,
+     "levels": {
+      "0": "Plus de 5 minutes, calculs posés laborieusement.",
+      "1": "Juste mais avec des hésitations ou des allers-retours.",
+      "2": "Moins de 4 minutes, fractions simples (9/8, 8/15) mobilisées pour aller vite, conclusion en une phrase."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 4
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_04",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_04",
+   "type": "brainteaser",
+   "difficulty": 4,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type logique, 3 à 5 minutes. Thème imposé : nombre de balles de tennis dans un avion.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Combien de balles de tennis pour remplir la cabine d'un A320, sièges en place ?",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 4,
+   "sector": "général",
+   "prompt": "Un équipementier sportif prépare un coup marketing pour l'ouverture d'un tournoi : remplir de balles de tennis la cabine d'un avion de ligne garé sur le tarmac, puis filmer l'ouverture des portes. Il s'agit d'un monocouloir de type A320 d'environ 180 sièges, qu'on laisse en place, et on ne remplit que la cabine passagers, ni le cockpit ni les soutes. Les balles seront déversées en vrac par les portes. Avant de passer commande, la directrice marketing veut un ordre de grandeur défendable. Combien de balles faut-il ?",
+   "parts": null,
+   "context_data": {
+    "facts": [
+     {
+      "label": "Diamètre d'une balle de tennis",
+      "value": "≈ 6,5 à 6,9 cm (on retient 6,7 cm)",
+      "source_url": null,
+      "hypothesis": true
+     },
+     {
+      "label": "Dimensions intérieures approximatives de la cabine passagers d'un A320",
+      "value": "≈ 27 m de long, 3,7 m de large, 2,2 m sous plafond",
+      "source_url": null,
+      "hypothesis": true
+     },
+     {
+      "label": "Compacité d'un tas de sphères versées en vrac",
+      "value": "≈ 64 % (52 % en empilement cubique, 74 % au maximum théorique)",
+      "source_url": null,
+      "hypothesis": true
+     }
+    ],
+    "constraints": [
+     "Monocouloir de type A320, environ 180 sièges laissés en place.",
+     "On remplit uniquement la cabine passagers, du plancher au plafond ; ni cockpit, ni soutes.",
+     "Les balles sont déversées en vrac, pas rangées une à une.",
+     "Les coffres à bagages restent fermés."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation (10 s).** « J'estime le nombre de balles déversées en vrac dans la cabine passagers d'un A320, sièges compris, à ±30 % près. »\n\n**Structure annoncée.** « Nombre de balles = volume utile de la cabine ÷ volume réellement occupé par une balle. 1) Volume utile ; 2) place occupée par une balle, compacité comprise ; 3) division, puis vérifications. »\n\n**Étape 1 – Volume utile de la cabine.**\n- Hypothèses : environ 27 m de long, 3,7 m de large, 2,2 m sous plafond.\n- Section : 3,7 × 2,2 ≈ 8 m², mais le plafond et les parois sont arrondis : je garde 85 %, soit ≈ 7 m².\n- Volume brut : 27 × 7 ≈ 190 m³.\n- Obstacles : 180 sièges à environ 0,1 m³ de matière chacun ≈ 18 m³ ; galleys et toilettes ≈ 15 m³ ; coffres à bagages fermés ≈ 10 m³. Total ≈ 40 m³, soit environ 20 %.\n- **Volume utile ≈ 150 m³.**\n\n**Étape 2 – Place occupée par une balle.** C'est le point logique clé : des sphères ne remplissent jamais tout l'espace.\n- Diamètre ≈ 6,7 cm, donc cube circonscrit ≈ 6,7³ ≈ 300 cm³.\n- Empilement cubique (balles alignées) : 1 balle par 300 cm³, soit environ 3 300 balles par m³ (compacité 52 %).\n- Versées en vrac, les balles se tassent un peu mieux : compacité d'environ 64 %, soit 64/52 ≈ ×1,2, donc **≈ 4 000 balles par m³**.\n- Contrôle : volume d'une balle = π/6 × 300 ≈ 157 cm³ ; 157 / 0,64 ≈ 245 cm³ par balle ; 1 000 000 / 245 ≈ 4 000. ✓\n\n**Étape 3 – Résultat.** 150 m³ × 4 000 ≈ **600 000 balles**. Contre les parois et autour des sièges, les balles se rangent moins bien, ce qui retire quelques pourcents.\n\n**Réponse : environ 600 000 balles (fourchette de 0,5 à 0,7 million).**\n\n**Vérification de cohérence.**\n- Par siège : 600 000 / 180 ≈ 3 300 balles, soit ≈ 0,8 m³ par passager, l'équivalent d'un cube de 93 cm de côté (siège, jambes, part d'allée et espace au-dessus de la tête). Plausible.\n- Par la masse (hypothèse : ≈ 57 g par balle) : 600 000 × 57 g ≈ 34 t, au-dessus de la charge utile d'un tel avion (de l'ordre de 20 t, hypothèse). Le coup marketing ne se fait qu'au sol, et la tenue du plancher est à vérifier avec la compagnie.\n- Sensibilité : avec une compacité de 55 % au lieu de 64 %, on tombe à ≈ 520 000 ; avec ±20 % sur le volume utile, on reste entre 480 000 et 720 000. L'ordre de grandeur tient.\n- So what pour la cliente : à environ 1 € la balle en gros (hypothèse), c'est un budget de l'ordre de 0,6 M€, à valider avant de commander.\n\n**Pièges classiques.** Oublier la compacité (150 m³ / 157 cm³ ≈ 950 000, soit +60 %) ; prendre le fuselage comme un cylindre complet de 4 m de diamètre (≈ 330 m³, soutes comprises) ; se tromper d'unité (1 m³ = 1 000 000 cm³).",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 20,
+     "levels": {
+      "0": "Part directement dans des calculs sans formule de départ.",
+      "1": "Pose la division volume ÷ balle mais n'annonce pas les étapes ou oublie les obstacles.",
+      "2": "Annonce la formule et les 3 étapes (volume utile, place par balle avec compacité, division et vérifications) avant de dérouler."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 25,
+     "levels": {
+      "0": "Chiffres lancés sans les dire ni les justifier.",
+      "1": "Dimensions de cabine explicites mais ni obstacles ni compacité.",
+      "2": "Dimensions, part du volume prise par sièges, galleys et coffres, et compacité d'environ 60 % dites explicitement, chacune avec une justification."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 20,
+     "levels": {
+      "0": "Résultat hors de 100 000 à 3 millions, ou erreur d'unité.",
+      "1": "Résultat dans le bon ordre de grandeur, mais hors de 300 000 à 1,2 million ou obtenu par erreurs qui se compensent.",
+      "2": "Résultat entre 300 000 et 1,2 million, avec un raisonnement cohérent sur la compacité."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 20,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Une vérification qualitative (« ça paraît beaucoup »), sans chiffre.",
+      "2": "Au moins une vérification chiffrée par un autre angle (balles par siège, masse totale, budget) et une sensibilité sur l'hypothèse la plus fragile."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 15,
+     "levels": {
+      "0": "Plus de 6 minutes ou détails inutiles (modèle exact d'avion, physique des empilements).",
+      "1": "Raisonnement juste mais long, arrondis trop précis.",
+      "2": "Moins de 5 minutes, arrondis assumés, réponse en une phrase avec sa fourchette."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 5
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_05",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_05",
+   "type": "brainteaser",
+   "difficulty": 5,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type estimation rapide, 3 à 5 minutes. Thème imposé : horloges et angles.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "L'horloge de quai dont les aiguilles se superposent toutes les 65 minutes : avance ou retard ?",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 5,
+   "sector": "général",
+   "prompt": "Un opérateur ferroviaire régional, client de la practice, nous signale qu'une vieille horloge mécanique de quai dérive. Le technicien n'a pas d'heure de référence fiable sous la main, seulement un chronomètre parfaitement exact. Il constate qu'il s'écoule exactement 65 minutes réelles entre deux superpositions successives de l'aiguille des heures et de l'aiguille des minutes. Les engrenages sont intacts : le rapport de vitesse entre les deux aiguilles est correct, seul le rythme global du mécanisme est faussé. L'horloge avance-t-elle ou retarde-t-elle, et de combien de minutes par jour ?",
+   "parts": null,
+   "context_data": {
+    "facts": [],
+    "constraints": [
+     "L'horloge a un cadran classique de 12 heures.",
+     "Le chronomètre mesure le temps réel et il est exact.",
+     "La dérive est régulière : le mécanisme tourne à vitesse constante, simplement pas à la bonne."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation (10 s).** « Je compare les 65 minutes réelles mesurées à l'intervalle qui sépare deux superpositions sur une horloge juste ; j'en déduis le sens et le taux de dérive, puis je le ramène à 24 heures réelles. »\n\n**Structure annoncée.** « 1) Intervalle entre deux superpositions sur une horloge juste, par les vitesses angulaires ; 2) comparaison avec la mesure, d'où le sens et le taux de dérive ; 3) extrapolation à une journée et vérifications. »\n\n**Étape 1 – Intervalle théorique entre deux superpositions.**\n- Aiguille des minutes : 360° en 60 min, soit 6° par minute. Aiguille des heures : 360° en 12 h, soit 0,5° par minute.\n- Vitesse relative : 5,5° par minute. Entre deux superpositions, l'aiguille des minutes reprend un tour complet (360°) à celle des heures.\n- Intervalle = 360 / 5,5 = 720/11 ≈ **65,45 min, soit 65 min 27 s**, mesurées en temps de l'horloge.\n- Contrôle : 11 superpositions en 12 h (et pas 12 : entre 11 h et midi, la superposition tombe pile à midi), et 12 h / 11 ≈ 65,45 min. ✓\n\n**Étape 2 – Sens et taux de dérive.**\n- Comme les engrenages sont justes, sur cette horloge aussi les aiguilles se rejoignent toutes les 65,45 min **affichées**.\n- Or le chronomètre ne compte que 65 min réelles : l'horloge affiche 65,45 min pendant que 65 min s'écoulent. Elle tourne trop vite, donc elle **avance**.\n- Rapport : (720/11) / 65 = 720/715 = 144/143. L'horloge gagne 1/143 du temps réel, soit environ 0,7 %.\n\n**Étape 3 – Par jour.** 1 440 min × 1/143 ≈ 10,07 min. De tête : 1 430/143 = 10, plus un reste de 10/143 ≈ 0,07.\n\n**Réponse : l'horloge avance d'environ 10 minutes par jour** (10 min 04 s par 24 h réelles ; exactement 10 min par 24 h affichées, puisque 1 440/144 = 10).\n\n**Vérification de cohérence.**\n- Par un autre chemin : en 24 h réelles, il y a 1 440 / 65 ≈ 22,15 intervalles, et chacun fait gagner 27,3 s ; 22,15 × 27,3 ≈ 604 s ≈ 10 min. ✓\n- Ordre de grandeur : 27 s d'avance toutes les 65 min, c'est environ 25 s par heure, et 24 × 25 s = 600 s = 10 min. ✓\n- Test du sens : si le technicien avait mesuré 66 min, les aiguilles se rejoindraient trop tard et l'horloge retarderait. Le sens dépend uniquement du fait que 65 est inférieur à 65,45.\n\n**Pièges classiques.** Croire que les aiguilles se croisent toutes les heures (on conclurait à tort à une horloge qui retarde de 5 min par heure) ; conclure « 65 < 65,45, donc elle retarde » en confondant temps affiché et temps réel ; donner 0,45 min par jour en oubliant d'extrapoler à 24 h.",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 15,
+     "levels": {
+      "0": "Calcule sans annoncer de démarche, mélange temps réel et temps affiché.",
+      "1": "Annonce un plan mais ne sépare pas clairement le calcul théorique de la comparaison avec la mesure.",
+      "2": "Annonce les 3 étapes (intervalle théorique, sens et taux de dérive, extrapolation à 24 h) avant de dérouler."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 20,
+     "levels": {
+      "0": "Ne pose pas les vitesses des aiguilles ni la distinction entre temps réel et temps affiché.",
+      "1": "Pose les vitesses angulaires mais ne dit pas pourquoi l'intervalle de 65,45 min vaut aussi pour l'horloge déréglée.",
+      "2": "Explicite 6° et 0,5° par minute, la vitesse relative de 5,5° par minute et le fait que l'horloge parcourt 65,45 min affichées en 65 min réelles."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 30,
+     "levels": {
+      "0": "Mauvais sens (« elle retarde ») ou ordre de grandeur faux.",
+      "1": "Bon sens mais erreur de taux ou d'extrapolation (par exemple 0,45 min ou 27 s par jour).",
+      "2": "Conclut qu'elle avance d'environ 10 minutes par jour (1 440/143 ≈ 10 min 04 s)."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 20,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Revérifie l'intervalle de 65,45 min mais pas le sens ni le total journalier.",
+      "2": "Retrouve les 10 min par un second chemin (27 s × 22 intervalles ou 25 s par heure) et justifie le sens de la dérive."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 15,
+     "levels": {
+      "0": "Plus de 6 minutes, équations posées dans tous les sens.",
+      "1": "Juste mais avec des hésitations sur le sens ou des calculs inutiles.",
+      "2": "Moins de 5 minutes, fraction 720/11 mobilisée directement, réponse en une phrase."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 5
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_06",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_06",
+   "type": "brainteaser",
+   "difficulty": 1,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type calcul mental, 3 à 5 minutes. Thème imposé : intérêts composés de tête.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Une dotation de 10 M€ placée à 6 % par an : combien dans 24 ans, de tête ?",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 1,
+   "sector": "général",
+   "prompt": "Le président d'une fondation d'entreprise vous pose une question en marge d'un comité de pilotage. La fondation vient de recevoir une dotation de 10 M€, investie dans un portefeuille diversifié qui rapporte en moyenne 6 % par an, revenus intégralement réinvestis et aucun retrait prévu. Il n'a pas de tableur sous la main et veut simplement un ordre de grandeur fiable pour son discours. Combien vaudra la dotation dans 24 ans ?",
+   "parts": null,
+   "context_data": {
+    "facts": [],
+    "constraints": [
+     "Rendement constant de 6 % par an, intérêts capitalisés une fois par an.",
+     "On raisonne en euros courants, sans inflation, sans frais ni fiscalité.",
+     "Pas de calculatrice."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation (10 s).** « Je cherche 10 M€ × 1,06^24, de tête, avec une précision de l'ordre de 5 %. »\n\n**Structure annoncée.** « 1) Temps de doublement par la règle de 72 ; 2) nombre de doublements en 24 ans ; 3) résultat et contrôles. »\n\n**Étape 1 – Temps de doublement.** Règle de 72 : un capital placé à r % double en environ 72 / r années, ici 72 / 6 = **12 ans**. (Pourquoi 72 : ln 2 ≈ 0,69 et ln(1 + r) ≈ r ; 72 corrige l'approximation pour des taux de 5 à 10 % et se divise facilement.)\n\n**Étape 2 – Nombre de doublements.** 24 ans = 2 × 12 ans, soit 2 doublements : × 2 × 2 = × 4.\n\n**Étape 3 – Résultat.** 10 M€ × 4 = **≈ 40 M€**. La valeur exacte est 1,06^24 ≈ 4,05, soit 40,5 M€ : la règle de 72 se trompe d'environ 1 %.\n\n**Réponse : la dotation vaudra environ 40 M€ dans 24 ans.**\n\n**Vérification de cohérence.**\n- Borne basse par les intérêts simples : 10 × (1 + 24 × 6 %) = 24,4 M€. La capitalisation doit donner nettement plus ; 40 M€ > 24,4 M€ ✓. L'écart d'environ 16 M€ correspond aux intérêts sur les intérêts.\n- Contrôle intermédiaire : 1,06^6 ≈ 1,42 et 1,42² ≈ 2,0, donc 1,06^12 ≈ 2 : le doublement en 12 ans est confirmé. ✓\n- Sensibilité : à 5 %, on double en environ 14,4 ans, soit 1,7 doublement en 24 ans, donc ≈ 32 M€ ; à 7 %, on double en environ 10,3 ans, soit 2,3 doublements, donc ≈ 50 M€. Un point de rendement en plus ou en moins fait varier le capital final de 20 à 25 %.\n\n**Pièges classiques.** Raisonner en intérêts simples (24,4 M€) ; calculer 6 % × 24 = 144 % puis ajouter au capital ; annoncer un chiffre exact sans dire qu'il repose sur un rendement moyen constant.",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 15,
+     "levels": {
+      "0": "Se lance dans des multiplications successives sans méthode.",
+      "1": "Cite la règle de 72 mais ne déroule pas les étapes jusqu'au résultat.",
+      "2": "Annonce la méthode en 3 étapes (temps de doublement, nombre de doublements, résultat et contrôle) avant de calculer."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 20,
+     "levels": {
+      "0": "Ne dit pas que le rendement est supposé constant et réinvesti.",
+      "1": "Pose l'hypothèse de capitalisation mais n'explique pas pourquoi la règle de 72 s'applique.",
+      "2": "Explicite rendement constant, capitalisation annuelle, absence de retrait, et justifie la règle de 72."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 30,
+     "levels": {
+      "0": "Résultat d'intérêts simples (environ 24 M€) ou erreur de facteur.",
+      "1": "Résultat entre 30 et 50 M€ mais avec une méthode approximative non maîtrisée.",
+      "2": "Environ 40 M€, avec mention que la valeur exacte est d'environ 40,5 M€."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 20,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Compare aux intérêts simples sans conclure, ou vérifie seulement le temps de doublement.",
+      "2": "Compare aux intérêts simples (24,4 M€) et donne une sensibilité au taux (environ 32 M€ à 5 %, environ 50 M€ à 7 %)."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 15,
+     "levels": {
+      "0": "Plus de 3 minutes pour un calcul simple.",
+      "1": "Juste mais avec des explications superflues.",
+      "2": "Réponse chiffrée en moins de 2 minutes, adaptée à un président qui veut une phrase pour son discours."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 4
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_07",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_07",
+   "type": "brainteaser",
+   "difficulty": 2,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type logique, 3 à 5 minutes. Thème imposé : chemins et dénombrement.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Le livreur à vélo et le point relais : combien de plus courts chemins dans un quartier quadrillé ?",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 2,
+   "sector": "général",
+   "prompt": "Un client de la logistique urbaine veut modéliser les tournées de ses livreurs à vélo dans un quartier au plan parfaitement quadrillé, façon Manhattan. L'entrepôt est à un carrefour, et le client à livrer se trouve 5 rues plus à l'est et 3 rues plus au nord. En chemin, le livreur doit récupérer un colis dans un point relais situé 2 rues à l'est et 1 rue au nord de l'entrepôt. Il n'emprunte que des trajets de longueur minimale : il ne va donc jamais vers l'ouest ni vers le sud. Combien d'itinéraires différents de longueur minimale peut-il emprunter de l'entrepôt au client en passant par le point relais ?",
+   "parts": null,
+   "context_data": {
+    "facts": [],
+    "constraints": [
+     "Toutes les rues sont praticables dans les deux sens et tous les pâtés de maisons ont la même taille.",
+     "Deux itinéraires sont différents s'ils n'empruntent pas exactement la même suite de tronçons de rue.",
+     "Le livreur passe une seule fois par le relais."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation (10 s).** « Je compte les chemins qui ne vont que vers l'est ou le nord, de l'entrepôt (0,0) au client (5,3), et qui passent par le relais (2,1). »\n\n**Structure annoncée.** « 1) Je traduis un trajet minimal en suite de lettres E et N ; 2) je coupe le trajet au point relais et je compte chaque tronçon ; 3) je multiplie et je vérifie. »\n\n**Étape 1 – Un trajet = un mot de lettres.** Tout trajet minimal de l'entrepôt au client fait 8 tronçons de rue : 5 « E » et 3 « N », dans n'importe quel ordre. Choisir un itinéraire revient à choisir la place des 3 N parmi 8 positions : C(8,3) = 56 itinéraires au total sans contrainte. C'est un repère utile pour vérifier.\n\n**Étape 2 – Couper au relais.**\n- Entrepôt → relais : 3 tronçons dont 1 N, donc C(3,1) = **3** (NEE, ENE, EEN).\n- Relais → client : 3 E et 2 N, soit 5 tronçons, donc C(5,2) = **10**.\n\n**Étape 3 – Multiplier.** Chaque début se combine avec chaque fin (principe multiplicatif) : 3 × 10 = **30**.\n\n**Réponse : 30 itinéraires de longueur minimale passent par le point relais.**\n\n**Vérification de cohérence.**\n- 30 ≤ 56 ✓. Plus de la moitié des trajets minimaux passent par le relais : logique, car il est presque sur la diagonale du rectangle (2/5 du chemin vers l'est, 1/3 vers le nord).\n- Contrôle par la grille de Pascal : on écrit 3 au relais, puis chaque carrefour vaut la somme de ses voisins sud et ouest, en ne comptant que les chemins issus du relais. Ligne y = 1 : 3, 3, 3, 3 ; ligne y = 2 : 3, 6, 9, 12 ; ligne y = 3 : 3, 9, 18, **30**. ✓\n- Complément : 56 − 30 = 26 itinéraires minimaux évitent le relais.\n\n**Pièges classiques.** Additionner 3 + 10 au lieu de multiplier ; compter 5 × 3 = 15 « croisements » ; oublier que tous les trajets minimaux ont la même longueur (8 tronçons).\n\n**Relance possible de l'interviewer.** « La rue entre (3,2) et (4,2) est en travaux. » Les itinéraires qui l'empruntent sont au nombre de 3 × C(2,1) × C(2,1) = 3 × 2 × 2 = 12, il en reste donc 30 − 12 = **18**.",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 15,
+     "levels": {
+      "0": "Essaie de dessiner tous les chemins un par un.",
+      "1": "Pense à couper au relais mais sans annoncer la méthode de comptage.",
+      "2": "Annonce la méthode (codage E/N, découpage au relais, principe multiplicatif) avant de compter."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 15,
+     "levels": {
+      "0": "Ne précise pas ce qu'est un trajet minimal.",
+      "1": "Dit qu'on ne va que vers l'est et le nord mais ne traduit pas en combinaisons.",
+      "2": "Explicite qu'un trajet minimal compte 5 E et 3 N, et le traduit en choix de positions (coefficient binomial)."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 35,
+     "levels": {
+      "0": "Résultat faux (13, 15, 56…) ou absent.",
+      "1": "Bonne méthode mais erreur de comptage sur un tronçon.",
+      "2": "Trouve 3 × 10 = 30 itinéraires."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 20,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Vérifie un tronçon par énumération (NEE, ENE, EEN) seulement.",
+      "2": "Compare au total sans contrainte (56) ou recompte par la grille de Pascal."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 15,
+     "levels": {
+      "0": "Plus de 4 minutes, énumération laborieuse.",
+      "1": "Juste mais avec des détours.",
+      "2": "Moins de 3 minutes, notation claire, réponse en une phrase."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 4
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_08",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_08",
+   "type": "brainteaser",
+   "difficulty": 3,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type estimation rapide, 3 à 5 minutes. Thème imposé : nombre de stations-service en France.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Estimer de tête le nombre de stations-service en France métropolitaine",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 3,
+   "sector": "général",
+   "prompt": "Un fonds d'infrastructure envisage de racheter un réseau de stations-service pour les équiper progressivement de bornes de recharge rapide. Avant de parler de parts de marché, l'associé veut vérifier que vous avez le bon ordre de grandeur du marché physique. Sans chercher de chiffre, prenez trente secondes pour structurer, puis déroulez votre raisonnement à voix haute. Combien y a-t-il de stations-service ouvertes au public en France métropolitaine aujourd'hui ?",
+   "parts": null,
+   "context_data": {
+    "facts": [
+     {
+      "label": "Parc de véhicules légers thermiques en circulation en France métropolitaine (ordre de grandeur)",
+      "value": "≈ 40 millions (voitures et utilitaires légers)",
+      "source_url": null,
+      "hypothesis": true
+     },
+     {
+      "label": "Kilométrage annuel moyen d'une voiture",
+      "value": "≈ 12 000 km par an",
+      "source_url": null,
+      "hypothesis": true
+     },
+     {
+      "label": "Consommation moyenne d'un véhicule léger thermique",
+      "value": "≈ 6 à 7 L/100 km",
+      "source_url": null,
+      "hypothesis": true
+     }
+    ],
+    "constraints": [
+     "On compte les stations ouvertes au public (stations de grandes surfaces comprises), pas les cuves privées des transporteurs.",
+     "France métropolitaine uniquement, en 2026.",
+     "Si le candidat demande : les véhicules électriques représentent une petite part du parc en circulation et ne passent pas à la pompe."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation (10 s).** « J'estime le nombre de points de vente de carburant routier ouverts au public en métropole, à ±30 % près. J'exclus les cuves privées des transporteurs et des flottes, et je raisonne sur les véhicules légers, qui font l'essentiel des passages en station. »\n\n**Structure annoncée (bottom-up, par la demande et la capacité).** « Nombre de stations = pleins faits par jour en France ÷ pleins servis par jour par une station moyenne. 1) La demande ; 2) la capacité utilisée d'une station ; 3) la division, puis les vérifications. »\n\n**Étape 1 – Demande : combien de pleins par jour ?**\n- Environ 68 M d'habitants, environ 0,6 véhicule léger par habitant, moins les électriques : ≈ **40 M de véhicules légers thermiques** (voitures et utilitaires).\n- 12 000 km par an × 6,5 L/100 km ≈ 780 L, arrondi à **800 L par an et par véhicule**.\n- Plein moyen ≈ 40 L (on ne part jamais d'un réservoir vide), donc **20 pleins par an**, environ un toutes les 2 à 3 semaines.\n- 40 M × 20 = 800 M pleins par an ; ÷ 365 ≈ **2,2 M pleins par jour**.\n\n**Étape 2 – Capacité utilisée d'une station moyenne.**\n- 3 îlots double face, soit 6 postes de distribution.\n- Un passage (arrivée, plein, paiement) prend environ 5 min, soit 12 véhicules par heure et par poste, donc 72 par heure au maximum.\n- Ouverture d'environ 14 h par jour, soit une capacité maximale d'environ 1 000 pleins par jour.\n- Taux d'occupation moyen ≈ 20 % : pics le matin, le soir et le vendredi, creux le reste du temps. D'où **≈ 200 pleins par jour**.\n\n**Étape 3 – Division.** 2,2 M ÷ 200 ≈ **11 000 stations**.\n\n**Réponse : de l'ordre de 10 000 à 11 000 stations-service en France métropolitaine.**\n\n**Vérification de cohérence.**\n- Densité : la métropole fait environ 550 000 km², soit 1 station pour 50 km², une tous les 7 km environ ; et 1 station pour environ 6 000 habitants. Cela colle à l'expérience : quasiment chaque bourg de quelques milliers d'habitants a sa station, souvent celle d'un supermarché.\n- Logistique : 200 pleins × 40 L = 8 000 L par jour, environ 3 M L par an et par station ; un camion-citerne d'environ 30 000 L (hypothèse) passerait tous les 3 à 4 jours. Plausible.\n- Test de l'absurde : à 100 % d'occupation, on trouverait environ 2 200 stations, une tous les 16 km avec des files d'attente permanentes. Ce n'est pas la réalité, ce qui confirme qu'il faut un taux d'occupation bas.\n- Repère : l'ordre de grandeur souvent cité par la profession est d'environ 11 000 stations (hypothèse à vérifier, chiffre non sourcé ici), bien moins qu'il y a quarante ans du fait de la concentration vers les grandes surfaces.\n\n**Sensibilité (une phrase).** Le taux d'occupation est l'hypothèse la plus fragile : à 15 %, on obtient environ 14 500 stations, à 30 % environ 7 300, d'où une fourchette de 7 000 à 15 000.\n\n**So what pour le fonds.** Avec environ 11 000 sites, un réseau de 300 stations ne pèse qu'environ 3 % des points de vente ; et des pompes occupées environ 20 % du temps laissent de la place sur les sites pour installer des bornes.\n\n**Pièges classiques.** Faire deux décompositions sans en finir aucune ; compter des pompes au lieu de stations ; supposer des pleins à réservoir vide ou des stations saturées.",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 20,
+     "levels": {
+      "0": "Donne un chiffre au jugé ou empile des calculs sans formule de départ.",
+      "1": "Pose une décomposition mais sans annoncer les étapes, ou en mélange deux.",
+      "2": "Annonce une seule décomposition (demande ÷ capacité d'une station) et ses 3 étapes avant de dérouler."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 25,
+     "levels": {
+      "0": "Chiffres non dits ou injustifiés.",
+      "1": "Parc et consommation explicites, mais capacité d'une station supposée saturée ou non justifiée.",
+      "2": "Parc, kilométrage, consommation, taille du plein, postes, durée de passage et taux d'occupation dits explicitement avec une justification courte."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 20,
+     "levels": {
+      "0": "Résultat hors de 4 000 à 30 000.",
+      "1": "Résultat entre 4 000 et 30 000 mais hors de 7 000 à 16 000, ou obtenu par erreurs qui se compensent.",
+      "2": "Résultat entre 7 000 et 16 000 avec un raisonnement cohérent."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 20,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Vérification qualitative seulement (« ça me paraît plausible »).",
+      "2": "Au moins une vérification chiffrée par un autre angle (densité au km² ou par habitant, volumes livrés par camion) et une sensibilité sur le taux d'occupation."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 15,
+     "levels": {
+      "0": "Plus de 6 minutes ou détails hors sujet (prix du carburant, marques).",
+      "1": "Raisonnement juste mais long, arrondis trop précis.",
+      "2": "Moins de 5 minutes, arrondis assumés, réponse en une phrase avec sa fourchette et son so what."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 4
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_09",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_09",
+   "type": "brainteaser",
+   "difficulty": 4,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type calcul mental, 3 à 5 minutes. Thème imposé : règle de 72 et doublement.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Règle de 72 : dans combien d'années la facture cloud d'un e-commerçant aura-t-elle quadruplé ?",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 4,
+   "sector": "général",
+   "prompt": "Je te propose un calcul de tête, sans papier ni calculatrice. Un e-commerçant français dépense aujourd'hui 1 M€ par an pour stocker ses données dans le cloud. Son volume de données croît de 24 % par an, mais le prix du téraoctet baisse de 10 % par an chez son hébergeur, et on suppose que ces deux tendances restent constantes. Son directeur financier a fixé un plafond de 4 M€ par an, au-delà duquel il faudra revoir toute l'architecture. À un an près, dans combien d'années la facture atteindra-t-elle ce plafond si rien ne change ?",
+   "parts": null,
+   "context_data": {
+    "facts": [],
+    "constraints": [
+     "Calcul de tête uniquement, sans papier ni calculatrice.",
+     "Les deux taux (+24 % de volume, −10 % de prix unitaire) sont constants sur toute la période.",
+     "Politique inchangée : ni renégociation tarifaire, ni purge, ni archivage des données.",
+     "Une réponse à un an près suffit."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation.** « On cherche le temps pour que la facture passe de 1 à 4 M€, soit un facteur 4, c'est-à-dire **deux doublements**. Je procède en trois étapes : (1) le taux de croissance net de la facture, (2) son temps de doublement par la règle de 72, (3) le nombre de doublements, puis je vérifie. »\n\n**Étape 1 — Taux de croissance net de la facture.**\n- Facture = volume × prix unitaire : les facteurs de croissance **se multiplient**, ils ne s'additionnent pas.\n- 1,24 × 0,90 = 1,24 − 0,124 = **1,116**, soit **+11,6 % par an**.\n- Piège classique : faire 24 % − 10 % = 14 %, qui surestime la croissance de 2,4 points.\n\n**Étape 2 — Temps de doublement (règle de 72).**\n- 72 / 11,6 ≈ **6,2 ans** (72 / 12 = 6 ; le taux étant un peu plus faible, le doublement est un peu plus long ; contrôle : 11,6 × 6,2 ≈ 72).\n\n**Étape 3 — Nombre de doublements.**\n- 4 M€ / 1 M€ = 4 = 2², donc 2 doublements : 2 × 6,2 ≈ **12,4 ans**.\n\n**Réponse : environ 12 ans et demi ; le plafond de 4 M€ est franchi entre la 12e et la 13e année.**\n\n**Vérification de cohérence.**\n- *Précision de la règle* : elle est calibrée autour de 8 %. Au-dessus, on ajoute 1 au numérateur par tranche de 3 points : (11,6 − 8) / 3 ≈ 1,2, donc 73,2 / 11,6 ≈ 6,3 ans, soit **12,6 ans**. Le calcul exact (ln 4 / ln 1,116) donne aussi 12,6 ans.\n- *Encadrement direct* : 1,116² ≈ 1,245 ; 1,116⁶ ≈ 1,245³ ≈ 1,93 (presque 2, cohérent avec ~6,2 ans) ; 1,116¹² ≈ 1,93² ≈ 3,7 < 4 et 1,116¹³ ≈ 3,7 × 1,116 ≈ 4,2 > 4. Le plafond tombe bien entre 12 et 13 ans.\n- *Ordre de grandeur parlant* : sur la période, le volume aura doublé environ quatre fois (72 / 24 ≈ 3 ans, un peu plus en réalité), soit ×15 environ, alors que la facture n'est que ×4 : c'est la baisse des prix qui absorbe l'essentiel de la croissance.\n- *Impact du piège* : avec 14 %, on aurait annoncé 2 × 72 / 14 ≈ 10 ans, soit deux ans et demi d'erreur, la différence entre « on a le temps » et « il faut lancer le chantier maintenant ».\n\n**Relance possible de l'interviewer.** « Le DSI veut tenir 18 ans sous le plafond. Quelle croissance de volume maximale ? »\n- 18 ans pour 2 doublements = 9 ans par doublement, donc un taux net de 72 / 9 = **8 %** (la règle est quasi exacte à 8 %).\n- 1,08 / 0,90 = **1,20** : le volume ne doit pas croître de plus de **20 % par an**.\n\n**Phrase de conclusion.** « Au rythme actuel, la facture atteint 4 M€ dans environ 12 ans et demi ; la variable à piloter est la croissance du volume, donc la politique de rétention et d'archivage des données, car la ramener à 20 % repousse l'échéance à 18 ans. »",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 20,
+     "levels": {
+      "0": "Se lance dans des calculs sans dire où il va ni identifier que 4 M€ correspond à deux doublements.",
+      "1": "Identifie le facteur 4 mais enchaîne les étapes dans le désordre ou en annonce une partie seulement.",
+      "2": "Annonce d'emblée les trois étapes : taux net, temps de doublement par la règle de 72, nombre de doublements, puis vérification."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 20,
+     "levels": {
+      "0": "Additionne ou soustrait les taux (24 − 10 = 14 %) sans s'interroger sur la façon de les combiner.",
+      "1": "Combine correctement les taux mais sans expliquer pourquoi on multiplie ni rappeler que les taux sont supposés constants.",
+      "2": "Dit explicitement que facture = volume × prix, que les facteurs se multiplient (1,24 × 0,9 = 1,116) et que l'on raisonne à taux constants."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 30,
+     "levels": {
+      "0": "Pas de réponse, ou une réponse fausse de plus de deux ans (10 ans en soustrayant les taux, 6 ans en oubliant le second doublement).",
+      "1": "Bonne démarche mais une erreur de calcul ou d'arrondi qui éloigne la réponse de plus d'un an de 12,6 ans.",
+      "2": "Annonce entre 12 et 13 ans, environ 12,5, à partir d'un taux net de 11,6 % et de deux doublements d'environ 6,2 ans."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 20,
+     "levels": {
+      "0": "Aucune vérification du résultat.",
+      "1": "Vérifie un ordre de grandeur (72 / 12 = 6 ans) sans discuter la précision de la règle de 72 à ce taux.",
+      "2": "Contrôle par une autre voie (encadrement 1,116¹² < 4 < 1,116¹³ ou correction de la règle au-dessus de 8 %) et chiffre l'erreur qu'aurait causée le taux de 14 %."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 10,
+     "levels": {
+      "0": "Plus de 5 minutes, ou se perd dans des formules de logarithmes inutilisables à l'oral.",
+      "1": "Répond dans le temps mais avec des hésitations ou des retours en arrière.",
+      "2": "Réponse complète en 2 à 3 minutes, chaque étape dite en une phrase et une conclusion qui donne le chiffre et la variable à piloter."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 4
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_10",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_10",
+   "type": "brainteaser",
+   "difficulty": 5,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type logique, 3 à 5 minutes. Thème imposé : énigme des chapeaux.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Énigme des casquettes : 20 consultants, 3 couleurs, combien de bonnes réponses garanties ?",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 5,
+   "sector": "général",
+   "prompt": "Lors d'un séminaire d'intégration, un associé lance un défi aux 20 nouveaux consultants de la promotion. Ils sont placés en file indienne, tous tournés dans le même sens, et chacun reçoit une casquette rouge, verte ou bleue sans voir la sienne ni celles des personnes derrière lui : le dernier de la file voit donc les 19 autres, le premier ne voit personne. En commençant par le dernier, chacun annonce à voix haute une seule couleur, entendue par tous, et marque un point s'il annonce celle de sa propre casquette. Ils peuvent se concerter avant la distribution, plus du tout ensuite, et l'associé répartit les couleurs comme il le veut. Quel est le nombre maximal de bonnes réponses que l'équipe peut garantir à coup sûr, et avec quelle stratégie ?",
+   "parts": null,
+   "context_data": {
+    "facts": [],
+    "constraints": [
+     "Aucun autre signal que le nom de la couleur : ni intonation, ni délai, ni geste.",
+     "Chacun parle exactement une fois, du dernier de la file au premier ; une mauvaise réponse n'arrête pas le jeu.",
+     "L'associé peut connaître la stratégie : il faut raisonner sur la pire répartition possible (toutes les casquettes identiques, par exemple).",
+     "Les consultants savent additionner et calculer un reste de division par 3."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation.** « On cherche ce qu'une stratégie convenue à l'avance garantit quelle que soit la répartition, y compris la pire. Je procède en trois temps : (1) une borne supérieure, (2) une stratégie qui l'atteint, (3) une vérification sur un petit exemple. »\n\n**Étape 1 — Borne supérieure : 19.**\n- Le premier à parler (le dernier de la file) n'a aucune information sur sa propre casquette : il ne l'a pas vue et n'a encore rien entendu.\n- Quelle que soit la règle, son annonce ne dépend que des 19 casquettes qu'il voit ; l'associé peut donc toujours lui donner une autre couleur. On ne peut jamais garantir 20, au mieux **19**.\n\n**Étape 2 — Une stratégie qui garantit 19.**\n- On code les couleurs : rouge = 0, vert = 1, bleu = 2.\n- Le dernier de la file additionne les codes des 19 casquettes qu'il voit et annonce la couleur qui correspond au **reste de cette somme dans la division par 3**. Appelons S ce reste : c'est un « chiffre de contrôle » transmis à tous. Lui-même n'a qu'une chance sur 3 d'avoir juste.\n- Chaque suivant connaît S, voit les casquettes devant lui et a entendu les réponses données après S, qui sont toutes justes. Il ne lui manque qu'un terme de la somme : **ma couleur = S − (somme de ce que je vois) − (somme de ce que j'ai entendu après S), modulo 3**. Il l'annonce, et elle est forcément juste.\n- De proche en proche, les 19 premiers de la file répondent juste.\n\n**Réponse : 19 bonnes réponses garanties** (et 19 + 1/3 ≈ 19,3 en moyenne, grâce à la chance du sacrifié).\n\n**Étape 3 — Vérification sur 4 personnes.** De l'avant vers l'arrière : n°1 vert (1), n°2 bleu (2), n°3 bleu (2), n°4 rouge (0).\n- n°4 voit 2 + 2 + 1 = 5, reste 2 : il annonce « bleu ». Faux, il est rouge : c'est le sacrifié.\n- n°3 voit 2 + 1 = 3, reste 0 : 2 − 0 = 2, « bleu ». Juste.\n- n°2 voit 1 et a entendu « bleu » (2) après S : 2 − 1 − 2 = −1 ≡ 2, « bleu ». Juste.\n- n°1 ne voit rien et a entendu 2 et 2 après S : 2 − 2 − 2 = −2 ≡ 1, « vert ». Juste.\n- 3 bonnes réponses sur 4, soit n − 1 : la mécanique fonctionne.\n\n**Contrôles de cohérence.**\n- Avec 2 couleurs, on retrouve la stratégie classique de la parité ; avec k couleurs, on prend la somme modulo k et on garantit toujours n − 1. Le nombre de couleurs change le modulo, pas la réponse.\n- Intuition : le premier à parler ne transmet qu'un symbole parmi 3, et il ne manque à chacun des autres qu'une information parmi 3 (sa couleur). Un seul chiffre de contrôle suffit, comme la clé d'un RIB.\n- Pièges : (a) la stratégie « j'annonce la couleur de la personne devant moi, qui la répète » ne garantit que 10 ; (b) utiliser l'intonation ou un délai est interdit ; (c) confondre garanti (19) et espéré (19,3), ou annoncer 20.\n\n**Phrase de conclusion.** « L'équipe peut garantir 19 bonnes réponses sur 20 : le dernier sacrifie sa chance en annonçant la somme modulo 3 des casquettes qu'il voit, et chacun en déduit la sienne ; on ne peut pas faire mieux, car le premier à parler n'a aucune information sur sa propre casquette. »",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 25,
+     "levels": {
+      "0": "Teste des idées au hasard sans distinguer ce qu'on peut espérer de ce qu'on peut garantir.",
+      "1": "Trouve une stratégie mais ne sépare pas la borne supérieure de la construction, ou ne prouve pas qu'on ne peut pas faire mieux.",
+      "2": "Annonce les trois temps : borne supérieure à 19, stratégie qui l'atteint, vérification sur un petit cas."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 15,
+     "levels": {
+      "0": "Utilise des signaux interdits (intonation, délai) ou suppose une répartition favorable des couleurs.",
+      "1": "Raisonne dans les règles mais sans dire que la répartition peut être la pire possible ni que tout le monde entend tout.",
+      "2": "Pose explicitement les hypothèses clés : pire cas, annonces entendues par tous, aucun autre signal, codage 0/1/2 des couleurs."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 30,
+     "levels": {
+      "0": "Pas de stratégie valable, ou annonce 20.",
+      "1": "Stratégie qui garantit moins de 19 (par paires, 10), ou annonce 19 sans savoir expliquer comment chacun déduit sa couleur.",
+      "2": "Annonce 19 avec la stratégie de la somme modulo 3 et la règle de déduction de chacun, et justifie qu'on ne peut pas garantir 20."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 20,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Vérifie l'idée sur le cas à 2 couleurs ou à 2 personnes sans dérouler un calcul modulo 3.",
+      "2": "Déroule un exemple chiffré sur 3 ou 4 personnes, constate que seul le premier à parler peut se tromper et mentionne la généralisation à k couleurs."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 10,
+     "levels": {
+      "0": "Plus de 6 minutes, ou stratégie si confuse que les consultants ne pourraient pas l'appliquer.",
+      "1": "Stratégie juste mais exposée avec des détours et des reprises.",
+      "2": "Stratégie expliquée en 3 ou 4 phrases applicables sans question, l'ensemble en 4 à 5 minutes."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 5
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_11",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_11",
+   "type": "brainteaser",
+   "difficulty": 1,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type estimation rapide, 3 à 5 minutes. Thème imposé : nombre de pianos à Paris.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Estimation express : combien de pianos à Paris intra-muros ?",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 1,
+   "sector": "général",
+   "prompt": "Une start-up parisienne veut lancer une plateforme de location, d'accordage et d'entretien de pianos, et son fondateur nous demande de dimensionner le parc avant sa levée de fonds. On parle de Paris intra-muros, et on compte les pianos acoustiques comme les pianos numériques à 88 touches, mais pas les petits claviers d'initiation. Je ne cherche pas la précision à 10 % près, je veux un ordre de grandeur bien construit et des hypothèses dites à voix haute. Combien y a-t-il de pianos à Paris aujourd'hui ?",
+   "parts": null,
+   "context_data": {
+    "facts": [
+     {
+      "label": "Population de Paris intra-muros",
+      "value": "environ 2,1 millions d'habitants (ordre de grandeur, hypothèse)",
+      "source_url": null,
+      "hypothesis": true
+     },
+     {
+      "label": "Taille moyenne d'un ménage parisien",
+      "value": "environ 1,9 personne par ménage (hypothèse)",
+      "source_url": null,
+      "hypothesis": true
+     },
+     {
+      "label": "Répartition des ménages parisiens",
+      "value": "environ 50 % de personnes seules, 20 % de couples sans enfant, 30 % de ménages avec enfants (hypothèse arrondie)",
+      "source_url": null,
+      "hypothesis": true
+     }
+    ],
+    "constraints": [
+     "Périmètre : Paris intra-muros uniquement, sans la petite couronne.",
+     "On compte les pianos acoustiques (droits et à queue) et les pianos numériques à 88 touches, pas les claviers d'initiation.",
+     "Les pianos en stock chez les revendeurs et les loueurs comptent dans les lieux hors domicile."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation et plan.** « On cherche le parc de pianos de Paris intra-muros, acoustiques et numériques. J'utilise une seule approche, bottom-up par les ménages, en trois étapes : (1) le nombre de ménages, (2) le taux d'équipement par type de ménage, (3) l'ajout des pianos hors domicile. »\n\n**Étape 1 — Nombre de ménages.**\n- 2,1 millions d'habitants / 1,9 personne par ménage ≈ **1,1 million de ménages**.\n\n**Étape 2 — Taux d'équipement par type de ménage.** Hypothèse : on a un piano surtout quand des enfants prennent des cours ou qu'un adulte joue.\n\n| Type de ménage | Part | Ménages | Taux d'équipement | Pianos |\n|---|---|---|---|---|\n| Personnes seules | 50 % | 550 000 | 2 % | 11 000 |\n| Couples sans enfant | 20 % | 220 000 | 4 % | ~9 000 |\n| Ménages avec enfants | 30 % | 330 000 | 10 % | 33 000 |\n| **Total** | | **1,1 M** | **~5 %** | **~53 000** |\n\n**Étape 3 — Pianos hors domicile (~10 % du parc domestique, ~5 000).**\n- Une vingtaine de conservatoires à ~50 pianos : ~1 000.\n- Écoles de musique privées et studios de professeurs : ~1 500.\n- Écoles, églises, bars, hôtels, salles de spectacle : ~1 500.\n- Stocks des magasins et des loueurs : ~1 000.\n\n**Réponse : 53 000 + 5 000 ≈ 58 000, soit environ 60 000 pianos à Paris** (fourchette raisonnable : 40 000 à 100 000).\n\n**Vérification de cohérence.**\n- 60 000 pianos pour 2,1 millions d'habitants, c'est 1 piano pour ~35 habitants, ou environ 1 ménage sur 20 : dans un immeuble de 20 logements, on trouve en général un piano. Cela correspond à l'expérience courante.\n- Sensibilité : l'hypothèse qui pèse le plus est le taux des familles. À 5 % au lieu de 10 %, on tombe à ~40 000 ; à 15 %, on monte à ~75 000. L'ordre de grandeur reste « quelques dizaines de milliers ».\n\n**Relance possible.** « Et pour l'accordage ? » On ne garde que les pianos acoustiques (hypothèse : environ 60 % du parc, soit ~35 000), accordés en moyenne une fois par an, soit ~35 000 accordages par an.\n\n**Phrase de conclusion.** « Il y a environ 60 000 pianos à Paris, dont 90 % chez des particuliers et surtout chez les familles avec enfants : c'est le segment à cibler en premier. »",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 25,
+     "levels": {
+      "0": "Donne un chiffre sans décomposition, ou mélange plusieurs approches sans en annoncer aucune.",
+      "1": "Décompose par les ménages mais oublie les pianos hors domicile, ou calcule avant d'avoir annoncé sa démarche.",
+      "2": "Annonce une approche unique par les ménages en trois étapes : nombre de ménages, taux d'équipement, pianos hors domicile."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 30,
+     "levels": {
+      "0": "Taux d'équipement sorti de nulle part, sans justification.",
+      "1": "Un taux moyen unique (environ 5 %) justifié en une phrase, sans segmentation des ménages.",
+      "2": "Hypothèses dites à voix haute et justifiées, avec un taux différencié selon le type de ménage (familles avec enfants nettement plus équipées)."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 20,
+     "levels": {
+      "0": "Résultat hors de la fourchette 20 000 à 200 000, ou erreur de calcul grossière.",
+      "1": "Résultat dans la fourchette 20 000 à 200 000 mais avec une erreur de calcul en route.",
+      "2": "Arrive à quelques dizaines de milliers (environ 50 000 à 70 000) avec des calculs justes."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 15,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Rapporte le résultat à la population sans le confronter à une image concrète.",
+      "2": "Vérifie par un ratio parlant (1 piano pour ~35 habitants, environ un par immeuble de 20 logements) et dit quelle hypothèse fait le plus bouger le résultat."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 10,
+     "levels": {
+      "0": "Plus de 5 minutes, ou détails inutiles (marques, prix des pianos).",
+      "1": "Dans le temps mais avec des digressions.",
+      "2": "Réponse en 3 minutes environ, avec un chiffre final arrondi annoncé clairement."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 4
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_12",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_12",
+   "type": "brainteaser",
+   "difficulty": 2,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type calcul mental, 3 à 5 minutes. Thème imposé : multiplications à deux chiffres.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Calcul mental : le chiffre d'affaires d'une nuit complète dans trois hôtels économiques",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 2,
+   "sector": "général",
+   "prompt": "Un petit groupe hôtelier régional nous demande un chiffre rapide avant son comité de direction. Il possède trois hôtels économiques : le premier a 48 chambres vendues 52 € la nuit, le deuxième 65 chambres à 65 €, et le troisième 37 chambres à 99 €. Tu n'as ni papier ni calculatrice, et je veux le résultat exact à l'euro près, pas un arrondi. Quel est le chiffre d'affaires total d'une nuit où les trois hôtels sont complets ?",
+   "parts": null,
+   "context_data": {
+    "facts": [],
+    "constraints": [
+     "Calcul de tête uniquement ; le résultat exact à l'euro près est attendu.",
+     "Une chambre vendue = une nuitée au prix indiqué, hors taxe de séjour et petit-déjeuner.",
+     "Les trois hôtels sont complets (occupation de 100 %)."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation et plan.** « Il faut calculer trois produits chambres × prix, puis les additionner. Plutôt que de poser trois multiplications, je choisis pour chacune le raccourci le plus sûr, puis je vérifie par un ordre de grandeur et par la preuve par 9. »\n\n**Étape 1 — Choisir la technique adaptée à chaque produit.**\n- 48 × 52 : deux nombres symétriques autour de 50, donc (a − b)(a + b) = a² − b².\n- 65 × 65 : carré d'un nombre qui finit par 5, donc (6 × 7) suivi de 25.\n- 37 × 99 : multiplier par 99, c'est multiplier par 100 et retirer une fois le nombre.\n\n**Étape 2 — Calculer.**\n- Hôtel 1 : 48 × 52 = (50 − 2)(50 + 2) = 2 500 − 4 = **2 496 €**.\n- Hôtel 2 : 65 × 65 → 6 × 7 = 42, suivi de 25 = **4 225 €**.\n- Hôtel 3 : 37 × 99 = 3 700 − 37 = **3 663 €**.\n- Somme : 2 496 + 4 225 = 6 721 ; 6 721 + 3 663 = **10 384 €**.\n\n**Réponse : une nuit complète rapporte exactement 10 384 € au groupe.**\n\n**Étape 3 — Vérifier.**\n- *Ordre de grandeur* : 50 × 50 + 65 × 65 + 37 × 100 = 2 500 + 4 225 + 3 700 = 10 425 €. On doit être un peu en dessous, et l'écart est exactement 4 + 37 = 41 € : 10 425 − 41 = 10 384 ✓.\n- *Preuve par 9* (somme des chiffres) : 48 → 3 et 52 → 7, 3 × 7 = 21 → 3, et 2 496 → 21 → 3 ✓ ; 65 → 2, 2 × 2 = 4, et 4 225 → 13 → 4 ✓ ; 37 → 1 et 99 → 0, produit 0, et 3 663 → 18 → 0 ✓ ; total 3 + 4 + 0 = 7, et 10 384 → 16 → 7 ✓.\n- *Prix moyen* : 48 + 65 + 37 = 150 chambres, 10 384 / 150 ≈ 69 € par chambre, entre 52 et 99 € et proche de l'hôtel le plus grand (65 €) ✓.\n\n**Relance possible.** « Et sur un mois de 30 nuits à 75 % d'occupation ? » 10 384 × 30 = 311 520 € ; × 3/4 : 311 520 / 4 = 77 880, × 3 = **233 640 €**.\n\n**Pièges à éviter.** Poser 65 × 65 en colonne et perdre du temps, oublier une retenue dans l'addition, ou donner « environ 10 400 € » alors que l'interviewer demande l'exact.\n\n**Phrase de conclusion.** « 10 384 € par nuit complète, soit environ 69 € par chambre en moyenne sur 150 chambres. »",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 20,
+     "levels": {
+      "0": "Calcule dans le désordre sans annoncer la démarche.",
+      "1": "Annonce trois produits puis une somme, sans dire quelle technique il utilisera pour chacun.",
+      "2": "Annonce le plan : trois produits avec la technique adaptée à chacun, une somme, puis une vérification."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 10,
+     "levels": {
+      "0": "Pose les multiplications en colonne de tête sans décomposer, ce qui multiplie les retenues et les erreurs.",
+      "1": "Décompose chaque produit de façon générique (48 × 50 + 48 × 2) sans repérer les raccourcis.",
+      "2": "Dit explicitement la décomposition choisie pour chaque produit (différence de carrés, carré en 5, ×100 − 1) et rappelle que les hôtels sont pleins à 100 %."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 35,
+     "levels": {
+      "0": "Résultat faux de plus de 100 €, ou pas de résultat.",
+      "1": "Un produit ou l'addition est faux de moins de 100 €, ou seulement un arrondi (environ 10 400 €).",
+      "2": "Trouve exactement 2 496, 4 225 et 3 663 €, puis 10 384 €."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 20,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Vérifie seulement l'ordre de grandeur (environ 10 000 €).",
+      "2": "Vérifie par un ordre de grandeur arrondi et par une méthode indépendante (preuve par 9, ou prix moyen d'environ 69 € sur 150 chambres)."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 15,
+     "levels": {
+      "0": "Plus de 4 minutes ou nombreuses reprises.",
+      "1": "Juste, mais avec des hésitations ou des calculs intermédiaires répétés.",
+      "2": "Les trois produits et la somme en moins de 2 minutes, énoncés clairement l'un après l'autre."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 4
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_13",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_13",
+   "type": "brainteaser",
+   "difficulty": 3,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type logique, 3 à 5 minutes. Thème imposé : allumettes et équations.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Allumettes : corriger 9 + 3 = 5 en déplaçant une seule allumette, combien de solutions ?",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 3,
+   "sector": "général",
+   "prompt": "Pour départager deux équipes lors d'un hackathon interne, on pose sur la table l'équation fausse 9 + 3 = 5, écrite en allumettes. Les chiffres sont tracés comme sur un afficheur digital de réveil, une allumette par segment : le 6 a sa barre du haut et le 9 sa barre du bas, soit 6 allumettes chacun, le 7 en compte 3, et les signes + et = en comptent 2 chacun. Tu dois déplacer exactement une allumette pour obtenir une égalité juste, sans en ajouter ni en retirer, sans créer de nouveau chiffre ni de nombre négatif, en gardant un seul signe = et un seul opérateur, + ou −. Je ne veux pas une solution trouvée par chance mais une recherche exhaustive. Combien de solutions différentes existe-t-il en tout ?",
+   "parts": null,
+   "context_data": {
+    "facts": [],
+    "constraints": [
+     "Afficheur 7 segments standard : 0 = 6 allumettes, 1 = 2 (à droite), 2 = 5, 3 = 5, 4 = 4, 5 = 5, 6 = 6 (avec la barre du haut), 7 = 3, 8 = 7, 9 = 6 (avec la barre du bas).",
+     "Une allumette déplacée peut changer d'orientation (une verticale peut devenir horizontale).",
+     "Il doit rester exactement un signe = et un seul opérateur, + ou −.",
+     "Deux solutions sont différentes si l'équation obtenue est différente."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation et plan.** « Il faut compter toutes les égalités justes obtenues en déplaçant une seule allumette. Pour ne rien oublier, je classe les déplacements selon leur origine et leur destination, en catégories qui ne se recouvrent pas : (A) à l'intérieur d'un même symbole, (B) d'un chiffre vers un autre chiffre, le + restant un +, (C) le + cède sa verticale à un chiffre et devient −, (D) un chiffre donne une allumette à un signe. Avant de parcourir les catégories, je dresse la table de ce que chaque chiffre présent peut devenir. »\n\n**Étape 1 — Table des transformations à une allumette (pour 9, 3 et 5).**\n- *Perdre une allumette* : 9 → 3 ou 5 ; le 3 et le 5 ne peuvent rien perdre sans cesser d'être un chiffre.\n- *Gagner une allumette* : 9 → 8 ; 3 → 9 ; 5 → 6 ou 9.\n- *Réarranger une allumette à l'intérieur* : 9 → 0 ou 6 ; 3 → 2 ou 5 ; 5 → 3.\n\n**Étape 2 — Parcours exhaustif des catégories.**\n- **(A) À l'intérieur d'un symbole** : 0 + 3 = 5, 6 + 3 = 5, 9 + 2 = 5, 9 + 5 = 5, 9 + 3 = 3 sont toutes fausses ; le + ne peut que devenir un = (deux signes =, interdit). **0 solution.**\n- **(B) D'un chiffre à un autre, le + reste** : seul le 9 peut donner (il devient 3 ou 5), au 3 (→ 9) ou au 5 (→ 6 ou 9). Six cas : 3 + 9 = 5 ✗, **3 + 3 = 6 ✓**, 3 + 3 = 9 ✗, 5 + 9 = 5 ✗, 5 + 3 = 6 ✗, 5 + 3 = 9 ✗. **1 solution.**\n- **(C) Le + donne sa verticale et devient −** : l'allumette va sur le 9 (→ 8), sur le 3 (→ 9) ou sur le 5 (→ 6 ou 9). Quatre cas : **8 − 3 = 5 ✓**, 9 − 9 = 5 ✗, **9 − 3 = 6 ✓**, 9 − 3 = 9 ✗. **2 solutions.**\n- **(D) Un chiffre donne une allumette à un signe** : le + est déjà complet, et toucher au = le transforme ou le casse. **0 solution.**\n\n**Réponse : 3 solutions, à savoir 3 + 3 = 6, 8 − 3 = 5 et 9 − 3 = 6.**\n\n**Étape 3 — Vérification.**\n- *Arithmétique* : 3 + 3 = 6, 8 − 3 = 5, 9 − 3 = 6, les trois sont justes.\n- *Nombre d'allumettes conservé* : départ 6 + 2 + 5 + 2 + 5 = 20 ; 3 + 3 = 6 donne 5 + 2 + 5 + 2 + 6 = 20 ; 8 − 3 = 5 donne 7 + 1 + 5 + 2 + 5 = 20 ; 9 − 3 = 6 donne 6 + 1 + 5 + 2 + 6 = 20 ✓.\n- *Exhaustivité* : tout déplacement a une origine (un chiffre, le + ou le =) et une destination ; les catégories A à D couvrent tous les couples origine-destination sans recouvrement, et la table de l'étape 1 liste toutes les transformations possibles des trois chiffres.\n\n**Pièges à éviter.** S'arrêter à la première solution trouvée (souvent 8 − 3 = 5) ; oublier qu'on peut modifier le membre de droite ; inventer des règles (créer un 1, écrire −5, rayer le =).\n\n**Phrase de conclusion.** « Il y a exactement 3 solutions ; la méthode compte plus que l'astuce : une table des transformations et un classement MECE des déplacements, comme un arbre d'hypothèses en mission. »",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 30,
+     "levels": {
+      "0": "Cherche au hasard et s'arrête dès qu'il trouve une solution.",
+      "1": "Essaie plusieurs pistes mais sans classement explicite des déplacements, d'où un risque d'oubli.",
+      "2": "Annonce un classement MECE des déplacements (dans un symbole, entre chiffres, du signe vers un chiffre, d'un chiffre vers un signe) et le parcourt dans l'ordre."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 15,
+     "levels": {
+      "0": "Invente des règles (créer un 1, un nombre négatif, modifier le =) ou ignore la forme des chiffres.",
+      "1": "Respecte les règles mais sans dresser la table de ce que chaque chiffre peut devenir.",
+      "2": "Pose explicitement la table de ce que le 9, le 3 et le 5 peuvent perdre, gagner ou réarranger, et rappelle les règles (un seul =, pas de nouveau chiffre)."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 25,
+     "levels": {
+      "0": "Trouve une seule solution, ou annonce un nombre faux sans le justifier.",
+      "1": "Trouve 2 des 3 solutions, ou les 3 avec une solution invalide en plus.",
+      "2": "Annonce exactement 3 solutions : 3 + 3 = 6, 8 − 3 = 5 et 9 − 3 = 6."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 20,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Vérifie l'arithmétique des solutions sans justifier qu'il n'en manque aucune.",
+      "2": "Vérifie l'arithmétique, la conservation des 20 allumettes et explique pourquoi les catégories couvrent tous les déplacements possibles."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 10,
+     "levels": {
+      "0": "Plus de 6 minutes, ou énumération désordonnée difficile à suivre.",
+      "1": "Exhaustif mais lent, avec des retours en arrière.",
+      "2": "Énumération claire en 3 à 4 minutes, chaque catégorie conclue par son nombre de solutions."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 4
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_14",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_14",
+   "type": "brainteaser",
+   "difficulty": 4,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type estimation rapide, 3 à 5 minutes. Thème imposé : litres d'eau consommés par une ville.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Estimation : combien de litres d'eau potable produire en un an pour une ville de 500 000 habitants ?",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 4,
+   "sector": "général",
+   "prompt": "Le service des eaux d'une grande ville française de 500 000 habitants prépare un projet de compteurs connectés et de détection des fuites par la donnée. Avant de parler technologie, son directeur général veut un ordre de grandeur des volumes en jeu. On raisonne sur une année moyenne, pour la ville seule, et on compte tout ce qui sort des usines de production d'eau potable. Tu peux me demander des données, mais je veux d'abord entendre ta décomposition et tes hypothèses. Combien de litres d'eau potable l'opérateur doit-il produire en un an pour cette ville ?",
+   "parts": null,
+   "context_data": {
+    "facts": [
+     {
+      "label": "Consommation domestique moyenne en France",
+      "value": "environ 150 litres par habitant et par jour (ordre de grandeur couramment cité, hypothèse)",
+      "source_url": null,
+      "hypothesis": true
+     },
+     {
+      "label": "Rendement moyen des réseaux de distribution d'eau potable en France",
+      "value": "environ 80 %, soit à peu près 1 litre sur 5 perdu en fuites (ordre de grandeur, hypothèse)",
+      "source_url": null,
+      "hypothesis": true
+     },
+     {
+      "label": "Production nationale d'eau potable en France",
+      "value": "de l'ordre de 5,5 milliards de m³ par an (ordre de grandeur, hypothèse)",
+      "source_url": null,
+      "hypothesis": true
+     }
+    ],
+    "constraints": [
+     "La ville seule, sans les communes voisines ni les industriels équipés de leur propre forage.",
+     "Année moyenne : ni canicule, ni restriction d'usage.",
+     "Le volume demandé est le volume produit, donc avant les pertes du réseau de distribution."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation et plan.** « On cherche le volume annuel d'eau potable produit pour une ville de 500 000 habitants, c'est-à-dire ce que tout le monde consomme **plus ce que le réseau perd**. Approche bottom-up en trois étapes : (1) l'usage domestique par habitant, décomposé par usage ; (2) l'ajout des usages non domestiques ; (3) l'ajout des fuites, puis le passage à la ville et à l'année. »\n\n**Étape 1 — Usage domestique par habitant et par jour (ville dense, peu de jardins).**\n\n| Usage | Hypothèse | Litres par jour |\n|---|---|---|\n| Douche et bain | 0,8 douche par jour × 7 min × 10 L/min | ~55 |\n| WC | 5 chasses × 6 L | 30 |\n| Lave-linge | 4 cycles de 50 L par semaine pour un ménage de 2, soit 100 L par personne et par semaine | ~15 |\n| Vaisselle | lave-vaisselle ou évier | ~10 |\n| Cuisine et boisson | | ~10 |\n| Ménage et divers | | ~10 |\n| **Total** | | **~130 L** |\n\n**Étape 2 — Usages non domestiques.** Commerces, bureaux, écoles, hôpitaux, nettoyage des rues, espaces verts, piscines, petites industries. Hypothèse : 30 % de l'eau consommée dans une grande ville tertiaire. Consommation totale = 130 / 0,7 ≈ **185 L par habitant et par jour**.\n\n**Étape 3 — Fuites, puis ville et année.**\n- Rendement du réseau ~80 % (1 litre sur 5 perdu) : production = 185 / 0,8 ≈ **230 L par habitant et par jour**.\n- Par jour : 500 000 × 230 L = **115 millions de litres**, soit 115 000 m³.\n- Par an : 115 millions × 365 = 115 × 400 − 115 × 35 = 46 000 − 4 025 ≈ 42 000 millions, soit **~42 milliards de litres**.\n\n**Réponse : environ 40 milliards de litres par an (~42 millions de m³), soit ~115 millions de litres par jour.**\n\n**Vérification de cohérence.**\n- *Côté ménage* : 130 L × 2,2 personnes × 365 ≈ 104 m³ par an, un peu sous les 120 m³ de la facture d'eau de référence d'un ménage, ce qui est normal pour une ville dense sans jardins ✓.\n- *Côté national* : de l'ordre de 5,5 milliards de m³ produits par an pour ~68 millions d'habitants, soit ~80 m³ par habitant, ou ~220 L par jour, proche de nos 230 L ✓.\n- *Image* : 42 millions de m³, c'est ~17 000 piscines olympiques de 2 500 m³, ou un cube d'environ 350 m de côté.\n\n**Sensibilité.** La variable clé pour le client est le rendement du réseau : passer de 80 % à 90 % économise 185 / 0,8 − 185 / 0,9 ≈ 231 − 206 = 25 L par habitant et par jour, soit 500 000 × 25 × 365 ≈ **4,5 milliards de litres par an**, environ 10 % de la production. Chaque point de rendement vaut ~0,5 milliard de litres par an.\n\n**Relance possible.** Pour dimensionner les usines, on raisonne sur le jour de pointe estival, 1,3 à 1,5 fois la moyenne, soit 150 000 à 170 000 m³ par jour.\n\n**Phrase de conclusion.** « La ville doit produire environ 40 milliards de litres d'eau potable par an ; un cinquième part en fuites, ce qui justifie le projet de détection : chaque point de rendement gagné représente environ un demi-milliard de litres par an. »",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 20,
+     "levels": {
+      "0": "Multiplie le nombre d'habitants par un ratio unique sans dire ce qu'il compte.",
+      "1": "Décompose la consommation des ménages mais oublie les usages non domestiques ou les fuites, ou ne l'annonce pas avant de calculer.",
+      "2": "Annonce une approche bottom-up en trois étapes : usage domestique par usage, usages non domestiques, fuites, puis passage à la ville et à l'année."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 30,
+     "levels": {
+      "0": "Ratios sortis de nulle part, sans justification.",
+      "1": "Hypothèses dites mais globales (150 L par personne) sans décomposition par usage, ou pas de distinction entre eau consommée et eau produite.",
+      "2": "Décompose l'usage domestique (douche, WC, linge...) avec des hypothèses chiffrées et dites, et distingue clairement l'eau consommée de l'eau produite (rendement du réseau)."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 20,
+     "levels": {
+      "0": "Résultat hors de la fourchette 15 à 100 milliards de litres par an, ou confusion entre litres et m³.",
+      "1": "Résultat dans la fourchette 15 à 100 milliards de litres, mais avec une erreur de calcul ou de conversion en route.",
+      "2": "Arrive à environ 30 à 50 milliards de litres par an (de l'ordre de 100 000 m³ par jour) avec des conversions justes."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 20,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Un seul contrôle approximatif (ramener le résultat en litres par habitant) sans référence indépendante.",
+      "2": "Confronte le résultat à une référence indépendante (facture type de 120 m³ par ménage, ordre de grandeur national par habitant) et chiffre la sensibilité au rendement du réseau."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 10,
+     "levels": {
+      "0": "Plus de 6 minutes, ou détails inutiles (chimie du traitement, prix de l'eau).",
+      "1": "Dans le temps, mais avec un inventaire des usages trop détaillé ou des calculs repris.",
+      "2": "Réponse en 4 minutes environ, chiffre final arrondi annoncé en litres et en m³, avec le « so what » sur les fuites."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 5
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_bt_15",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_bt_15",
+   "type": "brainteaser",
+   "difficulty": 5,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "général",
+   "web_search": false,
+   "target_weakness": false,
+   "brief": "Brainteaser de type calcul mental, 3 à 5 minutes. Thème imposé : marges et prix de revient de tête.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 4
+  },
+  "exercise": {
+   "title": "Marges de tête : quelle hausse de volume pour absorber une baisse de prix de 10 % exigée par un distributeur ?",
+   "type": "brainteaser",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 5,
+   "sector": "général",
+   "prompt": "Une PME française fabrique une gourde isotherme vendue 36 € TTC dans une grande enseigne de sport, avec une TVA de 20 %. L'enseigne garde pour elle la moitié du prix de vente hors taxes, et la PME lui en vend 100 000 par an. Le prix de revient complet de la PME est de 9 € par gourde, dont 6 € de coûts variables (matière, fabrication, transport) et 3 € de frais fixes répartis sur les 100 000 unités. À la prochaine négociation, l'enseigne exige une baisse de 10 % de son prix d'achat, sans toucher au prix en rayon. De combien, en pourcentage, la PME doit-elle augmenter ses volumes pour conserver le même résultat en euros ?",
+   "parts": null,
+   "context_data": {
+    "facts": [],
+    "constraints": [
+     "Calcul de tête uniquement.",
+     "Les frais fixes (300 000 € par an) ne changent pas si le volume augmente : la capacité de l'usine suffit.",
+     "Le coût variable unitaire (6 €) ne change pas avec le volume.",
+     "Résultat = chiffre d'affaires de la PME − coûts variables − frais fixes."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation et plan.** « La PME perd 10 % de prix unitaire et veut garder le même résultat en euros ; je cherche la hausse de volume qui compense. Trois étapes : (1) remonter du prix en rayon au prix de cession de la PME ; (2) calculer le résultat actuel et la marge sur coût variable avant et après la baisse ; (3) en déduire le volume d'équilibre, puis vérifier. »\n\n**Étape 1 — Du prix en rayon au prix de cession.**\n- 36 € TTC / 1,2 = **30 € HT**.\n- L'enseigne garde 50 %, donc elle achète la gourde **15 €** à la PME.\n- Après la baisse de 10 % : **13,50 €**.\n\n**Étape 2 — Résultat et marge sur coût variable.**\n- Frais fixes : 3 € × 100 000 = **300 000 €** par an, qui ne bougent pas avec le volume.\n- Aujourd'hui : marge sur coût variable = 15 − 6 = **9 €** par gourde, soit 900 000 € ; moins 300 000 € de fixes, **résultat = 600 000 €** (on retrouve bien (15 − 9) × 100 000).\n- Après la baisse : marge sur coût variable = 13,50 − 6 = **7,50 €** par gourde.\n\n**Étape 3 — Volume d'équilibre.**\n- Il faut toujours couvrir 900 000 € (300 000 de fixes + 600 000 de résultat) avec 7,50 € par gourde : 900 000 / 7,5 = **120 000 gourdes**.\n- **Réponse : +20 % de volume.**\n- Raccourci à connaître : hausse de volume = baisse de prix / (taux de marge sur coût variable − baisse de prix) = 10 % / (60 % − 10 %) = **20 %**, avec 60 % = 9 / 15.\n\n**Le piège à éviter.** Raisonner sur le prix de revient complet comme s'il était variable : marge de 6 € qui tombe à 4,50 €, donc 6 / 4,5 = 1,33, soit +33 %. C'est faux, car les 3 € de fixes ne se multiplient pas avec le volume : à 120 000 unités, ils ne pèsent plus que 2,50 € par gourde.\n\n**Vérification de cohérence.**\n- *Compte de résultat à 120 000 unités* : chiffre d'affaires 120 000 × 13,5 = 1 620 000 € ; coûts variables 120 000 × 6 = 720 000 € ; fixes 300 000 € ; résultat 600 000 € ✓.\n- *Par le coût complet recalculé* : 300 000 / 120 000 = 2,50 €, coût complet 8,50 €, marge 13,50 − 8,50 = 5 € × 120 000 = 600 000 € ✓.\n- *Encadrement* : la réponse doit dépasser les +11 % qui suffiraient à garder le même chiffre d'affaires (15 / 13,5 ≈ 1,11) et rester sous les +33 % du cas « tout variable » ; +20 % est bien entre les deux ✓.\n\n**Relance possible.** « Et si les volumes ne bougent pas, à combien doit tomber le coût variable ? » Il faut garder 9 € de marge sur coût variable : 13,50 − 9 = **4,50 €**, soit **−25 %** sur le coût variable (prix de revient complet cible 7,50 €). C'est très difficile à obtenir en une négociation.\n\n**Phrase de conclusion.** « La PME doit vendre 20 % de gourdes en plus, 120 000 au lieu de 100 000, pour garder 600 000 € de résultat ; sans volume supplémentaire, il faudrait réduire de 25 % ses coûts variables, donc elle ne doit accepter la baisse qu'en échange d'un engagement de volume de l'enseigne. »",
+   "rubric": [
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 20,
+     "levels": {
+      "0": "Enchaîne des calculs sans annoncer où il va.",
+      "1": "Annonce l'objectif mais saute une étape, par exemple calcule la marge sans avoir retiré la TVA ou la part de l'enseigne.",
+      "2": "Annonce les trois étapes : prix de cession, résultat et marge sur coût variable avant et après, volume d'équilibre."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 25,
+     "levels": {
+      "0": "Traite le prix de revient complet de 9 € comme entièrement variable sans le dire.",
+      "1": "Sépare fixes et variables mais n'explicite pas que les fixes restent à 300 000 € quand le volume monte.",
+      "2": "Dit explicitement que les 300 000 € de fixes sont constants, que seul le coût variable de 6 € suit le volume, et définit le résultat à conserver (600 000 €)."
+     }
+    },
+    {
+     "key": "accuracy",
+     "label": "Bonne réponse ou bon ordre de grandeur",
+     "weight": 30,
+     "levels": {
+      "0": "Prix de cession faux (TVA ou part de l'enseigne mal traitée), ou pas de réponse.",
+      "1": "Prix de cession juste mais répond +33 % en raisonnant sur le coût complet, ou se trompe dans la division finale.",
+      "2": "Trouve 15 € puis 13,50 € de prix de cession, une marge sur coût variable de 9 € puis 7,50 €, et +20 % (120 000 gourdes)."
+     }
+    },
+    {
+     "key": "sanity_check",
+     "label": "Vérification de cohérence",
+     "weight": 15,
+     "levels": {
+      "0": "Aucune vérification.",
+      "1": "Recalcule le résultat à 120 000 unités sans situer la réponse par rapport à la réponse naïve.",
+      "2": "Recalcule le résultat à 120 000 unités (600 000 €) et encadre la réponse entre +11 % (même chiffre d'affaires) et +33 % (tout variable)."
+     }
+    },
+    {
+     "key": "concision",
+     "label": "Concision",
+     "weight": 10,
+     "levels": {
+      "0": "Plus de 6 minutes, ou se perd dans le vocabulaire comptable.",
+      "1": "Juste, mais avec des allers-retours sur les définitions.",
+      "2": "Réponse en 4 à 5 minutes, conclue par une phrase qui donne le chiffre et son implication pour la négociation."
+     }
+    }
+   ],
+   "sources": [],
+   "targets_weakness": [],
+   "estimated_minutes": 5
+  },
+  "search_urls": []
+ },
+ {
+  "slot": "bonus1_case_05",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_case_05",
+   "type": "cadrage",
+   "difficulty": 1,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "banque",
+   "web_search": true,
+   "target_weakness": false,
+   "brief": "Sujet imposé : une banque de détail veut lancer une IA générative pour ses conseillers.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 8
+  },
+  "exercise": {
+   "title": "Cadrer un assistant d'IA générative pour les 4 000 conseillers d'une banque régionale",
+   "type": "cadrage",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 1,
+   "sector": "banque",
+   "prompt": "Notre client est une banque de détail régionale française : 2,2 millions de clients particuliers et professionnels, 480 agences et environ 4 000 conseillers. Ces conseillers disent passer trop de temps sur l'écrit (mails, comptes rendus d'entretien, recherche dans les procédures et les fiches produits) au détriment du temps passé avec leurs clients. Le directeur de la banque de détail a vu que plusieurs concurrents ont déjà équipé leurs conseillers d'un assistant d'IA générative, et il veut faire de même d'ici un an. La DSI est prudente : les données clients sont couvertes par le secret bancaire, et la banque n'a encore aucun projet d'IA générative en production. Le directeur nous demande la note de cadrage du projet, avec un budget qu'il devra défendre en comité de direction. Comment structureriez-vous cette note de cadrage ?",
+   "parts": null,
+   "context_data": {
+    "facts": [
+     {
+      "label": "LCL : déploiement de l'assistant rédactionnel d'IA générative ARIA auprès des conseillers",
+      "value": "900 conseillers en test en septembre 2023, puis généralisation aux 12 000 conseillers en mars 2024",
+      "source_url": "https://worldline.com/content/dam/worldline/local/fr-fr/documents/support-lia-generative-au-service-des-conseillers-bancaires-lcl.pdf",
+      "hypothesis": false
+     },
+     {
+      "label": "LCL : part des mails des conseillers rédigés avec l'IA (chiffre issu d'un document fournisseur)",
+      "value": "42 % des mails (2024)",
+      "source_url": "https://worldline.com/content/dam/worldline/local/fr-fr/documents/support-lia-generative-au-service-des-conseillers-bancaires-lcl.pdf",
+      "hypothesis": false
+     },
+     {
+      "label": "Crédit Mutuel Alliance Fédérale : cas d'usage d'IA générative destinés aux conseillers, annoncés avec IBM",
+      "value": "35 nouveaux cas d'usage (juin 2024)",
+      "source_url": "https://creditmutuel.fr/partage/fr/CC/telechargements/communiques-de-presse/2024/2024-06-27_CP_CMAF_accelere_ledeploiement_deIA_generative_encollaboration_avec_IBM.pdf",
+      "hypothesis": false
+     },
+     {
+      "label": "Effectifs des banques en France (FBF / AFB)",
+      "value": "373 600 salariés au 31/12/2024, dont 19 800 alternants",
+      "source_url": "https://www.fbf.fr/uploads/2025/09/Chiffres-cles-et-evolution-emploi-2024-1.pdf",
+      "hypothesis": false
+     },
+     {
+      "label": "Valeur annuelle potentielle de l'IA générative pour le secteur bancaire mondial (McKinsey)",
+      "value": "200 à 340 Md$ par an, soit 9 à 15 % du résultat opérationnel du secteur (estimation 2023)",
+      "source_url": "https://www.mckinsey.com/industries/financial-services/our-insights/capturing-the-full-value-of-generative-ai-in-banking",
+      "hypothesis": false
+     },
+     {
+      "label": "Temps quotidien d'un conseiller consacré à l'écrit (mails, comptes rendus, recherche de procédures)",
+      "value": "environ 1 h par jour (hypothèse à mesurer en agence)",
+      "source_url": null,
+      "hypothesis": true
+     }
+    ],
+    "constraints": [
+     "Budget de la première année : 1,5 M€ maximum, à justifier en comité de direction.",
+     "Les données clients ne doivent pas sortir d'un hébergement validé par la DSI et la conformité (secret bancaire, RGPD, DORA pour les prestataires).",
+     "La direction s'engage auprès des partenaires sociaux : le projet libère du temps commercial, ce n'est pas un plan de réduction d'effectifs.",
+     "Aucun texte généré ne part chez un client sans relecture et validation du conseiller."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation.** Si je reformule : la banque veut redonner du temps commercial à ses 4 000 conseillers grâce à un assistant d'IA générative déployé d'ici un an, sans risque sur les données clients ni sur la conformité, avec un budget défendable en comité de direction. Je vérifie deux points : le temps libéré est bien réinvesti dans la relation client, et l'assistant reste un outil interne utilisé par le conseiller, pas un robot qui répond directement au client ?\n\n**Plan.** Ma note de cadrage tient en quatre parties : 1) objectifs, périmètre et valeur attendue ; 2) cas d'usage priorisés ; 3) prérequis données et SI, build vs buy, gouvernance et risques ; 4) planning macro et premier livrable à 3 mois.\n\n### 1. Objectifs, périmètre et valeur attendue\n- **Constat :** les conseillers passent environ 1 h par jour sur l'écrit (hypothèse à mesurer). Les concurrents montrent que c'est faisable à grande échelle : LCL a équipé ses 12 000 conseillers, et 42 % de leurs mails sont rédigés avec l'IA.\n- **Implication :** l'objectif doit être mesurable, sinon le comité de direction financera une démo. Je propose quatre indicateurs : minutes gagnées par conseiller et par jour, taux d'usage hebdomadaire, satisfaction des conseillers, et un indicateur commercial (nombre de rendez-vous clients).\n- **Chiffrage décomposé (hypothèses dites) :**\n  - 1 h d'écrit par jour × 30 % de gain sur cette tâche = 18 min par jour et par conseiller ;\n  - × 200 jours travaillés ≈ 60 h par an et par conseiller ;\n  - × 4 000 conseillers = 240 000 h, soit environ 150 ETP à 1 600 h par an ;\n  - valorisés à 65 k€ chargés par ETP ≈ 10 M€ de capacité par an. C'est du temps, pas du cash : la valeur n'existe que si ces heures deviennent des rendez-vous (60 h, c'est environ 60 rendez-vous de plus par conseiller et par an).\n  - Coût en régime de croisière : environ 25 € par conseiller et par mois de licences ou de consommation, soit 4 000 × 25 × 12 = 1,2 M€, plus 0,3 M€ d'exploitation, donc environ 1,5 M€ par an.\n- **Sensibilité :** si l'usage plafonne à la moitié des conseillers, ce qui est cohérent avec les 42 % de mails observés chez LCL, la capacité tombe à environ 5 M€, encore trois fois le coût annuel. La variable qui décide, c'est l'adoption, pas la technologie.\n- **Périmètre :** conseillers particuliers et professionnels du réseau. Hors périmètre en phase 1 : chatbot face client, conseil en investissement automatisé (devoir de conseil) et toute aide à la décision de crédit.\n\n### 2. Cas d'usage priorisés (valeur × fréquence × risque)\n- **Vague 1, faible risque et forte fréquence :** recherche dans les procédures et fiches produits avec la source citée, aide à la rédaction de mails et courriers à partir des modèles de la banque, synthèse et compte rendu d'entretien.\n- **Vague 2, une fois la conformité rodée :** préparation de rendez-vous à partir du CRM, aide au montage des dossiers.\n- **Implication :** je commence par la recherche documentaire et la rédaction, qui ne demandent pas ou peu de données clients. Le passage en conformité est donc plus rapide et le gain est visible dès les premières semaines.\n\n### 3. Prérequis, build vs buy, gouvernance et risques\n- **Données et SI :** une base de procédures à jour, avec un propriétaire par document, sinon l'assistant répondra juste sur une procédure périmée ; intégration au poste du conseiller et à la messagerie ; journalisation des usages ; connecteur CRM seulement en vague 2.\n- **Build vs buy :** on ne construit pas de modèle. On achète l'accès à un modèle du marché, sous contrat entreprise, hébergé en Europe et sans réutilisation des données, et on construit la couche propre à la banque : base documentaire, modèles de rédaction, garde-fous, intégration au poste. Je compare deux ou trois options (assistant intégré à la suite bureautique, plateforme d'un cloud provider, éditeur spécialisé) sur cinq critères : coût par conseiller, hébergement, intégration au CRM, réversibilité, conformité.\n- **Gouvernance :** sponsor, le directeur de la banque de détail ; comité de pilotage mensuel avec la DSI, la conformité, le RSSI, le DPO et les RH ; un réseau de conseillers ambassadeurs par région ; information du CSE dès le cadrage.\n- **Risques et parades :** réponse fausse sur une procédure ou un tarif, couverte par des sources citées, la relecture obligatoire et un périmètre documentaire maîtrisé ; fuite de données, couverte par un hébergement validé, l'absence de données clients en vague 1 et une analyse d'impact RGPD ; adoption faible, couverte par des cas d'usage choisis avec les conseillers, une formation courte et une mesure hebdomadaire ; exigences réglementaires, couvertes par la documentation du cas d'usage au titre de l'AI Act et le contrôle du prestataire au titre de DORA.\n\n### 4. Planning macro et livrable à 3 mois\n- **M0-M3 :** pilote sur deux cas d'usage (recherche de procédures et rédaction) avec environ 200 conseillers dans deux régions, choix de la solution, analyse d'impact et feu vert de la conformité.\n- **M4-M6 :** extension à 1 000 conseillers et ajout de la synthèse d'entretien.\n- **M7-M12 :** généralisation aux 4 000 conseillers et lancement de la vague 2 avec le CRM.\n- **Livrable à 3 mois :** un bilan de pilote chiffré (minutes réellement gagnées, taux d'usage, qualité des réponses, incidents), la solution retenue, le business case consolidé et une décision go/no-go de généralisation en comité de direction.\n\n**Recommandation.** Je recommande un pilote de 3 mois sur 200 conseillers avec deux cas d'usage à faible risque, sur une solution achetée et intégrée au poste de travail, pour un potentiel d'environ 10 M€ de capacité commerciale par an contre 1,5 M€ de coût annuel. Le risque principal est une adoption faible ; je le couvre en construisant les cas d'usage avec les conseillers et en conditionnant la généralisation à un seuil d'usage mesuré pendant le pilote.",
+   "rubric": [
+    {
+     "key": "reformulation",
+     "label": "Reformulation et cadrage",
+     "weight": 15,
+     "levels": {
+      "0": "Se lance dans les cas d'usage sans reformuler l'objectif ni vérifier qu'il s'agit de temps commercial libéré et non de réduction d'effectifs.",
+      "1": "Reformule l'objectif mais oublie une contrainte clé : données clients sensibles, budget à justifier ou horizon d'un an.",
+      "2": "Reformule en une phrase objectif, contraintes et horizon, et pose une ou deux questions utiles (usage du temps libéré, assistant interne ou face client)."
+     }
+    },
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 25,
+     "levels": {
+      "0": "Énumère des idées sans plan annoncé, et des blocs de la note de cadrage manquent (planning, gouvernance, livrable à 3 mois).",
+      "1": "Annonce un plan mais s'en écarte ou oublie un bloc attendu (build vs buy, prérequis données ou risques).",
+      "2": "Annonce un plan en 3 ou 4 branches qui couvre objectifs, cas d'usage priorisés, prérequis et build vs buy, gouvernance et risques, planning et livrable à 3 mois, puis le suit."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 20,
+     "levels": {
+      "0": "Aucun chiffrage, ou un gain annoncé sans aucune hypothèse.",
+      "1": "Chiffre le temps gagné mais sans dire ses hypothèses, ou sans le comparer au coût annuel.",
+      "2": "Décompose le gain (conseillers × temps d'écrit × part gagnée × jours), le compare au coût annuel et teste la sensibilité au taux d'adoption."
+     }
+    },
+    {
+     "key": "business_sense",
+     "label": "Sens business et pertinence sectorielle",
+     "weight": 20,
+     "levels": {
+      "0": "Parle de modèles et de technique sans lien avec le métier de conseiller ni avec la réglementation bancaire.",
+      "1": "Cite des cas d'usage pertinents mais sans les prioriser par valeur et risque, ou ignore conformité et adoption.",
+      "2": "Priorise des cas d'usage fréquents et peu risqués, traite secret bancaire, RGPD et relecture humaine, distingue capacité et cash, et s'appuie sur les références du secteur."
+     }
+    },
+    {
+     "key": "recommendation",
+     "label": "Recommandation claire et assumée",
+     "weight": 20,
+     "levels": {
+      "0": "Pas de recommandation, ou un « ça dépend » sans proposition.",
+      "1": "Recommande de lancer le projet sans dire par quoi commencer ni quel est le risque principal.",
+      "2": "Recommande en une phrase un pilote précis (périmètre, durée, critère de décision), nomme le risque principal et dit comment il est couvert."
+     }
+    }
+   ],
+   "sources": [
+    {
+     "url": "https://worldline.com/content/dam/worldline/local/fr-fr/documents/support-lia-generative-au-service-des-conseillers-bancaires-lcl.pdf",
+     "title": "L'IA générative au service des conseillers bancaires LCL (Worldline)"
+    },
+    {
+     "url": "https://creditmutuel.fr/partage/fr/CC/telechargements/communiques-de-presse/2024/2024-06-27_CP_CMAF_accelere_ledeploiement_deIA_generative_encollaboration_avec_IBM.pdf",
+     "title": "Crédit Mutuel Alliance Fédérale accélère le déploiement de l'IA générative en collaboration avec IBM (communiqué, juin 2024)"
+    },
+    {
+     "url": "https://www.fbf.fr/uploads/2025/09/Chiffres-cles-et-evolution-emploi-2024-1.pdf",
+     "title": "Chiffres clés et évolution de l'emploi dans la banque en 2024 (FBF)"
+    },
+    {
+     "url": "https://www.mckinsey.com/industries/financial-services/our-insights/capturing-the-full-value-of-generative-ai-in-banking",
+     "title": "Capturing the full value of generative AI in banking (McKinsey)"
+    }
+   ],
+   "targets_weakness": [],
+   "estimated_minutes": 8
+  },
+  "search_urls": [
+   "https://worldline.com/content/dam/worldline/local/fr-fr/documents/support-lia-generative-au-service-des-conseillers-bancaires-lcl.pdf",
+   "https://newsroom.groupebpce.fr/assets/20251119-cp-groupe-bpce-ia-pdf-e1b7f-7b707.html?dl=1",
+   "https://creditmutuel.fr/partage/fr/CC/telechargements/communiques-de-presse/2024/2024-06-27_CP_CMAF_accelere_ledeploiement_deIA_generative_encollaboration_avec_IBM.pdf",
+   "https://www.lemondeinformatique.fr/actualites/lireamp-hello-bank-introduit-avec-parcimonie-la-genai-dans-son-chatbot-client-96243.html",
+   "https://www.lemondeinformatique.fr/actualites/lire-hello-bank-introduit-avec-parcimonie-la-genai-dans-son-chatbot-client-96243.html",
+   "https://www.lifelong-learning.lu/formation/ia-generative-pour-lit-bancaire-llmops-securite/fr",
+   "https://cdn-group.bnpparibas.com/uploads/file/Communiqué de presse Hello bank! HelloïZ.pdf",
+   "https://cloud.google.com/discover/ai-in-banking?hl=fr",
+   "https://www.lemondeinformatique.fr/toute-l-actualite-marque-sur-bnp-paribas-1819.html",
+   "https://www.capgemini.com/fr-fr/?p=785024",
+   "https://innowise.com/fr/blog/generative-ai-in-banking/",
+   "https://sbs-software.com/?p=34225",
+   "https://www.reply.com/fr/financial-services/generative-ai-for-financial-advisors",
+   "https://finance-innovation.org/wp-content/uploads/2024/04/LivreBlancIAGenerative.pdf",
+   "https://paperjam.lu/article/assistant-bancaire-24h-7j-quand-lia-se-met-au-service-des-clients",
+   "https://www.mastercard.com/news/europe/fr-fr/recherches-et-rapports/rapport-mastercard-signals-l-ia-generative-la-transformation-du-secteur-bancaire",
+   "https://www.creditmutuel.fr/fr/alliancefederale/presse/communiques-de-presse/intelligence-artificielle.html",
+   "https://fbf.fr/uploads/2022/07/chiffres-emploi-2021-3.pdf",
+   "https://www.fbf.fr/uploads/2021/06/20180613_Presentation_emploi_2018.pdf",
+   "https://www.fbf.fr/uploads/2020/12/Presentation-emploi-chiffres-2018.pdf",
+   "https://www.fbf.fr/uploads/2023/07/Chiffres-cles-et-evolution-de-lemploi-dans-la-banque-en-2022-source-AFB.pdf",
+   "https://www.moneyvox.fr/banque/actualites/68510/banque-la-baisse-des-effectifs-s-accelere-en-france",
+   "https://www.fbf.fr/uploads/2020/12/CP-AFB_42-300-embauches-dans-les-banques-en-France-en-2018.pdf",
+   "https://www.moneyvox.fr/banque/actualites/53108/les-effectifs-dans-les-banques-francaises-ont-baisse-de-0,9-en-2014",
+   "https://www.fbf.fr/uploads/2025/09/Chiffres-cles-et-evolution-emploi-2024-1.pdf",
+   "https://www.moneyvox.fr/actu/31734/emploi-les-effectifs-des-banques-stables-en-2011-malgre-30.000-embauches",
+   "https://www.fbf.fr/uploads/2021/08/Presentation-Chiffres-cles-et-evolution-de-lemploi-dans-la-banque-en-2020.pdf",
+   "https://banque.meilleurtaux.com/comparateur-banque/actualites/2020-aout/banques-continuent-reduire-effectifs.html",
+   "https://www.fbf.fr/uploads/2020/12/Presentation-Chiffres-cles-et-evolution-de-lemploi-dans-la-banque-en-2019.pdf",
+   "https://banque.meilleurtaux.com/changer-de-banque/actualites/2019-juillet/l-effectif-continue-de-baisser-dans-les-banques-francaises-malgre-les-recrutements.html",
+   "https://fbf.fr/uploads/2024/07/chiffres-cles-emploi-banques-2023-avec-compression.pdf",
+   "https://www.fbf.fr/uploads/2025/09/Chiffres-cles-2019-AFB.pdf",
+   "https://www.moneyvox.fr/banque/actualites/80059/legere-baisse-des-effectifs-dans-les-banques",
+   "https://dogfinance.com/actu/economie/pourquoi-les-banques-licencient-en-masse",
+   "https://www.medeflyonrhone.fr/app/uploads/2022/04/Comité-AURA-metiers-de-la-banque-PC201808-12.pdf",
+   "https://fintechnews.ch/aifintech/generative-ai-to-produce-up-to-us340b-yearly-in-additional-revenues-for-the-banking-sector/62319/",
+   "https://fintechnews.ch/?p=62319",
+   "https://boersen-zeitung.de/english/generative-ai-could-create-up-to-340-billion-in-annual-value-for-banks",
+   "https://www.unique.ai/en/blog/the-economic-impact-of-generative-ai-on-the-banking-industry",
+   "https://www.asiae.co.kr/en/article/2023120609563205977",
+   "https://www.finews.asia/finance/40522-mckinsey-banks-have-largest-opportunities-from-generative-ai",
+   "https://www.finastra.com/viewpoints/white-paper/rise-generative-artificial-intelligence-financial-services",
+   "https://www.mckinsey.com/industries/financial-services/our-insights/capturing-the-full-value-of-generative-ai-in-banking",
+   "https://www.globaltrademag.com/tag/global-workforce/",
+   "https://www.mckinsey.com/featured-insights/charts/bankings-gen-ai-opportunity",
+   "https://www.advisorperspectives.com/articles/2023/12/05/mckinsey-sees-ai-adding-up-340-billion-wall-street-profit",
+   "https://cuinsight.com/generative-ai-has-landed-on-wall-street-heres-how-it-can-help-propel-massive-revenue-growth",
+   "https://fintechnews.sg/81936/ai/will-generative-ai-fundamentally-reshape-banking/",
+   "https://www.we-wealth.com/?p=88981",
+   "https://timvero.com/blog/generative-ai-in-banking.md",
+   "https://www.findevgateway.org/paper/2023/11/finding-value-in-generative-ai-for-financial-services"
+  ]
+ },
+ {
+  "slot": "bonus1_case_06",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_case_06",
+   "type": "cadrage",
+   "difficulty": 2,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "secteur public",
+   "web_search": true,
+   "target_weakness": false,
+   "brief": "Sujet imposé : un ministère veut dématérialiser une démarche usager.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 8
+  },
+  "exercise": {
+   "title": "Dématérialiser une aide aux aidants familiaux sans exclure les usagers éloignés du numérique",
+   "type": "cadrage",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 2,
+   "sector": "secteur public",
+   "prompt": "Un ministère gère une aide ponctuelle destinée aux aidants familiaux, instruite par ses services déconcentrés dans une centaine de départements. Aujourd'hui, tout passe par un formulaire Cerfa papier envoyé par courrier : environ 250 000 demandes par an, 35 % de dossiers incomplets au premier envoi et un délai moyen de traitement de quatre mois. L'instruction mobilise environ 400 agents en équivalent temps plein, sur un applicatif métier datant de 2009. Le cabinet du ministre veut que la démarche soit faisable en ligne d'ici 18 mois et qu'elle entre dans le suivi des démarches numériques essentielles de l'État ; une partie des demandeurs sont des aidants âgés, parfois peu à l'aise avec internet. Le secrétariat général, qui porte le projet, vous demande de rédiger la note de cadrage. Comment la structureriez-vous ?",
+   "parts": null,
+   "context_data": {
+    "facts": [
+     {
+      "label": "Démarches phares de l'État réalisables en ligne (observatoire de la qualité des démarches en ligne)",
+      "value": "84 % des 249 démarches suivies (octobre 2022)",
+      "source_url": "https://acteurspublics.fr/articles/84-des-demarches-phares-de-letat-sont-realisables-sur-internet",
+      "hypothesis": false
+     },
+     {
+      "label": "Accessibilité des démarches dématérialisées (suivi de l'observatoire Dinum)",
+      "value": "22 démarches accessibles et 5 partiellement accessibles sur 180 démarches dématérialisées (relevé antérieur à 2023)",
+      "source_url": "https://acteurspublics.fr/articles/laccessibilite-des-demarches-reste-le-gros-point-noir-de-la-dematerialisation/",
+      "hypothesis": false
+     },
+     {
+      "label": "Part des 16-74 ans en difficulté avec le numérique (Insee)",
+      "value": "34 % en 2025 (7 % en illectronisme, 27 % avec des compétences faibles), contre 38 % en 2021",
+      "source_url": "https://www.banquedesterritoires.fr/illectronisme-34-des-16-74-ans-en-difficulte-numerique-en-2025-liag-creuse-les-ecarts",
+      "hypothesis": false
+     },
+     {
+      "label": "Temps d'agent pour saisir et contrôler la complétude d'un dossier papier",
+      "value": "environ 20 minutes par dossier (hypothèse)",
+      "source_url": null,
+      "hypothesis": true
+     },
+     {
+      "label": "Temps d'agent supplémentaire pour un dossier incomplet (relance par courrier, reprise du dossier)",
+      "value": "environ 30 minutes par dossier incomplet (hypothèse)",
+      "source_url": null,
+      "hypothesis": true
+     }
+    ],
+    "constraints": [
+     "La démarche ne peut pas devenir exclusivement numérique : une voie papier ou téléphonique et un accompagnement doivent rester possibles.",
+     "Budget d'investissement : 3 M€ sur 18 mois, hors temps des agents.",
+     "L'applicatif d'instruction de 2009 est maintenu par un prestataire et n'expose aucune API.",
+     "Avant ouverture : conformité RGAA (accessibilité), analyse d'impact RGPD et homologation de sécurité."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation.** Le ministère veut rendre l'aide demandable en ligne sous 18 mois, avec deux objectifs à tenir ensemble : un service plus simple et plus rapide pour l'usager (moins de dossiers incomplets, délai raccourci) et du temps rendu aux agents, sans exclure les usagers éloignés du numérique, qui sont nombreux parmi les aidants. Deux questions avant de dérouler : le cabinet a-t-il fixé une cible de délai ? Et le périmètre couvre-t-il toute la chaîne jusqu'au paiement, ou seulement le dépôt en ligne ?\n\n**Plan.** Ma note suit quatre parties : 1) objectifs et indicateurs de succès ; 2) périmètre et parcours usager, voie non numérique comprise ; 3) solution : prérequis SI et données, build vs buy ; 4) gouvernance, risques, planning et livrable à 3 mois.\n\n### 1. Objectifs et indicateurs\n- **Constat :** 35 % de dossiers incomplets et quatre mois de délai, alors que 84 % des 249 démarches phares de l'État étaient déjà faisables en ligne dès 2022. L'attente politique est forte et le ministère part en retard.\n- **Implication :** l'objectif ne peut pas être « mettre un formulaire en ligne ». Je propose cinq indicateurs : part des demandes déposées en ligne (cible 80 % à deux ans), taux d'incomplets (de 35 % à 10 %), délai moyen (de quatre mois à six semaines), satisfaction des usagers, conformité RGAA.\n- **Chiffrage décomposé (hypothèses dites) :**\n  - aujourd'hui, saisie et contrôle : 250 000 dossiers × 20 min ≈ 83 000 h par an ;\n  - relances des incomplets : 250 000 × 35 % × 30 min ≈ 44 000 h par an ;\n  - avec 80 % des dossiers en ligne, on supprime la saisie de 200 000 dossiers, soit environ 67 000 h ; avec des contrôles bloquants et des données préremplies, les incomplets en ligne passent de 35 % à 10 %, soit 200 000 × 25 % × 30 min ≈ 25 000 h ;\n  - total ≈ 92 000 h, soit environ 57 ETP à 1 600 h par an, environ 14 % des 400 ETP d'instruction.\n- **Sensibilité :** si l'usage en ligne plafonne à 50 %, le gain tombe à environ 36 ETP (9 %). L'accompagnement des usagers n'est donc pas un coût annexe, c'est ce qui fait le gain.\n- **Recommandation :** ces ETP servent à réduire le délai et à tenir la voie d'accompagnement, pas à réduire les effectifs. C'est ce qui rend le projet acceptable pour les agents et pour les organisations syndicales.\n\n### 2. Périmètre et parcours usager\n- **De bout en bout :** dépôt, instruction, décision, paiement, notification. Mettre en ligne le seul formulaire pendant que les agents impriment les PDF pour les ressaisir est l'échec classique : l'usager attend toujours quatre mois.\n- **Parcours cible :** connexion avec FranceConnect, formulaire court en langage clair, préremplissage des données que l'administration détient déjà via les API d'échange entre administrations (principe « Dites-le-nous une fois »), pièces justificatives réduites au strict nécessaire, suivi du dossier en ligne.\n- **Inclusion :** 34 % des 16-74 ans sont en difficulté avec le numérique (Insee, 2025), et les aidants âgés sont surreprésentés. On garde la voie papier, mais elle est numérisée à l'arrivée (scan et lecture automatique) pour entrer dans le même circuit d'instruction ; on s'appuie sur les France Services pour l'accompagnement et on permet le dépôt par un tiers mandaté. La Défenseure des droits a pointé en 2022 des lacunes considérables dans la dématérialisation : le risque est aussi juridique et d'image.\n- **Accessibilité :** seules 22 démarches sur 180 étaient jugées accessibles dans le suivi de l'observatoire. Le RGAA se traite dès la conception, pas en recette.\n\n### 3. Solution : prérequis et build vs buy\n- **Option A, plateforme interministérielle de formulaires en ligne déjà existante :** mise en ligne en quelques semaines, peu coûteuse, conforme au système de design de l'État, mais limitée pour une instruction à fort volume et pour le lien avec le paiement.\n- **Option B, développement spécifique en mode produit :** sur mesure, plus long et plus cher.\n- **Option C, progiciel de gestion de demandes :** solide pour l'instruction, mais l'intégration avec l'existant et l'accessibilité restent à prouver.\n- **Recommandation :** l'option A pour le dépôt dès le pilote, et en parallèle un lot d'interface avec l'applicatif de 2009 (export ou API développée par le prestataire), sinon la double saisie mange les gains. La décision de garder ou de remplacer l'applicatif d'instruction se prend à 3 mois, sur la base des volumes réels.\n- **Prérequis :** référentiel des bénéficiaires et coordonnées bancaires, accès aux API des autres administrations, analyse d'impact RGPD, homologation de sécurité, hébergement.\n\n### 4. Gouvernance, risques, planning et livrable à 3 mois\n- **Gouvernance :** sponsor, le secrétaire général ; un directeur de projet côté direction métier qui porte l'aide, en binôme avec la direction du numérique du ministère ; un panel d'usagers avec des associations d'aidants ; des représentants des services déconcentrés ; un point mensuel avec le cabinet.\n- **Risques et parades :** exclusion numérique, couverte par la voie papier numérisée, les France Services et le suivi du recours par canal ; applicatif sans API, couvert par le lot d'interface lancé dès le départ ; adhésion des agents, couverte par la co-conception et la réaffectation des gains ; calendrier politique, couvert par un pilote à 9 mois plutôt qu'un big bang à 18 mois.\n- **Planning macro :** M0-M3 conception (recherche usager, parcours cible, choix de solution, analyse d'impact) ; M4-M9 construction et pilote dans cinq départements ; M10-M15 généralisation ; M16-M18 stabilisation et bascule de la saisie papier vers la numérisation.\n- **Livrable à 3 mois :** un parcours usager cible testé avec 15 à 20 usagers, dont des personnes éloignées du numérique ; le choix de solution argumenté ; la feuille de route et le budget consolidés ; les indicateurs de succès validés par le cabinet.\n\n**Recommandation.** Je recommande de dématérialiser de bout en bout, en s'appuyant sur une plateforme interministérielle existante pour le dépôt et sur un pilote dans cinq départements à 9 mois, avec pour cible 80 % de dossiers en ligne et 10 % d'incomplets, soit environ 55 ETP réaffectés à l'accompagnement et à la baisse des délais. Le risque principal est d'exclure les usagers éloignés du numérique ; je le couvre en gardant une voie papier numérisée dans le même circuit, en mobilisant les France Services et en suivant chaque mois le recours par canal.",
+   "rubric": [
+    {
+     "key": "reformulation",
+     "label": "Reformulation et cadrage",
+     "weight": 20,
+     "levels": {
+      "0": "Parle tout de suite d'outil ou de site web sans reformuler le double objectif usager et agents ni la contrainte d'inclusion.",
+      "1": "Reformule l'objectif de mise en ligne mais oublie l'inclusion des usagers éloignés du numérique ou la chaîne jusqu'au paiement.",
+      "2": "Reformule en une phrase objectifs usager et agents, horizon de 18 mois et contrainte d'inclusion, et pose une question utile sur la cible de délai ou le périmètre."
+     }
+    },
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 20,
+     "levels": {
+      "0": "Déroule sans plan annoncé et oublie des blocs de la note de cadrage (gouvernance, planning, livrable à 3 mois).",
+      "1": "Annonce un plan mais un bloc manque ou reste vide (build vs buy, prérequis SI ou risques).",
+      "2": "Annonce un plan en 3 ou 4 branches couvrant objectifs, périmètre et parcours, solution et build vs buy, gouvernance, risques, planning et livrable à 3 mois, et le suit."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 20,
+     "levels": {
+      "0": "Aucun chiffrage du gain ou de la cible.",
+      "1": "Donne un ordre de grandeur de gain sans le décomposer ni dire ses hypothèses.",
+      "2": "Décompose le temps d'agent (saisie et relances des incomplets), en déduit des ETP réaffectables et teste la sensibilité au taux d'usage en ligne."
+     }
+    },
+    {
+     "key": "business_sense",
+     "label": "Sens business et pertinence sectorielle",
+     "weight": 20,
+     "levels": {
+      "0": "Traite le sujet comme un projet informatique privé, sans voie non numérique, accessibilité ni contraintes de l'État.",
+      "1": "Cite l'inclusion ou l'accessibilité, mais sans en tirer de conséquence concrète sur le parcours ou le planning.",
+      "2": "Traite la chaîne de bout en bout, l'inclusion (voie papier numérisée, France Services), le RGAA dès la conception, les briques de l'État et l'acceptabilité pour les agents."
+     }
+    },
+    {
+     "key": "recommendation",
+     "label": "Recommandation claire et assumée",
+     "weight": 20,
+     "levels": {
+      "0": "Pas de recommandation, ou une liste d'options sans choix.",
+      "1": "Recommande une option sans cible chiffrée ni risque principal.",
+      "2": "Recommande en une phrase une option, un pilote daté et des cibles chiffrées, nomme le risque principal (exclusion numérique) et dit comment il est couvert."
+     }
+    }
+   ],
+   "sources": [
+    {
+     "url": "https://acteurspublics.fr/articles/84-des-demarches-phares-de-letat-sont-realisables-sur-internet",
+     "title": "84 % des démarches phares de l'État sont réalisables sur internet (Acteurs publics)"
+    },
+    {
+     "url": "https://acteurspublics.fr/articles/laccessibilite-des-demarches-reste-le-gros-point-noir-de-la-dematerialisation/",
+     "title": "L'accessibilité des démarches reste le gros point noir de la dématérialisation (Acteurs publics)"
+    },
+    {
+     "url": "https://www.banquedesterritoires.fr/illectronisme-34-des-16-74-ans-en-difficulte-numerique-en-2025-liag-creuse-les-ecarts",
+     "title": "Illectronisme : 34 % des 16-74 ans en difficulté numérique en 2025 (Banque des Territoires)"
+    },
+    {
+     "url": "https://next.ink/brief-article/dematerialisation-la-defenseure-des-droits-denonce-encore-des-lacunes-considerables/",
+     "title": "Dématérialisation : la Défenseure des droits dénonce encore des lacunes considérables (Next)"
+    }
+   ],
+   "targets_weakness": [],
+   "estimated_minutes": 8
+  },
+  "search_urls": [
+   "https://www.assemblee-nationale.fr/dyn/17/questions/QANR5L17QE10651.pdf",
+   "https://acteurspublics.fr/articles/lexecutif-en-passe-de-tenir-ses-objectifs-de-dematerialisation-des-demarches/",
+   "https://acteurspublics.fr/articles/84-des-demarches-phares-de-letat-sont-realisables-sur-internet",
+   "https://acteurspublics.fr/articles/dematerialisation-des-demarches-ou-en-sont-les-ministeres/",
+   "https://acteurspublics.fr/articles/les-grands-chantiers-de-transformation-numerique-de-la-rentree/",
+   "https://www.banquedesterritoires.fr/dematerialisation-des-formalites-les-objectifs-en-passe-detre-atteints",
+   "https://www.data.gouv.fr/datasets/observatoire-de-la-qualite-des-demarches-en-ligne/informations",
+   "https://acteurspublics.fr/articles/laccessibilite-des-demarches-reste-le-gros-point-noir-de-la-dematerialisation/",
+   "https://www.assemblee-nationale.fr/dyn/15/questions/QANR5L15QE43148.pdf",
+   "https://www.assemblee-nationale.fr/dyn/17/questions/QANR5L17QE10651",
+   "https://www.assemblee-nationale.fr/dyn/16/questions/QANR5L16QE4045.pdf",
+   "https://www.transformation.gouv.fr/files/presse/Conf-presse-FranceRelance-Acceleration-transformation-numerique-Etat-collectivites_0.pdf",
+   "https://www.banquedesterritoires.fr/la-dinum-detaille-sa-feuille-de-route-pour-les-formalites-essentielles-dici-2026",
+   "https://www.maddyness.com/?p=911663",
+   "https://www.economie.gouv.fr/node/53319",
+   "https://www.vie-publique.fr/lettre_essentiel/31",
+   "https://www.ge.ch/document/43400/telecharger",
+   "https://www.lemondeinformatique.fr/actualites/lire-la-dematerialisation-des-demarches-administratives-progresse-80071.html",
+   "https://www.insee.fr/fr/statistiques/6680081",
+   "https://www2.assemblee-nationale.fr/questions/detail/16/qe/11432/(vue)/pdf",
+   "https://www.insee.fr/fr/statistiques/fichier/6680081/ac_ina_154.pdf",
+   "https://www.alsace.eu/delib-cea/11595.5.0.pdf",
+   "https://www.assemblee-nationale.fr/dyn/16/questions/QANR5L16QE11432.pdf",
+   "https://questions.assemblee-nationale.fr/dyn/15/questions/QANR5L15QE42820.pdf",
+   "https://www.economiematin.fr/?p=213344",
+   "https://www2.assemblee-nationale.fr/questions/detail/15/qe/43485/(vue)/pdf",
+   "https://www.banquedesterritoires.fr/illectronisme-34-des-16-74-ans-en-difficulte-numerique-en-2025-liag-creuse-les-ecarts",
+   "https://www.alsace.eu/delib-cea/11595.4.0.pdf",
+   "https://questions.assemblee-nationale.fr/dyn/15/questions/QANR5L15QE43485.pdf",
+   "https://www.assemblee-nationale.fr/dyn/15/questions/QANR5L15QE26161.pdf",
+   "https://www.cidj.com/bien-vivre/sa-vie-numerique/l-illectronisme-touche-12-des-franciliens-ages-de-plus-de-15-ans",
+   "https://insee.fr/fr/statistiques/fichier/version-html/4241397/ip1780.pdf",
+   "https://www2.assemblee-nationale.fr/questions/detail/15/qe/42820/(vue)/pdf",
+   "https://www.caf.fr/sites/default/files/medias/061/PARTENAIRES/2022-2023/Rapport_Illectronisme_%20Urmis_VFoct2023.pdf",
+   "https://questions.assemblee-nationale.fr/q15/15-42820QE.htm",
+   "https://www.assemblee-nationale.fr/dyn/15/questions/QANR5L15QE43774.pdf",
+   "https://www.iledefrance.ars.sante.fr/system/files/2023-04/Sant%C3%A9Ensemble%2342.pdf",
+   "https://www.vie-publique.fr/files/rapport/pdf/283832.pdf",
+   "https://next.ink/brief-article/dematerialisation-la-defenseure-des-droits-denonce-encore-des-lacunes-considerables/",
+   "https://blog.landot-avocats.net/2022/02/16/dematerialisation-des-services-publics-et-droits-des-usagers-suivi-et-nouvelles-preconisations-du-ddd/",
+   "https://www.assemblee-nationale.fr/dyn/16/textes/l16b1063_proposition-loi.pdf",
+   "https://blog.landot-avocats.net/2022/02/16/dematerialisation-des-services-publics-et-droits-des-usagers-suivi-et-nouvelles-preconisations-du-ddd/amp/",
+   "https://www.maire-info.com/droit/la-dematerialisation-continue-porter-atteinte-acces-aux-droits-usagers-selon-la-defenseure-droits-article-26121",
+   "https://conferenceconsensuslogement.senat.fr/leg/ppl22-450.pdf",
+   "https://www.assemblee-nationale.fr/dyn/15/textes/l15b5219_proposition-resolution.pdf",
+   "https://maire-info.com/la-defenseure-des-droits-deplore-un-eloignement-des-services-publics-en-2022-article2-27421",
+   "https://www.maire-info.com/social/la-defenseure-droits-deplore-un-eloignement-services-publics-en-2022-article-27421",
+   "https://www.etudes-fiscales-internationales.com/archive/2022/05/02/index.html",
+   "https://www.etudes-fiscales-internationales.com/archive/2022/04/26/la-numeration-a-marche-forcee-le-defendeur-des-droits-est-in-26770.html",
+   "https://www.defenseurdesdroits.fr/sites/default/files/2023-12/fiches-reformes_010.pdf",
+   "https://www.assemblee-nationale.fr/dyn/16/textes/l16b1773_proposition-loi.pdf",
+   "https://www.assemblee-nationale.fr/dyn/16/rapports/cion_lois/l16b1908_rapport-fond.pdf",
+   "https://blog.landot-avocats.net/tag/illectronisme/",
+   "https://indecosa.swebwp.oci.eu/dematerialisation-des-services-publics-trois-ans-apres-ou-en-est-on/?print=pdf"
+  ]
+ },
+ {
+  "slot": "bonus1_case_13",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_case_13",
+   "type": "diagnostic",
+   "difficulty": 2,
+   "language": "fr",
+   "style": "wavestone",
+   "sector": "assurance",
+   "web_search": true,
+   "target_weakness": false,
+   "brief": "Sujet imposé : la satisfaction client d'un assureur auto baisse.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 7
+  },
+  "exercise": {
+   "title": "Diagnostic : pourquoi la satisfaction des clients d'un assureur auto mutualiste décroche",
+   "type": "diagnostic",
+   "style": "wavestone",
+   "language": "fr",
+   "difficulty": 2,
+   "sector": "assurance",
+   "prompt": "Notre client est une mutuelle d'assurance régionale qui assure environ 1,1 million de véhicules, distribuée par un réseau de 230 agences et un espace client en ligne. Son NPS auto est passé de +21 à +7 en dix-huit mois, les réclamations écrites ont augmenté de moitié et les résiliations commencent à suivre. Le marché n'aide pas : la prime moyenne auto a encore augmenté de 6,5 % en 2025, et les saisines du Médiateur de l'assurance sur l'automobile ont bondi de 81 % en un an. En comité de direction, chacun a sa solution : le directeur commercial veut baisser les tarifs, la DSI propose un chatbot IA pour désengorger les plateaux téléphoniques, le marketing veut refaire l'application mobile. Le directeur général vous confie un diagnostic de huit semaines avant de trancher. Comment structurez-vous ce diagnostic pour expliquer la baisse de satisfaction, et par où recommandez-vous de commencer ?",
+   "parts": null,
+   "context_data": {
+    "facts": [
+     {
+      "label": "Cotisations d'assurance automobile en France",
+      "value": "30,2 Md€ en 2025 (+7,5 %), contre 28,1 Md€ en 2024",
+      "source_url": "https://journalauto.com/services/assurance-automobile-les-sinistres-baissent-la-facture-grimpe/",
+      "hypothesis": false
+     },
+     {
+      "label": "Prime moyenne HT d'un véhicule léger assuré en monocontrat",
+      "value": "511 € en 2025, soit +6,5 % par rapport à 2024",
+      "source_url": "https://journalauto.com/services/assurance-automobile-les-sinistres-baissent-la-facture-grimpe/",
+      "hypothesis": false
+     },
+     {
+      "label": "Ratio combiné net de réassurance du marché auto",
+      "value": "101,2 % des primes en 2025, en dégradation de 0,9 point par rapport à 2024",
+      "source_url": "https://www.moneyvox.fr/assurance/actualites/109992/assurance-auto-les-sinistres-moins-nombreux-mais-plus-couteux-font-grimper-la-prime-moyenne",
+      "hypothesis": false
+     },
+     {
+      "label": "Saisines de la Médiation de l'assurance",
+      "value": "46 830 en 2025 (+28 % sur un an) ; +81 % sur un an pour l'assurance automobile",
+      "source_url": "https://www.mediation-assurance.org/wp-content/uploads/2026/09/Rapport-annuel-2025-LMA_Communique-de-presse.pdf",
+      "hypothesis": false
+     },
+     {
+      "label": "Part de l'automobile dans les saisines recevables en assurance de dommages",
+      "value": "40 % en 2025 (devant la multirisque habitation, 33 %)",
+      "source_url": "https://www.mediation-assurance.org/wp-content/uploads/2026/09/Rapport-annuel-2025-LMA_Communique-de-presse.pdf",
+      "hypothesis": false
+     },
+     {
+      "label": "Taux de résiliation annuel du portefeuille auto du client",
+      "value": "10 % en 2024, 12,5 % sur les 12 derniers mois (donnée client fictive)",
+      "source_url": null,
+      "hypothesis": true
+     }
+    ],
+    "constraints": [
+     "Portefeuille du client : 1,1 million de véhicules assurés, prime moyenne d'environ 520 €, soit environ 570 M€ de cotisations auto.",
+     "NPS auto relationnel : +21 en 2024, +7 en 2026. Clients ayant eu un sinistre dans l'année : de +15 à −12 ; clients sans sinistre : de +23 à +14 (à donner si le candidat segmente).",
+     "Hausse tarifaire moyenne appliquée au 1er janvier 2026 : +9 %. 60 % des résiliations arrivent dans les deux mois qui suivent l'avis d'échéance.",
+     "Parcours sinistre : délai moyen de clôture d'un sinistre matériel passé de 24 à 33 jours ; taux de décroché du plateau sinistres passé de 88 % à 71 %.",
+     "Réclamations écrites : 14 000 en 2024, 21 000 sur les 12 derniers mois, gérées dans un outil de courrier.",
+     "Données disponibles : NPS annuel sur 3 000 répondants sans lien avec le parcours, verbatims jamais analysés, SI sinistres et CRM non reliés.",
+     "Le diagnostic dure huit semaines avec trois consultants."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Reformulation (15 s).** « Si je reformule : en dix-huit mois, la mutuelle a perdu 14 points de NPS sur l'auto, les réclamations ont augmenté de moitié et les résiliations suivent. Le DG ne me demande pas de choisir entre baisse de prix, chatbot et appli : il me demande d'où vient la baisse et par où commencer. » Deux questions de clarification : la baisse est-elle homogène (agences et en ligne, clients avec ou sans sinistre) ? Quelles données a-t-on au niveau du contrat ? *(Réponse de l'interviewer : la baisse est bien plus forte chez les clients qui ont eu un sinistre dans l'année.)*\n\n**Plan annoncé.** « Je propose quatre temps : 1) ce que la baisse coûte, pour dimensionner l'effort ; 2) où la satisfaction se perd, moment de vérité par moment de vérité, en séparant ce qui vient du marché et ce qui vient du client ; 3) la maturité data, c'est-à-dire notre capacité à mesurer et à piloter ; 4) par où commencer, et ce qu'on ne fait pas. »\n\n**1. L'enjeu : environ 14 M€ de cotisations par an**\n- *Constat* : le taux de résiliation passe de 10 % à 12,5 %.\n- *Chiffrage, hypothèses dites* : 1,1 million de véhicules × 2,5 points = environ 27 500 contrats perdus en plus par an. × une prime moyenne d'environ 520 € (proche des 511 € HT du marché en 2025) = environ 14 M€ de cotisations, soit 2,5 % d'un portefeuille auto d'environ 570 M€. Pour remplacer ces contrats, à 200 € de coût d'acquisition par contrat (hypothèse), il faut dépenser environ 5,5 M€ par an, rien que pour rester à niveau.\n- *Implication* : c'est un sujet de comité de direction, mais pas une raison de baisser les prix partout.\n\n**2. Où la satisfaction se perd : trois constats**\n- *Constat 1 : le prix déclenche le départ, il n'explique pas la chute.* La hausse est de 9 % au 1er janvier contre +6,5 % pour la prime moyenne du marché en 2025, et 60 % des résiliations arrivent dans les deux mois qui suivent l'avis d'échéance. Mais tout le marché a augmenté, et les clients sans sinistre ne perdent que 9 points de NPS. *Implication* : avec un ratio combiné du marché à 101,2 % en 2025, baisser les tarifs revient à perdre de l'argent sur chaque contrat pour traiter un symptôme. *Recommandation* : expliquer la hausse à l'échéance et proposer une revue de garanties aux clients à risque de départ, plutôt qu'une baisse générale.\n- *Constat 2 : le sinistre est le moment de vérité qui se dégrade.* Chez les clients sinistrés, le NPS passe de +15 à −12. Le délai de clôture d'un sinistre matériel passe de 24 à 33 jours et le taux de décroché du plateau sinistres de 88 % à 71 % : le client attend plus longtemps et n'arrive plus à joindre quelqu'un. C'est cohérent avec le marché : +81 % de saisines du Médiateur sur l'auto en 2025, et l'auto représente 40 % des saisines recevables en assurance de dommages. *Implication* : un chatbot qui répond « votre dossier est en cours » ne supprime pas les 9 jours de plus, et il risque d'irriter. *Recommandation* : traiter la cause, le délai, et informer le client de façon proactive à chaque étape.\n- *Constat 3 : la réclamation est saturée et alimente le médiateur.* On passe de 14 000 à 21 000 réclamations écrites par an, traitées dans un simple outil de courrier. Chaque réclamation qui traîne devient une saisine du médiateur et un client perdu. *Recommandation* : trier et router les réclamations par motif et par urgence.\n\n**3. Maturité data : faible, on ne sait pas mesurer**\n- *Constat* : le NPS est uniquement annuel et relationnel (3 000 répondants), sans lien avec le parcours vécu. Les verbatims et les 21 000 réclamations ne sont jamais analysés. Le SI sinistres et le CRM ne sont pas reliés, donc on ne peut pas dire aujourd'hui si un client qui part a eu un sinistre lent.\n- *Implication* : le comité de direction décide à l'intuition, d'où trois solutions concurrentes.\n- *Recommandation* : construire un socle minimal, pas une plateforme : relier au niveau du contrat le NPS, les réclamations, les sinistres et les résiliations.\n\n**4. Par où commencer, et ce qu'on ne fait pas**\n- *Semaines 1 à 4* : constituer un jeu de données unique, au contrat, sur dix-huit mois. Classer automatiquement les réclamations et les verbatims par motif : un modèle de langage le fait en quelques jours sur 21 000 textes, avec une validation humaine sur un échantillon. Mettre en place un NPS à chaud après la déclaration et la clôture du sinistre.\n- *Semaines 5 à 8* : chiffrer la contribution de chaque moment de vérité à la baisse du NPS et au churn. Lancer deux quick wins sur le sinistre : un SMS proactif aux étapes clés, et le rappel systématique des dossiers ouverts depuis plus de 30 jours.\n- *Ce qu'on ne fait pas* : pas de baisse tarifaire générale, pas de chatbot généraliste, pas de refonte de l'application avant d'avoir localisé la douleur.\n\n**Sensibilité.** Si la hausse du churn n'est que de 1,5 point, l'enjeu tombe à environ 8,5 M€ de cotisations. La priorité au sinistre ne change pas ; seul le budget du plan d'action se réduit.\n\n**Recommandation finale.** « Je recommande de commencer par le parcours sinistre, mesuré de bout en bout en huit semaines : c'est là que la satisfaction se perd, et c'est le levier le plus rapide à corriger sans toucher au prix. Le risque principal est de découvrir que le délai vient d'une capacité externe, avec des garages et des experts saturés. On le couvre en associant la direction indemnisation dès le départ et en testant l'expertise à distance sur photos pour les petits sinistres. »",
+   "rubric": [
+    {
+     "key": "reformulation",
+     "label": "Reformulation et cadrage",
+     "weight": 15,
+     "levels": {
+      "0": "Se lance dans une solution (chatbot, baisse de prix) sans reformuler ni poser de question sur la segmentation de la baisse.",
+      "1": "Reformule correctement mais sans dire que l'objectif est de localiser la baisse avant de choisir un remède.",
+      "2": "Reformule en une phrase, recentre sur « d'où vient la baisse et par où commencer » et pose une question de segmentation (sinistrés ou non, canal)."
+     }
+    },
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 25,
+     "levels": {
+      "0": "Liste des idées sans plan, mélange causes, solutions et outils.",
+      "1": "Annonce un plan, mais incomplet (pas de maturité data ou pas de « ce qu'on ne fait pas ») ou non suivi.",
+      "2": "Annonce 3 ou 4 branches (enjeu, moments de vérité, maturité data, par où commencer et ce qu'on ne fait pas) et les déroule dans l'ordre."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 20,
+     "levels": {
+      "0": "Aucun chiffrage de l'enjeu, ou des chiffres sans hypothèses.",
+      "1": "Chiffre l'enjeu, mais sans dire ses hypothèses ou sans test de sensibilité.",
+      "2": "Décompose l'enjeu (véhicules × hausse du churn × prime moyenne, environ 14 M€), dit ses hypothèses et teste la sensibilité en une phrase."
+     }
+    },
+    {
+     "key": "business_sense",
+     "label": "Sens business et pertinence sectorielle",
+     "weight": 20,
+     "levels": {
+      "0": "Ignore le contexte du marché auto et propose de baisser les prix ou d'ajouter un canal.",
+      "1": "Cite la hausse des primes mais ne distingue pas le déclencheur (prix) de la cause (sinistre).",
+      "2": "Distingue prix et sinistre, utilise le ratio combiné supérieur à 100 % pour écarter la baisse tarifaire et relie la hausse des saisines du médiateur au parcours sinistre."
+     }
+    },
+    {
+     "key": "recommendation",
+     "label": "Recommandation claire et assumée",
+     "weight": 20,
+     "levels": {
+      "0": "Pas de recommandation, ou « il faut faire un peu de tout ».",
+      "1": "Recommande un point de départ, sans risque principal ou sans ce qu'on ne fait pas.",
+      "2": "Recommande en une phrase de commencer par le parcours sinistre, dit ce qu'on ne fait pas et nomme le risque principal (capacité externe) avec sa couverture."
+     }
+    }
+   ],
+   "sources": [
+    {
+     "url": "https://journalauto.com/services/assurance-automobile-les-sinistres-baissent-la-facture-grimpe/",
+     "title": "Assurance automobile : les sinistres baissent, la facture grimpe (Journal de l'Automobile)"
+    },
+    {
+     "url": "https://www.moneyvox.fr/assurance/actualites/109992/assurance-auto-les-sinistres-moins-nombreux-mais-plus-couteux-font-grimper-la-prime-moyenne",
+     "title": "Assurance auto : les sinistres moins nombreux mais plus coûteux font grimper la prime moyenne (MoneyVox)"
+    },
+    {
+     "url": "https://www.mediation-assurance.org/wp-content/uploads/2026/09/Rapport-annuel-2025-LMA_Communique-de-presse.pdf",
+     "title": "Rapport annuel 2025 de la Médiation de l'Assurance, communiqué de presse"
+    }
+   ],
+   "targets_weakness": [],
+   "estimated_minutes": 7
+  },
+  "search_urls": [
+   "https://journalauto.com/services/assurance-automobile-les-sinistres-baissent-la-facture-grimpe/",
+   "https://www.meilleurtaux.com/comparateur-assurance/assurance-auto/actualites/2026-septembre/assurance-auto-2025-primes-en-hausse-et-couts-en-hausse.html",
+   "https://modelesdebusinessplan.com/blogs/infos/marche-assurances-chiffres",
+   "https://www.auto-infos.fr/assureurs/2/",
+   "https://www.moneyvox.fr/assurance/actualites/109992/assurance-auto-les-sinistres-moins-nombreux-mais-plus-couteux-font-grimper-la-prime-moyenne",
+   "https://www2.assemblee-nationale.fr/questions/detail/15/qe/38207/(vue)/pdf",
+   "https://www.echangesassurances.org/actualites/assurance-auto-france-espagne-ecart-tarifs-2026",
+   "https://www.assemblee-nationale.fr/dyn/15/questions/QANR5L15QE38207.pdf",
+   "https://questions.assemblee-nationale.fr/dyn/15/questions/QANR5L15QE38207.pdf",
+   "https://www.actu-juridique.fr/breves/assurances/les-chiffres-de-lassurance-automobile/",
+   "https://www.auto-infos.fr/assurance/4/",
+   "https://goodassur.com/assureurs",
+   "https://www.auto-infos.fr/france-assureurs/",
+   "https://bibliotheque.ummto.dz/fr/opac/download_document/826267",
+   "https://www.economiematin.fr/?p=141726",
+   "https://www.annales.org/ri/2020/ri-fevrier-2020/2020-02-2.pdf",
+   "https://www.coover.fr/?p=33899",
+   "https://questions.assemblee-nationale.fr/dyn/15/questions/QANR5L15QE34075.pdf",
+   "https://www.lecomparateurassurance.com/assurance-vie/actualites/2024-ete-bonne-annee-pour-secteur-assurance-france",
+   "https://preview-www.theshifters.org/wp-content/uploads/2025/05/annexe-4-assurance-dommages-en-france-en-2023-RSSF-analyse-2017-2023.pdf",
+   "https://www.mediation-assurance.org/wp-content/uploads/2025/08/Rapport-annuel-2024-LMA_Communique-de-presse.pdf",
+   "https://www.lafinancepourtous.com/2025/09/04/mediation-de-lassurance-forte-hausse-des-dossiers-deposes-en-2024/",
+   "https://www.inc-conso.fr/content/mediation-de-lassurance-publication-du-rapport-dactivite-2023",
+   "https://www.inc-conso.fr/content/assurance/mediation-de-lassurance-publication-du-rapport-dactivite-2023",
+   "https://rapport-mediateur.msa.fr/wp-content/uploads/2025/09/Chiffres.pdf",
+   "https://rapport-annuel.assurance-maladie.fr/cpam-ille-et-vilaine/dist/images/references/RA_mediation_2024.pdf",
+   "https://www.moneyvox.fr/assurance/actualites/99361/mediateur-de-assurance-en-2023-42-augmentation-du-nombre-de-saisines",
+   "https://www.inc-conso.fr/node/16716",
+   "https://lemediateur.fbf.fr/medias/RA%20Le%20Mediateur%202024%20Web.pdf",
+   "https://www.mediation-assurance.org/wp-content/uploads/2025/08/Rapport_annuel_2024_LMA_page-simple.pdf",
+   "https://www.labase-lextenso.fr/gazette-du-palais/2025-n9/rapport-annuel-d-activite-2023-du-mediateur-de-l-assurance-GPL474e7",
+   "https://www.economiematin.fr/?p=164994",
+   "https://www.moneyvox.fr/assurance/actualites/110211/mediateur-de-assurance-le-nombre-de-saisines-en-forte-hausse-en-2025",
+   "https://www.moneyvox.fr/assurance/actualites/104896/pourquoi-les-saisines-du-mediateur-ont-bondi-en-2024",
+   "https://rapport-annuel.assurance-maladie.fr/cpam-dordogne/dist/pdf/RA2023_MediateurCPAM24.pdf",
+   "https://www.mediation-assurance.org/wp-content/uploads/2025/08/Rapport_annuel_2024_LMA_page-double.pdf",
+   "https://www.toutsurmesfinances.com/actualites/?p=1739",
+   "https://www.mediation-assurance.org/wp-content/uploads/2026/09/Rapport-annuel-2025-LMA_Communique-de-presse.pdf",
+   "https://dcmpx.remotevs.com/org/mediation-assurance/www/SL/wp-content/uploads/2024/08/Rapport-annuel-2023-LMA_Communique-de-presse.pdf",
+   "https://www.moneyvox.fr/actu/81013/assurance-auto-et-habitation-comment-payer-moins-cher-sans-changer-assureur",
+   "https://www.largus.fr/actualite-automobile/resiliation-auto-le-guide-pour-changer-sereinement-40007562.html",
+   "https://www.moneyvox.fr/assurance/actualites/81013/assurance-auto-et-habitation-comment-payer-moins-cher-sans-changer-assureur",
+   "https://monimmeuble.com/?p=30769",
+   "https://www.meilleurtaux.com/assurance-de-pret/actualites/2016-janvier/pas-revolution-sur-secteur-assurance-malgre-loi-hamon.html",
+   "https://www.netvox-assurances.fr/?p=50456",
+   "https://resilier.com/images/8479/observatoire-des-resiliations-2019-Assurances.pdf",
+   "https://goodassur.com/contrat/resiliation-assurance",
+   "https://selectra.info/assurance/assurance-auto/changer",
+   "https://selectra.info/assurance/guides/auto/changer",
+   "https://www.labanquepostale.fr/particulier/footer/list-actu-reglementaires/actus/hamon.html",
+   "https://selectra.info/assurance/assurance-auto/resiliation",
+   "https://www.lelynx.fr/a-propos/communiques/sondage-changer-dassureur/",
+   "https://leocare.eu/fr/assurance-auto-en-ligne/couverture/contrat/resiliation/loi-hamon",
+   "https://www.acommeassure.com/?p=487",
+   "https://www.dentaly.org/?p=12269",
+   "https://particuliers.sg.fr/nos-conseils/assurer/loi-hamon-assurance-auto"
+  ]
+ },
+ {
+  "slot": "bonus1_case_14",
+  "model": "pack bonus1",
+  "spec": {
+   "slot": "bonus1_case_14",
+   "type": "diagnostic",
+   "difficulty": 3,
+   "language": "fr",
+   "style": "mbb",
+   "sector": "retail",
+   "web_search": true,
+   "target_weakness": false,
+   "brief": "Sujet imposé : la marge d'une chaîne de supermarchés recule depuis deux ans. Style MBB : énoncé plus long avec les données chiffrées dès le départ, une question précise à la fois, synthèse finale en 30 secondes exigée.",
+   "parts": null,
+   "is_mock": false,
+   "estimated_minutes": 10
+  },
+  "exercise": {
+   "title": "Diagnostic MBB : une chaîne régionale de supermarchés a perdu 1,4 point de marge en deux ans",
+   "type": "diagnostic",
+   "style": "mbb",
+   "language": "fr",
+   "difficulty": 3,
+   "sector": "retail",
+   "prompt": "Notre client est une chaîne régionale de 160 supermarchés intégrés implantée dans le Grand Est, avec un chiffre d'affaires d'environ 3 milliards d'euros HT, stable en valeur depuis 2023. Sa marge opérationnelle courante est passée de 2,4 % du chiffre d'affaires en 2023 à 1,0 % en 2025, soit environ 42 millions d'euros de résultat en moins. Le contexte est connu : l'inflation alimentaire est retombée de 12 % en 2023 à 1,3 % en 2024, E.Leclerc pèse 24,4 % du marché et Lidl continue de gagner du terrain avec 7,9 %, et même Carrefour a vu sa marge opérationnelle courante reculer de 2,8 % à 2,6 % entre 2024 et 2025. Le contrôle de gestion vous donne le compte de résultat en pourcentage du chiffre d'affaires : entre 2023 et 2025, la marge commerciale est passée de 25,0 % à 23,8 %, les frais de personnel de 11,5 % à 11,8 %, la logistique de 4,0 % à 4,1 %, les autres frais de magasin ont baissé de 5,0 % à 4,8 % et les frais de siège sont restés à 2,1 %. Le PDG est convaincu que le problème vient du coût du personnel et veut équiper tous ses magasins de caisses automatiques. Nous allons avancer question par question. Première question : à partir de ces chiffres, où se situe l'essentiel du recul de marge, et quelles hypothèses voulez-vous tester en priorité ?",
+   "parts": null,
+   "context_data": {
+    "facts": [
+     {
+      "label": "Inflation des prix alimentaires en France (OFPM)",
+      "value": "+7 % en 2022, +12 % en 2023, +1,3 % en 2024 (inflation générale de 2 % en 2024)",
+      "source_url": "https://www.franceagrimer.fr/sites/default/files/2025-07/20250709_CP_RAPPORT_OFPM_2025_0.pdf",
+      "hypothesis": false
+     },
+     {
+      "label": "Niveau des marges nettes de l'aval (transformation et distribution) selon l'OFPM",
+      "value": "Dans la plupart des filières, toujours inférieures à leur niveau d'avant la période d'inflation, malgré la reconstitution des marges brutes (rapport 2025)",
+      "source_url": "https://www.franceagrimer.fr/sites/default/files/2025-07/20250709_CP_RAPPORT_OFPM_2025_0.pdf",
+      "hypothesis": false
+     },
+     {
+      "label": "Parts de marché valeur des distributeurs, période P02 2025 (27 janvier au 23 février 2025)",
+      "value": "E.Leclerc 24,4 % ; groupe Carrefour 22,3 % ; Les Mousquetaires 17,0 % ; Lidl 7,9 % (+0,3 pt) ; Aldi 2,8 %",
+      "source_url": "https://www.kantar.com/fr/inspirations/consommateurs-acheteurs-et-distributeurs/2025-flashp022025",
+      "hypothesis": false
+     },
+     {
+      "label": "Marge opérationnelle courante du groupe Carrefour",
+      "value": "2,6 % en 2025 contre 2,8 % en 2024, pour un chiffre d'affaires de 91,48 Md€",
+      "source_url": "https://www.abcbourse.com/marches/carrefour-se-veut-confiant-pour-2026-apres-une-annee-en-demi-teinte_689258",
+      "hypothesis": false
+     },
+     {
+      "label": "Marge opérationnelle courante du client",
+      "value": "2,4 % du CA en 2023, 1,0 % en 2025, sur un CA d'environ 3 Md€ HT stable (donnée client fictive)",
+      "source_url": null,
+      "hypothesis": true
+     },
+     {
+      "label": "Compte de résultat du client en % du CA, 2023 → 2025",
+      "value": "Marge commerciale 25,0 → 23,8 ; personnel 11,5 → 11,8 ; logistique 4,0 → 4,1 ; autres frais de magasin 5,0 → 4,8 ; siège 2,1 → 2,1 (donnée client fictive)",
+      "source_url": null,
+      "hypothesis": true
+     }
+    ],
+    "constraints": [
+     "Relance 2 (donnée à fournir après la question 1) : décomposition de la baisse de marge commerciale de −1,2 pt. Effet prix (baisses et alignements sur les concurrents) −0,5 pt ; intensité promotionnelle (part du CA sous promotion de 17 % à 22 %) −0,3 pt ; démarque (casse, périmés, vol) de 1,8 % à 2,2 % du CA, soit −0,4 pt, dont deux tiers sur le frais ; effet mix ≈ 0.",
+     "Relance 3 (question : « Le client peut-il piloter ces leviers ? ») : prix fixés au siège par famille de produits ; relevés de prix concurrents manuels et mensuels sur 800 références ; promotions évaluées sur la seule hausse des ventes pendant l'opération ; démarque mesurée par inventaire semestriel, par magasin et non par référence ; commandes du frais passées à la main par les chefs de rayon ; carte de fidélité couvrant 55 % du CA, peu exploitée.",
+     "Relance 4 (question : « Par où commencez-vous, combien cela vaut-il, et que pensez-vous des caisses automatiques ? ») : coût d'environ 20 000 € par caisse automatique installée, 6 caisses par magasin ; les hôtes et hôtesses de caisse représentent environ un quart des frais de personnel.",
+     "Le PDG veut une amélioration visible dans les comptes 2026, sans dégrader l'image prix.",
+     "Synthèse finale de 30 secondes exigée, adressée au PDG."
+    ],
+    "documents": []
+   },
+   "model_answer": "**Question 1 : où est la perte, et quelles hypothèses tester ?**\n\n*Reformulation (10 s).* « Le client a perdu 1,4 point de marge opérationnelle en deux ans, environ 42 M€, à chiffre d'affaires stable. Le PDG pense que le personnel est en cause et veut des caisses automatiques. Je dois localiser la perte, l'expliquer, puis dire par où commencer, ce qui revient aussi à dire si les caisses automatiques sont la bonne réponse. »\n\n*Structure annoncée.* « Je procède en quatre temps : 1) le pont de marge, pour savoir où sont les 42 M€ ; 2) les causes, en testant prix, promotion, démarque, puis achats et mix ; 3) la maturité data du client pour piloter ces leviers ; 4) par où commencer, combien cela vaut, et ce qu'on ne fait pas. »\n\n*Pont de marge (en points de CA, sur 3 Md€) :*\n- Marge commerciale : −1,2 pt, soit −36 M€, **86 % de la perte**.\n- Frais de personnel : −0,3 pt, soit −9 M€.\n- Logistique : −0,1 pt, soit −3 M€.\n- Autres frais de magasin : +0,2 pt, soit +6 M€.\n- Total : −36 − 9 − 3 + 6 = **−42 M€**, ce qui est cohérent avec 2,4 % → 1,0 %.\n\n*Implication.* C'est d'abord un problème de marge commerciale, pas de coûts. Les 0,3 point de personnel sont surtout un effet ciseau. Le CA est stable en valeur alors que les prix ont encore monté (+1,3 % en 2024), donc les volumes reculent d'environ 2 à 3 % (hypothèse), pendant que les salaires sont indexés. Le contexte confirme cette lecture : l'OFPM note que les marges nettes de l'aval restent inférieures à leur niveau d'avant l'inflation, et même Carrefour, avec 22 % du marché, perd 0,2 point.\n\n*Hypothèses, par ordre de priorité (taille × capacité du client à agir) :*\n1. un investissement prix pour suivre Leclerc et les discounters ;\n2. une intensité promotionnelle en hausse ;\n3. une dérive de la démarque ;\n4. des conditions d'achat ou un mix moins favorables (hausses fournisseurs non répercutées, glissement vers le premier prix).\n\nJe teste les trois premières d'abord, parce qu'elles dépendent du client et se mesurent en quelques semaines.\n\n**Question 2 : décomposition fournie (−1,2 pt de marge commerciale)**\n- Prix : −0,5 pt, soit 15 M€. Promotion : −0,3 pt, soit 9 M€ (CA sous promotion passé de 17 % à 22 %). Démarque : −0,4 pt, soit 12 M€ (de 1,8 % à 2,2 % du CA, dont deux tiers sur le frais). Mix : environ 0.\n- *Lecture* : les quatre hypothèses se réduisent à trois leviers, tous pilotables en interne. La promotion et la démarque, à elles seules, font 0,7 point, soit 21 M€. Le client ne subit pas seulement le marché : il pilote mal ses propres leviers.\n\n**Question 3 : maturité data, trois constats**\nLa maturité est au niveau 2 sur 5 : les données existent, mais elles ne servent pas à décider.\n1. *Le prix est investi à l'aveugle.* Les prix sont fixés par famille de produits, avec des relevés manuels et mensuels sur 800 références. On baisse partout au lieu de cibler les quelques centaines de produits qui font l'image prix.\n2. *La promotion est pilotée au volume.* On mesure la hausse des ventes pendant l'opération, sans cannibalisation ni creux d'après promotion. On ne sait donc pas quelles opérations créent de la marge.\n3. *La démarque n'est pas vue à temps.* Elle est mesurée par inventaire semestriel, par magasin, et les commandes du frais sont passées à la main. Atout sous-exploité : la carte de fidélité couvre 55 % du CA.\n\n**Question 4 : par où commencer, combien cela vaut, et les caisses automatiques**\n\n*Chiffrage par levier (hypothèses dites) :*\n- **Démarque du frais** : prévision de la demande pour les commandes, et démarque dynamique des produits en fin de vie. Si on récupère les trois quarts de la dérive (0,3 pt sur 0,4), on gagne 0,3 % × 3 Md€ = **9 M€**.\n- **Promotion** : 22 % × 3 Md€ = 660 M€ de CA promotionnel. Hypothèse : 30 % des opérations (environ 200 M€ de CA) détruisent en moyenne 3 points de marge, soit environ 6 M€. En supprimant ou en réorientant les trois quarts de ces opérations, on gagne environ **4,5 M€**.\n- **Prix** : on protège les produits sensibles et on remonte de 1 % les prix sur les 30 % du CA peu sensibles (900 M€), soit 9 M€ bruts. Si on en perd un tiers en volume, il reste environ **6 M€**.\n- **Total** : environ 19,5 M€, soit 0,65 point. La marge opérationnelle remonte d'environ 1,0 % à 1,65 % en 18 mois, ce qui récupère près de la moitié de la perte.\n\n*Sensibilité.* Si les concurrents s'alignent et que le levier prix ne rapporte rien, il reste 13,5 M€ (0,45 pt). L'ordre des priorités ne change pas.\n\n*Caisses automatiques.* Les frais de personnel représentent 11,8 % × 3 Md€ ≈ 354 M€, dont environ un quart pour les caisses, soit 88 M€. L'investissement est de 160 magasins × 6 caisses × 20 k€ ≈ 19 M€. Une économie de 15 % des heures de caisse rapporterait environ 13 M€ par an, mais avec trois limites :\n- elle traite les 0,3 point de personnel, pas les 1,2 point de marge commerciale ;\n- le libre-service augmente la démarque inconnue, alors que la démarque est déjà le problème : 0,1 point de plus, c'est 3 M€ ;\n- le gain arrive en 12 à 18 mois, au rythme des départs naturels.\n\n→ Il faut un pilote sur une dizaine de magasins où l'attente en caisse est forte, pas un déploiement généralisé en 2026.\n\n*Ce qu'on ne fait pas.* Pas de nouvelle baisse de prix générale : un régional ne gagne pas une guerre des prix contre un acteur qui détient 24,4 % du marché. Pas de caisses automatiques partout. Pas de grand programme data ou ERP de 18 mois avant les premiers gains.\n\n*Premier livrable à 3 mois.* Un pilote de prévision du frais sur 15 magasins, comparés à 15 magasins témoins, la revue de 12 mois de promotions à la marge incrémentale, et la liste des produits sensibles à protéger.\n\n*Recommandation et risque.* Commencer par la démarque du frais, qui ne coûte rien en image prix et peut se voir dans les comptes 2026. Le risque principal est une dégradation de l'image prix si l'on touche aux prix trop tôt. On le couvre en protégeant les produits sensibles et en suivant chaque semaine un indice de prix face à Leclerc et Lidl sur ces produits.\n\n**Synthèse en 30 secondes**\n« Monsieur le Président, la marge a perdu 1,4 point, dont 1,2 sur la marge commerciale : ce n'est pas un problème de personnel, c'est un problème de pilotage du prix, de la promotion et du frais. Trois leviers fondés sur la donnée valent environ 20 M€, soit deux tiers de point : la démarque du frais, la promotion pilotée à la marge et des prix ciblés sur les produits sensibles. Nous commençons par la démarque, avec un pilote de trois mois sur 15 magasins. Les caisses automatiques restent un pilote, pas la priorité. »",
+   "rubric": [
+    {
+     "key": "reformulation",
+     "label": "Reformulation et cadrage",
+     "weight": 10,
+     "levels": {
+      "0": "Ne reformule pas et part directement sur les caisses automatiques proposées par le PDG.",
+      "1": "Reformule la baisse de marge mais ne remet pas en question l'hypothèse du PDG.",
+      "2": "Reformule en une phrase (−1,4 pt, environ 42 M€, CA stable) et pose que l'hypothèse « personnel » est à vérifier, pas acquise."
+     }
+    },
+    {
+     "key": "structure",
+     "label": "Structure annoncée avant le déroulé",
+     "weight": 20,
+     "levels": {
+      "0": "Passe d'une cause à l'autre sans plan ni pont de marge.",
+      "1": "Annonce un plan, mais ne part pas du pont de marge ou ne priorise pas les hypothèses.",
+      "2": "Annonce pont de marge, causes, maturité data puis leviers, et classe les hypothèses par taille et par capacité du client à agir."
+     }
+    },
+    {
+     "key": "hypotheses",
+     "label": "Hypothèses explicites et chiffrage décomposé",
+     "weight": 25,
+     "levels": {
+      "0": "Ne convertit pas les points de marge en euros, ou se trompe dans le pont.",
+      "1": "Fait le pont de marge juste, mais chiffre les leviers sans hypothèses explicites ou sans sensibilité.",
+      "2": "Fait le pont juste (86 % sur la marge commerciale), chiffre chaque levier avec ses hypothèses (environ 9 + 4,5 + 6 M€) et donne un test de sensibilité."
+     }
+    },
+    {
+     "key": "business_sense",
+     "label": "Sens business et pertinence sectorielle",
+     "weight": 20,
+     "levels": {
+      "0": "Recommande de baisser les prix ou de couper le personnel sans regarder le marché.",
+      "1": "Cite la concurrence de Leclerc et des discounters, sans en tirer de conséquence sur la stratégie prix.",
+      "2": "Explique l'effet ciseau sur le personnel, refuse la guerre des prix frontale, cible les produits sensibles et voit le lien entre caisses automatiques et démarque."
+     }
+    },
+    {
+     "key": "recommendation",
+     "label": "Recommandation claire et assumée",
+     "weight": 15,
+     "levels": {
+      "0": "Pas de priorité ou liste de toutes les actions possibles.",
+      "1": "Donne une priorité sans premier livrable, sans ce qu'on ne fait pas ou sans risque.",
+      "2": "Commence par la démarque du frais avec un pilote à 3 mois, écarte la généralisation des caisses automatiques et couvre le risque d'image prix."
+     }
+    },
+    {
+     "key": "synthesis",
+     "label": "Synthèse finale en 30 secondes",
+     "weight": 10,
+     "levels": {
+      "0": "Pas de synthèse, ou un résumé chronologique de la discussion.",
+      "1": "Synthèse correcte mais trop longue ou sans chiffre clé.",
+      "2": "En 30 secondes : le diagnostic (marge commerciale, pas personnel), la valeur (environ 20 M€), la première action et ce qu'on ne fait pas."
+     }
+    }
+   ],
+   "sources": [
+    {
+     "url": "https://www.franceagrimer.fr/sites/default/files/2025-07/20250709_CP_RAPPORT_OFPM_2025_0.pdf",
+     "title": "Communiqué de presse du rapport 2025 de l'Observatoire de la formation des prix et des marges des produits alimentaires (FranceAgriMer)"
+    },
+    {
+     "url": "https://www.kantar.com/fr/inspirations/consommateurs-acheteurs-et-distributeurs/2025-flashp022025",
+     "title": "Tendances Consommation et Enseignes P2 2025 (Kantar)"
+    },
+    {
+     "url": "https://www.abcbourse.com/marches/carrefour-se-veut-confiant-pour-2026-apres-une-annee-en-demi-teinte_689258",
+     "title": "Carrefour se veut confiant pour 2026 après une année en demi-teinte (ABC Bourse)"
+    }
+   ],
+   "targets_weakness": [],
+   "estimated_minutes": 10
+  },
+  "search_urls": [
+   "https://www.ecommerce-nation.fr/?p=123881",
+   "https://www.ecommerce-nation.fr/grande-distribution-mai-2025-kantar/",
+   "https://www.toute-la-franchise.com/article-marche-de-la-grande-distribution",
+   "https://www.ecommerce-nation.fr/grande-distribution-chiffres-debut-2025",
+   "https://www.toute-la-franchise.com/vie-de-la-franchise-A29271-marche-de-la-grande-distribution.html",
+   "https://www.ecommerce-nation.fr/?p=122900",
+   "https://www.republik-retail.fr/strategie-retail/enseignes/grande-distribution-2025-quels-gagnants-et-perdants-du-secteur.html",
+   "https://ecommerce-nation.fr/grande-distribution-tendances-et-chiffres-cles-2025",
+   "https://www.lsa-conso.fr/grande-distribution-e-leclerc-intermarche-u-carrefour-qui-sont-les-gagnants-et-perdants-des-parts-de-marche-sur-cinq-ans,460730",
+   "https://www.economiematin.fr/?p=212987",
+   "https://www.kantar.com/fr/inspirations/consommateurs-acheteurs-et-distributeurs/2025-flashp022025",
+   "https://www.lsa-conso.fr/carrefour-leclerc-intermarche-u-auchan-comment-leurs-parts-de-marche-regionales-sont-chamboulees-par-les-derniers-rachats,460957",
+   "https://www.lsa-conso.fr/service/databoard",
+   "https://ideas.repec.org/p/hal/journl/hal-02958717.html",
+   "https://modelesdebusinessplan.com/blogs/infos/marche-grande-distribution-chiffres",
+   "https://modelesdebusinessplan.com/blogs/infos/marche-grande-distribution-predictions",
+   "https://www.lsa-conso.fr/produits-frais-aldi-s-impose-grand-frais-ralentit-picard-recrute-sans-gagner-de-terrain,461744",
+   "https://dubocalalassiette.fr/blog/distribution-alimentaire-en-france/",
+   "https://www.reussir.fr/lesmarches/prix-et-marges-des-produits-alimentaires-que-dit-lobservatoire-2025-pour-les-produits-animaux",
+   "https://www.franceagrimer.fr/sites/default/files/2025-07/20250709_CP_RAPPORT_OFPM_2025_0.pdf",
+   "https://observatoire-prixmarges.franceagrimer.fr/sites/default/files/pictures/microsoft_word_-_02_2025_avant-propos_2025_v4.docx_.pdf",
+   "https://www.assemblee-nationale.fr/dyn/17/amendements/1104/AN/47.pdf",
+   "https://questions.assemblee-nationale.fr/dyn/13/questions/QANR5L13QG3415.pdf",
+   "https://questions.assemblee-nationale.fr/dyn/13/questions/QANR5L13QE114486.pdf",
+   "https://www.assemblee-nationale.fr/dyn/13/questions/QANR5L13QG3415.pdf",
+   "https://www.assemblee-nationale.fr/dyn/13/questions/QANR5L13QE114486.pdf",
+   "https://www.assemblee-nationale.fr/dyn/17/amendements/1104/AN/46.pdf",
+   "https://www.lsa-conso.fr/les-marges-des-enseignes-au-plus-bas-sur-les-produits-agricoles,236610",
+   "https://www.franceagrimer.fr/sites/default/files/2025-05/CP_Rapport_OFPM_2024.pdf",
+   "https://www.assemblee-nationale.fr/dyn/17/amendements/0954/CION-ECO/CE29.pdf",
+   "https://www.lsa-conso.fr/les-marges-des-distributeurs-encore-pointees-du-doigt,122938",
+   "https://questions.assemblee-nationale.fr/dyn/13/questions/QANR5L13QE113711.pdf",
+   "https://questions.assemblee-nationale.fr/dyn/13/questions/QANR5L13QE113710.pdf",
+   "https://www.lsa-conso.fr/marges-en-gms-six-rayons-frais-sur-sept-retrouvent-des-couleurs-en-2024,466613",
+   "https://www.reussir.fr/ladepeche/la-distribution-mise-en-cause-dans-la-repartition-des-marges",
+   "https://www.lsa-conso.fr/telechargez-l-observatoire-2024-de-la-formation-des-prix-et-des-marges-des-produits-alimentaires,456660",
+   "https://www.assemblee-nationale.fr/dyn/13/questions/QANR5L13QE114487.pdf",
+   "https://questions.assemblee-nationale.fr/dyn/17/textes/l17t0026_texte-adopte-provisoire",
+   "https://www.tunisienumerique.com/carrefour-france-en-difficulte-le-titre-chute-a-un-nouveau-plus-bas/",
+   "https://www.tunisienumerique.com/?p=21421",
+   "https://www.tunisienumerique.com/?p=978702",
+   "https://www.tradingsat.com/carrefour-FR0000120172/actualites/carrefour-offensive-sur-le-frais-recentrage-sur-la-france-et-le-bresil-economies-carrefour-livre-son-plan-pour-faire-decoller-sa-marge-mais-l-accueil-en-bourse-est-glacial-48-1156806.html",
+   "https://www.optionfinance.fr/info-financiere-en-continu/d/2025-02-20-carrefour-des-resultats-annuels-sanctionnes.html",
+   "https://www.tradingsat.com/carrefour-FR0000120172/actualites/carrefour-carrefour-annonce-davantage-de-baisses-de-prix-1133193.html",
+   "https://www.abcbourse.com/marches/carrefour-se-veut-confiant-pour-2026-apres-une-annee-en-demi-teinte_689258",
+   "https://www.abcbourse.com/analyses/carrefour_croissance_stable_et_cap_maintenu_malgre_des_marges_sous_pression-7033",
+   "https://echanges.dila.gouv.fr/OPENDATA/AMF/ECO/2026/02/FCECO080961_20260217.pdf",
+   "https://www.esmmagazine.com/retail/carrefour-operating-profit-better-than-expected-says-it-is-confident-for-2026-306200",
+   "https://www.cash.ch/news/top-news/carrefour-blickt-nach-gewinnruckgang-zuversichtlich-auf-2026-909540",
+   "https://www.abcbourse.com/marches/carrefour-chiffre-d-affaires-en-hausse-de-2-8-en-2025-grace-a-la-france-et-l_689240",
+   "https://www.retail-insight-network.com/newsletters/carrefour-2025-sales-grow",
+   "https://finance.yahoo.com/news/carrefour-keeps-2025-goals-french-155727419.html",
+   "https://news.italianfood.net/?p=43224",
+   "https://rallies.ai/news/carrefour-achieves-3-france-margin-maintains-spanish-price-leadership-and-17b-cash-flow-target"
+  ]
+ }
+]
