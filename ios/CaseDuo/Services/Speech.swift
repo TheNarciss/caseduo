@@ -7,9 +7,12 @@ import Speech
 /// for the language (no time limit); otherwise Apple's server, whose tasks stop after about a
 /// minute: the task is restarted before that and the text keeps growing.
 ///
-/// After a silence the recogniser starts a new utterance: its results no longer contain the
-/// previous words, and sometimes the task ends on its own. Both cases commit what was said so
-/// far before going on (DictationMerge decides), so a pause never erases anything.
+/// After a silence (iOS 18 on-device recognition) the recogniser starts a new utterance: its
+/// results no longer contain the previous words, no final result announces it, and sometimes
+/// the task ends on its own. Three signals commit what was said so far before going on: the
+/// result's metadata (`speechDuration` is set once an utterance has ended), a text that no
+/// longer carries the previous words (DictationMerge), and the end of the task. A pause never
+/// erases anything.
 @MainActor
 @Observable
 final class Dictation {
@@ -112,16 +115,20 @@ final class Dictation {
             let text = result?.bestTranscription.formattedString
             let start = result?.bestTranscription.segments.first?.timestamp
             let isFinal = result?.isFinal ?? false
+            let utteranceEnded = result?.speechRecognitionMetadata?.speechDuration != nil
             Task { @MainActor in
                 guard let self, self.request === request else { return }  // a cancelled task still talks
                 if let text, !text.isEmpty {
-                    if DictationMerge.isNewUtterance(previous: self.partial, previousStart: self.partialStart,
-                                                     text: text, start: start) {
-                        self.commitPartial()  // the pause ended a sentence: keep it
-                    }
+                    let isNew = DictationMerge.isNewUtterance(previous: self.partial, previousStart: self.partialStart,
+                                                              text: text, start: start)
+                    if isNew { self.commitPartial() }  // the pause ended a sentence: keep it
                     self.partial = text
                     self.partialStart = start
                     self.transcript = DictationMerge.join(committed: self.committed, partial: text)
+                    // The recogniser says this sentence is over: freeze it before the next one replaces it.
+                    if utteranceEnded, !isNew { self.commitPartial() }
+                } else if utteranceEnded {
+                    self.commitPartial()
                 }
                 if isFinal || error != nil {
                     // The task ended (a silence, or the server's minute): keep going while recording.
