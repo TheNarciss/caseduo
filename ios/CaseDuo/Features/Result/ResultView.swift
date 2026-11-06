@@ -8,6 +8,9 @@ struct ResultView: View {
     let session: GradingSession
     @Environment(AppModel.self) private var model
     @State private var followUpMode: FollowUpMode?
+    /// The full-screen end of the exercise, once the score has landed (D16: « animation et retour à l'accueil »).
+    @State private var showDone = false
+    @State private var doneShown = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -50,9 +53,10 @@ struct ResultView: View {
                                 followUpMode = .retry(parentId: attempt.id)
                             }
                             .buttonStyle(.pill(.secondary))
-                            Button(model.tab == .training ? "Entraîner" : "Journée") { model.popToRoot() }
-                                .buttonStyle(.pill(.secondary, compact: true))
                         }
+                        Button(model.tab == .training ? "Retour à l'entraînement" : "Retour à la journée") { model.popToRoot() }
+                            .buttonStyle(.pill(.quiet, compact: true))
+                            .accessibilityIdentifier("result.home")
                     } else {
                         Button(model.tab == .training ? "Retour à l'entraînement" : "Retour à la journée") { model.popToRoot() }
                             .buttonStyle(.pill)
@@ -64,6 +68,20 @@ struct ResultView: View {
         .navigationTitle("Correction")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(session.phase == .grading)
+        .onChange(of: session.phase, initial: true) { _, phase in
+            guard phase == .done, !doneShown, session.request.kind == .main, session.request.mockRunId == nil,
+                  session.score != nil else { return }
+            doneShown = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) { showDone = true }
+        }
+        .fullScreenCover(isPresented: $showDone) {
+            ExerciseDoneOverlay(score: session.score ?? 0, xp: session.result?.xp, progress: session.result?.progress,
+                                type: session.type, isRevenge: session.isRevenge,
+                                read: { showDone = false },
+                                leave: { showDone = false; model.popToRoot() })
+                .environment(model)
+                .environment(\.palette, model.palette)
+        }
         .sheet(item: $followUpMode) { mode in
             FollowUpView(mode: mode, exerciseId: session.request.exerciseId, title: session.title,
                          type: session.type, language: session.language)
