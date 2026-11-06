@@ -63,6 +63,8 @@ protocol CaseDuoService: AnyObject, Sendable {
     func gradeStream(_ request: GradeRequest) -> AsyncThrowingStream<GradeStreamEvent, Error>
     func attempts(limit: Int) async throws -> [AttemptSummary]
     func attempt(id: ID) async throws -> Attempt
+    func training() async throws -> Training
+    func commit(_ request: CommitmentRequest) async throws -> Me
 
     func history(days: Int) async throws -> History
     func league() async throws -> League
@@ -220,6 +222,8 @@ final class LiveService: CaseDuoService, @unchecked Sendable {
     func grade(_ request: GradeRequest) async throws -> GradeResult { try await call("POST", "/grade", body: request) }
     func attempts(limit: Int) async throws -> [AttemptSummary] { try await call("GET", "/attempts?limit=\(limit)") }
     func attempt(id: ID) async throws -> Attempt { try await call("GET", "/attempts/\(id)") }
+    func training() async throws -> Training { try await call("GET", "/training") }
+    func commit(_ request: CommitmentRequest) async throws -> Me { try await call("POST", "/me/commitment", body: request) }
 
     func gradeStream(_ gradeRequest: GradeRequest) -> AsyncThrowingStream<GradeStreamEvent, Error> {
         AsyncThrowingStream { continuation in

@@ -4,7 +4,7 @@
     "name": "Premier case",
     "description": "Tu as répondu à ton premier case.",
     "symbol": "briefcase.fill",
-    "earned_at": "2026-11-04T14:33:08.278852+00:00"
+    "earned_at": "2026-11-06T03:21:02.165604+00:00"
   },
   {
     "code": "streak_3",
@@ -95,6 +95,13 @@
     "name": "Or",
     "description": "Promu en ligue Or.",
     "symbol": "medal.fill",
+    "earned_at": null
+  },
+  {
+    "code": "commitment_kept",
+    "name": "Parole tenue",
+    "description": "Un engagement tenu du premier au dernier jour.",
+    "symbol": "hand.raised.fill",
     "earned_at": null
   }
 ]

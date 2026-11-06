@@ -50,7 +50,9 @@ final class DemoService: CaseDuoService, @unchecked Sendable {
         await pause()
         if id == "ex-cad" { return try load(DemoFixtures.partsExercise) }
         var detail: ExerciseDetail = try load(DemoFixtures.exercise)
-        if let card = try? (load(DemoFixtures.today) as Today).cards.first(where: { $0.exerciseId == id }) {
+        let cards = ((try? load(DemoFixtures.today) as Today)?.cards ?? [])
+            + ((try? load(DemoFixtures.training) as Training)?.exercises ?? [])
+        if let card = cards.first(where: { $0.exerciseId == id }) {
             detail.id = card.exerciseId
             detail.type = card.type
             detail.typeLabel = card.typeLabel
@@ -92,6 +94,14 @@ final class DemoService: CaseDuoService, @unchecked Sendable {
 
     func attempts(limit: Int) async throws -> [AttemptSummary] { (try load(DemoFixtures.history) as History).recentAttempts ?? [] }
     func attempt(id: ID) async throws -> Attempt { try load(DemoFixtures.attempt) }
+    func training() async throws -> Training { try load(DemoFixtures.training) }
+
+    func commit(_ request: CommitmentRequest) async throws -> Me {
+        await pause()
+        var me: Me = try load(DemoFixtures.me)
+        me.dailyGoalXp = request.dailyXp
+        return me
+    }
     func history(days: Int) async throws -> History { try load(DemoFixtures.history) }
     func league() async throws -> League { try load(DemoFixtures.league) }
     func badges() async throws -> [Badge] { try load(DemoFixtures.badges) }

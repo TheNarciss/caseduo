@@ -16,7 +16,7 @@ final class AppModel {
         case ready
     }
 
-    enum Tab: Hashable { case today, history, league, profile }
+    enum Tab: Hashable { case today, training, history, league, profile }
 
     private(set) var phase: Phase = .launching
     private(set) var me: Me?
@@ -27,6 +27,12 @@ final class AppModel {
     var tab: Tab = .today
     /// The Aujourd'hui tab's navigation stack.
     var homePath: [HomeRoute] = []
+    /// The Entraîner tab's navigation stack.
+    var trainingPath: [HomeRoute] = []
+    /// Bumped after a grading so the Entraîner tab reloads its list.
+    private(set) var trainingVersion = 0
+    /// The full-screen « Journée complète » moment, once per day.
+    var showDayComplete = false
     /// The mock interview, full screen.
     var showMock = false
 
@@ -58,6 +64,19 @@ final class AppModel {
 
     var isAdmin: Bool { today?.isAdmin ?? me?.isAdmin ?? false }
     var soundsEnabled: Bool { me?.soundsEnabled ?? true }
+    var commitment: Commitment? { today?.commitment ?? me?.commitment }
+
+    /// Back to the start of the tab on screen.
+    func popToRoot() {
+        if tab == .training { trainingPath = [] } else { homePath = [] }
+    }
+
+    /// Back to the day, from anywhere.
+    func goHome() {
+        trainingPath = []
+        homePath = []
+        tab = .today
+    }
     var notificationsEnabled: Bool { me?.notificationsEnabled ?? true }
     var timeZone: TimeZone { userTimeZone(today?.timezone ?? me?.timezone) }
 
@@ -181,19 +200,27 @@ final class AppModel {
         WidgetBridge.update(from: progress)
         notifications.updateBadge(remaining: progress.remaining)
         notifications.rescheduleStreakSaver(today: today, enabled: notificationsEnabled)
+        trainingVersion += 1
 
         if progress.perfectWeek == true {
             celebrate(.perfectWeek)
         } else if progress.streakExtended {
             celebrate(.streakUp)
         } else if progress.goalJustMet == true {
+            Haptics.shared.play(.goalMet)
             Sounds.shared.play(.success)
+        }
+        if let bonus = progress.dayCompleteBonus, bonus > 0 {
+            // After the score has had its moment.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) { [weak self] in
+                self?.celebrate(.dayComplete)
+            }
         }
         // Refresh in the background: revenge cards, unlocks, league position.
         Task { await refreshToday() }
     }
 
-    enum Celebration { case streakUp, perfectWeek, promotion }
+    enum Celebration { case streakUp, perfectWeek, promotion, dayComplete }
 
     func celebrate(_ celebration: Celebration) {
         confettiTrigger += 1
@@ -207,7 +234,19 @@ final class AppModel {
         case .promotion:
             Haptics.shared.play(.scoreHigh)
             Sounds.shared.play(.success)
+        case .dayComplete:
+            showDayComplete = true
+            Haptics.shared.play(.dayComplete)
+            Sounds.shared.play(.streak)
         }
+    }
+
+    /// « Je m'engage » : the goal for a period (D16). Throws the server's refusal as is.
+    func commit(_ request: CommitmentRequest) async throws {
+        me = try await service.commit(request)
+        Haptics.shared.play(.commit)
+        Sounds.shared.play(.success)
+        await refreshToday()
     }
 
     // MARK: Profile
@@ -235,6 +274,7 @@ final class AppModel {
     func applyDebugLaunchArguments() {
         let defaults = UserDefaults.standard
         switch defaults.string(forKey: "uiTab") {
+        case "training": tab = .training
         case "history": tab = .history
         case "league": tab = .league
         case "profile": tab = .profile
@@ -252,6 +292,8 @@ final class AppModel {
             homePath = [.result(session)]
         case "dayclose":
             homePath = [.dayClose]
+        case "daycomplete":
+            showDayComplete = true
         case "mock":
             showMock = true
         default:

@@ -141,6 +141,7 @@ struct ScoreChart: View {
                     .foregroundStyle(Brand.textTertiary)
             }
             .chartYScale(domain: 0...100)
+            .chartForegroundStyleScale(domain: series.map(\.label), range: series.map { Brand.color(for: $0.type) })
             .chartLegend(position: .bottom, alignment: .leading)
         }
     }
@@ -158,7 +159,7 @@ private struct TypeFilter: View {
                     Button {
                         if selected.contains(s.label) { selected.remove(s.label) } else { selected.insert(s.label) }
                     } label: {
-                        Chip(text: s.label, tint: on ? Brand.flame : Brand.textTertiary, filled: selected.contains(s.label))
+                        Chip(text: s.label, tint: on ? Brand.color(for: s.type) : Brand.textTertiary, filled: selected.contains(s.label))
                     }
                     .buttonStyle(.plain)
                 }
@@ -203,7 +204,7 @@ struct AttemptRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            IconCircle(symbol: attempt.type?.symbol ?? "doc.text", tint: Brand.scoreColor(attempt.score), size: 34)
+            IconCircle(symbol: attempt.type?.symbol ?? "doc.text", tint: attempt.type.map { Brand.color(for: $0) } ?? Brand.textSecondary, size: 34)
             VStack(alignment: .leading, spacing: 2) {
                 Text(attempt.title ?? "Exercice").font(.subheadline.weight(.semibold)).lineLimit(2)
                 Text(kindLabel).font(.caption).foregroundStyle(Brand.textSecondary)

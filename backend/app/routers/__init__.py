@@ -14,10 +14,12 @@ from . import (
     me,
     mocks,
     today,
+    training,
 )
 
 ROUTERS: list[APIRouter] = [
     today.router,
+    training.router,
     exercises.router,
     grade.router,
     attempts.router,

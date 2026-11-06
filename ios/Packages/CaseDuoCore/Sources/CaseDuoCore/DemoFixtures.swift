@@ -10,7 +10,17 @@ public enum DemoFixtures {
      "sounds_enabled": true, "notifications_enabled": true, "streak_current": 12, "streak_longest": 17,
      "streak_freezes": 2, "xp_total": 1840, "league": "silver",
      "story_text": "ESILV, data engineer chez Thales à Rungis puis Singapour. Je vise la practice Data & IA d'un cabinet de transformation.",
-     "story_updated_at": "2026-10-28T09:12:44.512331+00:00", "created_at": "2026-10-01T08:00:00+00:00"}
+     "story_updated_at": "2026-10-28T09:12:44.512331+00:00", "created_at": "2026-10-01T08:00:00+00:00",
+     "commitment": {"id": "cmt-1", "daily_xp": 50, "days": 14, "start_date": "2026-11-04", "end_date": "2026-11-17",
+                    "status": "active", "day_index": 5, "days_met": 4, "days_frozen": 0, "days_missed": 0,
+                    "on_track": true, "kept": null, "badge_awarded": false,
+                    "calendar": [{"date": "2026-11-04", "state": "met"}, {"date": "2026-11-05", "state": "met"},
+                                 {"date": "2026-11-06", "state": "met"}, {"date": "2026-11-07", "state": "met"},
+                                 {"date": "2026-11-08", "state": "today"}, {"date": "2026-11-09", "state": "future"},
+                                 {"date": "2026-11-10", "state": "future"}, {"date": "2026-11-11", "state": "future"},
+                                 {"date": "2026-11-12", "state": "future"}, {"date": "2026-11-13", "state": "future"},
+                                 {"date": "2026-11-14", "state": "future"}, {"date": "2026-11-15", "state": "future"},
+                                 {"date": "2026-11-16", "state": "future"}, {"date": "2026-11-17", "state": "future"}]}}
     """
 
     public static let today = """
@@ -53,7 +63,68 @@ public enum DemoFixtures {
      ],
      "unlocks": {"streak30_icon": false, "perfect_week_until": null},
      "league": {"tier": "silver", "tier_label": "Argent", "rank": 2, "size": 6, "xp_week": 240},
-     "is_admin": true}
+     "is_admin": true,
+     "commitment": {"id": "cmt-1", "daily_xp": 50, "days": 14, "start_date": "2026-11-04", "end_date": "2026-11-17",
+                    "status": "active", "day_index": 5, "days_met": 4, "days_frozen": 0, "days_missed": 0,
+                    "on_track": true, "kept": null, "badge_awarded": false,
+                    "calendar": [{"date": "2026-11-04", "state": "met"}, {"date": "2026-11-05", "state": "met"},
+                                 {"date": "2026-11-06", "state": "met"}, {"date": "2026-11-07", "state": "met"},
+                                 {"date": "2026-11-08", "state": "today"}, {"date": "2026-11-09", "state": "future"},
+                                 {"date": "2026-11-10", "state": "future"}, {"date": "2026-11-11", "state": "future"},
+                                 {"date": "2026-11-12", "state": "future"}, {"date": "2026-11-13", "state": "future"},
+                                 {"date": "2026-11-14", "state": "future"}, {"date": "2026-11-15", "state": "future"},
+                                 {"date": "2026-11-16", "state": "future"}, {"date": "2026-11-17", "state": "future"}]}}
+    """
+
+    public static let training = """
+    {"date": "2026-11-08",
+     "types": [{"type": "brainteaser", "label": "Brainteaser", "total": 3, "done": 1},
+               {"type": "market_sizing", "label": "Market sizing", "total": 2, "done": 0},
+               {"type": "cadrage", "label": "Note de cadrage", "total": 1, "done": 0},
+               {"type": "business_case", "label": "Business case", "total": 1, "done": 1},
+               {"type": "diagnostic", "label": "Diagnostic", "total": 1, "done": 0}],
+     "exercises": [
+       {"exercise_id": "tr-bt1", "type": "brainteaser", "type_label": "Brainteaser",
+        "title": "Huit bagues et une balance à deux plateaux : trouver l'intruse en un minimum de pesées", "difficulty": 1,
+        "language": "fr", "style": "wavestone", "sector": "général", "estimated_minutes": 4, "is_revenge": false,
+        "revenge_step": null, "pinned": false, "done": true, "best_score": 92, "xp_potential": 5,
+        "due_label": "Bonus · quand tu veux", "is_bonus": true, "date": "2026-11-06", "from_pack": true},
+       {"exercise_id": "tr-bt2", "type": "brainteaser", "type_label": "Brainteaser",
+        "title": "L'horloge de quai dont les aiguilles se superposent toutes les 65 minutes : avance ou retard ?", "difficulty": 5,
+        "language": "fr", "style": "wavestone", "sector": "général", "estimated_minutes": 5, "is_revenge": false,
+        "revenge_step": null, "pinned": false, "done": false, "best_score": null, "xp_potential": 25,
+        "due_label": "Bonus · quand tu veux", "is_bonus": true, "date": "2026-11-06", "from_pack": true},
+       {"exercise_id": "tr-bt3", "type": "brainteaser", "type_label": "Brainteaser",
+        "title": "Combien de fois les aiguilles se superposent-elles en 24 h ?", "difficulty": 2,
+        "language": "fr", "style": "wavestone", "sector": "général", "estimated_minutes": 4, "is_revenge": false,
+        "revenge_step": null, "pinned": false, "done": false, "best_score": null, "xp_potential": 10,
+        "due_label": "Jour passé", "is_bonus": true, "date": "2026-11-05", "from_pack": false},
+       {"exercise_id": "tr-ms1", "type": "market_sizing", "type_label": "Market sizing",
+        "title": "Marché des cafés en dosettes et capsules en France", "difficulty": 1,
+        "language": "fr", "style": "wavestone", "sector": "retail", "estimated_minutes": 6, "is_revenge": false,
+        "revenge_step": null, "pinned": false, "done": false, "best_score": null, "xp_potential": 10,
+        "due_label": "Bonus · quand tu veux", "is_bonus": true, "date": "2026-11-06", "from_pack": true},
+       {"exercise_id": "tr-ms2", "type": "market_sizing", "type_label": "Market sizing",
+        "title": "Téléconsultation en France en 2030 : taille du marché et business plan d'une plateforme", "difficulty": 3,
+        "language": "fr", "style": "mbb", "sector": "santé", "estimated_minutes": 9, "is_revenge": false,
+        "revenge_step": null, "pinned": false, "done": false, "best_score": null, "xp_potential": 30,
+        "due_label": "Bonus · quand tu veux", "is_bonus": true, "date": "2026-11-06", "from_pack": true},
+       {"exercise_id": "tr-cad1", "type": "cadrage", "type_label": "Note de cadrage",
+        "title": "Cadrer un assistant d'IA générative pour les 4 000 conseillers d'une banque régionale", "difficulty": 1,
+        "language": "fr", "style": "wavestone", "sector": "banque", "estimated_minutes": 10, "is_revenge": false,
+        "revenge_step": null, "pinned": false, "done": false, "best_score": null, "xp_potential": 10,
+        "due_label": "Bonus · quand tu veux", "is_bonus": true, "date": "2026-11-06", "from_pack": true},
+       {"exercise_id": "tr-bc1", "type": "business_case", "type_label": "Business case",
+        "title": "Caisses automatiques dans 80 supermarchés : le business case tient-il face à la démarque ?", "difficulty": 2,
+        "language": "fr", "style": "wavestone", "sector": "retail", "estimated_minutes": 8, "is_revenge": false,
+        "revenge_step": null, "pinned": false, "done": true, "best_score": 68, "xp_potential": 20,
+        "due_label": "Bonus · quand tu veux", "is_bonus": true, "date": "2026-11-06", "from_pack": true},
+       {"exercise_id": "tr-dg1", "type": "diagnostic", "type_label": "Diagnostic",
+        "title": "Diagnostic MBB : une chaîne régionale de supermarchés a perdu 1,4 point de marge en deux ans", "difficulty": 3,
+        "language": "fr", "style": "mbb", "sector": "retail", "estimated_minutes": 10, "is_revenge": false,
+        "revenge_step": null, "pinned": false, "done": false, "best_score": null, "xp_potential": 30,
+        "due_label": "Bonus · quand tu veux", "is_bonus": true, "date": "2026-11-06", "from_pack": true}
+     ]}
     """
 
     public static let exercise = """

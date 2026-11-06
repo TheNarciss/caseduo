@@ -41,6 +41,16 @@ public enum ExerciseType: String, Codable, CaseIterable, Sendable, Hashable {
         }
     }
 
+    /// Where the type sits on the day screen and in the Entraîner tab.
+    public var category: ExerciseCategory {
+        switch self {
+        case .brainteaser: return .brainteasers
+        case .fit: return .fit
+        case .cadrageHome: return .homework
+        default: return .cases
+        }
+    }
+
     /// SF Symbol for the card.
     public var symbol: String {
         switch self {
@@ -53,6 +63,20 @@ public enum ExerciseType: String, Codable, CaseIterable, Sendable, Hashable {
         case .cadrageHome: return "rectangle.stack"
         case .techScreen: return "cpu"
         case .unknown: return "questionmark.circle"
+        }
+    }
+}
+
+/// The families of exercises, each with its colour in the app.
+public enum ExerciseCategory: String, Sendable, CaseIterable {
+    case brainteasers, fit, cases, homework
+
+    public var title: String {
+        switch self {
+        case .brainteasers: return "Brainteasers"
+        case .fit: return "Fit"
+        case .cases: return "Cases"
+        case .homework: return "Cadrage à domicile"
         }
     }
 }
@@ -115,6 +139,54 @@ public struct Me: Codable, Sendable, Equatable {
     public var storyText: String?
     public var storyUpdatedAt: Date?
     public var createdAt: Date?
+    /// The running commitment, or the last one for a week after it ended.
+    public var commitment: Commitment?
+}
+
+/// « Je m'engage » : a daily XP goal held for 7, 14 or 30 days (docs/API.md, Profil).
+public struct Commitment: Codable, Sendable, Equatable {
+    public var id: ID
+    public var dailyXp: Int
+    public var days: Int
+    public var startDate: String
+    public var endDate: String
+    /// "active" or "ended".
+    public var status: String
+    public var dayIndex: Int
+    public var daysMet: Int
+    public var daysFrozen: Int
+    public var daysMissed: Int
+    public var onTrack: Bool
+    /// Only once ended: no day missed.
+    public var kept: Bool?
+    public var badgeAwarded: Bool?
+    public var calendar: [CommitmentDay]
+
+    public var isActive: Bool { status == "active" }
+    public var isEnded: Bool { status == "ended" }
+    /// Days kept, freezes included: what the promise asked.
+    public var daysHeld: Int { daysMet + daysFrozen }
+}
+
+public struct CommitmentDay: Codable, Sendable, Equatable, Hashable, Identifiable {
+    public var date: String
+    /// met, frozen, missed, today, future.
+    public var state: String
+    public var id: String { date }
+}
+
+/// `POST /me/commitment`.
+public struct CommitmentRequest: Codable, Sendable, Equatable {
+    public var dailyXp: Int
+    public var days: Int
+
+    public init(dailyXp: Int, days: Int) {
+        self.dailyXp = dailyXp
+        self.days = days
+    }
+
+    public static let xpChoices = [30, 50, 80]
+    public static let dayChoices = [7, 14, 30]
 }
 
 /// `PATCH /me`: only the fields set are sent.
@@ -213,6 +285,10 @@ public struct ExerciseCard: Codable, Sendable, Equatable, Identifiable, Hashable
     public var bestScore: Int?
     public var xpPotential: Int?
     public var dueLabel: String?
+    /// Outside the day's plan: the bonus pack or a past day's leftover (Entraîner tab).
+    public var isBonus: Bool?
+    public var date: String?
+    public var fromPack: Bool?
 
     public var id: String { exerciseId + (isRevenge ? "#revenge" : "") }
     public var displayType: String { typeLabel ?? type.label }
@@ -251,6 +327,22 @@ public struct Today: Codable, Sendable, Equatable {
     public var unlocks: Unlocks?
     public var league: LeagueSummary?
     public var isAdmin: Bool?
+    public var commitment: Commitment?
+}
+
+/// `GET /training`: the Entraîner tab.
+public struct Training: Codable, Sendable, Equatable {
+    public var date: String
+    public var types: [TrainingType]
+    public var exercises: [ExerciseCard]
+}
+
+public struct TrainingType: Codable, Sendable, Equatable, Hashable, Identifiable {
+    public var type: ExerciseType
+    public var label: String
+    public var total: Int
+    public var done: Int
+    public var id: String { type.rawValue }
 }
 
 public struct WidgetInfo: Codable, Sendable, Equatable {

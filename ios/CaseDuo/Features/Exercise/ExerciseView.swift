@@ -10,6 +10,7 @@ struct ExerciseView: View {
     let isRevenge: Bool
 
     @Environment(AppModel.self) private var model
+    @Environment(\.pushRoute) private var pushRoute
     @State private var exercise: ExerciseDetail?
     @State private var loadError: String?
     @State private var pane: Pane = .statement
@@ -184,6 +185,7 @@ struct ExerciseView: View {
     // MARK: Actions
 
     private func toggleDictation(_ exercise: ExerciseDetail) async {
+        Haptics.shared.play(.tap)
         if dictation.isRecording {
             dictation.stop()
             return
@@ -242,7 +244,7 @@ struct ExerciseView: View {
                                      language: exercise.language, isRevenge: isRevenge || exercise.isRevenge == true,
                                      model: model)
         session.start()
-        model.homePath.append(.result(session))
+        pushRoute(.result(session))
     }
 }
 

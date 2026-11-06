@@ -10,7 +10,6 @@ from sqlalchemy import select
 from app.content import bonus
 from app.db.models import CronRun, Exercise
 from app.generation import provider, service
-from app.services import today as today_service
 from app.services.clock import today_for
 from tests.fake_llm import SEARCH_URL, exercise_json
 
@@ -94,7 +93,7 @@ def pack_item(slot: str, type_: str, difficulty: int) -> dict:
     }
 
 
-async def test_bonus_pack_is_imported_once_and_shown_apart(user_client, db, tmp_path, fake_cli):
+async def test_bonus_pack_is_imported_once_and_trains_apart(user_client, db, tmp_path, fake_cli):
     client, user = user_client
     day = today_for(user)
     pack = [
@@ -108,35 +107,41 @@ async def test_bonus_pack_is_imported_once_and_shown_apart(user_client, db, tmp_
     await service.insert_starter_pack(db, day)
     assert await service.count_exercises(db, day) == 7  # the bonus does not make a day
 
-    cards = await today_service.build_cards(db, user.id, day)
-    bonus_cards = [c for c in cards if c.bonus]
-    assert [c.exercise.slot for c in bonus_cards] == ["bonustest_bt_01", "bonustest_case_01"]
-    assert cards[-2:] == bonus_cards  # after the day's own cards
-    assert bonus_cards[0].as_dict()["due_label"] == "Bonus · quand tu veux"
-    assert today_service.remaining(cards) == 7
+    today = (await client.get("/api/today")).json()
+    assert not any(c["is_bonus"] for c in today["cards"])  # the day stays the day
+    assert today["remaining"] == 7
 
-    for c in cards:
-        if not c.bonus:
-            resp = await client.post(
-                "/api/grade",
-                json={
-                    "exercise_id": str(c.exercise.id),
-                    "answer_text": "Une réponse assez longue.",
-                },
-            )
-            assert resp.status_code == 200, resp.text
-    target = bonus_cards[0].exercise
+    training = (await client.get("/api/training")).json()
+    labels = [c["due_label"] for c in training["exercises"]]
+    assert labels == ["Bonus · quand tu veux", "Bonus · quand tu veux"]
+    assert [t["type"] for t in training["types"]] == ["brainteaser", "market_sizing"]
+    assert training["types"][0] == {
+        "type": "brainteaser",
+        "label": "Brainteaser",
+        "total": 1,
+        "done": 0,
+    }
+    target = training["exercises"][0]
+    assert target["is_bonus"] and target["from_pack"] and target["date"] == day.isoformat()
+
     resp = await client.post(
         "/api/grade",
-        json={"exercise_id": str(target.id), "answer_text": "Une réponse assez longue."},
+        json={"exercise_id": target["exercise_id"], "answer_text": "Une réponse assez longue."},
     )
-    assert resp.status_code == 200
-    cards = await today_service.build_cards(db, user.id, day)
-    assert today_service.day_complete(cards)  # the other bonus is still open
-    assert next(c for c in cards if c.exercise.id == target.id).done  # still shown today
+    assert resp.status_code == 200, resp.text
+    assert resp.json()["progress"]["remaining"] == 7  # a bonus never counts for the day
+    training = (await client.get("/api/training")).json()
+    done = next(c for c in training["exercises"] if c["exercise_id"] == target["exercise_id"])
+    assert done["done"] and done["best_score"] == 100  # done ones stay, with their score
+    assert training["types"][0]["done"] == 1
 
-    tomorrow = await today_service.build_cards(db, user.id, day + timedelta(days=1))
-    assert [c.exercise.slot for c in tomorrow if c.bonus] == ["bonustest_case_01"]
+    # Yesterday's leftovers join the tab, answered ones and cadrage_home do not.
+    yesterday = day - timedelta(days=1)
+    await service.insert_starter_pack(db, yesterday)
+    training = (await client.get("/api/training")).json()
+    past = [c for c in training["exercises"] if not c["from_pack"]]
+    assert past and all(c["due_label"] == "Jour passé" for c in past)
+    assert "cadrage_home" not in {c["type"] for c in past}
 
 
 def test_the_shipped_bonus_pack_is_valid():

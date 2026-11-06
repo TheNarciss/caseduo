@@ -14,6 +14,7 @@ from pathlib import Path
 
 import pytest
 
+from app.content import bonus
 from app.generation import service as gen_service
 from app.llm import anthropic_client
 from app.routers import mocks as mocks_router
@@ -58,7 +59,11 @@ async def test_every_screen_response(admin_client, db, llm, monkeypatch):
     await client.put(
         "/api/me/story", json={"story_text": "ESILV, Thales Rungis, Thales Singapour."}
     )
+    resp = await client.post("/api/me/commitment", json={"daily_xp": 50, "days": 14})
+    assert resp.status_code == 200, resp.text
     await get("me", "/api/me")
+    await bonus.import_packs(db, today_for(user))
+    await get("training", "/api/training")
     today = await get("today", "/api/today")
     card = next(c for c in today["cards"] if c["type"] == "market_sizing")
     await get("exercise", f"/api/exercises/{card['exercise_id']}")
@@ -143,7 +148,7 @@ async def test_every_screen_response(admin_client, db, llm, monkeypatch):
     resp = await client.patch("/api/me", json={"daily_goal_xp": 45})
     out["error_422"] = resp.json()
 
-    assert len(out) == 20
+    assert len(out) == 21
     if os.getenv("UPDATE_CONTRACT_FIXTURES") == "1":
         FIXTURES.mkdir(parents=True, exist_ok=True)
         for name, body in out.items():

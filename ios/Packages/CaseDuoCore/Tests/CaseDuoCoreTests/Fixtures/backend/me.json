@@ -1,6 +1,6 @@
 {
-  "id": "aced77ab-223f-4bae-8e6f-70463e1cdc4d",
-  "email": "admin-7549bfd7@example.com",
+  "id": "05dc93c9-62a5-4155-b54c-062f1e8e7df9",
+  "email": "admin-a698c349@example.com",
   "display_name": null,
   "is_admin": true,
   "timezone": "Asia/Singapore",
@@ -13,6 +13,79 @@
   "xp_total": 0,
   "league": "bronze",
   "story_text": "ESILV, Thales Rungis, Thales Singapour.",
-  "story_updated_at": "2026-11-04T14:33:08.210172+00:00",
-  "created_at": "2026-11-04T14:33:08.122140+00:00"
+  "story_updated_at": "2026-11-06T03:21:02.041871+00:00",
+  "created_at": "2026-11-06T03:21:01.975123+00:00",
+  "commitment": {
+    "id": "aac933cf-2744-4b4f-8fa5-a110d5985359",
+    "daily_xp": 50,
+    "days": 14,
+    "start_date": "2026-11-06",
+    "end_date": "2026-11-19",
+    "status": "active",
+    "day_index": 1,
+    "days_met": 0,
+    "days_frozen": 0,
+    "days_missed": 0,
+    "on_track": true,
+    "kept": null,
+    "badge_awarded": false,
+    "calendar": [
+      {
+        "date": "2026-11-06",
+        "state": "today"
+      },
+      {
+        "date": "2026-11-07",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-08",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-09",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-10",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-11",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-12",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-13",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-14",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-15",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-16",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-17",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-18",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-19",
+        "state": "future"
+      }
+    ]
+  }
 }

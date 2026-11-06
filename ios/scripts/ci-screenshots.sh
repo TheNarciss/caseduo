@@ -41,13 +41,15 @@ shoot() {
 
 SET="${SHOT_SET:-quick}"
 shoot 01-today 6
-shoot 02-exercise 6 -uiOpen exercise
-shoot 03-result 9 -uiOpen result
-shoot 04-history 6 -uiTab history
-[ "$SET" = full ] && shoot 05-league 6 -uiTab league
-[ "$SET" = full ] && shoot 06-profile 6 -uiTab profile
-[ "$SET" = full ] && shoot 07-day-close 6 -uiOpen dayclose
-[ "$SET" = full ] && shoot 08-mock 6 -uiOpen mock
+shoot 02-training 6 -uiTab training
+shoot 03-exercise 6 -uiOpen exercise
+shoot 04-result 9 -uiOpen result
+shoot 05-day-complete 6 -uiOpen daycomplete
+shoot 06-history 6 -uiTab history
+[ "$SET" = full ] && shoot 07-league 6 -uiTab league
+[ "$SET" = full ] && shoot 08-profile 6 -uiTab profile
+[ "$SET" = full ] && shoot 09-day-close 6 -uiOpen dayclose
+[ "$SET" = full ] && shoot 10-mock 6 -uiOpen mock
 
 sips -Z 1200 "$OUT"/*.png >/dev/null
 ls -la "$OUT"

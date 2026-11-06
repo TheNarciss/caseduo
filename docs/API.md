@@ -29,7 +29,16 @@ Erreurs : `{"detail": "message lisible en français", "type": "NomDeLErreur"}` a
   "created_at": "2026-11-04T08:00:00+00:00"
 }
 ```
-- `PATCH /me` : n'importe quel sous-ensemble de `{display_name, timezone, daily_goal_xp (30|50|80), sounds_enabled, notifications_enabled}` → `Me`.
+- `commitment` (D16) : l'engagement en cours, ou le dernier pendant 7 jours après sa fin, sinon `null` :
+```json
+{"id": "uuid", "daily_xp": 50, "days": 14, "start_date": "2026-11-04", "end_date": "2026-11-17",
+ "status": "active", "day_index": 5, "days_met": 4, "days_frozen": 0, "days_missed": 0,
+ "on_track": true, "kept": null, "badge_awarded": false,
+ "calendar": [{"date": "2026-11-04", "state": "met"}, {"date": "2026-11-08", "state": "today"}, {"date": "2026-11-09", "state": "future"}]}
+```
+  `status` ∈ `active, ended` ; `state` ∈ `met, frozen, missed, today, future` ; `kept` n'est renseigné qu'une fois terminé (aucun jour manqué, un freeze compte comme tenu). Le badge `commitment_kept` (« Parole tenue ») tombe au premier `/today` qui suit la fin d'un engagement tenu.
+- `PATCH /me` : n'importe quel sous-ensemble de `{display_name, timezone, daily_goal_xp (30|50|80), sounds_enabled, notifications_enabled}` → `Me`. **409** sur `daily_goal_xp` tant qu'un engagement court.
+- `POST /me/commitment` : `{"daily_xp": 30|50|80, "days": 7|14|30}` → `Me` (avec `commitment`). L'objectif prend cette valeur et ne bouge plus jusqu'à `end_date`. **409** si un engagement court déjà.
 - `PUT /me/story` : `{"story_text": "…"}` → `Me`.
 - `POST /me/push-token` : `{"token": "<hex APNs>", "environment": "sandbox" | "production"}` → 204.
 - `DELETE /me` → 204 (suppression définitive du compte et de ses données).
@@ -52,7 +61,8 @@ Erreurs : `{"detail": "message lisible en français", "type": "NomDeLErreur"}` a
   "cards": [ExerciseCard, …],
   "unlocks": {"streak30_icon": false, "perfect_week_until": null},
   "league": {"tier": "bronze", "tier_label": "Bronze", "rank": 3, "size": 6, "xp_week": 120},
-  "is_admin": false
+  "is_admin": false,
+  "commitment": {…comme /me…}
 }
 ```
 - `streak.status` : `extended_today` (objectif atteint aujourd'hui), `at_risk` (série > 0, objectif pas encore atteint), `safe` (série à 0 et rien à perdre).
@@ -69,10 +79,18 @@ Erreurs : `{"detail": "message lisible en français", "type": "NomDeLErreur"}` a
   "difficulty": 3, "language": "fr", "style": "wavestone", "sector": "industrie/défense",
   "estimated_minutes": 6, "is_revenge": false, "revenge_step": null,
   "pinned": false, "done": false, "best_score": null, "xp_potential": 30,
-  "due_label": null
+  "due_label": null, "is_bonus": false, "date": "2026-11-04", "from_pack": false
 }
 ```
-`type` ∈ `market_sizing, cadrage, business_case, diagnostic, brainteaser, fit, cadrage_home, tech_screen`. `style` ∈ `wavestone, mbb`. `language` ∈ `fr, en`. `due_label` : « À rendre dimanche soir » pour cadrage_home.
+`type` ∈ `market_sizing, cadrage, business_case, diagnostic, brainteaser, fit, cadrage_home, tech_screen`. `style` ∈ `wavestone, mbb`. `language` ∈ `fr, en`. `due_label` : « À rendre dimanche soir » pour cadrage_home, « Bonus · quand tu veux » ou « Jour passé » dans l'onglet Entraîner. L'app groupe les cartes du jour par famille (brainteasers, fit, cases, revanches) et donne une couleur à chaque type (D16).
+
+`GET /training` (onglet Entraîner, D16) → le pack bonus en entier, fait ou non, plus les exercices des 30 derniers jours restés sans réponse (hors cadrage_home et mocks) :
+```json
+{"date": "2026-11-06",
+ "types": [{"type": "brainteaser", "label": "Brainteaser", "total": 15, "done": 2}],
+ "exercises": [ExerciseCard, …]}
+```
+Triés par type puis difficulté. `is_bonus` vaut toujours `true` ici ; `from_pack` distingue le pack d'un jour passé. Ces exercices rapportent des XP mais ne comptent ni pour `remaining` ni pour « journée complète ».
 
 `GET /widget` → `{"date": "…", "streak": 4, "status": "at_risk", "remaining": 3, "xp_today": 20, "goal_xp": 50}` (petit, pour le widget et le badge).
 

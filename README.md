@@ -146,6 +146,8 @@ Avec la génération par Claude Code (D15), les exercices ne coûtent rien de pl
 
 ## L'app iPhone
 
+Cinq onglets : Aujourd'hui (la série, l'engagement, le plan du jour par famille), Entraîner (le pack bonus et les jours passés, par type), Historique, Ligue, Profil. Une couleur par type d'exercice, une flamme-mascotte dessinée en SwiftUI, des retours haptiques à chaque moment qui compte (DEVIATIONS D16).
+
 Tout est dans `ios/` et suit SingaSmoke : `project.yml` (XcodeGen), un Mac de GitHub compile et envoie sur TestFlight. La mise en place, une seule fois, est dans **[docs/ios-testflight.md](docs/ios-testflight.md)** : App IDs, App Group, clé APNs, profils de l'app et du widget, secrets, compte de démo.
 
 ```bash

@@ -16,6 +16,7 @@ struct ResultView: View {
                     ResultContent(
                         title: session.title,
                         typeLabel: session.type.label,
+                        type: session.type,
                         score: session.score,
                         rubric: session.state.rubricScores,
                         feedback: session.state.feedback,
@@ -49,11 +50,12 @@ struct ResultView: View {
                                 followUpMode = .retry(parentId: attempt.id)
                             }
                             .buttonStyle(.pill(.secondary))
-                            Button("Journée") { model.homePath = [] }
+                            Button(model.tab == .training ? "Entraîner" : "Journée") { model.popToRoot() }
                                 .buttonStyle(.pill(.secondary, compact: true))
                         }
                     } else {
-                        Button("Retour à la journée") { model.homePath = [] }.buttonStyle(.pill)
+                        Button(model.tab == .training ? "Retour à l'entraînement" : "Retour à la journée") { model.popToRoot() }
+                            .buttonStyle(.pill)
                     }
                 }
             }
@@ -76,6 +78,7 @@ struct ResultView: View {
 struct ResultContent: View {
     let title: String
     let typeLabel: String
+    var type: ExerciseType = .unknown
     let score: Int?
     let rubric: [RubricScore]
     let feedback: String
@@ -88,21 +91,32 @@ struct ResultContent: View {
     var compact = false
 
     @Environment(\.palette) private var palette
+    @State private var burst = 0
+
+    private var tint: Color { Brand.color(for: type) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             VStack(alignment: .leading, spacing: 6) {
-                Text(typeLabel.uppercased()).font(.caption.weight(.bold)).foregroundStyle(Brand.textSecondary)
+                Text(typeLabel.uppercased()).font(.caption.weight(.bold)).foregroundStyle(tint)
                 Text(title).font(.title3.weight(.bold))
             }
 
             HStack(alignment: .center, spacing: 18) {
                 ScoreRing(score: score)
+                    .background {
+                        BurstView(trigger: burst, colors: [tint, tint.opacity(0.7), palette.accent, .white])
+                            .frame(width: 260, height: 260)
+                    }
+                    .onChange(of: score) { old, new in
+                        if old == nil, new != nil, !compact { burst += 1 }
+                    }
                 VStack(alignment: .leading, spacing: 6) {
+                    if let score, !compact {
+                        VerdictBadge(score: score, tint: tint)
+                    }
                     if let xp {
-                        Text(Format.xp(xp.earned, signed: true))
-                            .font(.title2.weight(.heavy))
-                            .foregroundStyle(palette.accent)
+                        XPPop(earned: xp.earned, tint: palette.accent)
                         ForEach(xp.breakdown ?? [], id: \.self) { line in
                             Text("\(line.label) : \(line.xp >= 0 ? "+" : "")\(line.xp)")
                                 .font(.caption).foregroundStyle(Brand.textSecondary)
@@ -180,7 +194,9 @@ struct ResultContent: View {
 struct ScoreRing: View {
     let score: Int?
     @State private var shown = 0
+    @State private var pop = false
     @Environment(\.palette) private var palette
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         ZStack {
@@ -200,6 +216,7 @@ struct ScoreRing: View {
             }
         }
         .frame(width: 104, height: 104)
+        .scaleEffect(pop || reduceMotion || score == nil ? 1 : 0.85)
         .onAppear { animate(to: score) }
         .onChange(of: score) { _, new in animate(to: new) }
         .accessibilityElement()
@@ -209,6 +226,7 @@ struct ScoreRing: View {
     private func animate(to value: Int?) {
         guard let value else { return }
         withAnimation(.easeOut(duration: 0.28)) { shown = value }
+        withAnimation(.spring(duration: 0.45, bounce: 0.5)) { pop = true }
     }
 }
 
@@ -332,6 +350,7 @@ struct AttemptDetailView: View {
                 if let attempt {
                     ResultContent(title: attempt.exercise?.title ?? "Exercice",
                                   typeLabel: attempt.exercise?.typeLabel ?? attempt.exercise?.type.label ?? "",
+                                  type: attempt.exercise?.type ?? .unknown,
                                   score: attempt.score, rubric: attempt.rubricScores ?? [], feedback: attempt.feedback ?? "",
                                   followUp: attempt.followUp, attempt: attempt,
                                   xp: XPInfo(earned: attempt.xpEarned, breakdown: nil), progress: nil,
