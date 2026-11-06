@@ -64,7 +64,7 @@ struct TrainingView: View {
 
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                filter(nil, label: "Tout", count: total, tint: palette.accent)
+                filter(nil, label: "Tout", count: total - done, tint: palette.accent)
                 ForEach(training.types) { type in
                     filter(type.type, label: type.label, count: type.total - type.done, tint: Brand.color(for: type.type))
                 }
@@ -83,7 +83,7 @@ struct TrainingView: View {
             .frame(maxWidth: .infinity)
             .padding(.vertical, 40)
         } else {
-            ForEach(ExerciseType.allCases, id: \.self) { type in
+            ForEach(training.types.map(\.type), id: \.self) { type in
                 let cards = visible.filter { $0.type == type }
                 if !cards.isEmpty {
                     SectionHeader(title: type.label, symbol: type.symbol, tint: Brand.color(for: type),
