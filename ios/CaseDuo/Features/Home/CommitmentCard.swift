@@ -103,7 +103,6 @@ struct CommitmentCard: View {
 struct CommitmentDots: View {
     let days: [CommitmentDay]
     @Environment(\.palette) private var palette
-    @State private var pulse = false
 
     var body: some View {
         let columns = Array(repeating: GridItem(.flexible(), spacing: 6), count: min(15, max(7, days.count)))
@@ -112,7 +111,6 @@ struct CommitmentDots: View {
                 dot(day.state)
             }
         }
-        .onAppear { pulse = true }
         .accessibilityElement()
         .accessibilityLabel("\(days.filter { $0.state == "met" || $0.state == "frozen" }.count) jours tenus sur \(days.count)")
     }
@@ -129,13 +127,26 @@ struct CommitmentDots: View {
             Circle().stroke(Brand.danger.opacity(0.7), lineWidth: 1.5).frame(width: 9, height: 9)
                 .frame(maxWidth: .infinity).frame(height: 18)
         case "today":
-            Circle().fill(palette.accent).frame(width: 10, height: 10)
-                .scaleEffect(pulse ? 1.25 : 0.9)
-                .animation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true), value: pulse)
+            PulsingDot(tint: palette.accent)
                 .frame(maxWidth: .infinity).frame(height: 18)
         default:
             Circle().fill(Color.white.opacity(0.14)).frame(width: 7, height: 7)
                 .frame(maxWidth: .infinity).frame(height: 18)
+        }
+    }
+}
+
+/// Today's dot, pulsing from the clock (no animation transaction, nothing to leak).
+private struct PulsingDot: View {
+    let tint: Color
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var born = Date()
+
+    var body: some View {
+        TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: reduceMotion)) { context in
+            let phase = reduceMotion ? 0 : sin(context.date.timeIntervalSince(born) * 2 * .pi / 1.8)
+            Circle().fill(tint).frame(width: 10, height: 10)
+                .scaleEffect(1.075 + 0.175 * CGFloat(phase))
         }
     }
 }

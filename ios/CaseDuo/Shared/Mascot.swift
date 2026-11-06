@@ -179,10 +179,8 @@ struct FlameMascot: View {
     var glow: Bool = true
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var breathing = false
-    @State private var blink: CGFloat = 1
     @State private var bounce: CGFloat = 1
-    @State private var swaying = false
+    @State private var born = Date()
 
     init(mood: MascotMood = .idle, size: CGFloat = 120, glow: Bool = true) {
         self.mood = mood
@@ -194,42 +192,41 @@ struct FlameMascot: View {
     private var u: CGFloat { size / 120 }
 
     var body: some View {
-        ZStack {
-            if glow {
-                Circle().fill(MascotColor.flame.opacity(0.22))
-                    .frame(width: size * 0.8, height: size * 0.8).blur(radius: size * 0.12)
+        // Ambient motion (breathing, sway, blink) is computed from the clock, frame by frame: no
+        // SwiftUI animation transaction is ever started for it, so nothing can leak into the
+        // transitions of the screen around the mascot.
+        TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: reduceMotion)) { context in
+            let t = context.date.timeIntervalSince(born)
+            ZStack {
+                if glow {
+                    Circle().fill(MascotColor.flame.opacity(0.22))
+                        .frame(width: size * 0.8, height: size * 0.8).blur(radius: size * 0.12)
+                }
+                flame(blink: blinkScale(at: t))
+                    .frame(width: 100 * u, height: size)
+                    .rotationEffect(.degrees(swayAngle(at: t)))
+                    .scaleEffect(breathScale(at: t))
+                    .scaleEffect(bounce)
+                    .animation(reduceMotion ? nil : .spring(duration: 0.35, bounce: 0.4), value: bounce)
             }
-            flame
-                .frame(width: 100 * u, height: size)
-                .rotationEffect(.degrees(swayAngle))
-                .animation(swayAnimation, value: swaying)
-                .scaleEffect(breathing ? 1.03 : 1.0)
-                .animation(reduceMotion ? nil : .easeInOut(duration: 1.6).repeatForever(autoreverses: true), value: breathing)
-                .scaleEffect(bounce)
-                .animation(reduceMotion ? nil : .spring(duration: 0.35, bounce: 0.4), value: bounce)
         }
         .frame(width: size, height: size)
-        .onAppear(perform: startAmbientMotion)
         .onChange(of: mood) { _, newMood in
             if newMood == .happy || newMood == .proud { bounceOnce() }
-            swaying = newMood == .sleepy
         }
-        .task(id: mood) { await blinkLoop() }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Mascotte CaseDuo")
         .accessibilityValue(mood.frenchDescription)
     }
 
-    private var flame: some View {
+    private func flame(blink: CGFloat) -> some View {
         ZStack(alignment: .topLeading) {
             FlameBody(droop: mood == .sleepy ? 8 : 0)
                 .fill(LinearGradient(colors: [MascotColor.flameLight, MascotColor.flame, MascotColor.flameDeep],
                                      startPoint: .top, endPoint: .bottom))
             InnerFlame().fill(MascotColor.flameLight.opacity(0.9))
-            Eye(mood: mood, u: u, isLeft: true).scaleEffect(x: 1, y: blink)
-                .animation(.easeInOut(duration: 0.09), value: blink).position(d(38, 80))
-            Eye(mood: mood, u: u, isLeft: false).scaleEffect(x: 1, y: blink)
-                .animation(.easeInOut(duration: 0.09), value: blink).position(d(62, 80))
+            Eye(mood: mood, u: u, isLeft: true).scaleEffect(x: 1, y: blink).position(d(38, 80))
+            Eye(mood: mood, u: u, isLeft: false).scaleEffect(x: 1, y: blink).position(d(62, 80))
             if mood == .thinking {                                 // one raised eyebrow
                 Capsule().fill(MascotColor.pupil).frame(width: 10 * u, height: 2.6 * u)
                     .rotationEffect(.degrees(-14)).position(d(63, 65))
@@ -274,45 +271,34 @@ struct FlameMascot: View {
         return path
     }
 
-    // MARK: Motion. Each motion is animated by its own `.animation(_:value:)` modifier, never by a
-    // global `withAnimation`: a repeating animation started that way leaks into every transition
-    // on screen (the pages would slide back and forth). Breathing, sway and bounce are skipped with
-    // Reduce Motion; the blink is kept (tiny).
+    // MARK: Motion, as functions of time (seconds since the view appeared). With Reduce Motion
+    // the timeline is paused: everything stays at its rest value.
 
-    private var swayAngle: Double {
+    /// A gentle 1.0 ↔ 1.03 breath every 3.2 s.
+    private func breathScale(at t: TimeInterval) -> CGFloat {
+        guard !reduceMotion else { return 1 }
+        return 1.015 + 0.015 * CGFloat(sin(t * 2 * .pi / 3.2))
+    }
+
+    /// ±3° when sleepy, every 2.8 s.
+    private func swayAngle(at t: TimeInterval) -> Double {
         guard mood == .sleepy, !reduceMotion else { return 0 }
-        return swaying ? 3 : -3
+        return 3 * sin(t * 2 * .pi / 2.8)
     }
 
-    /// Repeating while it sways, a single ease back to upright when it stops.
-    private var swayAnimation: Animation? {
-        guard !reduceMotion else { return nil }
-        return swaying ? .easeInOut(duration: 1.4).repeatForever(autoreverses: true) : .easeInOut(duration: 0.3)
+    /// Eyes closed for 0.16 s every 3.6 s (not when they are already shut or heavy).
+    private func blinkScale(at t: TimeInterval) -> CGFloat {
+        guard mood.blinks, !reduceMotion else { return 1 }
+        let phase = t.truncatingRemainder(dividingBy: 3.6)
+        guard phase < 0.16 else { return 1 }
+        return phase < 0.08 ? 1 - CGFloat(phase / 0.08) * 0.9 : 0.1 + CGFloat((phase - 0.08) / 0.08) * 0.9
     }
 
-    private func startAmbientMotion() {
-        guard !reduceMotion else { return }
-        breathing = true
-        swaying = mood == .sleepy
-    }
-
+    /// One spring bounce when the mood turns happy or proud: a finite animation, scoped to the mascot.
     private func bounceOnce() {
         guard !reduceMotion else { return }
         bounce = 1.12
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { bounce = 1 }
-    }
-
-    /// Blinks every ~3.5 s. Restarted by `.task(id: mood)` on each mood change, cancelled on disappear.
-    @MainActor
-    private func blinkLoop() async {
-        blink = 1
-        guard mood.blinks else { return }
-        while !Task.isCancelled {
-            do { try await Task.sleep(for: .seconds(Double.random(in: 2.8...4.2))) } catch { return }
-            blink = 0.1
-            do { try await Task.sleep(for: .seconds(0.09)) } catch { return }
-            blink = 1
-        }
     }
 }
 

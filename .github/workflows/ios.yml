@@ -71,6 +71,26 @@ jobs:
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO \
             | tail -n 80
 
+      - name: UI test in the simulator (the pages do not slide sideways)
+        if: github.event_name == 'pull_request'
+        continue-on-error: true   # a simulator that boots too slowly must not block the build
+        timeout-minutes: 15
+        run: |
+          set -o pipefail
+          UDID=$(xcrun simctl list devices available -j | python3 -c '
+          import json, sys
+          devices = json.load(sys.stdin)["devices"]
+          phones = [(runtime, d) for runtime, ds in devices.items() if ".iOS-" in runtime
+                    for d in ds if d["name"].startswith("iPhone") and "Pro" in d["name"] and "Max" not in d["name"]]
+          phones.sort(key=lambda p: [int(x) for x in p[0].rsplit("iOS-", 1)[1].split("-")])
+          print(phones[-1][1]["udid"])')
+          xcodebuild test \
+            -project CaseDuo.xcodeproj -scheme CaseDuo -configuration Debug \
+            -destination "id=$UDID" -only-testing:CaseDuoUITests \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO \
+            | grep -E "Test Case|error:|slid sideways|TEST (SUCCEEDED|FAILED)|\*\* " | tail -n 40
+
       - name: Screenshots in the simulator
         id: shots
         if: github.event_name == 'pull_request'

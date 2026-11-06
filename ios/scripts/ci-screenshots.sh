@@ -76,9 +76,30 @@ PY
   fi
 }
 
+# stability NAME Y HEIGHT: after a shot, four crops of a static region half a second apart. If the
+# hashes differ, something on the page keeps moving (a leaked animation, a layout that wobbles).
+stability() {
+  local name=$1 y=$2 height=$3 hashes=""
+  for i in 1 2 3 4; do
+    sleep 0.5
+    xcrun simctl io "$UDID" screenshot "$OUT/.probe.png" >/dev/null 2>&1
+    width=$(sips -g pixelWidth "$OUT/.probe.png" | awk '/pixelWidth/ {print $2}')
+    sips -c "$height" "$width" --cropOffset "$y" 0 "$OUT/.probe.png" --out "$OUT/.crop.png" >/dev/null 2>&1
+    hashes="$hashes $(md5 -q "$OUT/.crop.png" | cut -c1-8)"
+  done
+  rm -f "$OUT/.probe.png" "$OUT/.crop.png"
+  if [ "$(echo "$hashes" | tr ' ' '\n' | sort -u | grep -c .)" -eq 1 ]; then
+    echo "  stable: $name ($hashes)"
+  else
+    echo "::warning::$name keeps moving: crops differ ($hashes)"
+  fi
+}
+
 SET="${SHOT_SET:-quick}"
 shoot 01-today 6
+stability 01-today 1300 900
 shoot 02-training 6 -uiTab training
+stability 02-training 900 1200
 shoot 03-exercise 6 -uiOpen exercise
 shoot 04-result 9 -uiOpen result
 shoot 05-day-complete 6 -uiOpen daycomplete

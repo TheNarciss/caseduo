@@ -57,31 +57,33 @@ struct ConfettiView: View {
     }
 }
 
-/// The streak flame: breathes gently, glows when the day's goal is met.
+/// The streak flame (login, launch): breathes gently, glows when lit. The breath is computed
+/// from the clock, so no animation transaction can leak into the screen around it.
 struct FlameView: View {
     let streak: Int
     var lit: Bool
     var size: CGFloat = 96
     @Environment(\.palette) private var palette
-    @State private var breathe = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var born = Date()
 
     var body: some View {
-        ZStack {
-            Circle()
-                .fill(palette.accent.opacity(lit ? 0.22 : 0.08))
-                .frame(width: size * 1.25, height: size * 1.25)
-                .blur(radius: 14)
-                .scaleEffect(breathe ? 1.06 : 0.94)
-            Image(systemName: lit ? "flame.fill" : "flame")
-                .font(.system(size: size * 0.78, weight: .bold))
-                .foregroundStyle(lit ? AnyShapeStyle(palette.linear) : AnyShapeStyle(Color.white.opacity(0.45)))
-                .scaleEffect(breathe ? 1.04 : 1)
-                .symbolEffect(.bounce, value: streak)
+        TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: reduceMotion)) { context in
+            let phase = reduceMotion ? 0 : sin(context.date.timeIntervalSince(born) * 2 * .pi / 3.2)
+            ZStack {
+                Circle()
+                    .fill(palette.accent.opacity(lit ? 0.22 : 0.08))
+                    .frame(width: size * 1.25, height: size * 1.25)
+                    .blur(radius: 14)
+                    .scaleEffect(1 + 0.06 * CGFloat(phase))
+                Image(systemName: lit ? "flame.fill" : "flame")
+                    .font(.system(size: size * 0.78, weight: .bold))
+                    .foregroundStyle(lit ? AnyShapeStyle(palette.linear) : AnyShapeStyle(Color.white.opacity(0.45)))
+                    .scaleEffect(1.02 + 0.02 * CGFloat(phase))
+                    .symbolEffect(.bounce, value: streak)
+            }
         }
         .frame(width: size * 1.3, height: size * 1.3)
-        // Scoped to this view: a global withAnimation(repeatForever) would leak into transitions.
-        .animation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true), value: breathe)
-        .onAppear { breathe = true }
         .accessibilityElement()
         .accessibilityLabel("Série de \(streak) jours")
     }

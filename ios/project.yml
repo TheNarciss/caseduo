@@ -83,6 +83,21 @@ targets:
         Release:
           CODE_SIGN_ENTITLEMENTS: CaseDuo/Config/CaseDuo.Release.entitlements
 
+  CaseDuoUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: CaseDuoUITests
+    dependencies:
+      - target: CaseDuo
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: uk.riskybusinesses.caseduo.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: CaseDuo
+        CODE_SIGN_STYLE: Automatic
+
   CaseDuoWidget:
     type: app-extension
     platform: iOS
@@ -124,6 +139,11 @@ schemes:
       targets:
         CaseDuo: all
         CaseDuoWidget: all
+        CaseDuoUITests: [test]
+    test:
+      config: Debug
+      targets:
+        - CaseDuoUITests
     run:
       config: Debug
     archive:
