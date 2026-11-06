@@ -30,7 +30,8 @@ from httpx import ASGITransport, AsyncClient
 from sqlalchemy import text
 
 _TABLES = (
-    "path_item_results, path_progress, goal_commitments, league_weeks, reveals, revenges, "
+    "path_item_results, path_progress, path_items, path_nodes, path_units, "
+    "goal_commitments, league_weeks, reveals, revenges, "
     "llm_daily_cost, user_badges, user_story, "
     "daily_activity, attempts, mock_runs, exercises, cron_runs, oauth_account, users"
 )
