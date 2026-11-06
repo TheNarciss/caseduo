@@ -1,0 +1,4340 @@
+[
+ {
+  "id": "u2.round.001",
+  "format": "concept_card",
+  "skill": "u2.round",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Arrondir et garder les zéros",
+  "media": null,
+  "explanation": "",
+  "payload": {
+   "screens": [
+    {
+     "title": "L'idée",
+     "body": "En entretien, on ne calcule pas en silence : on **arrondit d'abord, à voix haute**, on calcule sur des chiffres ronds, puis on **corrige l'arrondi** à la fin.\n\nLe vrai danger n'est pas l'arithmétique, ce sont les **zéros** : garde toujours l'unité avec le nombre (k€, M€, Md€, MWh, lits…) et convertis une seule fois.\n\nRepère : 1 k = mille, 1 M = 1 000 k, 1 Md = 1 000 M."
+    },
+    {
+     "title": "Exemple parlé",
+     "body": "« 2,4 millions de contrats, prime 480 €, 72 % de sinistres. »\n\nCe que dit un bon candidat :\n« Je prends 2,4 M × 500 € = 1,2 Md€ de primes. 480, c'est 4 % de moins, donc environ 1,15 Md€. Les sinistres, c'est 72 %, je prends 70 % : 0,8 Md€, un peu plus avec les 2 points, disons **830 M€** par an. »\n\nTrois gestes : l'arrondi annoncé, l'unité répétée, la correction finale."
+    },
+    {
+     "title": "À retenir",
+     "body": "1. Annonce l'arrondi avant de calculer (« je prends 50 au lieu de 48 »).\n2. Dis l'unité à chaque étape : « 1 200 k€, donc 1,2 M€ ».\n3. Pour passer de M à Md, divise par 1 000 ; de k à M, divise par 1 000.\n4. Corrige l'arrondi à la fin, en pourcentage (« −4 %, donc un peu moins »).\n5. Un calcul juste mais muet ne rapporte rien : l'interviewer note la démarche."
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.002",
+  "format": "fill_blank",
+  "skill": "u2.round",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète les conversions.",
+  "media": null,
+  "explanation": "1 M = 1 000 k et 1 Md = 1 000 M : chaque saut d'unité vaut trois zéros, jamais deux ou six.",
+  "payload": {
+   "text": "1 M€ = {{1}} k€ et 1 Md€ = {{2}} M€.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "100",
+      "1 000",
+      "10 000"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "100",
+      "1 000 000",
+      "1 000"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.003",
+  "format": "swipe_valid",
+  "skill": "u2.round",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Conversion juste ou fausse ? Glisse à droite si c'est juste.",
+  "media": null,
+  "explanation": "Convertis en comptant les zéros : k → M → Md, trois zéros à chaque étape.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "2,5 Md€ = 2 500 M€",
+     "valid": true,
+     "reason": "1 Md = 1 000 M, donc 2,5 Md = 2 500 M."
+    },
+    {
+     "id": "c2",
+     "text": "350 k€ = 3,5 M€",
+     "valid": false,
+     "reason": "350 k€ = 0,35 M€ : il faut 1 000 k pour faire 1 M."
+    },
+    {
+     "id": "c3",
+     "text": "0,8 M€ = 800 k€",
+     "valid": true,
+     "reason": "0,8 × 1 000 k = 800 k."
+    },
+    {
+     "id": "c4",
+     "text": "12 000 k€ = 1,2 M€",
+     "valid": false,
+     "reason": "12 000 k€ = 12 M€ : 12 000 / 1 000 = 12."
+    },
+    {
+     "id": "c5",
+     "text": "1,2 Md€ = 1 200 000 k€",
+     "valid": true,
+     "reason": "1,2 Md = 1 200 M = 1 200 000 k."
+    },
+    {
+     "id": "c6",
+     "text": "45 M€ = 0,45 Md€",
+     "valid": false,
+     "reason": "45 M€ = 0,045 Md€ : 45 / 1 000, pas 45 / 100."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.004",
+  "format": "fill_blank",
+  "skill": "u2.round",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète la démarche attendue en entretien.",
+  "media": null,
+  "explanation": "L'interviewer note la démarche : annonce l'arrondi, calcule à voix haute, corrige l'arrondi à la fin.",
+  "payload": {
+   "text": "En entretien, j'annonce d'abord {{1}}, je calcule à voix haute, puis je {{2}} l'arrondi à la fin.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "le résultat final",
+      "l'arrondi que je fais",
+      "une hypothèse de marge"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "double",
+      "oublie",
+      "corrige"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.005",
+  "format": "spot_error",
+  "skill": "u2.round",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Marché du café à emporter. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Md × € reste en Md€ : 12,4 Md de cafés × 1,5 € = 18,6 Md€. Un zéro perdu change l'unité, pas le chiffre.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "68 M d'habitants × 0,5 café/jour = 34 M de cafés par jour"
+    },
+    {
+     "id": "l2",
+     "text": "× 365 jours ≈ 12,4 Md de cafés par an"
+    },
+    {
+     "id": "l3",
+     "text": "À 1,5 € le café → 18,6 Md€"
+    },
+    {
+     "id": "l4",
+     "text": "Soit un marché de 18,6 M€ par an"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "18,6 Md€, pas 18,6 M€ : 12,4 Md × 1,5 € reste en milliards."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.006",
+  "format": "mental_math",
+  "skill": "u2.round",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "",
+  "media": null,
+  "explanation": "Garde l'unité avec chaque nombre : 2,5 M × 480 € = 1 200 M€ = 1,2 Md€.",
+  "payload": {
+   "seconds": 75,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Un contrat de 3,2 M€ sur 4 ans. Montant par an ?",
+     "computation": "3.2e6/4",
+     "answer": 800000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "3,2 M / 4 = 0,8 M"
+    },
+    {
+     "id": "q2",
+     "stem": "120 magasins à 2,5 M€ de CA chacun. CA total ?",
+     "computation": "120*2.5e6",
+     "answer": 300000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "120 × 2,5 = 300 → 300 M€"
+    },
+    {
+     "id": "q3",
+     "stem": "2,5 M de contrats, prime moyenne 480 €. Primes totales ?",
+     "computation": "2.5e6*480",
+     "answer": 1200000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "2,5 × 480 = 1 200 M = 1,2 Md"
+    },
+    {
+     "id": "q4",
+     "stem": "Budget de l'État : 45 Md€ sur un poste. Combien vaut 1 % de ce poste ?",
+     "computation": "45e9/100",
+     "answer": 450000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "45 Md / 100 = 0,45 Md = 450 M"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.007",
+  "format": "spot_error",
+  "skill": "u2.round",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Coût salarial d'une usine. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "M€ ÷ personnes donne des M€ par personne : 70,6 M€ / 1 200 = 0,0588 M€ = 58,8 k€. Reconvertis avant de conclure.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Masse salariale : 1 200 salariés × 42 k€ = 50 400 k€ = 50,4 M€"
+    },
+    {
+     "id": "l2",
+     "text": "Charges patronales +40 % → 70,6 M€"
+    },
+    {
+     "id": "l3",
+     "text": "Coût chargé par salarié : 70,6 M€ / 1 200 = 58 €"
+    },
+    {
+     "id": "l4",
+     "text": "Soit environ 4,9 k€ par mois et par salarié"
+    }
+   ],
+   "wrong_line": "l3",
+   "fix": "70,6 M€ / 1 200 = 0,0588 M€ ≈ 58,8 k€ par salarié, pas 58 €."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.008",
+  "format": "fill_blank",
+  "skill": "u2.round",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Dis 23 × 48 comme en entretien.",
+  "media": null,
+  "explanation": "Arrondis au chiffre rond le plus proche (50), calcule, puis retire l'écart (23 × 2) : c'est plus sûr que la multiplication posée.",
+  "payload": {
+   "text": "« 23 × 50 = {{1}}, moins 23 × 2 = {{2}}, donc 23 × 48 = {{3}} »",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "1 250",
+      "1 150",
+      "1 100"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "23",
+      "46",
+      "96"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 3,
+     "options": [
+      "1 196",
+      "1 150",
+      "1 104"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.009",
+  "format": "swipe_valid",
+  "skill": "u2.round",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Bon réflexe de calcul en entretien ? Glisse à droite si oui.",
+  "media": null,
+  "explanation": "Un arrondi de 2 à 5 % annoncé et corrigé est parfait ; un arrondi de 20 % ou un calcul muet ne l'est pas.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« 8 760 h par an, je prends 9 000 et je retirerai 3 % à la fin »",
+     "valid": true,
+     "reason": "Arrondi annoncé, faible (3 %), corrigé : exactement le geste attendu."
+    },
+    {
+     "id": "c2",
+     "text": "« 68 M d'habitants, je prends 70 M »",
+     "valid": true,
+     "reason": "Écart de 3 %, annoncé : on peut corriger à la fin."
+    },
+    {
+     "id": "c3",
+     "text": "« 365 jours, je prends 300 pour aller vite »",
+     "valid": false,
+     "reason": "−18 % : l'arrondi fausse le résultat. Prends 360 ou 400 et corrige."
+    },
+    {
+     "id": "c4",
+     "text": "« 48 €, disons 50 € »",
+     "valid": true,
+     "reason": "4 % d'écart, annoncé : parfait."
+    },
+    {
+     "id": "c5",
+     "text": "« 1,7 M, j'arrondis à 1 M »",
+     "valid": false,
+     "reason": "−40 % : ce n'est plus un arrondi, c'est une autre donnée. Prends 1,5 ou 2 M."
+    },
+    {
+     "id": "c6",
+     "text": "Calculer 30 secondes en silence, puis donner le résultat",
+     "valid": false,
+     "reason": "Un calcul muet ne montre rien : l'interviewer note la démarche, pas seulement le résultat."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.010",
+  "format": "mental_math",
+  "skill": "u2.round",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "",
+  "media": null,
+  "explanation": "Un volume physique, c'est capacité × taux d'usage × durée : garde l'unité (MWh, journées, voyages) jusqu'au bout.",
+  "payload": {
+   "seconds": 80,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Hôpital de 450 lits, taux d'occupation 85 %, 365 jours. Journées d'hospitalisation par an ?",
+     "computation": "450*0.85*365",
+     "answer": 139612,
+     "unit": "journées",
+     "tolerance_pct": 3,
+     "hint": "450 × 0,85 ≈ 380 ; × 365 ≈ 140 k"
+    },
+    {
+     "id": "q2",
+     "stem": "Parc éolien de 60 MW, facteur de charge 25 %, 8 760 h par an. Production annuelle ?",
+     "computation": "60*0.25*8760",
+     "answer": 131400,
+     "unit": "MWh",
+     "tolerance_pct": 3,
+     "hint": "60 × 0,25 = 15 MW ; × 8 760 ≈ 131 000 MWh"
+    },
+    {
+     "id": "q3",
+     "stem": "Réseau de bus : 180 000 usagers par jour, 300 jours par an. Voyages par an ?",
+     "computation": "180000*300",
+     "answer": 54000000,
+     "unit": "voyages",
+     "tolerance_pct": 3,
+     "hint": "180 k × 300 = 54 000 k = 54 M"
+    },
+    {
+     "id": "q4",
+     "stem": "Facture énergie : 2 400 sites à 18 k€ par an. Total ?",
+     "computation": "2400*18000",
+     "answer": 43200000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "2 400 × 18 = 43 200 k€ = 43,2 M€"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.011",
+  "format": "two_step_calc",
+  "skill": "u2.round",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Une banque gère 4,5 M de comptes courants facturés 2,5 € par mois. Revenu annuel des frais de tenue de compte ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "Un revenu annuel à partir d'un prix mensuel : comptes × prix × 12. 4,5 M × 2,5 = 11,25 M€ par mois, × 12 = 135 M€.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "b",
+     "text": "comptes × frais mensuels",
+     "why_wrong": "C'est le revenu d'un mois ; on te demande l'année."
+    },
+    {
+     "id": "c",
+     "text": "comptes × 12 ÷ frais mensuels",
+     "why_wrong": "Un revenu est un produit volume × prix, pas un quotient."
+    },
+    {
+     "id": "a",
+     "text": "comptes × frais mensuels × 12"
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "4.5e6*2.5*12",
+   "answer": 135000000,
+   "unit": "€",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.012",
+  "format": "spot_error",
+  "skill": "u2.round",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Sizing du marché des aspirateurs. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "10 % de 1,4 Md€ = 0,14 Md€ = 140 M€. Quand tu prends un pourcentage d'un milliard, le résultat reste en centaines de millions.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "31 M de ménages × 60 % équipés = 18,6 M de ménages"
+    },
+    {
+     "id": "l2",
+     "text": "Renouvellement tous les 8 ans → 2,3 M d'achats par an"
+    },
+    {
+     "id": "l3",
+     "text": "Prix moyen 600 € → 1,4 Md€ par an"
+    },
+    {
+     "id": "l4",
+     "text": "Part visée 10 % → 14 M€ de CA"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "10 % de 1,4 Md€ = 140 M€ (0,14 Md€), pas 14 M€."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.013",
+  "format": "mental_math",
+  "skill": "u2.round",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "télécoms",
+  "stem": "",
+  "media": null,
+  "explanation": "Arrondis au chiffre rond (20, 30, 500), calcule, puis corrige de l'écart en pourcentage à la fin.",
+  "payload": {
+   "seconds": 90,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Loyer de bureaux : 19 € par m² et par mois, 2 100 m². Loyer annuel ?",
+     "computation": "19*2100*12",
+     "answer": 478800,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "20 × 2 100 = 42 k/mois ; × 12 = 504 k ; −5 % ≈ 480 k"
+    },
+    {
+     "id": "q2",
+     "stem": "480 000 abonnés, 29 € par mois. CA annuel ?",
+     "computation": "480000*29*12",
+     "answer": 167040000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "480 k × 30 = 14,4 M/mois ; × 12 ≈ 173 M ; −3 % ≈ 167 M"
+    },
+    {
+     "id": "q3",
+     "stem": "Usine : 1 150 pièces par heure, 2 équipes de 8 h, 230 jours. Production annuelle ?",
+     "computation": "1150*16*230",
+     "answer": 4232000,
+     "unit": "pièces",
+     "tolerance_pct": 3,
+     "hint": "1 150 × 16 ≈ 18 400/jour ; × 230 ≈ 4,2 M"
+    },
+    {
+     "id": "q4",
+     "stem": "Rame de 510 places, remplissage 70 %, 14 trajets par jour. Passagers par jour ?",
+     "computation": "510*0.7*14",
+     "answer": 4998,
+     "unit": "passagers",
+     "tolerance_pct": 3,
+     "hint": "500 × 0,7 = 350 ; × 14 = 4 900 ; +2 % ≈ 5 000"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.014",
+  "format": "fill_blank",
+  "skill": "u2.round",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Complète le résultat.",
+  "media": null,
+  "explanation": "1 200 € × 140 k journées = 168 000 k€ = 168 M€. Écris les k avant de convertir en M.",
+  "payload": {
+   "text": "Un hôpital facture 1 200 € la journée pour 140 000 journées par an, soit {{1}} de recettes.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "16,8 M€",
+      "168 M€",
+      "1,68 Md€"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.015",
+  "format": "two_step_calc",
+  "skill": "u2.round",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "Un assureur a 1,8 M de contrats auto, prime moyenne 520 €, ratio sinistres/primes 68 %. Montant des sinistres annuels ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "Sinistres = primes × ratio S/P. 1,8 M × 520 = 936 M€ de primes ; × 0,68 ≈ 636 M€. Parle en M€ tout du long.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "c",
+     "text": "contrats × 68 %",
+     "why_wrong": "Sans la prime, tu obtiens un nombre de contrats, pas des euros."
+    },
+    {
+     "id": "a",
+     "text": "contrats × prime × 68 %"
+    },
+    {
+     "id": "b",
+     "text": "contrats × prime ÷ 68 %",
+     "why_wrong": "Diviser par le ratio gonfle le chiffre : les sinistres sont une part des primes, pas l'inverse."
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "1.8e6*520*0.68",
+   "answer": 636480000,
+   "unit": "€",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.016",
+  "format": "swipe_valid",
+  "skill": "u2.round",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Résultat annoncé juste ou faux ? Glisse à droite si c'est juste.",
+  "media": null,
+  "explanation": "Compte les zéros avant d'annoncer : 25 k × 4 000 = 100 000 k = 100 M, et 12 M / 400 = 30 k.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "« 3 % de 2,4 Md€, ça fait 72 M€ »",
+     "valid": true,
+     "reason": "0,03 × 2,4 Md = 0,072 Md = 72 M€."
+    },
+    {
+     "id": "c2",
+     "text": "« 1 500 × 8 760 h, environ 13 M »",
+     "valid": true,
+     "reason": "1 500 × 8 760 = 13 140 000 ≈ 13 M."
+    },
+    {
+     "id": "c3",
+     "text": "« 25 k€ × 4 000 sites, ça fait 10 M€ »",
+     "valid": false,
+     "reason": "25 k × 4 000 = 100 000 k = 100 M€. Un zéro de perdu."
+    },
+    {
+     "id": "c4",
+     "text": "« 0,5 % de 68 M d'habitants, 340 000 personnes »",
+     "valid": true,
+     "reason": "68 M / 200 = 0,34 M = 340 k."
+    },
+    {
+     "id": "c5",
+     "text": "« 12 M€ pour 400 agences, 3 k€ par agence »",
+     "valid": false,
+     "reason": "12 M / 400 = 0,03 M = 30 k€ par agence."
+    },
+    {
+     "id": "c6",
+     "text": "« 7 Md€ pour 35 M d'usagers, 200 € par usager »",
+     "valid": true,
+     "reason": "7 000 M / 35 M = 200."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.017",
+  "format": "spot_error",
+  "skill": "u2.round",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Marge d'une chaîne de magasins. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Md ÷ centaines = M : 1 Md€ / 320 ≈ 3,1 M€ par magasin. Refais la division en écrivant 1 000 M / 320.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "320 magasins × 1 200 clients par jour = 384 000 clients par jour"
+    },
+    {
+     "id": "l2",
+     "text": "× 310 jours ≈ 119 M de passages par an"
+    },
+    {
+     "id": "l3",
+     "text": "Panier 28 € → environ 3,3 Md€ de CA"
+    },
+    {
+     "id": "l4",
+     "text": "Marge 30 % → 1 Md€, soit 310 k€ par magasin"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "1 Md€ / 320 magasins = 1 000 M / 320 ≈ 3,1 M€ par magasin, pas 310 k€."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.018",
+  "format": "mental_math",
+  "skill": "u2.round",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "",
+  "media": null,
+  "explanation": "Avec des milliards, écris le calcul en M ou en Md et ne change d'unité qu'une fois : 12 M × 22 € = 264 M€ par mois.",
+  "payload": {
+   "seconds": 90,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Dette publique 3 300 Md€, taux moyen 2 %. Intérêts annuels ?",
+     "computation": "3300e9*0.02",
+     "answer": 66000000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "3 300 × 0,02 = 66 Md"
+    },
+    {
+     "id": "q2",
+     "stem": "Marché pharma 35 Md€, un labo détient 4 % de part. CA du labo ?",
+     "computation": "35e9*0.04",
+     "answer": 1400000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "35 × 0,04 = 1,4 Md"
+    },
+    {
+     "id": "q3",
+     "stem": "Opérateur : 12 M de lignes, 22 € par mois. CA annuel ?",
+     "computation": "12e6*22*12",
+     "answer": 3168000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "12 × 22 = 264 M/mois ; × 12 ≈ 3,2 Md"
+    },
+    {
+     "id": "q4",
+     "stem": "Réseau de 1 400 agences à 650 k€ de coût chacune. Coût du réseau ?",
+     "computation": "1400*650000",
+     "answer": 910000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "1 400 × 650 k = 910 000 k = 910 M"
+    },
+    {
+     "id": "q5",
+     "stem": "Gaz : 11 M de foyers, 12 MWh par an chacun, 90 € le MWh. Facture totale ?",
+     "computation": "11e6*12*90",
+     "answer": 11880000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "11 × 12 = 132 M MWh ; × 90 ≈ 11,9 Md"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.019",
+  "format": "two_step_calc",
+  "skill": "u2.round",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "Éclairage public d'une métropole : 45 000 points lumineux de 150 W, allumés 4 200 h par an, électricité à 180 € le MWh. Coût annuel ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "Aligne les unités avant de multiplier : 150 W = 0,15 kW, 180 €/MWh = 0,18 €/kWh. 45 000 × 0,15 × 4 200 × 0,18 ≈ 5,1 M€.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "a",
+     "text": "points × puissance en kW × heures × prix du kWh"
+    },
+    {
+     "id": "b",
+     "text": "points × puissance en W × heures × prix du MWh",
+     "why_wrong": "W et MWh ne s'alignent pas : tu obtiens un chiffre un milliard de fois trop grand."
+    },
+    {
+     "id": "c",
+     "text": "points × puissance × prix de l'énergie",
+     "why_wrong": "Sans la durée, tu as une puissance, pas une énergie consommée."
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "45000*0.15*4200*0.18",
+   "answer": 5103000,
+   "unit": "€",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.020",
+  "format": "fill_blank",
+  "skill": "u2.round",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Même volume, deux prix : complète.",
+  "media": null,
+  "explanation": "2,5 M × 0,04 = 0,1 M = 100 k€ ; 2,5 M × 40 = 100 M€. Mille fois le prix, mille fois le résultat : vérifie les zéros.",
+  "payload": {
+   "text": "Un site reçoit 2,5 M de visites. À 0,04 € de pub par visite, cela fait {{1}} ; si chaque visite valait 40 €, cela ferait {{2}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "1 M€",
+      "100 k€",
+      "10 k€"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "10 M€",
+      "1 Md€",
+      "100 M€"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.021",
+  "format": "mental_math",
+  "skill": "u2.round",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "",
+  "media": null,
+  "explanation": "Pour diviser, mets les deux nombres dans la même unité : 2 800 M€ / 14 k salariés = 0,2 M€ = 200 k€.",
+  "payload": {
+   "seconds": 90,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "CA de 2,8 Md€ pour 14 000 salariés. CA par salarié ?",
+     "computation": "2.8e9/14000",
+     "answer": 200000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "2 800 M / 14 k = 0,2 M"
+    },
+    {
+     "id": "q2",
+     "stem": "Budget de 1,6 Md€ réparti sur 11 M d'usagers. Coût par usager ?",
+     "computation": "1.6e9/11e6",
+     "answer": 145.45,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "1 600 / 11 ≈ 145"
+    },
+    {
+     "id": "q3",
+     "stem": "Investissement de 72 M€ pour 180 MW installés. Coût par MW ?",
+     "computation": "72e6/180",
+     "answer": 400000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "72 / 180 = 0,4 M"
+    },
+    {
+     "id": "q4",
+     "stem": "4,2 M de colis par an, 350 tournées par jour, 300 jours. Colis par tournée ?",
+     "computation": "4.2e6/(350*300)",
+     "answer": 40,
+     "unit": "colis",
+     "tolerance_pct": 3,
+     "hint": "350 × 300 = 105 k tournées ; 4 200 k / 105 k = 40"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.round.022",
+  "format": "spot_error",
+  "skill": "u2.round",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Performance d'un fonds de capital-risque. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Le multiple, c'est ce qui revient divisé par ce qui est sorti : 244 M / 250 M ≈ 1×. Refais la division avant de conclure.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Fonds de 250 M€ investi dans 20 start-up à parts égales : 12,5 M€ chacune"
+    },
+    {
+     "id": "l2",
+     "text": "Une start-up sort à 10× : 125 M€"
+    },
+    {
+     "id": "l3",
+     "text": "Les 19 autres rendent 0,5× en moyenne : 19 × 6,25 ≈ 119 M€"
+    },
+    {
+     "id": "l4",
+     "text": "Total 244 M€ : le fonds a rendu 2,4× sa mise"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "244 M€ / 250 M€ ≈ 0,98× : le fonds rend à peine sa mise, pas 2,4×."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.001",
+  "format": "concept_card",
+  "skill": "u2.percent",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Pourcentages, fractions, croissance",
+  "media": null,
+  "explanation": "",
+  "payload": {
+   "screens": [
+    {
+     "title": "L'idée",
+     "body": "Les pourcentages d'entretien se font avec des **fractions connues** et des **raccourcis** :\n\n- 1/8 = 12,5 % · 1/6 ≈ 17 % · 1/3 ≈ 33 % · 3/8 = 37,5 %\n- × 5 = × 10 ÷ 2 · × 25 = × 100 ÷ 4 · × 1,5 = + la moitié\n- **Règle de 72** : à r % par an, une grandeur double en 72 ÷ r années (6 % → 12 ans).\n\nTrois pièges reviennent sans cesse : on **pondère** les pourcentages au lieu de les moyenner, un **point** n'est pas un pourcent, et une croissance de 8 % sur 5 ans n'est pas +40 % mais ×1,08⁵ ≈ +47 %."
+    },
+    {
+     "title": "Exemple parlé",
+     "body": "« Le CA est passé de 50 à 100 M€ en 5 ans. Croissance annuelle ? »\n\nCe que dit un bon candidat :\n« Il a doublé. Un doublement en 5 ans, règle de 72 : 72 ÷ 5 ≈ 14 % par an. Ce n'est pas 100 % ÷ 5 = 20 %, parce que chaque année part d'une base plus grande : 1,2⁵ ferait ×2,5. »\n\n« La marge passe de 10 % à 12 %. »\n« Soit **+2 points**, ce qui fait **+20 %** de marge relative. »"
+    },
+    {
+     "title": "À retenir",
+     "body": "1. Une fraction par pourcentage : 12,5 % = ÷ 8, 17 % = ÷ 6, 25 % = ÷ 4.\n2. Points ≠ pourcents : 8 % → 10 % = +2 points = +25 %.\n3. Jamais la moyenne de deux pourcentages : on pondère par le volume.\n4. Croissance sur plusieurs années : composée. Règle de 72 pour l'ordre de grandeur.\n5. CAGR = (fin ÷ début)^(1/n) − 1, pas (gain total) ÷ n."
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.002",
+  "format": "match_pairs",
+  "skill": "u2.percent",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Associe chaque fraction au pourcentage qu'on dit à voix haute.",
+  "media": null,
+  "explanation": "Apprends les fractions par cœur : 1/8 = 12,5 %, 1/6 ≈ 17 %, 1/3 ≈ 33 %, 3/8 = 37,5 %, 1/12 ≈ 8 %.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "1/8",
+     "right": "12,5 %"
+    },
+    {
+     "left": "1/6",
+     "right": "≈ 17 %"
+    },
+    {
+     "left": "1/3",
+     "right": "≈ 33 %"
+    },
+    {
+     "left": "3/8",
+     "right": "37,5 %"
+    },
+    {
+     "left": "1/12",
+     "right": "≈ 8 %"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.003",
+  "format": "fill_blank",
+  "skill": "u2.percent",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète le raccourci.",
+  "media": null,
+  "explanation": "× 5 = × 10 ÷ 2 : 360 000 × 5 = 3,6 M ÷ 2 = 1,8 M. Même logique pour × 25 = × 100 ÷ 4 et × 50 = × 100 ÷ 2.",
+  "payload": {
+   "text": "Pour multiplier un nombre par 5 à voix haute, je le multiplie par {{1}} puis je le divise par {{2}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "100",
+      "10",
+      "50"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "5",
+      "10",
+      "2"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.004",
+  "format": "match_pairs",
+  "skill": "u2.percent",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Associe chaque opération à son raccourci.",
+  "media": null,
+  "explanation": "Remplace les multiplications pénibles par des gestes simples : ÷ 2, × 4, + la moitié, − 10 %.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "× 25",
+     "right": "× 100 puis ÷ 4"
+    },
+    {
+     "left": "× 0,5",
+     "right": "÷ 2"
+    },
+    {
+     "left": "÷ 0,25",
+     "right": "× 4"
+    },
+    {
+     "left": "× 1,5",
+     "right": "+ la moitié"
+    },
+    {
+     "left": "× 0,9",
+     "right": "− 10 %"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.005",
+  "format": "fill_blank",
+  "skill": "u2.percent",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Points ou pourcents ? Complète.",
+  "media": null,
+  "explanation": "L'écart entre deux taux se dit en points (12 − 10 = 2 points) ; la variation relative se dit en pourcents (2 ÷ 10 = 20 %).",
+  "payload": {
+   "text": "La marge d'un distributeur passe de 10 % à 12 % : elle gagne {{1}}, soit une hausse relative de {{2}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "2 %",
+      "2 points",
+      "12 %"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "2 %",
+      "12 %",
+      "20 %"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.006",
+  "format": "mental_math",
+  "skill": "u2.percent",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "",
+  "media": null,
+  "explanation": "Transforme le pourcentage en fraction avant de calculer : 12,5 % = ÷ 8, 37,5 % = 3 × (÷ 8), 1/6 ≈ 17 %.",
+  "payload": {
+   "seconds": 60,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Panier moyen de 48 €, remise de 12,5 %. Montant de la remise ?",
+     "computation": "48/8",
+     "answer": 6,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "12,5 % = 1/8 ; 48 / 8 = 6"
+    },
+    {
+     "id": "q2",
+     "stem": "CA de 2,4 M€, dont 1/6 à l'export. CA export ?",
+     "computation": "2.4e6/6",
+     "answer": 400000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "2,4 M / 6 = 0,4 M"
+    },
+    {
+     "id": "q3",
+     "stem": "360 000 clients paient 5 € de frais de dossier. Total ?",
+     "computation": "360000*5",
+     "answer": 1800000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "× 10 = 3,6 M ; ÷ 2 = 1,8 M"
+    },
+    {
+     "id": "q4",
+     "stem": "Stock de 8 400 pièces, 37,5 % sont obsolètes. Combien de pièces ?",
+     "computation": "8400*0.375",
+     "answer": 3150,
+     "unit": "pièces",
+     "tolerance_pct": 3,
+     "hint": "37,5 % = 3/8 ; 8 400 / 8 = 1 050 ; × 3 = 3 150"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.007",
+  "format": "spot_error",
+  "skill": "u2.percent",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Marge d'une enseigne à deux magasins. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "On ne moyenne jamais des pourcentages : on additionne les euros (6 M€) et on divise par le total (50 M€) = 12 %.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Magasin A : CA 10 M€, marge 20 % → 2 M€"
+    },
+    {
+     "id": "l2",
+     "text": "Magasin B : CA 40 M€, marge 10 % → 4 M€"
+    },
+    {
+     "id": "l3",
+     "text": "Total : 50 M€ de CA, 6 M€ de marge"
+    },
+    {
+     "id": "l4",
+     "text": "Marge de l'enseigne : (20 % + 10 %) ÷ 2 = 15 %"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "6 M€ ÷ 50 M€ = 12 % : on pondère par le CA, on ne moyenne pas les pourcentages."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.008",
+  "format": "fill_blank",
+  "skill": "u2.percent",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Règle de 72 : complète.",
+  "media": null,
+  "explanation": "Années pour doubler ≈ 72 ÷ taux. 72 ÷ 6 = 12 ans, 72 ÷ 9 = 8 ans. Ça marche aussi à l'envers : doubler en 4 ans ≈ 18 % par an.",
+  "payload": {
+   "text": "Un marché qui croît de 6 % par an double en {{1}} ans ; à 9 % par an, il double en {{2}} ans.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "6",
+      "12",
+      "16"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "9",
+      "8",
+      "6"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.009",
+  "format": "mental_math",
+  "skill": "u2.percent",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "",
+  "media": null,
+  "explanation": "Une croissance sur plusieurs années se multiplie : 1,1³ = 1,331. Deux variations en sens inverse ne s'annulent pas forcément : +25 % puis −20 % = × 1.",
+  "payload": {
+   "seconds": 75,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Un CA de 100 M€ croît de 10 % par an pendant 3 ans. CA final ?",
+     "computation": "100e6*1.1**3",
+     "answer": 133100000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "1,1 × 1,1 × 1,1 = 1,331 → 133 M"
+    },
+    {
+     "id": "q2",
+     "stem": "Un marché croît de 7 % par an. Dans combien d'années a-t-il doublé ? (règle de 72)",
+     "computation": "72/7",
+     "answer": 10.3,
+     "unit": "ans",
+     "tolerance_pct": 5,
+     "hint": "72 / 7 ≈ 10"
+    },
+    {
+     "id": "q3",
+     "stem": "Parc de 20 000 bornes de recharge, +20 % par an pendant 2 ans. Parc final ?",
+     "computation": "20000*1.2**2",
+     "answer": 28800,
+     "unit": "bornes",
+     "tolerance_pct": 3,
+     "hint": "× 1,2 × 1,2 = × 1,44"
+    },
+    {
+     "id": "q4",
+     "stem": "Un prix de 80 € augmente de 25 % puis baisse de 20 %. Prix final ?",
+     "computation": "80*1.25*0.8",
+     "answer": 80,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "× 1,25 × 0,8 = × 1"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.010",
+  "format": "spot_error",
+  "skill": "u2.percent",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "télécoms",
+  "stem": "Projection d'un marché. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Sur 5 ans, 8 % se composent : 1,08⁵ ≈ 1,47, soit +47 %, pas 5 × 8 = 40 %. L'écart grandit avec le taux et la durée.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Marché de 200 M€, croissance de 8 % par an pendant 5 ans"
+    },
+    {
+     "id": "l2",
+     "text": "1,08⁵ ≈ 1,47 (règle de 72 : il doublerait en 9 ans)"
+    },
+    {
+     "id": "l3",
+     "text": "Marché dans 5 ans ≈ 200 × 1,47 = 294 M€"
+    },
+    {
+     "id": "l4",
+     "text": "Soit un gain de 40 % sur la période (5 × 8 %)"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "Le gain est de 47 % (composé), pas 40 % : chaque année, les 8 % s'appliquent à une base plus grande."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.011",
+  "format": "two_step_calc",
+  "skill": "u2.percent",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Le CA d'une start-up passe de 4 M€ à 16 M€ en 4 ans. Taux de croissance annuel moyen (CAGR), en % ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "CAGR = (fin ÷ début)^(1/n) − 1. ×4 en 4 ans, c'est ×2 tous les 2 ans : règle de 72 → 72 ÷ 2 = 36 %, en vrai √2 − 1 ≈ 41 %.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "b",
+     "text": "(16 − 4) ÷ 4 ÷ 4",
+     "why_wrong": "C'est une croissance simple (+75 % par an) : la croissance se compose chaque année sur une base plus grande."
+    },
+    {
+     "id": "c",
+     "text": "(16 ÷ 4) ÷ 4",
+     "why_wrong": "Diviser un multiple par le nombre d'années ne donne pas un taux."
+    },
+    {
+     "id": "a",
+     "text": "(16 ÷ 4)^(1/4) − 1"
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "((16/4)**(1/4)-1)*100",
+   "answer": 41.42,
+   "unit": "%",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.012",
+  "format": "match_pairs",
+  "skill": "u2.percent",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Associe chaque notion à sa définition.",
+  "media": null,
+  "explanation": "Le CAGR compose, la croissance simple additionne, le point mesure un écart de taux, la variation relative divise par le point de départ.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "CAGR",
+     "right": "taux annuel composé entre deux dates"
+    },
+    {
+     "left": "Croissance simple",
+     "right": "le même montant ajouté chaque année"
+    },
+    {
+     "left": "Point de pourcentage",
+     "right": "écart entre deux taux (10 % → 12 %)"
+    },
+    {
+     "left": "Règle de 72",
+     "right": "72 ÷ taux = années pour doubler"
+    },
+    {
+     "left": "Variation relative",
+     "right": "(après − avant) ÷ avant"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.013",
+  "format": "mental_math",
+  "skill": "u2.percent",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "télécoms",
+  "stem": "",
+  "media": null,
+  "explanation": "« Moins 5 points » se soustrait (15 → 10), « moins 20 % » se multiplie (15 × 0,8 = 12). Dis lequel tu fais.",
+  "payload": {
+   "seconds": 75,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "La part de marché passe de 8 % à 10 %. Hausse relative, en % ?",
+     "computation": "(10-8)/8*100",
+     "answer": 25,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "2 points sur 8 = 25 %"
+    },
+    {
+     "id": "q2",
+     "stem": "Un churn de 15 % baisse de 5 points. Nouveau churn, en % ?",
+     "computation": "15-5",
+     "answer": 10,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "points : on soustrait"
+    },
+    {
+     "id": "q3",
+     "stem": "Un churn de 15 % baisse de 20 %. Nouveau churn, en % ?",
+     "computation": "15*0.8",
+     "answer": 12,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "pourcents : × 0,8"
+    },
+    {
+     "id": "q4",
+     "stem": "CA 2,4 Md€, EBITDA 300 M€. Marge d'EBITDA, en % ?",
+     "computation": "300/2400*100",
+     "answer": 12.5,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "300 / 2 400 = 1/8 = 12,5 %"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.014",
+  "format": "fill_blank",
+  "skill": "u2.percent",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Croissance d'un groupe sur deux pays : complète.",
+  "media": null,
+  "explanation": "On pondère par le CA : 80 × 5 % + 20 × 25 % = 4 + 5 = 9 M€ sur 100 M€ = 9 %. La moyenne simple (15 %) surpondère le petit pays.",
+  "payload": {
+   "text": "La France (CA 80 M€) croît de 5 %, l'Espagne (CA 20 M€) de 25 %. La croissance du groupe est de {{1}}, et non de {{2}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "15 %",
+      "9 %",
+      "30 %"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "9 %",
+      "20 %",
+      "15 %"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.015",
+  "format": "spot_error",
+  "skill": "u2.percent",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Objectif de conversion d'un site. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "+50 % sur un taux de 2 % = 2 × 1,5 = 3 %. Ajouter 50 à 2 confond points et pourcents : 52 % serait +50 points.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Taux de conversion du site : 2 % en 2024"
+    },
+    {
+     "id": "l2",
+     "text": "Objectif 2025 : +50 % de conversion"
+    },
+    {
+     "id": "l3",
+     "text": "Le taux visé est donc 2 % + 50 % = 52 %"
+    },
+    {
+     "id": "l4",
+     "text": "Avec 5 M de visites, l'objectif représente 150 000 commandes"
+    }
+   ],
+   "wrong_line": "l3",
+   "fix": "+50 % de 2 % = 3 % (2 × 1,5). 52 % serait +50 points, un autre monde."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.016",
+  "format": "two_step_calc",
+  "skill": "u2.percent",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Un contrat de maintenance coûte 1,2 M€ la première année, indexé à 8 % par an. Coût de la 6e année (après 5 revalorisations) ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "Une indexation se compose : 1,2 × 1,08⁵ ≈ 1,2 × 1,47 ≈ 1,76 M€. La version simple (1,2 × 1,4 = 1,68) sous-estime de 5 %.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "c",
+     "text": "1,2 M€ × 1,08 × 5",
+     "why_wrong": "Multiplier par 5 donne cinq années de coût, pas le coût d'une année revalorisée."
+    },
+    {
+     "id": "a",
+     "text": "1,2 M€ × 1,08⁵"
+    },
+    {
+     "id": "b",
+     "text": "1,2 M€ × (1 + 5 × 8 %)",
+     "why_wrong": "Croissance simple : chaque revalorisation s'applique au prix déjà revalorisé, pas au prix initial."
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "1.2e6*1.08**5",
+   "answer": 1763194,
+   "unit": "€",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.017",
+  "format": "mental_math",
+  "skill": "u2.percent",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "",
+  "media": null,
+  "explanation": "Règle de 72 à l'envers (doubler en 6 ans ≈ 12 %), fractions (3/8, 1/6) et puissances courtes (1,04² ≈ 1,08) : tout se dit à voix haute.",
+  "payload": {
+   "seconds": 90,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Un marché double en 6 ans. Taux de croissance annuel, en % ? (règle de 72)",
+     "computation": "72/6",
+     "answer": 12,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "72 / 6 = 12"
+    },
+    {
+     "id": "q2",
+     "stem": "Un abonnement passe de 9,99 € à 12,99 €. Hausse, en % ?",
+     "computation": "(12.99-9.99)/9.99*100",
+     "answer": 30.03,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "3 sur 10 = 30 %"
+    },
+    {
+     "id": "q3",
+     "stem": "150 M€ placés à 4 % par an pendant 2 ans. Valeur finale ?",
+     "computation": "150e6*1.04**2",
+     "answer": 162240000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "1,04² ≈ 1,08 → 162 M"
+    },
+    {
+     "id": "q4",
+     "stem": "Un fournisseur pèse 3/8 des achats, qui font 64 M€. Montant ?",
+     "computation": "64e6*3/8",
+     "answer": 24000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "64 / 8 = 8 ; × 3 = 24"
+    },
+    {
+     "id": "q5",
+     "stem": "Un effectif de 1 200 personnes baisse de 1/6. Nouvel effectif ?",
+     "computation": "1200*5/6",
+     "answer": 1000,
+     "unit": "personnes",
+     "tolerance_pct": 3,
+     "hint": "1/6 de 1 200 = 200"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.018",
+  "format": "spot_error",
+  "skill": "u2.percent",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Croissance annuelle d'une scale-up. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Un gain total ÷ années n'est pas un taux : 1,2⁵ ≈ 2,5, pas 2. Doublement en 5 ans → 72 ÷ 5 ≈ 14 % par an.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Le CA passe de 50 M€ à 100 M€ entre 2019 et 2024 (5 ans)"
+    },
+    {
+     "id": "l2",
+     "text": "Le CA a donc doublé : +100 % sur la période"
+    },
+    {
+     "id": "l3",
+     "text": "Croissance annuelle moyenne : 100 % ÷ 5 = 20 % par an"
+    },
+    {
+     "id": "l4",
+     "text": "Avec la règle de 72, un doublement en 5 ans correspond à 14-15 % par an"
+    }
+   ],
+   "wrong_line": "l3",
+   "fix": "72 ÷ 5 ≈ 14 % par an : diviser le gain total par les années ignore la composition (1,2⁵ ≈ 2,5)."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.019",
+  "format": "fill_blank",
+  "skill": "u2.percent",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Intérêts composés ou simples : complète.",
+  "media": null,
+  "explanation": "Composé : 72 ÷ 6 = 12 ans pour doubler. Simple : 100 % ÷ 6 % ≈ 17 ans. La composition fait gagner 5 ans.",
+  "payload": {
+   "text": "À 6 % par an, un capital double en {{1}} ans en intérêts composés ; en intérêts simples, il faudrait environ {{2}} ans.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "6",
+      "12",
+      "18"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "12",
+      "17",
+      "24"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.020",
+  "format": "two_step_calc",
+  "skill": "u2.percent",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Un distributeur fait 60 % de son CA en alimentaire (marge 15 %) et 40 % en non-alimentaire (marge 30 %). Marge globale, en % ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "Une marge globale se pondère par le CA : 0,6 × 15 + 0,4 × 30 = 9 + 12 = 21 %. La moyenne simple (22,5 %) surpondère le non-alimentaire.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "a",
+     "text": "60 % × 15 % + 40 % × 30 %"
+    },
+    {
+     "id": "b",
+     "text": "(15 % + 30 %) ÷ 2",
+     "why_wrong": "La moyenne simple ignore que l'alimentaire pèse plus lourd : on pondère par le CA."
+    },
+    {
+     "id": "c",
+     "text": "15 % + 30 %",
+     "why_wrong": "Additionner deux taux ne donne pas un taux global : 45 % dépasse la marge des deux rayons."
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "(0.6*0.15+0.4*0.3)*100",
+   "answer": 21,
+   "unit": "%",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.021",
+  "format": "mental_math",
+  "skill": "u2.percent",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "",
+  "media": null,
+  "explanation": "Pour revenir en arrière, on divise par (1 + taux), on ne retire pas le pourcentage. Deux remises de 20 % font −36 %, pas −40 %.",
+  "payload": {
+   "seconds": 90,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Après une hausse de 25 %, un loyer vaut 1 500 €. Loyer avant la hausse ?",
+     "computation": "1500/1.25",
+     "answer": 1200,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "÷ 1,25 = × 0,8"
+    },
+    {
+     "id": "q2",
+     "stem": "Un CA vaut 240 M€ après 3 ans à +10 % par an. CA de départ ?",
+     "computation": "240e6/1.1**3",
+     "answer": 180316000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "÷ 1,331 ≈ 180 M"
+    },
+    {
+     "id": "q3",
+     "stem": "Un produit vendu 60 € dégage une marge d'1/3 du prix. Coût de revient ?",
+     "computation": "60*2/3",
+     "answer": 40,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "marge 20 €, coût 40 €"
+    },
+    {
+     "id": "q4",
+     "stem": "Une remise de 20 % puis une seconde de 20 %. Remise totale, en % ?",
+     "computation": "(1-0.8*0.8)*100",
+     "answer": 36,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "× 0,8 × 0,8 = × 0,64 → −36 %"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.percent.022",
+  "format": "match_pairs",
+  "skill": "u2.percent",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Associe chaque puissance à sa valeur approchée (sans calculette).",
+  "media": null,
+  "explanation": "Ancre-toi sur la règle de 72 : 1,07¹⁰ ≈ 2 (72 ÷ 7 ≈ 10), 1,1⁵ ≈ 1,6 (la moitié du chemin vers 2 en 7 ans), 0,9³ ≈ 0,73.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "1,1⁵",
+     "right": "≈ 1,61"
+    },
+    {
+     "left": "1,07¹⁰",
+     "right": "≈ 1,97"
+    },
+    {
+     "left": "0,9³",
+     "right": "≈ 0,73"
+    },
+    {
+     "left": "1,2³",
+     "right": "≈ 1,73"
+    },
+    {
+     "left": "1,5²",
+     "right": "2,25"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.001",
+  "format": "concept_card",
+  "skill": "u2.breakeven",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Seuil de rentabilité, marge, retour",
+  "media": null,
+  "explanation": "",
+  "payload": {
+   "screens": [
+    {
+     "title": "L'idée",
+     "body": "Avant de calculer, **pose la formule à voix haute**. Trois formules couvrent presque tous les cases :\n\n- **Seuil de rentabilité** (en unités) = coûts fixes ÷ **marge sur coût variable** unitaire (prix − coût variable). En CA : coûts fixes ÷ taux de marge.\n- **Délai de remboursement** (payback) = investissement ÷ gain annuel.\n- **ROI** = (gains cumulés − investissement) ÷ investissement.\n\nLe piège n°1 : diviser les coûts fixes par le **prix**. Chaque unité vendue ne rapporte que sa marge, pas son prix."
+    },
+    {
+     "title": "Exemple parlé",
+     "body": "« Un food-truck a 60 k€ de coûts fixes, vend le menu 12 €, les ingrédients coûtent 4 €. »\n\nCe que dit un bon candidat :\n« Chaque menu dégage 12 − 4 = **8 € de marge**. Il faut couvrir 60 k€ : 60 000 ÷ 8 = **7 500 menus par an**, soit environ 30 menus par jour ouvré. En CA, ça fait 7 500 × 12 = 90 k€. Si le truck en vend 40 par jour, il est rentable. »\n\nLa formule d'abord, le nombre ensuite, l'unité demandée (menus, pas euros) à la fin."
+    },
+    {
+     "title": "À retenir",
+     "body": "1. Seuil = fixes ÷ marge unitaire. Jamais ÷ prix.\n2. Seuil en euros = fixes ÷ taux de marge, ou seuil en unités × prix.\n3. ROI : retranche l'investissement avant de diviser. 2 M€ investis, 2,5 M€ encaissés → ROI 25 %, pas 125 %.\n4. Payback = investissement ÷ gain net annuel (maintenance déduite).\n5. Réponds dans l'unité demandée : unités, euros, années ou %."
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.002",
+  "format": "fill_blank",
+  "skill": "u2.breakeven",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Complète la formule du seuil de rentabilité.",
+  "media": null,
+  "explanation": "Seuil en unités = coûts fixes ÷ (prix − coût variable unitaire). La différence s'appelle la marge sur coût variable.",
+  "payload": {
+   "text": "Seuil de rentabilité (en unités) = coûts {{1}} ÷ (prix − coût {{2}} unitaire).",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "fixes",
+      "variables",
+      "totaux"
+     ],
+     "correct": 0
+    },
+    {
+     "id": 2,
+     "options": [
+      "fixe",
+      "variable",
+      "moyen"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.003",
+  "format": "match_pairs",
+  "skill": "u2.breakeven",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Associe chaque notion à sa formule.",
+  "media": null,
+  "explanation": "Seuil = fixes ÷ marge ; payback = investissement ÷ gain annuel ; ROI = (gain − investissement) ÷ investissement.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "Seuil de rentabilité (unités)",
+     "right": "coûts fixes ÷ marge unitaire"
+    },
+    {
+     "left": "Marge sur coût variable",
+     "right": "prix − coût variable unitaire"
+    },
+    {
+     "left": "Délai de remboursement",
+     "right": "investissement ÷ gain annuel"
+    },
+    {
+     "left": "ROI",
+     "right": "(gains − investissement) ÷ investissement"
+    },
+    {
+     "left": "Seuil en CA",
+     "right": "coûts fixes ÷ taux de marge sur coût variable"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.004",
+  "format": "two_step_calc",
+  "skill": "u2.breakeven",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Un food-truck a 60 000 € de coûts fixes par an, vend le menu 12 €, et les ingrédients coûtent 4 € par menu. Combien de menus par an pour être rentable ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "Chaque menu rapporte 12 − 4 = 8 € de marge. 60 000 ÷ 8 = 7 500 menus. Diviser par 12 (le prix) donnerait 5 000 : trop optimiste.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "b",
+     "text": "60 000 ÷ 12",
+     "why_wrong": "Le prix n'est pas la marge : 4 € de chaque menu partent en ingrédients, il reste 8 € pour couvrir les fixes."
+    },
+    {
+     "id": "c",
+     "text": "60 000 ÷ 4",
+     "why_wrong": "Le coût variable n'est pas ce que rapporte un menu."
+    },
+    {
+     "id": "a",
+     "text": "60 000 ÷ (12 − 4)"
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "60000/(12-4)",
+   "answer": 7500,
+   "unit": "menus",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.005",
+  "format": "fill_blank",
+  "skill": "u2.breakeven",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Investissement de 2 M€, gain de 500 k€ par an. Complète.",
+  "media": null,
+  "explanation": "Payback = 2 M ÷ 0,5 M = 4 ans. ROI sur 5 ans = (5 × 0,5 − 2) ÷ 2 = 0,5 ÷ 2 = 25 % : on retranche l'investissement.",
+  "payload": {
+   "text": "Le délai de remboursement est de {{1}} ans et le ROI sur 5 ans est de {{2}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "2,5",
+      "10",
+      "4"
+     ],
+     "correct": 2
+    },
+    {
+     "id": 2,
+     "options": [
+      "125 %",
+      "25 %",
+      "250 %"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.006",
+  "format": "spot_error",
+  "skill": "u2.breakeven",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Seuil d'une salle de sport. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "On divise les fixes par la marge par abonné (300 €), pas par le prix (360 €) : 240 000 ÷ 300 = 800 abonnés.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Loyer et salaires : 240 k€ par an"
+    },
+    {
+     "id": "l2",
+     "text": "Abonnement 30 €/mois = 360 €/an ; coût variable 60 €/an par abonné"
+    },
+    {
+     "id": "l3",
+     "text": "Marge par abonné : 300 € par an"
+    },
+    {
+     "id": "l4",
+     "text": "Seuil : 240 000 ÷ 360 ≈ 670 abonnés"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "240 000 ÷ 300 = 800 abonnés : on divise par la marge (300 €), pas par le prix (360 €)."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.007",
+  "format": "mental_math",
+  "skill": "u2.breakeven",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "",
+  "media": null,
+  "explanation": "Seuil en unités = fixes ÷ marge unitaire ; seuil en CA = fixes ÷ taux de marge (ou unités × prix) ; payback = investissement ÷ gain annuel.",
+  "payload": {
+   "seconds": 60,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Prix 50 €, coût variable 30 €, coûts fixes 400 k€. Seuil en unités ?",
+     "computation": "400000/(50-30)",
+     "answer": 20000,
+     "unit": "unités",
+     "tolerance_pct": 3,
+     "hint": "marge 20 € ; 400 k / 20 = 20 k"
+    },
+    {
+     "id": "q2",
+     "stem": "Seuil de 20 000 unités vendues 50 €. Seuil en chiffre d'affaires ?",
+     "computation": "20000*50",
+     "answer": 1000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "20 k × 50 = 1 M"
+    },
+    {
+     "id": "q3",
+     "stem": "Investissement de 3 M€, gain de 750 k€ par an. Délai de remboursement ?",
+     "computation": "3e6/750e3",
+     "answer": 4,
+     "unit": "ans",
+     "tolerance_pct": 3,
+     "hint": "3 000 / 750 = 4"
+    },
+    {
+     "id": "q4",
+     "stem": "Taux de marge sur coût variable 40 %, coûts fixes 2 M€. Seuil en CA ?",
+     "computation": "2e6/0.4",
+     "answer": 5000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "2 / 0,4 = 5"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.008",
+  "format": "match_pairs",
+  "skill": "u2.breakeven",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Associe la question de l'interviewer à la formule qu'elle appelle.",
+  "media": null,
+  "explanation": "L'unité de la question dicte la formule : clients → marge par client, CA → taux de marge, projet → cumul des gains moins investissement.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "« Combien de clients pour être rentable ? »",
+     "right": "fixes ÷ marge par client"
+    },
+    {
+     "left": "« Quel CA minimal ? »",
+     "right": "fixes ÷ taux de marge"
+    },
+    {
+     "left": "« L'investissement se paie-t-il ? »",
+     "right": "cumul des gains − investissement"
+    },
+    {
+     "left": "« Quel projet rapporte le plus par euro investi ? »",
+     "right": "ROI en %"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.009",
+  "format": "two_step_calc",
+  "skill": "u2.breakeven",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Un distributeur investit 4 M€ dans des caisses automatiques et économise 1,5 M€ par an pendant 4 ans. ROI sur 4 ans, en % ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "ROI = (gains cumulés − investissement) ÷ investissement = (6 − 4) ÷ 4 = 50 %. Sans retrancher, 6 ÷ 4 = 1,5× est un multiple, pas un retour.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "c",
+     "text": "1,5 ÷ 4",
+     "why_wrong": "C'est le rendement d'une seule année (37,5 %), pas le ROI sur 4 ans."
+    },
+    {
+     "id": "a",
+     "text": "(4 × 1,5 − 4) ÷ 4"
+    },
+    {
+     "id": "b",
+     "text": "4 × 1,5 ÷ 4",
+     "why_wrong": "Tu as oublié de retrancher l'investissement : 1,5× est un multiple, pas un retour."
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "(4*1.5-4)/4*100",
+   "answer": 50,
+   "unit": "%",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.010",
+  "format": "spot_error",
+  "skill": "u2.breakeven",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "ROI d'un projet CRM. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Le gain net retranche l'investissement : 2 − 1,2 = 0,8 M€, ROI = 0,8 ÷ 1,2 ≈ 67 %. 167 % compte l'argent investi comme un gain.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Projet CRM : investissement de 1,2 M€"
+    },
+    {
+     "id": "l2",
+     "text": "Gains : 400 k€ par an pendant 5 ans = 2 M€"
+    },
+    {
+     "id": "l3",
+     "text": "Gain net sur 5 ans : 2 M€, soit un ROI de 167 %"
+    },
+    {
+     "id": "l4",
+     "text": "Délai de remboursement : 1,2 ÷ 0,4 = 3 ans"
+    }
+   ],
+   "wrong_line": "l3",
+   "fix": "Gain net = 2 − 1,2 = 0,8 M€ ; ROI = 0,8 ÷ 1,2 ≈ 67 %. On retranche toujours l'investissement."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.011",
+  "format": "fill_blank",
+  "skill": "u2.breakeven",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Unités ou euros : complète.",
+  "media": null,
+  "explanation": "L'unité demandée choisit le diviseur : unités → marge unitaire (en €), euros → taux de marge (en %). Et réponds dans cette unité.",
+  "payload": {
+   "text": "Si l'interviewer demande le seuil en {{1}}, je divise les fixes par la marge unitaire ; s'il le demande en {{2}}, je divise par le taux de marge sur coût variable.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "euros",
+      "unités",
+      "mois"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "unités",
+      "années",
+      "euros"
+     ],
+     "correct": 2
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.012",
+  "format": "mental_math",
+  "skill": "u2.breakeven",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "",
+  "media": null,
+  "explanation": "Pose la formule avant le chiffre : marge par séjour (1 400 − 500), marge annuelle par abonné (20 × 12), gain net ÷ investissement.",
+  "payload": {
+   "seconds": 75,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Clinique : coûts fixes 9 M€ par an, 1 400 € facturés par séjour, 500 € de coût variable. Séjours pour l'équilibre ?",
+     "computation": "9e6/(1400-500)",
+     "answer": 10000,
+     "unit": "séjours",
+     "tolerance_pct": 3,
+     "hint": "marge 900 € ; 9 M / 900 = 10 k"
+    },
+    {
+     "id": "q2",
+     "stem": "Parc éolien : 60 M€ d'investissement, 7,5 M€ de cash-flow par an. Délai de remboursement ?",
+     "computation": "60/7.5",
+     "answer": 8,
+     "unit": "ans",
+     "tolerance_pct": 3,
+     "hint": "60 / 7,5 = 8"
+    },
+    {
+     "id": "q3",
+     "stem": "SaaS : coûts fixes 3,6 M€ par an, abonnement 25 € par mois, coût variable 5 € par mois. Abonnés pour l'équilibre ?",
+     "computation": "3.6e6/(20*12)",
+     "answer": 15000,
+     "unit": "abonnés",
+     "tolerance_pct": 3,
+     "hint": "marge 20 €/mois = 240 €/an ; 3,6 M / 240 = 15 k"
+    },
+    {
+     "id": "q4",
+     "stem": "800 k€ investis, 1,1 M€ encaissés en tout sur 3 ans. ROI, en % ?",
+     "computation": "(1.1e6-800e3)/800e3*100",
+     "answer": 37.5,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "gain net 300 k / 800 k = 37,5 %"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.013",
+  "format": "spot_error",
+  "skill": "u2.breakeven",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Seuil d'une librairie. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Un seuil en unités se convertit en euros en multipliant par le prix : 25 700 livres × 20 € ≈ 514 k€. Ne confonds pas le nombre et le CA.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Coûts fixes 180 k€ par an, prix moyen 20 €, coût d'achat 13 €"
+    },
+    {
+     "id": "l2",
+     "text": "Marge par livre : 7 €"
+    },
+    {
+     "id": "l3",
+     "text": "Seuil : 180 000 ÷ 7 ≈ 25 700 livres par an"
+    },
+    {
+     "id": "l4",
+     "text": "Soit un CA minimal de 25 700 €"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "25 700 livres × 20 € ≈ 514 k€ de CA minimal : le seuil en euros, c'est unités × prix."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.014",
+  "format": "two_step_calc",
+  "skill": "u2.breakeven",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "luxe",
+  "stem": "Une marque de cosmétiques a 2 M€ de coûts fixes et vend 40 € un produit qui coûte 15 € à fabriquer. Combien d'unités pour dégager 500 k€ de résultat ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "Le résultat visé est en euros : il s'ajoute aux fixes avant la division. (2 M + 0,5 M) ÷ 25 € = 100 000 unités.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "a",
+     "text": "(2 M + 0,5 M) ÷ (40 − 15)"
+    },
+    {
+     "id": "b",
+     "text": "2 M ÷ (40 − 15) + 0,5 M",
+     "why_wrong": "Le résultat visé est en euros : il s'ajoute aux fixes avant de diviser, pas aux unités après."
+    },
+    {
+     "id": "c",
+     "text": "2,5 M ÷ 40",
+     "why_wrong": "Diviser par le prix oublie les 15 € de coût variable de chaque unité."
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "(2e6+0.5e6)/(40-15)",
+   "answer": 100000,
+   "unit": "unités",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.015",
+  "format": "match_pairs",
+  "skill": "u2.breakeven",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Associe chaque situation à son résultat.",
+  "media": null,
+  "explanation": "Mêmes 300 k€, quatre formules : ÷ marge unitaire, ÷ taux de marge, ÷ gain annuel, (gain − invest.) ÷ invest.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "Fixes 300 k€, marge unitaire 15 €",
+     "right": "seuil de 20 000 unités"
+    },
+    {
+     "left": "Fixes 300 k€, taux de marge 30 %",
+     "right": "seuil de 1 M€ de CA"
+    },
+    {
+     "left": "Investissement 300 k€, gain 100 k€ par an",
+     "right": "remboursé en 3 ans"
+    },
+    {
+     "left": "Investissement 300 k€, 450 k€ encaissés",
+     "right": "ROI de 50 %"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.016",
+  "format": "mental_math",
+  "skill": "u2.breakeven",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "",
+  "media": null,
+  "explanation": "Le gain annuel du payback est net des coûts récurrents (maintenance) ; le seuil se lit aussi en taux de remplissage (seuil ÷ capacité).",
+  "payload": {
+   "seconds": 90,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Vol : 18 000 € de coûts fixes, 180 sièges, billet 150 €, coût variable 30 € par passager. Passagers pour couvrir le vol ?",
+     "computation": "18000/(150-30)",
+     "answer": 150,
+     "unit": "passagers",
+     "tolerance_pct": 3,
+     "hint": "marge 120 € ; 18 000 / 120 = 150"
+    },
+    {
+     "id": "q2",
+     "stem": "Ce vol de 180 sièges atteint son seuil à 150 passagers. Taux de remplissage au seuil, en % ?",
+     "computation": "150/180*100",
+     "answer": 83.33,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "150 / 180 = 5/6 ≈ 83 %"
+    },
+    {
+     "id": "q3",
+     "stem": "Data center : 120 M€ d'investissement, 20 M€ de marge par an, 5 M€ de maintenance par an. Délai de remboursement ?",
+     "computation": "120/(20-5)",
+     "answer": 8,
+     "unit": "ans",
+     "tolerance_pct": 3,
+     "hint": "gain net 15 M/an ; 120 / 15 = 8"
+    },
+    {
+     "id": "q4",
+     "stem": "Un robot coûte 450 k€, remplace 1,5 ETP à 60 k€ chargés, et coûte 30 k€ par an de maintenance. Délai de remboursement ?",
+     "computation": "450/(1.5*60-30)",
+     "answer": 7.5,
+     "unit": "ans",
+     "tolerance_pct": 3,
+     "hint": "gain 90 k − 30 k = 60 k ; 450 / 60 = 7,5"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.017",
+  "format": "spot_error",
+  "skill": "u2.breakeven",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Seuil d'une usine. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Compare toujours le seuil à la capacité : 500 000 pièces = 100 % de la capacité. Le calcul est juste, la conclusion ne l'est pas.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Coûts fixes 12 M€ par an, capacité 500 000 pièces"
+    },
+    {
+     "id": "l2",
+     "text": "Prix 60 €, coût variable 36 € → marge unitaire 24 €"
+    },
+    {
+     "id": "l3",
+     "text": "Seuil : 12 M ÷ 24 = 500 000 pièces"
+    },
+    {
+     "id": "l4",
+     "text": "Donc l'usine est rentable dès 60 % de sa capacité"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "Le seuil vaut 100 % de la capacité : l'usine ne peut pas être rentable sans baisser ses coûts ou monter son prix."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.018",
+  "format": "fill_blank",
+  "skill": "u2.breakeven",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Effet d'une baisse de prix sur le seuil : complète.",
+  "media": null,
+  "explanation": "Prix 100 → 90, coût variable 60 : la marge passe de 40 à 30. Pour la même marge totale, le volume doit faire × 40/30, soit +33 %.",
+  "payload": {
+   "text": "Un produit à 100 € a 40 % de marge sur coût variable. Baisser le prix de 10 % ramène la marge unitaire à {{1}} € ; pour garder la même marge totale, le volume doit augmenter de {{2}}.",
+   "slots": [
+    {
+     "id": 1,
+     "options": [
+      "36",
+      "30",
+      "50"
+     ],
+     "correct": 1
+    },
+    {
+     "id": 2,
+     "options": [
+      "10 %",
+      "33 %",
+      "25 %"
+     ],
+     "correct": 1
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.019",
+  "format": "two_step_calc",
+  "skill": "u2.breakeven",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Un ERP coûte 6 M€. Il rapporte 1 M€ la première année (montée en charge), puis 2,5 M€ par an. Délai de remboursement, en années ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "Quand les gains varient, on cumule année par année : 1 M€ la 1re année, il reste 5 M€ à 2,5 M€ par an = 2 ans. Total 3 ans.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "b",
+     "text": "6 ÷ 2,5",
+     "why_wrong": "La première année ne rapporte que 1 M€ : il faut cumuler année par année."
+    },
+    {
+     "id": "c",
+     "text": "6 ÷ (1 + 2,5)",
+     "why_wrong": "3,5 M€ n'est le gain d'aucune année : on ne moyenne pas deux rythmes différents."
+    },
+    {
+     "id": "a",
+     "text": "1 + (6 − 1) ÷ 2,5"
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "1+(6-1)/2.5",
+   "answer": 3,
+   "unit": "ans",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.020",
+  "format": "mental_math",
+  "skill": "u2.breakeven",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "",
+  "media": null,
+  "explanation": "Les formules se retournent : fixes = seuil × marge ; taux de marge = fixes ÷ seuil en CA ; gain annuel = investissement ÷ payback.",
+  "payload": {
+   "seconds": 90,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Salle de 1 200 places, seuil à 900 spectateurs, billet 25 €, coût variable 5 €. Coûts fixes de la soirée ?",
+     "computation": "900*(25-5)",
+     "answer": 18000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "marge 20 € × 900 = 18 k"
+    },
+    {
+     "id": "q2",
+     "stem": "Coûts fixes 600 k€, seuil de 2 M€ de CA. Taux de marge sur coût variable, en % ?",
+     "computation": "600/2000*100",
+     "answer": 30,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "600 / 2 000 = 30 %"
+    },
+    {
+     "id": "q3",
+     "stem": "ROI de 20 % sur 2,5 M€ investis. Total encaissé ?",
+     "computation": "2.5e6*1.2",
+     "answer": 3000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "gain net 0,5 M + 2,5 M = 3 M"
+    },
+    {
+     "id": "q4",
+     "stem": "10 M€ investis, remboursés en 4 ans. Gain annuel ?",
+     "computation": "10e6/4",
+     "answer": 2500000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "10 / 4 = 2,5 M"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.021",
+  "format": "spot_error",
+  "skill": "u2.breakeven",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Comparaison de deux projets. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Payback et ROI mesurent deux choses : la vitesse et le rendement. Un projet peut rembourser vite et rapporter peu ensuite.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Projet A : 2 M€ investis, 800 k€ par an pendant 5 ans"
+    },
+    {
+     "id": "l2",
+     "text": "Délai de remboursement : 2 ÷ 0,8 = 2,5 ans"
+    },
+    {
+     "id": "l3",
+     "text": "Gain total 4 M€, gain net 2 M€, ROI de 100 % sur 5 ans"
+    },
+    {
+     "id": "l4",
+     "text": "Le projet B rembourse en 2 ans : il a donc forcément un meilleur ROI"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "Le délai ne dit rien de ce qui se passe après : un projet peut rembourser vite et rapporter peu. Compare les ROI."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.breakeven.022",
+  "format": "match_pairs",
+  "skill": "u2.breakeven",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Associe chaque levier à son effet sur le seuil de rentabilité.",
+  "media": null,
+  "explanation": "Le seuil = fixes ÷ marge : tout ce qui baisse les fixes ou monte la marge le fait baisser ; passer du fixe au variable joue sur les deux.",
+  "payload": {
+   "pairs": [
+    {
+     "left": "Augmenter le prix",
+     "right": "marge unitaire en hausse, seuil en baisse"
+    },
+    {
+     "left": "Externaliser la logistique (fixe → variable)",
+     "right": "fixes en baisse, mais marge unitaire en baisse aussi"
+    },
+    {
+     "left": "Ouvrir un second entrepôt",
+     "right": "fixes en hausse, seuil en hausse"
+    },
+    {
+     "left": "Négocier le coût d'achat",
+     "right": "coût variable en baisse, seuil en baisse"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.001",
+  "format": "concept_card",
+  "skill": "u2.meaning",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Dire ce que le chiffre veut dire",
+  "media": null,
+  "explanation": "",
+  "payload": {
+   "screens": [
+    {
+     "title": "L'idée",
+     "body": "Un chiffre d'entretien n'est fini que quand il a passé **deux tests** :\n\n**1. Il est plausible.** Trois vérifications de 5 secondes : compter les zéros, comparer à une référence connue (68 M d'habitants, 31 M de ménages, 8 760 h/an…), refaire le calcul à l'envers (800 abonnés × 300 € = 240 k€, je retombe sur mes fixes).\n\n**2. Il change quelque chose.** « Le seuil est de 800 abonnés » est une donnée. « Le club en a 650 : il perd de l'argent tant qu'il n'en recrute pas 150 » est une implication.\n\nEt un ordre de grandeur se dit **avec un arrondi honnête** : « environ 1,3 Md€, entre 1,1 et 1,5 », jamais « 1,302 Md€ »."
+    },
+    {
+     "title": "Exemple parlé",
+     "body": "« Le marché des lunettes : 41 M de porteurs, une paire tous les 3 ans à 300 €. »\n\nCe que dit un bon candidat :\n« 41 ÷ 3 ≈ 14 M de paires, × 300 € ≈ **4 Md€**. Vérification : ça fait 4 Md ÷ 68 M ≈ 60 € par habitant et par an, cohérent avec ce que rembourse une mutuelle. Pour le client, qui fait 400 M€, cela veut dire 10 % de part : il est déjà un acteur majeur, la croissance viendra plutôt du prix ou de la fréquence que de nouveaux porteurs. »"
+    },
+    {
+     "title": "À retenir",
+     "body": "1. Avant d'annoncer : compte les zéros, compare à une référence, refais à l'envers.\n2. Si le chiffre est absurde (60 000 € de lunettes par personne), dis-le et corrige : l'interviewer préfère ça à un résultat faux assumé.\n3. Arrondi honnête : 2 chiffres significatifs et une fourchette.\n4. Finis toujours par « donc… » : ce que le chiffre change pour le client, et quelle hypothèse pèse le plus."
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.002",
+  "format": "swipe_valid",
+  "skill": "u2.meaning",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Plausible ou absurde ? Glisse à droite si le chiffre est plausible.",
+  "media": null,
+  "explanation": "Ramène chaque chiffre à une référence par tête ou par jour : 300 cafés/an ≈ 1 par jour ; 2 M€/jour pour un magasin = 700 M€/an, impossible.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "Un Français boit en moyenne 300 cafés par an",
+     "valid": true,
+     "reason": "Un par jour environ : cohérent."
+    },
+    {
+     "id": "c2",
+     "text": "Un hypermarché fait 2 M€ de CA par jour",
+     "valid": false,
+     "reason": "2 M€ × 360 = 720 M€ par an : même les plus gros hypers sont vers 100-200 M€."
+    },
+    {
+     "id": "c3",
+     "text": "Il se vend 1,7 M de voitures neuves par an en France",
+     "valid": true,
+     "reason": "40 M de voitures renouvelées tous les 15-20 ans ≈ 2 M par an."
+    },
+    {
+     "id": "c4",
+     "text": "Une PME de 50 salariés fait 2 Md€ de CA",
+     "valid": false,
+     "reason": "2 Md€ ÷ 50 = 40 M€ par salarié : une PME fait plutôt 100-300 k€ par salarié."
+    },
+    {
+     "id": "c5",
+     "text": "Un hôpital de 500 lits accueille 150 000 journées par an",
+     "valid": true,
+     "reason": "500 lits × 365 j × 85 % ≈ 155 000 journées."
+    },
+    {
+     "id": "c6",
+     "text": "Une ligne de métro transporte 10 M de voyageurs par jour",
+     "valid": false,
+     "reason": "Tout le métro parisien fait ~4 M par jour ; une ligne, quelques centaines de milliers."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.003",
+  "format": "estimate_range",
+  "skill": "u2.meaning",
+  "difficulty": 1,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Combien de ménages y a-t-il en France ?",
+  "media": null,
+  "explanation": "68 M d'habitants ÷ 2,2 personnes par ménage ≈ 31 M. Un chiffre à connaître : il sert dans la moitié des sizings.",
+  "payload": {
+   "range": [
+    25000000,
+    38000000
+   ],
+   "slider": [
+    1000000,
+    1000000000
+   ],
+   "unit": "ménages",
+   "scale": "log",
+   "reference": "68 M d'habitants ÷ ~2,2 personnes par ménage ≈ 31 M de ménages."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.004",
+  "format": "estimate_range",
+  "skill": "u2.meaning",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "Combien de voitures particulières circulent en France ?",
+  "media": null,
+  "explanation": "31 M de ménages × ~1,2 voiture ≈ 38-40 M. Retiens « 40 M de voitures » et « 1,7-2 M de neuves par an ».",
+  "payload": {
+   "range": [
+    30000000,
+    50000000
+   ],
+   "slider": [
+    1000000,
+    500000000
+   ],
+   "unit": "voitures",
+   "scale": "log",
+   "reference": "31 M de ménages × ~1,2 voiture par ménage ≈ 38-40 M de voitures particulières."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.005",
+  "format": "pick_so_what",
+  "skill": "u2.meaning",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Un client hésite sur un projet CRM. Quelle phrase dit ce que les chiffres veulent dire ?",
+  "media": {
+   "type": "table",
+   "title": "Projet CRM",
+   "header": [
+    "Poste",
+    "Montant"
+   ],
+   "rows": [
+    [
+     "Investissement",
+     "1,2 M€"
+    ],
+    [
+     "Gain annuel",
+     "400 k€"
+    ]
+   ]
+  },
+  "explanation": "Un chiffre devient un so-what quand il est comparé à un critère de décision : 3 ans de payback face à la règle interne.",
+  "payload": {
+   "options": [
+    {
+     "id": "c",
+     "text": "Le gain annuel est inférieur au coût : le projet perd de l'argent",
+     "why_wrong": "Un investissement se compare au cumul des gains, pas à une seule année."
+    },
+    {
+     "id": "a",
+     "text": "Le projet se rembourse en 3 ans : acceptable si la direction accepte un retour sous 5 ans"
+    },
+    {
+     "id": "b",
+     "text": "Le projet coûte 1,2 M€ et rapporte 400 k€ par an",
+     "why_wrong": "C'est la donnée relue, pas ce qu'elle implique."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.006",
+  "format": "spot_error",
+  "skill": "u2.meaning",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Sizing du marché des lunettes. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Ramène toujours un marché à un chiffre par tête : 4,2 Md€ ÷ 68 M ≈ 62 € par habitant. 60 000 € par personne dépasse le revenu médian.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "68 M d'habitants × 60 % de porteurs = 41 M de personnes"
+    },
+    {
+     "id": "l2",
+     "text": "Renouvellement tous les 3 ans → 14 M de paires par an"
+    },
+    {
+     "id": "l3",
+     "text": "Prix moyen 300 € → 4,2 Md€"
+    },
+    {
+     "id": "l4",
+     "text": "Soit 60 000 € dépensés par habitant et par an"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "4,2 Md€ ÷ 68 M ≈ 62 € par habitant et par an. 60 000 € aurait dû sauter aux yeux."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.007",
+  "format": "swipe_valid",
+  "skill": "u2.meaning",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "La phrase dit-elle ce que le chiffre change ? Glisse à droite si oui.",
+  "media": null,
+  "explanation": "Un so-what compare le chiffre à un seuil ou à un objectif et dit ce qu'on en fait. Un chiffre nu, même précis, n'en est pas un.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "Le seuil est à 800 abonnés, le club en a 650 : il perd de l'argent tant qu'il ne recrute pas 150 membres",
+     "valid": true,
+     "reason": "Chiffre comparé à la réalité, écart traduit en action."
+    },
+    {
+     "id": "c2",
+     "text": "Le seuil de rentabilité est de 800 abonnés",
+     "valid": false,
+     "reason": "Chiffre nu : combien en a le club ? Que faut-il faire ?"
+    },
+    {
+     "id": "c3",
+     "text": "Le CA a baissé de 12 % en 2025",
+     "valid": false,
+     "reason": "Un constat. Pourquoi, et qu'est-ce que ça change ?"
+    },
+    {
+     "id": "c4",
+     "text": "La marge brute ressort à 42,37 %",
+     "valid": false,
+     "reason": "Précision illusoire et aucune implication."
+    },
+    {
+     "id": "c5",
+     "text": "Avec 3 ans de remboursement, le projet tient dans la règle interne de 4 ans : on peut le lancer",
+     "valid": true,
+     "reason": "Comparé au critère de décision, conclusion claire."
+    },
+    {
+     "id": "c6",
+     "text": "À 2 % de part, même doubler ne rapporte que 20 M€ : la part de marché n'est pas le levier principal",
+     "valid": true,
+     "reason": "Le chiffre sert à écarter une piste : c'est une implication."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.008",
+  "format": "estimate_range",
+  "skill": "u2.meaning",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Combien y a-t-il d'entreprises en France, toutes tailles confondues ?",
+  "media": null,
+  "explanation": "≈ 4,5 M d'entreprises, dont 95 % de micro-entreprises. Pour un sizing B2B, segmente par taille : ~150 k entreprises de plus de 10 salariés.",
+  "payload": {
+   "range": [
+    3000000,
+    7000000
+   ],
+   "slider": [
+    100000,
+    100000000
+   ],
+   "unit": "entreprises",
+   "scale": "log",
+   "reference": "≈ 4,5 M d'entreprises, dont ~95 % de micro-entreprises ; ~150 k ont plus de 10 salariés."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.009",
+  "format": "pick_so_what",
+  "skill": "u2.meaning",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Marge et CA de quatre magasins d'une enseigne. Quel so-what ?",
+  "media": {
+   "type": "bar",
+   "title": "Marge par magasin",
+   "unit": "%",
+   "categories": [
+    "Paris",
+    "Lyon",
+    "Lille",
+    "Nantes"
+   ],
+   "series": [
+    {
+     "name": "Marge (%)",
+     "values": [
+      8,
+      12,
+      3,
+      11
+     ]
+    },
+    {
+     "name": "CA (M€)",
+     "values": [
+      40,
+      15,
+      12,
+      10
+     ]
+    }
+   ]
+  },
+  "explanation": "Le so-what désigne le point qui appelle une action : le magasin sous le seuil. Une moyenne de pourcentages ne dit rien et se calcule mal.",
+  "payload": {
+   "options": [
+    {
+     "id": "a",
+     "text": "Lille, à 3 %, est sans doute sous son seuil : c'est là qu'on creuse d'abord"
+    },
+    {
+     "id": "b",
+     "text": "Paris dégage la plus grosse marge en euros : 3,2 M€, deux fois Lyon",
+     "why_wrong": "Vrai, mais ça ne change rien : ce n'est pas un problème à résoudre."
+    },
+    {
+     "id": "c",
+     "text": "La marge moyenne du réseau est de 8,5 %",
+     "why_wrong": "Moyenne simple de pourcentages (fausse : pondérée, c'est 8,4 %) et aucune implication."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.010",
+  "format": "spot_error",
+  "skill": "u2.meaning",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Annonce d'un sizing. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Deux chiffres significatifs et une fourchette : « environ 1,3 Md€, entre 1,1 et 1,5 ». Trois décimales sur une hypothèse à ±15 % trahissent le raisonnement.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Marché : 31 M de ménages × 35 % × 120 € ≈ 1,3 Md€"
+    },
+    {
+     "id": "l2",
+     "text": "Hypothèse haute (40 %) : 1,5 Md€ ; basse (30 %) : 1,1 Md€"
+    },
+    {
+     "id": "l3",
+     "text": "Je retiens donc un marché de 1,302 Md€"
+    },
+    {
+     "id": "l4",
+     "text": "L'incertitude vient surtout du taux d'équipement : c'est la donnée à valider"
+    }
+   ],
+   "wrong_line": "l3",
+   "fix": "Dis « environ 1,3 Md€, entre 1,1 et 1,5 » : trois décimales sur une hypothèse à ±15 %, c'est une précision illusoire."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.011",
+  "format": "synth_order",
+  "skill": "u2.meaning",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Le seuil d'une clinique vient d'être calculé. Remets la synthèse dans l'ordre et écarte les tuiles inutiles.",
+  "media": null,
+  "explanation": "Chiffre → comparaison à la réalité → écart traduit en levier → hypothèse à vérifier. Le détail des coûts fixes et le contexte sectoriel n'ajoutent rien.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Le seuil est d'environ 10 000 séjours par an"
+    },
+    {
+     "id": "t2",
+     "text": "La clinique en réalise 8 500 : elle perd de l'argent"
+    },
+    {
+     "id": "t3",
+     "text": "Il lui manque 15 % d'activité, ou 150 € de marge par séjour"
+    },
+    {
+     "id": "t4",
+     "text": "Je vérifierais d'abord le coût variable, qui pèse le plus dans le calcul"
+    },
+    {
+     "id": "t5",
+     "text": "Les coûts fixes sont de 9 M€ et la marge de 900 € par séjour"
+    },
+    {
+     "id": "t6",
+     "text": "Le secteur de la santé est en tension"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4"
+   ],
+   "distractors": [
+    "t5",
+    "t6"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.012",
+  "format": "estimate_range",
+  "skill": "u2.meaning",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "Combien de lits d'hôpital y a-t-il en France ?",
+  "media": null,
+  "explanation": "≈ 5,7 lits pour 1 000 habitants × 68 M ≈ 390 k lits. Référence utile pour tout case santé : un hôpital moyen, c'est quelques centaines de lits.",
+  "payload": {
+   "range": [
+    250000,
+    600000
+   ],
+   "slider": [
+    10000,
+    10000000
+   ],
+   "unit": "lits",
+   "scale": "log",
+   "reference": "≈ 5,7 lits pour 1 000 habitants × 68 M ≈ 390 000 lits (dont ~60 % en médecine-chirurgie)."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.013",
+  "format": "swipe_valid",
+  "skill": "u2.meaning",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Bon réflexe de vérification ? Glisse à droite si oui.",
+  "media": null,
+  "explanation": "Trois vérifications valent le coup : refaire à l'envers, comparer à une référence, compter les zéros. La précision et l'assurance ne vérifient rien.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "Refaire à l'envers : 800 abonnés × 300 € = 240 k€, je retombe sur les coûts fixes",
+     "valid": true,
+     "reason": "Le calcul inverse confirme l'ordre de grandeur en 5 secondes."
+    },
+    {
+     "id": "c2",
+     "text": "Comparer à une référence : 62 € de lunettes par habitant, cohérent avec le budget optique d'une mutuelle",
+     "valid": true,
+     "reason": "Un ratio par tête se compare à ce qu'on connaît."
+    },
+    {
+     "id": "c3",
+     "text": "Compter les zéros : 2,4 M × 500 = 1 200 M, donc 1,2 Md",
+     "valid": true,
+     "reason": "Le passage M → Md est le moment où l'on perd un zéro : on le vérifie."
+    },
+    {
+     "id": "c4",
+     "text": "Donner le résultat avec trois décimales pour montrer sa rigueur",
+     "valid": false,
+     "reason": "Une précision supérieure à celle des hypothèses n'est pas de la rigueur."
+    },
+    {
+     "id": "c5",
+     "text": "Annoncer 3 Md€ de CA pour une boulangerie de quartier, puisque le calcul le dit",
+     "valid": false,
+     "reason": "Un résultat absurde signale une erreur : on la cherche avant d'annoncer."
+    },
+    {
+     "id": "c6",
+     "text": "Passer au point suivant dès que le chiffre est sorti",
+     "valid": false,
+     "reason": "Il manque le « donc » : ce que le chiffre change pour le client."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.014",
+  "format": "pick_so_what",
+  "skill": "u2.meaning",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "télécoms",
+  "stem": "Churn mensuel d'un opérateur à 4 M de clients. Quel so-what ?",
+  "media": {
+   "type": "line",
+   "title": "Churn mensuel",
+   "unit": "%",
+   "categories": [
+    "T1",
+    "T2",
+    "T3",
+    "T4"
+   ],
+   "series": [
+    {
+     "name": "Churn (%/mois)",
+     "values": [
+      2.0,
+      2.1,
+      3.4,
+      3.6
+     ]
+    }
+   ]
+  },
+  "explanation": "Traduis le taux en volume et repère la rupture : 3,5 % par mois sur 4 M = 1,7 M de clients perdus par an. La question devient « qu'est-ce qui a changé au T3 ? »",
+  "payload": {
+   "options": [
+    {
+     "id": "b",
+     "text": "Le churn est de 3,6 % au T4, contre 2 % au T1",
+     "why_wrong": "Lecture du graphique, pas une implication."
+    },
+    {
+     "id": "c",
+     "text": "Le churn monte régulièrement, d'environ 0,5 point par trimestre : la tendance est continue",
+     "why_wrong": "Trompeur : la hausse n'est pas régulière, elle se concentre au T3. C'est la rupture qu'il faut expliquer."
+    },
+    {
+     "id": "a",
+     "text": "Le churn a doublé depuis le T3 : 1,7 M de clients perdus par an au lieu de 1 M. Que s'est-il passé au T3 ?"
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.015",
+  "format": "estimate_range",
+  "skill": "u2.meaning",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "Combien de kilomètres parcourt une voiture particulière par an en France ?",
+  "media": null,
+  "explanation": "≈ 12 000 km par an, soit 1 000 km par mois ou 35 km par jour. Multiplié par 40 M de voitures : ~500 Md de km.",
+  "payload": {
+   "range": [
+    8000,
+    18000
+   ],
+   "slider": [
+    1000,
+    100000
+   ],
+   "unit": "km/an",
+   "scale": "log",
+   "reference": "≈ 12 000 km par an : 1 000 km par mois, ou 35 km par jour (domicile-travail + week-ends)."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.016",
+  "format": "spot_error",
+  "skill": "u2.meaning",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "Budget carburant d'une flotte. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Vérifie par tête : 90 M€ ÷ 2 000 camions = 45 k€ par camion. 450 € pour 100 000 km, c'est 0,45 centime par km : absurde.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Flotte de 2 000 camions à 100 000 km par an = 200 M de km"
+    },
+    {
+     "id": "l2",
+     "text": "Consommation 30 L/100 km → 60 M de litres"
+    },
+    {
+     "id": "l3",
+     "text": "Gazole à 1,5 € → 90 M€ de carburant par an"
+    },
+    {
+     "id": "l4",
+     "text": "Soit 450 € de carburant par camion et par an"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "90 M€ ÷ 2 000 = 45 000 € par camion. À 100 000 km, 450 € ferait 0,45 centime du km : absurde."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.017",
+  "format": "synth_order",
+  "skill": "u2.meaning",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Le sizing d'un marché est terminé. Remets l'annonce dans l'ordre et écarte les tuiles inutiles.",
+  "media": null,
+  "explanation": "Résultat avec fourchette → ce que ça vaut pour le client → jugement → prochaine étape. La méthode de calcul a déjà été dite ; le contexte n'apporte rien.",
+  "payload": {
+   "tiles": [
+    {
+     "id": "t1",
+     "text": "Le marché vaut environ 1,4 Md€, entre 1,1 et 1,7 selon le taux d'équipement"
+    },
+    {
+     "id": "t2",
+     "text": "Avec 10 % de part, le client viserait 140 M€, soit un tiers de son CA actuel"
+    },
+    {
+     "id": "t3",
+     "text": "C'est un vrai relais de croissance, à condition d'y entrer vite"
+    },
+    {
+     "id": "t4",
+     "text": "Je proposerais de tester l'hypothèse d'équipement sur les données de panel"
+    },
+    {
+     "id": "t5",
+     "text": "J'ai multiplié 31 M de ménages par 60 %, puis divisé par 8 ans"
+    },
+    {
+     "id": "t6",
+     "text": "Le marché de l'électroménager est mature"
+    }
+   ],
+   "solution": [
+    "t1",
+    "t2",
+    "t3",
+    "t4"
+   ],
+   "distractors": [
+    "t5",
+    "t6"
+   ],
+   "accepted": []
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.018",
+  "format": "pick_so_what",
+  "skill": "u2.meaning",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Deux projets pour le même budget. Quel so-what ?",
+  "media": {
+   "type": "table",
+   "title": "Deux projets",
+   "header": [
+    "Projet",
+    "Invest.",
+    "Gain/an",
+    "Durée"
+   ],
+   "rows": [
+    [
+     "Automatisation",
+     "6 M€",
+     "2 M€",
+     "8 ans"
+    ],
+    [
+     "Nouveau site",
+     "6 M€",
+     "3 M€",
+     "3 ans"
+    ]
+   ]
+  },
+  "explanation": "Payback et ROI racontent deux histoires : le délai dit la vitesse, le cumul des gains dit la valeur. L'horizon du client tranche.",
+  "payload": {
+   "options": [
+    {
+     "id": "c",
+     "text": "Les deux projets coûtent 6 M€, ils sont équivalents",
+     "why_wrong": "Même investissement, mais gains et durées différents : c'est justement ce qu'il faut comparer."
+    },
+    {
+     "id": "a",
+     "text": "Le site rapporte 3 M€ nets, l'automatisation 10 M€ : à horizon long, l'automatisation gagne malgré un payback plus lent"
+    },
+    {
+     "id": "b",
+     "text": "Le nouveau site rembourse en 2 ans, deux fois plus vite : c'est le meilleur projet",
+     "why_wrong": "Le délai ne dit rien des gains après remboursement : 3 M€ nets contre 10 M€."
+    }
+   ],
+   "correct": "a"
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.019",
+  "format": "estimate_range",
+  "skill": "u2.meaning",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "Combien d'agents compte la fonction publique en France (État, collectivités, hôpitaux) ?",
+  "media": null,
+  "explanation": "≈ 5,7 M d'agents, soit un actif sur cinq (30 M d'actifs). Retiens le ratio : 20 % de l'emploi.",
+  "payload": {
+   "range": [
+    4000000,
+    8000000
+   ],
+   "slider": [
+    500000,
+    50000000
+   ],
+   "unit": "agents",
+   "scale": "log",
+   "reference": "≈ 5,7 M d'agents (2,5 M État, 2 M territoriale, 1,2 M hospitalière), un actif sur cinq."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.020",
+  "format": "swipe_valid",
+  "skill": "u2.meaning",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "La phrase donne-t-elle l'implication pour le client ? Glisse à droite si oui.",
+  "media": null,
+  "explanation": "L'implication compare le chiffre à une règle, un objectif ou une référence, puis dit la décision. « 83,33 % » et « passons à la suite » n'en sont pas.",
+  "payload": {
+   "cards": [
+    {
+     "id": "c1",
+     "text": "7,5 ans de remboursement dépassent la règle interne de 5 ans : négocier le prix du robot ou abandonner",
+     "valid": true,
+     "reason": "Chiffre comparé au critère, décision proposée."
+    },
+    {
+     "id": "c2",
+     "text": "Le robot se rembourse en 7,5 ans",
+     "valid": false,
+     "reason": "Et alors ? Sans critère de comparaison, le chiffre ne décide rien."
+    },
+    {
+     "id": "c3",
+     "text": "Un seuil à 83 % de remplissage laisse peu de marge : un vol sur trois sera déficitaire en hiver",
+     "valid": true,
+     "reason": "Le seuil est traduit en risque opérationnel."
+    },
+    {
+     "id": "c4",
+     "text": "Le taux de remplissage au seuil est de 83,33 %",
+     "valid": false,
+     "reason": "Précision illusoire et aucune conséquence tirée."
+    },
+    {
+     "id": "c5",
+     "text": "À 62 € par habitant, l'estimation du marché des lunettes est cohérente avec le budget optique des mutuelles",
+     "valid": true,
+     "reason": "Vérification par une référence connue : le chiffre tient."
+    },
+    {
+     "id": "c6",
+     "text": "Le calcul donne 4,2 Md€, passons à la segmentation",
+     "valid": false,
+     "reason": "Le chiffre n'a été ni vérifié ni traduit pour le client."
+    }
+   ],
+   "pass_ratio": 0.8
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.021",
+  "format": "spot_error",
+  "skill": "u2.meaning",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "Vérification d'un sizing carburant. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "La vérification elle-même peut perdre un zéro : 65 Md€ ÷ 31 M = 2 100 € par ménage (175 € par mois), et c'est ce chiffre-là qui est cohérent.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "40 M de voitures × 15 000 km = 600 Md de km par an"
+    },
+    {
+     "id": "l2",
+     "text": "À 6 L/100 km → 36 Md de litres"
+    },
+    {
+     "id": "l3",
+     "text": "À 1,8 € le litre → 65 Md€ de carburant"
+    },
+    {
+     "id": "l4",
+     "text": "Vérification : 65 Md€ ÷ 31 M de ménages ≈ 210 € par ménage et par an, cohérent"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "65 Md€ ÷ 31 M ≈ 2 100 € par ménage, soit 175 € par mois : c'est ça qui est cohérent, pas 210 €."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.meaning.022",
+  "format": "estimate_range",
+  "skill": "u2.meaning",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Quelle est la population de Singapour ?",
+  "media": null,
+  "explanation": "≈ 6 M d'habitants sur 730 km², soit moins qu'une Île-de-France (12 M). Pour un case Asie, retiens aussi : UE ≈ 450 M, Indonésie ≈ 280 M.",
+  "payload": {
+   "range": [
+    4000000,
+    8500000
+   ],
+   "slider": [
+    500000,
+    100000000
+   ],
+   "unit": "habitants",
+   "scale": "log",
+   "reference": "≈ 6 M d'habitants (5,9 M en 2024), dont ~3,6 M de citoyens et résidents permanents."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.review.001",
+  "format": "mental_math",
+  "skill": "u2.review",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "assurance",
+  "stem": "",
+  "media": null,
+  "explanation": "Sprint : annonce l'arrondi, garde l'unité (M€, Md€), corrige à la fin. 1,6 M × 420 = 672 M€ ; 2 % de 45 Md = 0,9 Md.",
+  "payload": {
+   "seconds": 60,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "1,6 M de contrats habitation, prime 420 €. Primes totales ?",
+     "computation": "1.6e6*420",
+     "answer": 672000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "1,6 × 420 = 672 → M€"
+    },
+    {
+     "id": "q2",
+     "stem": "Budget de 45 Md€, hausse de 2 %. Montant de la hausse ?",
+     "computation": "45e9*0.02",
+     "answer": 900000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "45 × 0,02 = 0,9 Md"
+    },
+    {
+     "id": "q3",
+     "stem": "Un centre d'appels traite 1 200 appels par heure, 10 h par jour, 250 jours. Appels par an ?",
+     "computation": "1200*10*250",
+     "answer": 3000000,
+     "unit": "appels",
+     "tolerance_pct": 3,
+     "hint": "12 k/jour × 250 = 3 M"
+    },
+    {
+     "id": "q4",
+     "stem": "Remise de 12,5 % sur 320 €. Montant de la remise ?",
+     "computation": "320/8",
+     "answer": 40,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "1/8 de 320 = 40"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.review.002",
+  "format": "two_step_calc",
+  "skill": "u2.review",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Une boutique a 90 000 € de coûts fixes par an, vend un article 30 € qui lui coûte 18 €. Articles par an pour être rentable ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "Seuil = fixes ÷ marge unitaire = 90 000 ÷ 12 = 7 500 articles. Diviser par le prix (3 000) sous-estime le seuil de plus de moitié.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "a",
+     "text": "90 000 ÷ (30 − 18)"
+    },
+    {
+     "id": "b",
+     "text": "90 000 ÷ 30",
+     "why_wrong": "Le prix n'est pas la marge : 18 € de chaque article partent en achat."
+    },
+    {
+     "id": "c",
+     "text": "90 000 × (30 − 18)",
+     "why_wrong": "On cherche un nombre d'articles : on divise les fixes par la marge."
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "90000/(30-18)",
+   "answer": 7500,
+   "unit": "articles",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.review.003",
+  "format": "estimate_range",
+  "skill": "u2.review",
+  "difficulty": 2,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Combien d'heures compte une année ?",
+  "media": null,
+  "explanation": "24 × 365 = 8 760 h. Référence indispensable pour l'énergie (MW × 8 760 = MWh) et pour les capacités (lits, machines, serveurs).",
+  "payload": {
+   "range": [
+    7000,
+    11000
+   ],
+   "slider": [
+    100,
+    1000000
+   ],
+   "unit": "heures",
+   "scale": "log",
+   "reference": "24 h × 365 jours = 8 760 heures par an (≈ 9 000 pour calculer vite, −3 % à la fin)."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.review.004",
+  "format": "mental_math",
+  "skill": "u2.review",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "",
+  "media": null,
+  "explanation": "Composé : 1,05³ ≈ 1,16. Points vs pourcents : 4 → 6 % = +2 points = +50 %. Payback net de maintenance.",
+  "payload": {
+   "seconds": 75,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Consommation de 200 GWh qui croît de 5 % par an pendant 3 ans. Consommation finale ?",
+     "computation": "200*1.05**3",
+     "answer": 231.5,
+     "unit": "GWh",
+     "tolerance_pct": 3,
+     "hint": "1,05³ ≈ 1,16 → 231"
+    },
+    {
+     "id": "q2",
+     "stem": "La part du solaire passe de 4 % à 6 %. Hausse relative, en % ?",
+     "computation": "(6-4)/4*100",
+     "answer": 50,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "2 points sur 4 = 50 %"
+    },
+    {
+     "id": "q3",
+     "stem": "Centrale à 90 M€, cash-flow 15 M€ par an, maintenance 3 M€ par an. Délai de remboursement ?",
+     "computation": "90/(15-3)",
+     "answer": 7.5,
+     "unit": "ans",
+     "tolerance_pct": 3,
+     "hint": "gain net 12 ; 90 / 12 = 7,5"
+    },
+    {
+     "id": "q4",
+     "stem": "Un parc de 25 MW produit 20 % du temps. Production annuelle ?",
+     "computation": "25*0.2*8760",
+     "answer": 43800,
+     "unit": "MWh",
+     "tolerance_pct": 3,
+     "hint": "5 MW × 8 760 ≈ 44 000"
+    },
+    {
+     "id": "q5",
+     "stem": "Un prix de 120 €/MWh baisse de 1/6. Nouveau prix ?",
+     "computation": "120*5/6",
+     "answer": 100,
+     "unit": "€/MWh",
+     "tolerance_pct": 3,
+     "hint": "1/6 de 120 = 20"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.review.005",
+  "format": "spot_error",
+  "skill": "u2.review",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Croissance d'une enseigne. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Une croissance de groupe se pondère par le CA : (120 × 10 % + 30 × 30 %) ÷ 150 = 21 ÷ 150 = 14 %, pas 20 %.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "France : CA 120 M€, +10 % ; Belgique : CA 30 M€, +30 %"
+    },
+    {
+     "id": "l2",
+     "text": "Gain France : 12 M€ ; gain Belgique : 9 M€"
+    },
+    {
+     "id": "l3",
+     "text": "Gain total : 21 M€ sur 150 M€"
+    },
+    {
+     "id": "l4",
+     "text": "Croissance du groupe : (10 % + 30 %) ÷ 2 = 20 %"
+    }
+   ],
+   "wrong_line": "l4",
+   "fix": "21 ÷ 150 = 14 % : on pondère par le CA, on ne moyenne pas les taux."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.review.006",
+  "format": "two_step_calc",
+  "skill": "u2.review",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "Un fonds a investi 50 M€ en 2019 et détient 100 M€ en 2025 (6 ans). Taux de croissance annuel (CAGR), en % ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "Un doublement en 6 ans : règle de 72 → 72 ÷ 6 = 12 % par an. La version simple (100 % ÷ 6 ≈ 17 %) oublie la composition.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "b",
+     "text": "(100 − 50) ÷ 50 ÷ 6",
+     "why_wrong": "Croissance simple : 1,167⁶ ≈ 2,5, pas 2. La composition fait baisser le taux."
+    },
+    {
+     "id": "c",
+     "text": "(100 ÷ 50) ÷ 6",
+     "why_wrong": "Un multiple divisé par des années n'est pas un taux."
+    },
+    {
+     "id": "a",
+     "text": "(100 ÷ 50)^(1/6) − 1"
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "((100/50)**(1/6)-1)*100",
+   "answer": 12.25,
+   "unit": "%",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.review.007",
+  "format": "mental_math",
+  "skill": "u2.review",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "",
+  "media": null,
+  "explanation": "Une division se fait dans la même unité : 2,1 Md€ ÷ 7 M = 300 €. Pour revenir en arrière, on divise par (1 + taux).",
+  "payload": {
+   "seconds": 75,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Budget santé régional 2,1 Md€ pour 7 M d'habitants. Par habitant ?",
+     "computation": "2.1e9/7e6",
+     "answer": 300,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "2 100 M / 7 M = 300"
+    },
+    {
+     "id": "q2",
+     "stem": "Un hôpital de 600 lits, occupation 80 %, 365 jours. Journées par an ?",
+     "computation": "600*0.8*365",
+     "answer": 175200,
+     "unit": "journées",
+     "tolerance_pct": 3,
+     "hint": "480 × 365 ≈ 175 k"
+    },
+    {
+     "id": "q3",
+     "stem": "Après +20 %, un tarif vaut 1 800 €. Tarif avant hausse ?",
+     "computation": "1800/1.2",
+     "answer": 1500,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "÷ 1,2"
+    },
+    {
+     "id": "q4",
+     "stem": "Pharmacie : fixes 300 k€, marge sur coût variable 25 %. Seuil en CA ?",
+     "computation": "300000/0.25",
+     "answer": 1200000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "300 k × 4 = 1,2 M"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.review.008",
+  "format": "estimate_range",
+  "skill": "u2.review",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "Combien de boulangeries y a-t-il en France ?",
+  "media": null,
+  "explanation": "≈ 33 000 boulangeries, soit une pour 2 000 habitants. Le ratio « une pour N habitants » est le réflexe pour tout réseau de commerces.",
+  "payload": {
+   "range": [
+    20000,
+    50000
+   ],
+   "slider": [
+    1000,
+    1000000
+   ],
+   "unit": "boulangeries",
+   "scale": "log",
+   "reference": "68 M d'habitants ÷ ~2 000 habitants par boulangerie ≈ 33 000 boulangeries."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.review.009",
+  "format": "spot_error",
+  "skill": "u2.review",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Rentabilité d'une app. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Un ROI retranche l'investissement : (3,6 − 2,4) ÷ 2,4 = 50 %. Vérifie aussi le payback : 2,4 ÷ 1,2 = 2 ans, cohérent.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Développement : 2,4 M€ ; 400 k utilisateurs à 3 € par an"
+    },
+    {
+     "id": "l2",
+     "text": "Revenu annuel : 400 k × 3 = 1,2 M€ ; sur 3 ans, 3,6 M€"
+    },
+    {
+     "id": "l3",
+     "text": "ROI sur 3 ans : 3,6 ÷ 2,4 = 150 %"
+    },
+    {
+     "id": "l4",
+     "text": "Délai de remboursement : 2 ans"
+    }
+   ],
+   "wrong_line": "l3",
+   "fix": "ROI = (3,6 − 2,4) ÷ 2,4 = 50 %. 150 % compte l'investissement comme un gain."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.review.010",
+  "format": "mental_math",
+  "skill": "u2.review",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "",
+  "media": null,
+  "explanation": "Dernière ligne droite : zéros, fractions, seuil, composé. Dis le résultat avec son unité et un arrondi honnête.",
+  "payload": {
+   "seconds": 90,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Péages : 1,4 Md€ de recettes pour 35 M de passages. Recette par passage ?",
+     "computation": "1.4e9/35e6",
+     "answer": 40,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "1 400 M / 35 M = 40"
+    },
+    {
+     "id": "q2",
+     "stem": "Compagnie de bus : fixes 4,8 M€, billet 2 €, coût variable 0,40 €. Voyages pour l'équilibre ?",
+     "computation": "4.8e6/1.6",
+     "answer": 3000000,
+     "unit": "voyages",
+     "tolerance_pct": 3,
+     "hint": "marge 1,6 € ; 4,8 M / 1,6 = 3 M"
+    },
+    {
+     "id": "q3",
+     "stem": "Trafic de 12 M de passagers, +6 % par an pendant 2 ans. Trafic final ?",
+     "computation": "12e6*1.06**2",
+     "answer": 13483200,
+     "unit": "passagers",
+     "tolerance_pct": 3,
+     "hint": "1,06² ≈ 1,124 → 13,5 M"
+    },
+    {
+     "id": "q4",
+     "stem": "Un fret de 3/8 de 240 000 tonnes passe au rail. Tonnes transférées ?",
+     "computation": "240000*3/8",
+     "answer": 90000,
+     "unit": "tonnes",
+     "tolerance_pct": 3,
+     "hint": "240 / 8 = 30 ; × 3 = 90 k"
+    },
+    {
+     "id": "q5",
+     "stem": "Flotte de 800 bus à 320 k€ pièce. Valeur de la flotte ?",
+     "computation": "800*320000",
+     "answer": 256000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "800 × 320 k = 256 000 k = 256 M"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.check.001",
+  "format": "mental_math",
+  "skill": "u2.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "banque",
+  "stem": "",
+  "media": null,
+  "explanation": "Zéros et unités : 2,2 M × 540 = 1 188 M ≈ 1,19 Md€ ; 15 k € × 32 000 = 480 M€.",
+  "payload": {
+   "seconds": 75,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "2,2 M de clients, 540 € de revenu annuel chacun. Revenu total ?",
+     "computation": "2.2e6*540",
+     "answer": 1188000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "2,2 × 540 = 1 188 M ≈ 1,19 Md"
+    },
+    {
+     "id": "q2",
+     "stem": "32 000 salariés, 15 k€ de frais informatiques chacun. Budget ?",
+     "computation": "32000*15000",
+     "answer": 480000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "32 k × 15 k = 480 000 k = 480 M"
+    },
+    {
+     "id": "q3",
+     "stem": "Encours de 180 Md€, marge d'intérêt 1,2 %. Marge annuelle ?",
+     "computation": "180e9*0.012",
+     "answer": 2160000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "180 × 1,2 % = 2,16 Md"
+    },
+    {
+     "id": "q4",
+     "stem": "Un réseau de 2 400 agences ferme 1/6 d'entre elles. Agences restantes ?",
+     "computation": "2400*5/6",
+     "answer": 2000,
+     "unit": "agences",
+     "tolerance_pct": 3,
+     "hint": "1/6 de 2 400 = 400"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.check.002",
+  "format": "two_step_calc",
+  "skill": "u2.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "industrie",
+  "stem": "Une usine a 7,2 M€ de coûts fixes et vend 90 € une pièce dont le coût variable est 54 €. L'interviewer demande le seuil en chiffre d'affaires. Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "Seuil en CA = fixes ÷ taux de marge = 7,2 M ÷ 40 % = 18 M€. Ou 200 000 pièces × 90 €. Pas 200 000 : l'unité demandée est l'euro.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "c",
+     "text": "7,2 M€ ÷ 90",
+     "why_wrong": "Diviser par le prix ignore les 54 € de coût variable."
+    },
+    {
+     "id": "a",
+     "text": "7,2 M€ ÷ ((90 − 54) ÷ 90)"
+    },
+    {
+     "id": "b",
+     "text": "7,2 M€ ÷ (90 − 54)",
+     "why_wrong": "Cela donne 200 000 pièces : juste, mais en unités, pas en euros."
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "7.2e6/((90-54)/90)",
+   "answer": 18000000,
+   "unit": "€",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.check.003",
+  "format": "spot_error",
+  "skill": "u2.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "énergie",
+  "stem": "Facture énergétique d'un groupe hôtelier. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "Dans une division, les unités doivent s'aligner : 11,3 M€ ÷ 180 hôtels = 63 k€ par hôtel, pas 63 €. Un chiffre par site se vérifie.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "180 hôtels × 350 MWh par an = 63 000 MWh"
+    },
+    {
+     "id": "l2",
+     "text": "À 180 € le MWh → 11,3 M€ par an"
+    },
+    {
+     "id": "l3",
+     "text": "Soit 63 € par hôtel et par an"
+    },
+    {
+     "id": "l4",
+     "text": "Une baisse de 10 % de la consommation vaut donc 1,1 M€ par an"
+    }
+   ],
+   "wrong_line": "l3",
+   "fix": "11,3 M€ ÷ 180 ≈ 63 k€ par hôtel et par an (63 000 €), pas 63 €."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.check.004",
+  "format": "estimate_range",
+  "skill": "u2.check",
+  "difficulty": 3,
+  "lang": "fr",
+  "sector": "général",
+  "stem": "Combien de smartphones se vendent en France chaque année ?",
+  "media": null,
+  "explanation": "≈ 60 M d'utilisateurs renouvelés tous les 3 ans ≈ 20 M. Un sizing de renouvellement : parc ÷ durée de vie.",
+  "payload": {
+   "range": [
+    12000000,
+    30000000
+   ],
+   "slider": [
+    1000000,
+    1000000000
+   ],
+   "unit": "smartphones",
+   "scale": "log",
+   "reference": "≈ 60 M d'utilisateurs, renouvellement tous les ~3 ans → ≈ 20 M d'appareils par an."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.check.005",
+  "format": "mental_math",
+  "skill": "u2.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "",
+  "media": null,
+  "explanation": "Pondère les taux par le volume, compose les croissances, divise par (1 + taux) pour revenir en arrière.",
+  "payload": {
+   "seconds": 90,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Rayon A : 60 M€ à 20 % de marge ; rayon B : 40 M€ à 10 %. Marge globale, en % ?",
+     "computation": "(60*0.2+40*0.1)/100*100",
+     "answer": 16,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "12 + 4 = 16 M sur 100 M"
+    },
+    {
+     "id": "q2",
+     "stem": "Un CA de 500 M€ croît de 8 % par an pendant 3 ans. CA final ?",
+     "computation": "500e6*1.08**3",
+     "answer": 629856000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "1,08³ ≈ 1,26 → 630 M"
+    },
+    {
+     "id": "q3",
+     "stem": "Après une baisse de 20 %, le trafic est de 2,4 M de visites. Trafic avant la baisse ?",
+     "computation": "2.4e6/0.8",
+     "answer": 3000000,
+     "unit": "visites",
+     "tolerance_pct": 3,
+     "hint": "÷ 0,8 = × 1,25"
+    },
+    {
+     "id": "q4",
+     "stem": "La part de marché passe de 15 % à 18 %. Hausse relative, en % ?",
+     "computation": "(18-15)/15*100",
+     "answer": 20,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "3 points sur 15 = 20 %"
+    },
+    {
+     "id": "q5",
+     "stem": "Un marché de 80 M€ double tous les 9 ans. Croissance annuelle, en % ?",
+     "computation": "72/9",
+     "answer": 8,
+     "unit": "%",
+     "tolerance_pct": 3,
+     "hint": "72 / 9 = 8"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.check.006",
+  "format": "oral_prompt",
+  "skill": "u2.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "retail",
+  "stem": "À voix haute, en 75 s : « Une enseigne ouvre un magasin avec 1,8 M€ de coûts fixes par an. Panier moyen 45 €, marge sur coût variable 30 %. Les magasins comparables font 110 000 paniers par an. » Calcule le seuil en paniers et dis ce que ça implique.",
+  "media": null,
+  "explanation": "Marge par panier 13,5 € ; 1,8 M ÷ 13,5 ≈ 133 000 paniers. Les comparables font 110 000 : le magasin ouvre sous son seuil de 20 %.",
+  "payload": {
+   "seconds": 75,
+   "rubric": [
+    {
+     "key": "formule",
+     "label": "Pose fixes ÷ marge par panier (pas ÷ prix) avant de calculer",
+     "weight": 2
+    },
+    {
+     "key": "calcul",
+     "label": "Arrondit à voix haute et trouve ≈ 130-135 k paniers",
+     "weight": 2
+    },
+    {
+     "key": "implication",
+     "label": "Compare aux 110 k des comparables et dit ce que ça change",
+     "weight": 2
+    }
+   ],
+   "model_answer": "« Chaque panier dégage 30 % de 45 €, soit 13,5 € de marge. Pour couvrir 1,8 M€, il faut 1,8 M ÷ 13,5 : je prends 1,8 M ÷ 13 ≈ 138 000, un peu moins avec 13,5, disons 133 000 paniers par an. Les magasins comparables en font 110 000 : le magasin ouvrirait environ 20 % sous son seuil, il perdrait 300 k€ par an. Donc soit on réduit les fixes d'un tiers, soit on monte le panier ou la marge, sinon le projet ne tient pas. Je vérifierais d'abord l'hypothèse de 110 000 paniers, qui pèse le plus. »"
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.check.007",
+  "format": "two_step_calc",
+  "skill": "u2.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "tech",
+  "stem": "Un éditeur SaaS facture 40 €/mois, avec 20 % de churn annuel : un client reste en moyenne 5 ans. Il coûte 1 200 € à acquérir et 10 €/mois à servir. Retour sur le coût d'acquisition (ROI), en % ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "Valeur du client = marge mensuelle × durée = 30 × 60 = 1 800 €. ROI = (1 800 − 1 200) ÷ 1 200 = 50 %. Le revenu brut (2 400) n'est pas la marge.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "a",
+     "text": "((40 − 10) × 60 − 1 200) ÷ 1 200"
+    },
+    {
+     "id": "b",
+     "text": "(40 × 60 − 1 200) ÷ 1 200",
+     "why_wrong": "Le revenu n'est pas la marge : 10 € par mois partent en coût de service."
+    },
+    {
+     "id": "c",
+     "text": "(40 − 10) × 60 ÷ 1 200",
+     "why_wrong": "Tu as oublié de retrancher l'investissement : 1,5× est un multiple, pas un ROI."
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "((40-10)*60-1200)/1200*100",
+   "answer": 50,
+   "unit": "%",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.check.008",
+  "format": "spot_error",
+  "skill": "u2.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "télécoms",
+  "stem": "Projection d'abonnés sur cinq ans. Touche la ligne fautive.",
+  "media": null,
+  "explanation": "+10 % par an pendant 5 ans = × 1,61, pas × 1,5. Et 1,61 × 4 M = 6,4 M : vérifie que le résultat suit la bonne base.",
+  "payload": {
+   "lines": [
+    {
+     "id": "l1",
+     "text": "Base : 4 M d'abonnés, croissance de 10 % par an pendant 5 ans"
+    },
+    {
+     "id": "l2",
+     "text": "Croissance totale : 5 × 10 % = +50 %, donc 6 M d'abonnés"
+    },
+    {
+     "id": "l3",
+     "text": "Avec la règle de 72, la base doublerait en 7 ans environ"
+    },
+    {
+     "id": "l4",
+     "text": "À 22 € par mois, 6,4 M d'abonnés font ≈ 1,7 Md€ de CA par an"
+    }
+   ],
+   "wrong_line": "l2",
+   "fix": "1,1⁵ ≈ 1,61 : 4 M × 1,61 ≈ 6,4 M d'abonnés. La croissance simple (+50 %) sous-estime de 400 000 clients."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.check.009",
+  "format": "estimate_range",
+  "skill": "u2.check",
+  "difficulty": 4,
+  "lang": "fr",
+  "sector": "secteur public",
+  "stem": "Combien d'élèves (écoles, collèges, lycées) y a-t-il en France ?",
+  "media": null,
+  "explanation": "≈ 12 M d'élèves : 68 M ÷ 80 ≈ 850 k par année d'âge × 15 années de scolarité (3-18 ans) ≈ 12,5 M. Le réflexe « ÷ 80 par année d'âge ».",
+  "payload": {
+   "range": [
+    9000000,
+    16000000
+   ],
+   "slider": [
+    1000000,
+    100000000
+   ],
+   "unit": "élèves",
+   "scale": "log",
+   "reference": "68 M ÷ 80 ≈ 850 k personnes par année d'âge × 15 années (3-18 ans) ≈ 12-13 M d'élèves."
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.check.010",
+  "format": "mental_math",
+  "skill": "u2.check",
+  "difficulty": 5,
+  "lang": "fr",
+  "sector": "santé",
+  "stem": "",
+  "media": null,
+  "explanation": "Chaîne complète : volume × taux × prix, puis seuil et payback. Garde l'unité à chaque étape et donne un chiffre arrondi.",
+  "payload": {
+   "seconds": 90,
+   "questions": [
+    {
+     "id": "q1",
+     "stem": "Laboratoire : 1,8 M d'analyses par an, 1/3 remboursées à 100 %, le reste à 70 %, prix moyen 25 €. Montant remboursé ?",
+     "computation": "1.8e6*25*(1/3*1+2/3*0.7)",
+     "answer": 36000000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "45 M€ facturés × (1/3 + 2/3 × 0,7 = 0,8) = 36 M"
+    },
+    {
+     "id": "q2",
+     "stem": "Scanner à 1,2 M€, 4 500 examens par an à 180 € de marge, 60 k€ par an de maintenance. Délai de remboursement ?",
+     "computation": "1.2e6/(4500*180-60000)",
+     "answer": 1.6,
+     "unit": "ans",
+     "tolerance_pct": 3,
+     "hint": "810 k − 60 k = 750 k/an ; 1,2 M / 0,75 M = 1,6"
+    },
+    {
+     "id": "q3",
+     "stem": "Clinique : 9 M€ de fixes, 950 € de marge par séjour, 11 000 séjours. Résultat annuel ?",
+     "computation": "11000*950-9e6",
+     "answer": 1450000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "10,45 M − 9 M = 1,45 M"
+    },
+    {
+     "id": "q4",
+     "stem": "Un budget de 3,4 Md€ croît de 2,5 % par an pendant 2 ans. Budget final ?",
+     "computation": "3.4e9*1.025**2",
+     "answer": 3572125000,
+     "unit": "€",
+     "tolerance_pct": 3,
+     "hint": "× 1,05 ≈ 3,57 Md"
+    }
+   ]
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.check.011",
+  "format": "oral_prompt",
+  "skill": "u2.check",
+  "difficulty": 5,
+  "lang": "fr",
+  "sector": "transport",
+  "stem": "À voix haute, 90 s : « Une région veut électrifier 400 bus. Un bus électrique coûte 150 k€ de plus qu'un diesel, économise 25 k€ de carburant par an, mais sa batterie demande 10 k€ d'entretien par an. Un bus roule 15 ans. » Calcule le surcoût total, le délai de remboursement et dis si ça vaut le coup.",
+  "media": null,
+  "explanation": "Surcoût 400 × 150 k = 60 M€. Gain net 15 k€ par bus et par an → remboursé en 10 ans sur 15 de vie ; gain net total 400 × 15 k × 15 − 60 M = 30 M€.",
+  "payload": {
+   "seconds": 90,
+   "rubric": [
+    {
+     "key": "zeros",
+     "label": "Trouve 60 M€ de surcoût et 6 M€ de gain net annuel sans perdre de zéro",
+     "weight": 2
+    },
+    {
+     "key": "payback",
+     "label": "Retranche l'entretien (gain net 15 k€) et obtient 10 ans de remboursement",
+     "weight": 2
+    },
+    {
+     "key": "implication",
+     "label": "Compare 10 ans aux 15 ans de vie, conclut, nomme la sensibilité au carburant",
+     "weight": 2
+    }
+   ],
+   "model_answer": "« Surcoût : 400 bus × 150 k€ = 60 000 k€, donc 60 M€. Chaque bus économise 25 k€ mais coûte 10 k€ d'entretien en plus : 15 k€ de gain net par an, soit 6 M€ par an pour la flotte. Délai de remboursement : 60 ÷ 6 = 10 ans. Sur 15 ans de vie, le surcoût est remboursé et il reste 5 ans de gains, environ 30 M€ nets. Donc oui, ça vaut le coup, mais la marge est mince : si le carburant baisse de 20 %, le gain net tombe à 10 k€ et on frôle 15 ans. Je vérifierais le prix du carburant retenu et le coût réel de l'entretien batterie avant de recommander. »"
+  },
+  "tags": []
+ },
+ {
+  "id": "u2.check.012",
+  "format": "two_step_calc",
+  "skill": "u2.check",
+  "difficulty": 5,
+  "lang": "fr",
+  "sector": "luxe",
+  "stem": "Une maison de luxe vend 120 000 sacs par an à 2 500 €. Elle envisage +8 % sur le prix, ce qui ferait perdre 5 % des volumes. Coût variable 700 € par sac. Variation de la marge sur coût variable, en M€ ? Choisis la formule, puis calcule.",
+  "media": null,
+  "explanation": "Nouvelle marge : (2 700 − 700) × 114 000 = 228 M€ ; ancienne : 1 800 × 120 000 = 216 M€. +12 M€ : une hausse de prix sur une forte marge supporte une baisse de volume.",
+  "payload": {
+   "formulas": [
+    {
+     "id": "b",
+     "text": "2 700 × 114 000 − 2 500 × 120 000",
+     "why_wrong": "C'est la variation de CA (+7,8 M€), pas de marge : le coût variable épargné sur les 6 000 sacs non vendus compte aussi."
+    },
+    {
+     "id": "c",
+     "text": "(8 % − 5 %) × 216 M€",
+     "why_wrong": "Les pourcentages ne se soustraient pas : +8 % sur le prix fait +11 % sur une marge de 1 800 €, et −5 % de volume s'applique ensuite."
+    },
+    {
+     "id": "a",
+     "text": "(2 700 − 700) × 114 000 − (2 500 − 700) × 120 000"
+    }
+   ],
+   "correct_formula": "a",
+   "computation": "(2700-700)*114000-(2500-700)*120000",
+   "answer": 12000000,
+   "unit": "€",
+   "tolerance_pct": 3
+  },
+  "tags": []
+ }
+]
