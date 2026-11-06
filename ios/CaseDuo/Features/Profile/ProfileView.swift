@@ -6,13 +6,11 @@ import SwiftUI
 struct ProfileView: View {
     @Environment(AppModel.self) private var model
     @Environment(\.palette) private var palette
-    @State private var goal = 50
     @State private var displayName = ""
     @State private var confirmDelete = false
     @State private var deleting = false
+    @State private var showCommitment = false
     @State private var error: String?
-
-    private let goals = [30, 50, 80]
 
     var body: some View {
         NavigationStack {
@@ -38,22 +36,28 @@ struct ProfileView: View {
                     }
 
                     Section {
-                        Picker("Objectif quotidien", selection: $goal) {
-                            ForEach(goals, id: \.self) { Text("\($0) XP").tag($0) }
-                        }
-                        .pickerStyle(.segmented)
-                        Text(goalHint).font(.footnote).foregroundStyle(Brand.textSecondary)
-                        Button("Je m'engage") {
-                            Task {
-                                await model.update(MePatch(dailyGoalXp: goal))
-                                Haptics.shared.play(.answerSent)
+                        if let c = model.commitment, c.isActive {
+                            LabeledContent("Objectif", value: "\(c.dailyXp) XP par jour")
+                            LabeledContent("Jusqu'au", value: Format.shortDay(c.endDate))
+                            LabeledContent("Tenu", value: "\(c.daysHeld) jour\(c.daysHeld > 1 ? "s" : "") sur \(c.dayIndex)")
+                            Label("Verrouillé jusqu'au dernier jour : c'est ça, s'engager.", systemImage: "lock.fill")
+                                .font(.footnote).foregroundStyle(Brand.textSecondary)
+                        } else {
+                            LabeledContent("Objectif", value: "\(me.dailyGoalXp) XP par jour")
+                            if let c = model.commitment, c.isEnded {
+                                Text(c.kept == true
+                                     ? "Dernier engagement tenu : \(c.days) jours sans faute."
+                                     : "Dernier engagement : \(c.daysHeld) jours tenus sur \(c.days).")
+                                    .font(.footnote).foregroundStyle(Brand.textSecondary)
                             }
+                            Button("Je m'engage") { showCommitment = true }
+                                .buttonStyle(.pill)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                         }
-                        .buttonStyle(.pill)
-                        .disabled(goal == me.dailyGoalXp)
-                        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                     } header: {
-                        Text("Objectif")
+                        Text("Engagement")
+                    } footer: {
+                        Text("L'objectif ne se change qu'en prenant un nouvel engagement : 7, 14 ou 30 jours, verrouillé.")
                     }
 
                     Section("Rappels et sons") {
@@ -121,25 +125,18 @@ struct ProfileView: View {
             .scrollContentBackground(.hidden)
             .background(Brand.background)
             .navigationTitle("Profil")
-            .onAppear {
-                goal = model.me?.dailyGoalXp ?? 50
-                displayName = model.me?.displayName ?? ""
+            .onAppear { displayName = model.me?.displayName ?? "" }
+            .sheet(isPresented: $showCommitment) {
+                CommitmentSheet()
+                    .environment(model)
+                    .environment(\.palette, model.palette)
             }
-            .onChange(of: model.me?.dailyGoalXp) { _, value in if let value { goal = value } }
             .confirmationDialog("Supprimer ton compte ?", isPresented: $confirmDelete, titleVisibility: .visible) {
                 Button("Supprimer définitivement", role: .destructive) { Task { await deleteAccount() } }
                 Button("Annuler", role: .cancel) {}
             } message: {
                 Text("Ta série, tes corrections, ton récit et ta ligue seront effacés. C'est irréversible.")
             }
-        }
-    }
-
-    private var goalHint: String {
-        switch goal {
-        case 30: return "Tranquille : un case et un brainteaser."
-        case 80: return "Intense : presque toute la journée."
-        default: return "Sérieux : deux cases et un brainteaser."
         }
     }
 

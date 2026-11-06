@@ -37,17 +37,56 @@ shoot() {
   sleep "$wait"
   xcrun simctl io "$UDID" screenshot "$OUT/$name.png" >/dev/null 2>&1
   echo "✓ $name"
+  # A near-empty PNG is a blank screen: say why (crash report, app errors) in the job log.
+  if [ "$(stat -f %z "$OUT/$name.png")" -lt 60000 ]; then
+    echo "::warning::$name looks blank"
+    echo "--- app state"
+    xcrun simctl spawn "$UDID" launchctl list 2>/dev/null | grep -i caseduo || echo "(CaseDuo not running: it crashed or never started)"
+    echo "--- latest crash report"
+    latest=$(ls -t ~/Library/Logs/DiagnosticReports/CaseDuo* 2>/dev/null | head -n 1 || true)
+    if [ -n "$latest" ]; then
+      python3 - "$latest" <<'PY'
+import json, sys
+text = open(sys.argv[1], errors="replace").read()
+body = text.split("\n", 1)[1] if text.startswith("{") else text
+try:
+    data = json.loads(body)
+    exc = data.get("exception", {})
+    print("exception:", exc.get("type"), exc.get("signal"), exc.get("codes"))
+    print("reason:", data.get("termination", {}).get("reasonNamespace"), data.get("termination", {}).get("indicator"))
+    for key in ("asi", "lastExceptionBacktrace"):
+        if key in data:
+            print(key, ":", json.dumps(data[key])[:1500])
+    faulting = data.get("faultingThread", 0)
+    frames = data.get("threads", [{}])[faulting].get("frames", [])[:25]
+    images = data.get("usedImages", [])
+    for f in frames:
+        name = images[f.get("imageIndex", 0)].get("name") if images else "?"
+        print(f"  {name} +{f.get('imageOffset')} {f.get('symbol', '')} {f.get('sourceFile', '')}:{f.get('sourceLine', '')}")
+except Exception as err:  # noqa: BLE001
+    print("unparsed:", err)
+    print(body[:3000])
+PY
+    else
+      echo "(none)"
+    fi
+    echo "--- app log (errors)"
+    xcrun simctl spawn "$UDID" log show --last 60s --style compact \
+      --predicate 'process == "CaseDuo"' 2>/dev/null | grep -iE "error|fatal|exception|crash|precondition|assert" | tail -n 40 || true
+  fi
 }
 
 SET="${SHOT_SET:-quick}"
 shoot 01-today 6
-shoot 02-exercise 6 -uiOpen exercise
-shoot 03-result 9 -uiOpen result
-shoot 04-history 6 -uiTab history
-[ "$SET" = full ] && shoot 05-league 6 -uiTab league
-[ "$SET" = full ] && shoot 06-profile 6 -uiTab profile
-[ "$SET" = full ] && shoot 07-day-close 6 -uiOpen dayclose
-[ "$SET" = full ] && shoot 08-mock 6 -uiOpen mock
+shoot 02-training 6 -uiTab training
+shoot 03-exercise 6 -uiOpen exercise
+shoot 04-result 9 -uiOpen result
+shoot 05-day-complete 6 -uiOpen daycomplete
+shoot 06-history 6 -uiTab history
+[ "$SET" = full ] && shoot 07-league 6 -uiTab league
+[ "$SET" = full ] && shoot 08-profile 6 -uiTab profile
+[ "$SET" = full ] && shoot 09-day-close 6 -uiOpen dayclose
+[ "$SET" = full ] && shoot 10-mock 6 -uiOpen mock
 
 sips -Z 1200 "$OUT"/*.png >/dev/null
 ls -la "$OUT"

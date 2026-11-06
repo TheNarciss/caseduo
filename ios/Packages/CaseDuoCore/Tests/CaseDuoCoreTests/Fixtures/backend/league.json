@@ -5,39 +5,39 @@
   "ends_at": "2026-11-08T23:00:00+08:00",
   "members": [
     {
-      "name": "Lucas",
-      "xp": 210,
+      "name": "Chloé",
+      "xp": 240,
       "is_me": false,
       "rank": 1
     },
     {
-      "name": "Raphaël",
-      "xp": 140,
+      "name": "Léa",
+      "xp": 130,
       "is_me": false,
       "rank": 2
     },
     {
-      "name": "Théo",
-      "xp": 70,
+      "name": "Camille",
+      "xp": 120,
       "is_me": false,
       "rank": 3
     },
     {
-      "name": "Arjun",
-      "xp": 55,
+      "name": "Aiko",
+      "xp": 70,
       "is_me": false,
       "rank": 4
+    },
+    {
+      "name": "Nour",
+      "xp": 45,
+      "is_me": false,
+      "rank": 5
     },
     {
       "name": "Toi",
       "xp": 25,
       "is_me": true,
-      "rank": 5
-    },
-    {
-      "name": "Zoé",
-      "xp": 15,
-      "is_me": false,
       "rank": 6
     }
   ],

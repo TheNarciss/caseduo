@@ -14,7 +14,7 @@ struct DayCloseView: View {
             ScrollView {
                 VStack(spacing: 22) {
                     if let summary {
-                        FlameView(streak: summary.streak.current, lit: summary.streak.status == .extendedToday, size: 110)
+                        FlameMascot(mood: summary.streak.status == .extendedToday ? .proud : .idle, size: 130)
                             .padding(.top, 20)
                         VStack(spacing: 4) {
                             Text("\(summary.streak.current)")
@@ -50,7 +50,7 @@ struct DayCloseView: View {
                 .padding(20)
             }
             BottomActions {
-                Button("À demain") { model.homePath = [] }.buttonStyle(.pill)
+                Button("À demain") { model.goHome() }.buttonStyle(.pill)
             }
         }
         .background(Brand.background)

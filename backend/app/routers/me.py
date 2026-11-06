@@ -13,6 +13,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from ..auth import User, current_active_user
 from ..db import get_session
 from ..db.models import UserStory
+from ..services import commitments
+from ..services.clock import today_for
 
 router = APIRouter(prefix="/me", tags=["me"])
 _audit = __import__("logging").getLogger("audit")
@@ -37,6 +39,7 @@ async def me_view(session: AsyncSession, user: User) -> dict[str, Any]:
         "story_text": story.story_text if story else None,
         "story_updated_at": story.updated_at.isoformat() if story else None,
         "created_at": user.created_at.isoformat() if user.created_at else None,
+        "commitment": await commitments.for_screen(session, user, today_for(user)),
     }
 
 
@@ -72,6 +75,8 @@ async def patch_me(
     user: User = Depends(current_active_user),
     session: AsyncSession = Depends(get_session),
 ):
+    if body.daily_goal_xp is not None:
+        await commitments.guard_goal_change(session, user, today_for(user))
     for key, value in body.model_dump(exclude_unset=True).items():
         if value is not None:
             setattr(
@@ -80,6 +85,23 @@ async def patch_me(
                 value.strip() if isinstance(value, str) and key == "display_name" else value,
             )
     session.add(user)
+    await session.commit()
+    return await me_view(session, user)
+
+
+class CommitmentIn(BaseModel):
+    daily_xp: Literal[30, 50, 80]
+    days: Literal[7, 14, 30]
+
+
+@router.post("/commitment")
+async def post_commitment(
+    body: CommitmentIn,
+    user: User = Depends(current_active_user),
+    session: AsyncSession = Depends(get_session),
+):
+    """« Je m'engage » : the goal for 7, 14 or 30 days from today, locked (DEVIATIONS D16)."""
+    await commitments.start(session, user, today_for(user), daily_xp=body.daily_xp, days=body.days)
     await session.commit()
     return await me_view(session, user)
 

@@ -34,6 +34,14 @@ final class BackendContractTests: XCTestCase {
         XCTAssertTrue(try decode(Providers.self, "providers").apple)
         let me = try decode(Me.self, "me")
         XCTAssertNotNil(me.storyText)
+        XCTAssertEqual(me.commitment?.isActive, true)
+    }
+
+    func testTraining() throws {
+        let training = try decode(Training.self, "training")
+        XCTAssertEqual(training.exercises.count, 30)
+        XCTAssertTrue(training.exercises.allSatisfy { $0.isBonus == true && $0.fromPack == true })
+        XCTAssertEqual(training.types.map(\.total).reduce(0, +), 30)
     }
 
     func testToday() throws {

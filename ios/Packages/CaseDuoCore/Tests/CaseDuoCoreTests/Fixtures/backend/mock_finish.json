@@ -1,26 +1,26 @@
 {
-  "id": "531bbe1e-5cb7-408e-be4f-78eef5d2ef06",
+  "id": "9ce7c798-77b2-4fb0-8786-4fffebdfc2ff",
   "score": 19,
   "xp_earned": 40,
   "attempts": [
     {
-      "id": "145d4905-e1da-4c92-8456-9195442236d0",
-      "exercise_id": "85ae1b3a-06f6-46b8-bc92-88f213e4a0f9",
+      "id": "596b32d0-6bc8-4d87-b392-e5fcd73f52f9",
+      "exercise_id": "647f6e31-90bd-41de-8239-37baf8ea1c86",
       "kind": "main",
       "score": 40,
       "xp_earned": 40,
-      "created_at": "2026-11-04T14:33:08.452838+00:00",
+      "created_at": "2026-11-06T03:21:02.336065+00:00",
       "title": "Titre mock_market_sizing market_sizing",
       "type": "market_sizing",
       "type_label": "Market sizing"
     },
     {
-      "id": "849a7116-917c-4927-8e50-93d1390483d1",
-      "exercise_id": "85ae1b3a-06f6-46b8-bc92-88f213e4a0f9",
+      "id": "1c61e63b-ee1b-4d6a-8c2d-da0739d9ad9c",
+      "exercise_id": "647f6e31-90bd-41de-8239-37baf8ea1c86",
       "kind": "follow_up",
       "score": 40,
       "xp_earned": 0,
-      "created_at": "2026-11-04T14:33:08.473507+00:00",
+      "created_at": "2026-11-06T03:21:02.359151+00:00",
       "title": "Titre mock_market_sizing market_sizing",
       "type": "market_sizing",
       "type_label": "Market sizing"

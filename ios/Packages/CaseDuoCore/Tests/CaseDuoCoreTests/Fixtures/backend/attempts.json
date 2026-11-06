@@ -1,33 +1,33 @@
 [
   {
-    "id": "125752ed-2e78-45aa-8ced-b47f9fc661b5",
-    "exercise_id": "297201ab-722c-40fe-8644-a9fe94870a9f",
+    "id": "3326a0e4-0ef3-4a8a-a914-1af22b450cbd",
+    "exercise_id": "f490a23e-4f40-41c0-b7f4-e08a3a129722",
     "kind": "main",
     "score": 48,
     "xp_earned": 10,
-    "created_at": "2026-11-04T14:33:08.309245+00:00",
+    "created_at": "2026-11-06T03:21:02.196721+00:00",
     "title": "Combien de fois les aiguilles d'une horloge se superposent-elles en 24 heures ?",
     "type": "brainteaser",
     "type_label": "Brainteaser"
   },
   {
-    "id": "29a05f0f-927e-4534-994b-fe8fa16e12e8",
-    "exercise_id": "ecfae89a-d882-424e-86f9-dd07f889f0ea",
+    "id": "6c484e17-2bf0-4ff6-8ead-e620136b9096",
+    "exercise_id": "8a5b0a3b-3f7b-4261-ab00-63a64a6035bd",
     "kind": "follow_up",
     "score": 45,
     "xp_earned": 0,
-    "created_at": "2026-11-04T14:33:08.291531+00:00",
+    "created_at": "2026-11-06T03:21:02.177059+00:00",
     "title": "Combien de passagers transitent chaque jour par l'aéroport de Changi ?",
     "type": "market_sizing",
     "type_label": "Market sizing"
   },
   {
-    "id": "6f0a9976-c321-46ae-b92d-f897aa4650ed",
-    "exercise_id": "ecfae89a-d882-424e-86f9-dd07f889f0ea",
+    "id": "2aeb0476-3b70-4433-a2da-a58ea685211b",
+    "exercise_id": "8a5b0a3b-3f7b-4261-ab00-63a64a6035bd",
     "kind": "main",
     "score": 45,
     "xp_earned": 15,
-    "created_at": "2026-11-04T14:33:08.265731+00:00",
+    "created_at": "2026-11-06T03:21:02.153584+00:00",
     "title": "Combien de passagers transitent chaque jour par l'aéroport de Changi ?",
     "type": "market_sizing",
     "type_label": "Market sizing"

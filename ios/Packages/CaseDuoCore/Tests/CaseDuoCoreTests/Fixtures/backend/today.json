@@ -1,6 +1,6 @@
 {
-  "date": "2026-11-04",
-  "weekday": 2,
+  "date": "2026-11-06",
+  "weekday": 4,
   "timezone": "Asia/Singapore",
   "streak": {
     "current": 0,
@@ -21,7 +21,7 @@
   "mock": null,
   "cards": [
     {
-      "exercise_id": "297201ab-722c-40fe-8644-a9fe94870a9f",
+      "exercise_id": "f490a23e-4f40-41c0-b7f4-e08a3a129722",
       "type": "brainteaser",
       "type_label": "Brainteaser",
       "title": "Combien de fois les aiguilles d'une horloge se superposent-elles en 24 heures ?",
@@ -36,10 +36,13 @@
       "done": false,
       "best_score": null,
       "xp_potential": 10,
-      "due_label": null
+      "due_label": null,
+      "is_bonus": false,
+      "date": "2026-11-06",
+      "from_pack": false
     },
     {
-      "exercise_id": "f54ddefe-6bb9-4a40-8b07-34a0df62ff64",
+      "exercise_id": "9ea195a5-dcc1-4034-860a-751434602d89",
       "type": "fit",
       "type_label": "Fit",
       "title": "Pourquoi le conseil, et pourquoi maintenant ?",
@@ -54,10 +57,13 @@
       "done": false,
       "best_score": null,
       "xp_potential": 8,
-      "due_label": null
+      "due_label": null,
+      "is_bonus": false,
+      "date": "2026-11-06",
+      "from_pack": false
     },
     {
-      "exercise_id": "ecfae89a-d882-424e-86f9-dd07f889f0ea",
+      "exercise_id": "8a5b0a3b-3f7b-4261-ab00-63a64a6035bd",
       "type": "market_sizing",
       "type_label": "Market sizing",
       "title": "Combien de passagers transitent chaque jour par l'aéroport de Changi ?",
@@ -72,10 +78,13 @@
       "done": false,
       "best_score": null,
       "xp_potential": 20,
-      "due_label": null
+      "due_label": null,
+      "is_bonus": false,
+      "date": "2026-11-06",
+      "from_pack": false
     },
     {
-      "exercise_id": "d179c3f9-6bd3-4a67-989b-2da92deae5e8",
+      "exercise_id": "7502bd25-f127-4d7d-882b-85c64f7e404a",
       "type": "diagnostic",
       "type_label": "Diagnostic",
       "title": "Diagnostic de maturité data d'une banque régionale",
@@ -90,10 +99,13 @@
       "done": false,
       "best_score": null,
       "xp_potential": 20,
-      "due_label": null
+      "due_label": null,
+      "is_bonus": false,
+      "date": "2026-11-06",
+      "from_pack": false
     },
     {
-      "exercise_id": "4b76c93d-6a17-4a84-a7c5-85c8fabebb06",
+      "exercise_id": "7486998b-7082-445e-a9fe-3a822a7b3835",
       "type": "tech_screen",
       "type_label": "Tech screen",
       "title": "How would you evaluate a RAG assistant before a firm-wide rollout?",
@@ -108,10 +120,13 @@
       "done": false,
       "best_score": null,
       "xp_potential": 30,
-      "due_label": null
+      "due_label": null,
+      "is_bonus": false,
+      "date": "2026-11-06",
+      "from_pack": false
     },
     {
-      "exercise_id": "c72ce4a3-6902-4949-bef2-2f9e427822d8",
+      "exercise_id": "b8e7d735-e604-4795-8511-f36efec118dd",
       "type": "business_case",
       "type_label": "Business case",
       "title": "ROI de la maintenance prédictive sur une flotte de radars",
@@ -126,10 +141,13 @@
       "done": false,
       "best_score": null,
       "xp_potential": 30,
-      "due_label": null
+      "due_label": null,
+      "is_bonus": false,
+      "date": "2026-11-06",
+      "from_pack": false
     },
     {
-      "exercise_id": "2bb62426-351d-427e-a5f8-99360cf2edb3",
+      "exercise_id": "08d85a62-431b-4bc6-a684-781cbd27b567",
       "type": "cadrage",
       "type_label": "Note de cadrage",
       "title": "Cadrer l'IA générative pour la gestion des sinistres auto d'un assureur",
@@ -144,7 +162,10 @@
       "done": false,
       "best_score": null,
       "xp_potential": 30,
-      "due_label": null
+      "due_label": null,
+      "is_bonus": false,
+      "date": "2026-11-06",
+      "from_pack": false
     }
   ],
   "unlocks": {
@@ -158,5 +179,78 @@
     "size": 6,
     "xp_week": 0
   },
-  "is_admin": true
+  "is_admin": true,
+  "commitment": {
+    "id": "aac933cf-2744-4b4f-8fa5-a110d5985359",
+    "daily_xp": 50,
+    "days": 14,
+    "start_date": "2026-11-06",
+    "end_date": "2026-11-19",
+    "status": "active",
+    "day_index": 1,
+    "days_met": 0,
+    "days_frozen": 0,
+    "days_missed": 0,
+    "on_track": true,
+    "kept": null,
+    "badge_awarded": false,
+    "calendar": [
+      {
+        "date": "2026-11-06",
+        "state": "today"
+      },
+      {
+        "date": "2026-11-07",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-08",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-09",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-10",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-11",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-12",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-13",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-14",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-15",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-16",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-17",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-18",
+        "state": "future"
+      },
+      {
+        "date": "2026-11-19",
+        "state": "future"
+      }
+    ]
+  }
 }

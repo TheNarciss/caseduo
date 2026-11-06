@@ -14,6 +14,14 @@ public enum HapticPattern: String, Sendable, Equatable, CaseIterable {
     case streakUp
     /// Seven days in a row: a long pattern.
     case perfectWeek
+    /// A card or a tab pressed: one very light tick.
+    case tap
+    /// The day's goal just met: two warm pulses, then the success notification.
+    case goalMet
+    /// Every card of the day done: four rising taps and a swell, then success.
+    case dayComplete
+    /// « Je m'engage » : two firm taps, a handshake.
+    case commit
 
     public static func forScore(_ score: Int) -> HapticPattern {
         switch score {
@@ -24,7 +32,9 @@ public enum HapticPattern: String, Sendable, Equatable, CaseIterable {
     }
 
     /// Whether the system success notification follows the pattern.
-    public var endsWithSuccess: Bool { self == .scoreHigh || self == .perfectWeek }
+    public var endsWithSuccess: Bool {
+        self == .scoreHigh || self == .perfectWeek || self == .goalMet || self == .dayComplete
+    }
 
     /// The pattern as pulses: what CoreHaptics plays, and what the fallback imitates.
     public var pulses: [HapticPulse] {
@@ -52,6 +62,21 @@ public enum HapticPattern: String, Sendable, Equatable, CaseIterable {
             return [HapticPulse(time: 0, intensity: 0.5, sharpness: 0.3, duration: 0.5),
                     HapticPulse(time: 0.55, intensity: 0.8, sharpness: 0.5, duration: 0.45),
                     HapticPulse(time: 1.05, intensity: 1.0, sharpness: 0.8)]
+        case .tap:
+            return [HapticPulse(time: 0, intensity: 0.3, sharpness: 0.8)]
+        case .goalMet:
+            return [HapticPulse(time: 0, intensity: 0.6, sharpness: 0.3, duration: 0.12),
+                    HapticPulse(time: 0.2, intensity: 0.9, sharpness: 0.4, duration: 0.16)]
+        case .dayComplete:
+            let taps = (0..<4).map { i in
+                HapticPulse(time: Double(i) * 0.08,
+                            intensity: 0.4 + 0.2 * Double(i),
+                            sharpness: 0.5 + 0.1 * Double(i))
+            }
+            return taps + [HapticPulse(time: 0.36, intensity: 1.0, sharpness: 0.4, duration: 0.3)]
+        case .commit:
+            return [HapticPulse(time: 0, intensity: 0.8, sharpness: 0.7),
+                    HapticPulse(time: 0.16, intensity: 0.8, sharpness: 0.7)]
         }
     }
 }

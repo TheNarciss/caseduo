@@ -1,3 +1,4 @@
+import CaseDuoCore
 import SwiftUI
 import UIKit
 
@@ -27,6 +28,38 @@ enum Brand {
 
     static let textSecondary = Color.white.opacity(0.62)
     static let textTertiary = Color.white.opacity(0.4)
+
+    // One colour per exercise family (D16): the card's icon and stripe, the section titles,
+    // the Entraîner filters, the history curves. None is the flame, the green or the orange.
+    static let brainteaser = Color(red: 1.0, green: 0.44, blue: 0.71)           // #FF70B5 rose
+    static let fit = Color(red: 0.48, green: 0.55, blue: 1.0)                   // #7B8CFF indigo
+    static let marketSizing = Color(red: 0.22, green: 0.78, blue: 0.96)         // #38C8F5 cyan
+    static let cadrage = Color(red: 0.66, green: 0.52, blue: 1.0)               // #A885FF violet
+    static let businessCase = Color(red: 0.15, green: 0.83, blue: 0.78)         // #27D3C8 turquoise
+    static let diagnostic = Color(red: 0.78, green: 0.93, blue: 0.40)           // #C7ED66 citron
+    static let techScreen = Color(red: 0.61, green: 0.72, blue: 1.0)            // #9BB7FF acier
+
+    static func color(for type: ExerciseType) -> Color {
+        switch type {
+        case .brainteaser: return brainteaser
+        case .fit: return fit
+        case .marketSizing: return marketSizing
+        case .cadrage, .cadrageHome: return cadrage
+        case .businessCase: return businessCase
+        case .diagnostic: return diagnostic
+        case .techScreen: return techScreen
+        case .unknown: return textSecondary
+        }
+    }
+
+    static func color(for category: ExerciseCategory) -> Color {
+        switch category {
+        case .brainteasers: return brainteaser
+        case .fit: return fit
+        case .cases: return marketSizing
+        case .homework: return cadrage
+        }
+    }
 
     static var flameGradient: LinearGradient {
         LinearGradient(colors: [flameLight, flame, flameDeep], startPoint: .top, endPoint: .bottom)

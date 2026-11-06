@@ -194,6 +194,23 @@ class Badge(Base):
     sort_order: Mapped[int] = mapped_column(SmallInteger, nullable=False, default=0)
 
 
+class GoalCommitment(Base):
+    """A daily XP goal held for a period (DEVIATIONS D16): it cannot move before end_date."""
+
+    __tablename__ = "goal_commitments"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
+    daily_xp: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    days: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    start_date: Mapped[date] = mapped_column(Date, nullable=False)
+    end_date: Mapped[date] = mapped_column(Date, nullable=False)
+    rewarded: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
 class UserBadge(Base):
     __tablename__ = "user_badges"
 

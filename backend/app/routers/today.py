@@ -14,7 +14,7 @@ from ..catalog import LEAGUE_LABELS
 from ..db import get_session
 from ..db.models import DailyActivity, Exercise, MockRun
 from ..generation.planner import mock_is_mbb, mock_kind, mock_language
-from ..services import hooks, progress
+from ..services import commitments, hooks, progress
 from ..services import streak as streak_service
 from ..services import today as today_service
 from ..services.clock import first_week, today_for
@@ -99,6 +99,7 @@ async def build_today(session: AsyncSession, user: User) -> dict[str, Any]:
             "xp_week": await xp_between(session, user, week_start(day), day),
         },
         "is_admin": user.is_superuser,
+        "commitment": await commitments.for_screen(session, user, day),
     }
     await hooks.after_today(session, user, day, view)
     await session.commit()

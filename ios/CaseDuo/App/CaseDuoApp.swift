@@ -24,6 +24,7 @@ struct CaseDuoApp: App {
                 .onOpenURL { url in
                     // caseduo://today (the widget), caseduo://history, caseduo://league
                     switch url.host {
+                    case "training": model.tab = .training
                     case "history": model.tab = .history
                     case "league": model.tab = .league
                     default: model.tab = .today
@@ -92,6 +93,9 @@ struct MainTabs: View {
             HomeView()
                 .tabItem { Label("Aujourd'hui", systemImage: "flame.fill") }
                 .tag(AppModel.Tab.today)
+            TrainingView()
+                .tabItem { Label("Entraîner", systemImage: "figure.run") }
+                .tag(AppModel.Tab.training)
             HistoryView()
                 .tabItem { Label("Historique", systemImage: "chart.line.uptrend.xyaxis") }
                 .tag(AppModel.Tab.history)
@@ -103,6 +107,12 @@ struct MainTabs: View {
                 .tag(AppModel.Tab.profile)
         }
         .overlay { ConfettiView(trigger: model.confettiTrigger, colors: model.palette.gradient + [Brand.success, .white]) }
+        .onChange(of: model.tab) { _, _ in Haptics.shared.play(.tap) }
+        .fullScreenCover(isPresented: Binding(get: { model.showDayComplete }, set: { model.showDayComplete = $0 })) {
+            DayCompleteOverlay()
+                .environment(model)
+                .environment(\.palette, model.palette)
+        }
         .sheet(isPresented: Binding(get: { model.showFreezeUsed }, set: { model.showFreezeUsed = $0 })) {
             FreezeUsedView()
                 .presentationDetents([.medium])

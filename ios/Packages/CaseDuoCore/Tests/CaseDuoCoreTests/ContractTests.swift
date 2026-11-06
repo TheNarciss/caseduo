@@ -30,6 +30,33 @@ final class ContractTests: XCTestCase {
         XCTAssertTrue(revenge.isRevenge)
         XCTAssertNotEqual(revenge.id, revenge.exerciseId, "a revenge card has its own identity")
         XCTAssertTrue(today.cards[4].isMBB)
+        let commitment = try XCTUnwrap(today.commitment)
+        XCTAssertTrue(commitment.isActive)
+        XCTAssertEqual(commitment.dayIndex, 5)
+        XCTAssertEqual(commitment.calendar.filter { $0.state == "met" }.count, 4)
+        XCTAssertEqual(commitment.daysHeld, 4)
+    }
+
+    func testTrainingAndSections() throws {
+        let training = try decode(Training.self, DemoFixtures.training)
+        XCTAssertEqual(training.exercises.count, 8)
+        XCTAssertEqual(training.types.first?.type, .brainteaser)
+        XCTAssertEqual(training.exercises.first?.isBonus, true)
+        XCTAssertEqual(training.exercises[2].fromPack, false)
+
+        let today = try decode(Today.self, DemoFixtures.today)
+        let sections = HomeSection.build(today.cards)
+        XCTAssertEqual(sections.map(\.kind), [.homework, .brainteasers, .fit, .cases, .revenges])
+        XCTAssertEqual(sections[1].done, 1)
+        XCTAssertTrue(sections[1].isComplete)
+        XCTAssertEqual(sections[3].cards.map(\.type), [.marketSizing, .cadrage, .businessCase])
+        XCTAssertEqual(sections[3].xpLeft, 80)
+        XCTAssertEqual(sections[4].cards.first?.isRevenge, true)
+        XCTAssertEqual(HomeSection.build([]), [])
+
+        let request = try CaseDuoJSON.encoder.encode(CommitmentRequest(dailyXp: 50, days: 14))
+        let fields = try JSONSerialization.jsonObject(with: request) as? [String: Int]
+        XCTAssertEqual(fields, ["daily_xp": 50, "days": 14])
     }
 
     func testUnknownTypesDoNotBreakDecoding() throws {

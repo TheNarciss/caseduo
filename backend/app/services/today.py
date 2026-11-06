@@ -1,10 +1,10 @@
 """Today's cards for a user, in display order, and what is left to do.
 
 Order (spec §4): cadrage_home pinned Friday→Sunday, warm-up brainteaser,
-fit, cases by increasing difficulty, the other brainteasers, revenges, then the
-bonus pack (DEVIATIONS D15): its exercises not done yet, and those done today.
-Bonus cards never count for "journée complète" nor for the remaining badge.
-The Sunday mock is not a card: `/today` carries it separately.
+fit, cases by increasing difficulty, the other brainteasers, revenges last.
+The Sunday mock is not a card: `/today` carries it separately. The bonus pack and
+the past days' leftovers are the Entraîner tab (`training_cards`, DEVIATIONS D16):
+they never count for "journée complète" nor for the remaining badge.
 """
 
 from __future__ import annotations
@@ -59,9 +59,15 @@ class Card:
             "due_label": (
                 "À rendre dimanche soir"
                 if ex.type == "cadrage_home"
-                else ("Bonus · quand tu veux" if self.bonus else None)
+                else (
+                    ("Bonus · quand tu veux" if ex.generation_mode == BONUS_MODE else "Jour passé")
+                    if self.bonus
+                    else None
+                )
             ),
             "is_bonus": self.bonus,
+            "date": ex.date.isoformat(),
+            "from_pack": ex.generation_mode == BONUS_MODE,
         }
 
 
@@ -151,12 +157,16 @@ async def build_cards(session: AsyncSession, user_id: uuid.UUID, day: date) -> l
             continue
         seen.add(ex.id)
         cards.append(Card(exercise=ex, is_revenge=True, revenge_step=revenge.step))
-    cards += await bonus_cards(session, user_id, day)
     return cards
 
 
-async def bonus_cards(session: AsyncSession, user_id: uuid.UUID, day: date) -> list[Card]:
-    """The bonus pack, brainteasers then cases by difficulty: not done yet, or done today."""
+TRAINING_TYPES = ("brainteaser", "market_sizing", "cadrage", "business_case", "diagnostic", "fit")
+PAST_DAYS = 30
+
+
+async def training_cards(session: AsyncSession, user_id: uuid.UUID, day: date) -> list[Card]:
+    """The Entraîner tab: the whole bonus pack (done or not), plus the past month's day
+    exercises nobody answered, by type then difficulty."""
     pack = list(
         (
             await session.execute(
@@ -170,26 +180,33 @@ async def bonus_cards(session: AsyncSession, user_id: uuid.UUID, day: date) -> l
         .scalars()
         .all()
     )
-    if not pack:
-        return []
-    ids = [e.id for e in pack]
-    best = await best_main_scores(session, user_id, ids)
-    done_today = set(
+    past = list(
         (
             await session.execute(
-                select(Attempt.exercise_id).where(
-                    Attempt.user_id == user_id,
-                    Attempt.kind == "main",
-                    Attempt.local_date == day,
-                    Attempt.exercise_id.in_(ids),
+                select(Exercise).where(
+                    Exercise.generation_mode != BONUS_MODE,
+                    Exercise.date < day,
+                    Exercise.date >= day - timedelta(days=PAST_DAYS),
+                    Exercise.type.in_(TRAINING_TYPES),
+                    Exercise.flagged.is_(False),
+                    ~Exercise.slot.startswith("mock_"),
                 )
             )
         )
         .scalars()
         .all()
     )
-    shown = [e for e in pack if e.id not in best or e.id in done_today]
-    shown.sort(key=lambda e: (e.type != "brainteaser", e.difficulty, e.slot))
+    ids = [e.id for e in pack] + [e.id for e in past]
+    best = await best_main_scores(session, user_id, ids)
+    shown = pack + [e for e in past if e.id not in best]
+    shown.sort(
+        key=lambda e: (
+            TRAINING_TYPES.index(e.type) if e.type in TRAINING_TYPES else 99,
+            e.difficulty,
+            e.date,
+            e.slot,
+        )
+    )
     return [
         Card(exercise=e, done=e.id in best, best_score=best.get(e.id), bonus=True) for e in shown
     ]

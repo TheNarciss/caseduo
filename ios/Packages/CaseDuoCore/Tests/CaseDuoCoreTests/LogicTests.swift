@@ -27,6 +27,12 @@ final class LogicTests: XCTestCase {
         XCTAssertEqual(HapticPattern.scoreHigh.pulses.count, 3)
         XCTAssertTrue(HapticPattern.scoreHigh.endsWithSuccess)
         XCTAssertFalse(HapticPattern.scoreMid.endsWithSuccess)
+        XCTAssertTrue(HapticPattern.goalMet.endsWithSuccess)
+        XCTAssertTrue(HapticPattern.dayComplete.endsWithSuccess)
+        XCTAssertFalse(HapticPattern.commit.endsWithSuccess)
+        XCTAssertLessThan(HapticPattern.tap.pulses[0].intensity, 0.4, "a tick, not a hit")
+        let completion = HapticPattern.dayComplete.pulses.filter { !$0.isContinuous }.map(\.intensity)
+        XCTAssertEqual(completion, completion.sorted(), "rising")
         let rising = HapticPattern.streakUp.pulses.filter { !$0.isContinuous }.map(\.intensity)
         XCTAssertEqual(rising, rising.sorted(), "streak pattern rises")
         let longest = HapticPattern.allCases.map { p in p.pulses.map { $0.time + $0.duration }.max() ?? 0 }
