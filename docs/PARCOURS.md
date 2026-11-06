@@ -78,9 +78,22 @@ Correction : tolérance pour les nombres (3 %), explication d'une ligne à chaqu
 - **Écran Aujourd'hui** : la mascotte, l'engagement, puis le chemin (nœuds en serpentin, l'actif qui pulse, les finis dorés, les verrouillés gris), et en bas le case du jour comme nœud appliqué.
 - **Entraîner** : les sprints par compétence (calcul chrono, so-what, structures), le pack bonus, les jours passés, les revanches.
 
-## 6. Décisions à prendre
+## 6. Décisions prises le 6 nov.
 
-1. L'ordre des unités (section 2) et leur taille.
-2. Durée de leçon visée : 4-6 minutes, 8-12 items.
-3. Le case complet du jour : nœud appliqué de chaque unité (proposition) ou seulement dans Entraîner.
-4. Première livraison : moteur + unités 0 à 3 (anatomie, ouverture, calcul, structure), puis une unité tous les deux jours.
+- **Public général, plusieurs utilisateurs** : école d'ingénieurs ou de commerce, tout niveau, sans échéance proche. Progression, erreurs et révisions **par personne** ; les cases du jour restent communs (D9) ; la ligue devient réelle.
+- **Test de placement** au premier lancement : une vingtaine d'items qui couvrent le tronc commun, chaque unité réussie à 80 % est marquée acquise (on peut la rejouer).
+- **Tronc commun (unités 0 à 8) + trois spécialisations** choisies au départ, ajoutées en fin de tronc :
+  - **Conseil IT / transformation** (Wavestone, Capgemini Invent, Accenture, Sopra, BearingPoint…) : note de cadrage, transformation data/IA, programme et gouvernance, cas « SI et métier ».
+  - **Stratégie** (McKinsey, BCG, Bain, Roland Berger, Oliver Wyman, Kearney…) : cases candidat-led longs, PEI, cases conceptuels, Solve/chatbot.
+  - **Finance** (transaction services, due diligence, M&A, Big Four advisory) : lecture d'états financiers, multiples, due diligence commerciale, cas de valorisation simples, questions techniques de fit.
+- **Fit généraliste** : pourquoi le conseil, pourquoi ce cabinet, récit personnel (STAR), questions classiques ; rien de propre à un profil dans le cours.
+- **Pas un cours de maths** : l'unité calcul tombe à 4 leçons orientées entretien (arrondir en parlant, dire ce que le chiffre veut dire, vérifier un ordre de grandeur) ; le volume va à ouvrir, structurer, sizing, graphiques, synthèse, fit.
+- **Le case complet du jour reste dès le jour 1** : les drills par morceaux ne transfèrent que couplés à la pratique complète.
+- **Oral sous pression** : chaque leçon finit par un item oral de 60-90 s noté par Claude ; chaque bilan d'unité contient une séquence de relances.
+- **Qualité des items** : cible 70-85 % de réussite au premier essai, item trop facile retiré, bouton « mauvais » d'un geste, relecture des lots générés.
+
+## 7. Livraison
+
+1. **Moteur** : compétences, leçons, items (16 formats auto-corrigés + oral noté), progression par personne, chemin, lecteur de leçon (feedback, erreurs reposées, « mauvais »), tronc commun unités 0 à 3 rédigées et relues. Le case du jour conservé.
+2. **Ensuite** : placement, génération nocturne validée, révision espacée, spécialisations, examen blanc hebdomadaire, niveau 0-100 par compétence, quêtes du jour.
+
