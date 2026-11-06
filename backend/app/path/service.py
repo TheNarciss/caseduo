@@ -242,8 +242,9 @@ async def start(
     if node.kind == "lesson":
         own = await _bank(session, [node.code])
         concept = [it for it in own if it.format == "concept_card"][:1]
-        graded = [it for it in own if it.format != "concept_card"]
-        n_total = max(1, node.items - len(concept))
+        orals = [it for it in own if it.format == "oral_prompt"][:1]  # the lesson ends aloud
+        graded = [it for it in own if it.format not in ("concept_card", "oral_prompt")]
+        n_total = max(1, node.items - len(concept) - len(orals))
         n_review = round(n_total * REVIEW_SHARE) if earlier_lessons and done else 0
         own_pick = _pick(graded, n_total - n_review, history, rng)
         review_pool = [
@@ -258,6 +259,7 @@ async def start(
         if len(chosen) < n_total:  # a thin bank: fill with whatever the unit has
             extra = [it for it in review_pool if it not in chosen][: n_total - len(chosen)]
             chosen = _order_for_lesson(chosen + extra)
+        chosen += orals
     elif node.kind == "review":
         pool = [
             it

@@ -80,6 +80,18 @@ final class BackendContractTests: XCTestCase {
         _ = try decode(MockFinish.self, "mock_finish")
     }
 
+    func testPath() throws {
+        let path = try decode(PathView.self, "path")
+        XCTAssertEqual(path.activeNode, "d1.showcase")
+        XCTAssertEqual(path.units.first?.nodes.count, 5)
+        let lesson = try decode(LessonStart.self, "path_lesson")
+        XCTAssertEqual(Set(lesson.items.map(\.format)).count, PathFormat.allCases.count - 1, "one item per format")
+        XCTAssertFalse(lesson.items.contains { $0.payload == .unknown })
+        let done = try decode(LessonCompletion.self, "path_complete")
+        XCTAssertEqual(done.oral?.first?.score, 100)
+        XCTAssertEqual(done.progress?.xpToday, 55)
+    }
+
     func testErrors() throws {
         XCTAssertNotNil(try decode(APIErrorBody.self, "error_404").detail)
         XCTAssertNotNil(try decode(APIErrorBody.self, "error_422").detail)

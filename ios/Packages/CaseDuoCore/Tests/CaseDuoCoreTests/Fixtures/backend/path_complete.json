@@ -1,0 +1,60 @@
+{
+  "node": "d1.showcase",
+  "passed": true,
+  "score": 81,
+  "xp": 10,
+  "replay": false,
+  "oral": [
+    {
+      "item_id": "d1.showcase.016",
+      "score": 100,
+      "feedback": "### Ce qui était bien\n- Plan clair.\n### À corriger\n- Chiffre → « je pose 30 % »\n### En 30 secondes tu aurais dû dire\n« Je recommande… »",
+      "criteria": [
+        {
+          "key": "reformulation",
+          "label": "Objectif reformulé en une phrase",
+          "weight": 2,
+          "score": 2,
+          "justification": "Une phrase."
+        },
+        {
+          "key": "question",
+          "label": "Une question qui change la structure",
+          "weight": 1,
+          "score": 2,
+          "justification": "Une phrase."
+        },
+        {
+          "key": "plan",
+          "label": "Démarche annoncée en trois branches",
+          "weight": 2,
+          "score": 2,
+          "justification": "Une phrase."
+        }
+      ]
+    }
+  ],
+  "progress": {
+    "xp_today": 55,
+    "goal_target": 30,
+    "goal_met": true,
+    "goal_just_met": false,
+    "streak": {
+      "current": 1,
+      "longest": 1,
+      "freezes": 2,
+      "status": "extended_today",
+      "freeze_used_on": [],
+      "freeze_just_used": false
+    },
+    "streak_extended": false,
+    "freeze_earned": false,
+    "day_complete": false,
+    "day_complete_bonus": 0,
+    "perfect_week": false,
+    "remaining": 5,
+    "new_badges": []
+  },
+  "next_node": "d1.review",
+  "unit_done": false
+}

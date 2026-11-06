@@ -1,0 +1,79 @@
+{
+  "units": [
+    {
+      "code": "d1",
+      "order": 1,
+      "track": "common",
+      "title": "Démo du Parcours",
+      "subtitle": "Un item de chaque format.",
+      "symbol": "sparkles",
+      "done": 0,
+      "total": 3,
+      "nodes": [
+        {
+          "code": "d1.showcase",
+          "kind": "lesson",
+          "title": "Tous les formats",
+          "objective": "Voir chaque format d'exercice une fois.",
+          "status": "active",
+          "best_score": null,
+          "times": 0,
+          "items": 20,
+          "applied_type": null,
+          "xp": 10
+        },
+        {
+          "code": "d1.review",
+          "kind": "review",
+          "title": "Révision",
+          "objective": null,
+          "status": "locked",
+          "best_score": null,
+          "times": 0,
+          "items": 6,
+          "applied_type": null,
+          "xp": 10
+        },
+        {
+          "code": "d1.applied",
+          "kind": "applied",
+          "title": "En situation",
+          "objective": null,
+          "status": "locked",
+          "best_score": null,
+          "times": 0,
+          "items": 10,
+          "applied_type": "case",
+          "xp": 0
+        },
+        {
+          "code": "d1.check",
+          "kind": "checkpoint",
+          "title": "Bilan",
+          "objective": null,
+          "status": "locked",
+          "best_score": null,
+          "times": 0,
+          "items": 6,
+          "applied_type": null,
+          "xp": 20
+        },
+        {
+          "code": "d1.legendary",
+          "kind": "legendary",
+          "title": "Légendaire",
+          "objective": null,
+          "status": "locked",
+          "best_score": null,
+          "times": 0,
+          "items": 6,
+          "applied_type": null,
+          "xp": 40
+        }
+      ]
+    }
+  ],
+  "active_node": "d1.showcase",
+  "done": 0,
+  "total": 3
+}
