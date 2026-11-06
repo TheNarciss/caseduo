@@ -158,10 +158,12 @@ struct DayCompleteOverlay: View {
                     .multilineTextAlignment(.center)
                 if let today = model.today {
                     HStack(spacing: 12) {
-                        stat(value: Format.xp(today.goal.xpToday), label: "aujourd'hui")
-                        stat(value: "\(today.streak.current)", label: today.streak.current > 1 ? "jours de série" : "jour de série")
+                        StatTile(value: Format.xp(today.goal.xpToday), label: "aujourd'hui", color: palette.accent, symbol: "sparkles")
+                        StatTile(value: "\(today.streak.current)", label: today.streak.current > 1 ? "jours de série" : "jour de série",
+                                 color: Brand.flameDeep, symbol: "flame.fill")
                     }
                     .padding(.top, 6)
+                    .popIn(delay: 0.2)
                 }
                 Spacer()
                 Button("Voir le bilan du jour") {
@@ -181,14 +183,42 @@ struct DayCompleteOverlay: View {
         }
     }
 
-    private func stat(value: String, label: String) -> some View {
-        VStack(spacing: 4) {
-            Text(value).font(.title2.weight(.heavy)).monospacedDigit()
-            Text(label).font(.caption).foregroundStyle(Brand.textSecondary)
+}
+
+/// A number that matters, on a tinted tile: a soft glow of its colour instead of a flat grey box.
+struct StatTile: View {
+    let value: String
+    let label: String
+    var color: Color = Brand.flame
+    var symbol: String?
+
+    var body: some View {
+        VStack(spacing: 6) {
+            if let symbol {
+                Image(systemName: symbol).font(.subheadline.weight(.bold)).foregroundStyle(color)
+            }
+            Text(value)
+                .font(.system(size: 28, weight: .heavy, design: .rounded))
+                .monospacedDigit()
+                .contentTransition(.numericText())
+                .foregroundStyle(color)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+            Text(label).font(.caption.weight(.semibold)).foregroundStyle(Brand.textSecondary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 14)
-        .card(radius: 16)
+        .padding(.vertical, 16)
+        .padding(.horizontal, 8)
+        .background {
+            let shape = RoundedRectangle(cornerRadius: 22, style: .continuous)
+            shape.fill(Brand.card)
+                .overlay(shape.fill(RadialGradient(colors: [color.opacity(0.22), Color.clear], center: .top, startRadius: 0, endRadius: 120)))
+                .overlay(shape.stroke(LinearGradient(colors: [color.opacity(0.5), Brand.stroke], startPoint: .top, endPoint: .bottom), lineWidth: 1))
+                .shadow(color: color.opacity(0.18), radius: 14, y: 6)
+        }
+        .accessibilityElement(children: .combine)
     }
 }
 
@@ -206,6 +236,7 @@ struct ExerciseDoneOverlay: View {
     @Environment(\.palette) private var palette
     @State private var burst = 0
     @State private var shown = false
+    @State private var shownScore = 0
 
     private var tint: Color { Brand.color(for: type) }
 
@@ -240,22 +271,13 @@ struct ExerciseDoneOverlay: View {
                 Text(title)
                     .font(.system(size: 34, weight: .heavy, design: .rounded))
                     .foregroundStyle(score >= 50 ? AnyShapeStyle(palette.linear) : AnyShapeStyle(Brand.textSecondary))
+                    .popIn(delay: 0.12)
                 HStack(spacing: 12) {
-                    VStack(spacing: 4) {
-                        Text("\(score)").font(.title.weight(.heavy)).monospacedDigit().foregroundStyle(Brand.scoreColor(score))
-                        Text("sur 100").font(.caption).foregroundStyle(Brand.textSecondary)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-                    .card(radius: 16)
-                    VStack(spacing: 4) {
-                        XPPop(earned: xp?.earned ?? 0, tint: palette.accent)
-                        Text(isRevenge ? "revanche ×1,2" : "gagnés").font(.caption).foregroundStyle(Brand.textSecondary)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-                    .card(radius: 16)
+                    StatTile(value: "\(shownScore)", label: "sur 100", color: Brand.scoreColor(score))
+                    StatTile(value: Format.xp(xp?.earned ?? 0, signed: true), label: isRevenge ? "revanche ×1,2" : "gagnés",
+                             color: palette.accent, symbol: "sparkles")
                 }
+                .popIn(delay: 0.1)
                 if let progress {
                     ProgressLine(progress: progress)
                 }
@@ -271,6 +293,7 @@ struct ExerciseDoneOverlay: View {
         }
         .onAppear {
             withAnimation(.spring(duration: 0.5, bounce: 0.4)) { shown = true }
+            withAnimation(.easeOut(duration: 0.8).delay(0.2)) { shownScore = score }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { burst += 1 }
         }
     }

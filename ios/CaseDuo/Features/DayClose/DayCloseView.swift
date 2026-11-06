@@ -16,27 +16,39 @@ struct DayCloseView: View {
                     if let summary {
                         FlameMascot(mood: summary.streak.status == .extendedToday ? .proud : .idle, size: 130)
                             .padding(.top, 20)
+                            .popIn()
                         VStack(spacing: 4) {
                             Text("\(summary.streak.current)")
                                 .font(.system(size: 64, weight: .heavy, design: .rounded))
                                 .foregroundStyle(palette.linear)
+                                .popIn(delay: 0.1)
                             Text(summary.streak.status == .extendedToday ? "jours de série, tenue aujourd'hui" : "jours de série")
                                 .font(.headline)
                                 .foregroundStyle(Brand.textSecondary)
                         }
                         HStack(spacing: 12) {
-                            stat(value: Format.xp(summary.xpToday), label: "aujourd'hui")
-                            stat(value: "\(summary.exercisesDone)", label: summary.exercisesDone > 1 ? "exercices" : "exercice")
+                            StatTile(value: Format.xp(summary.xpToday), label: "aujourd'hui", color: palette.accent, symbol: "sparkles")
+                            StatTile(value: "\(summary.exercisesDone)", label: summary.exercisesDone > 1 ? "exercices" : "exercice",
+                                     color: Brand.marketSizing, symbol: "checkmark.seal.fill")
                             if let rank = summary.leagueRank {
-                                stat(value: "\(rank)e", label: "ligue \(Format.leagueTier(summary.leagueTier ?? ""))")
+                                StatTile(value: "\(rank)e", label: "ligue \(Format.leagueTier(summary.leagueTier ?? ""))",
+                                         color: Brand.fit, symbol: "trophy.fill")
                             }
                         }
+                        .popIn(delay: 0.2)
                         if let line = summary.line ?? summary.weakestCriterion.map({ "Point faible du jour : \($0.label.lowercased())." }) {
-                            Label(line, systemImage: "scope")
-                                .font(.headline)
-                                .padding(16)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .card(fill: palette.accentSoft)
+                            HStack(spacing: 14) {
+                                IconCircle(symbol: "scope", tint: palette.accent, size: 44)
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text("À travailler demain").font(.caption.weight(.bold)).foregroundStyle(palette.accent)
+                                    Text(line).font(.subheadline.weight(.semibold))
+                                }
+                                Spacer(minLength: 0)
+                            }
+                            .padding(16)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .card(fill: palette.accentSoft)
+                            .popIn(delay: 0.3)
                         }
                         Text("Demain, la génération des exercices en tiendra compte.")
                             .font(.footnote)
@@ -64,15 +76,6 @@ struct DayCloseView: View {
         }
     }
 
-    private func stat(value: String, label: String) -> some View {
-        VStack(spacing: 4) {
-            Text(value).font(.title2.weight(.heavy)).monospacedDigit()
-            Text(label).font(.caption).foregroundStyle(Brand.textSecondary)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 14)
-        .card(radius: 16)
-    }
 }
 
 /// A freeze covered a missed day. No guilt: the streak goes on.

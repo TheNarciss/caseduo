@@ -145,3 +145,15 @@ Le cahier des charges faisait de l'accueil un plan du jour : des exercices compl
 - **Phase 1 livrée** : le moteur, les unités 0 à 3 (anatomie de l'entretien, ouvrir un case, le calcul en entretien, structurer), le chemin et le lecteur de leçon. **Phase 2** (PARCOURS.md § 7) : test de placement, génération nocturne d'items par Claude Code dans le style des banques existantes, révision espacée, spécialisations transfo / strat / finance, mock hebdomadaire, niveaux de compétence, quêtes.
 - **Écarté : des images ou des vidéos dans les leçons.** Les graphiques des items sont des données (`media` : barres, courbe, tableau, arbre) dessinées par l'app ; rien à télécharger, rien à héberger.
 
+## D18 — Motion design, sons et haptique dans les leçons · **Appliqué (à ta demande)**
+
+Ton retour sur le build 26 : « pas assez hype », les cartes à glisser trop petites, les blocs gris datés, les libellés du chemin qui se chevauchent.
+
+- **Un vocabulaire de mouvement** (`Motion` dans `Shared/Theme.swift`) : trois ressorts nommés, `snappy` (une pression reconnue, moins de 150 ms pour démarrer), `bouncy` (une récompense qui rebondit), `settle` (un panneau qui se pose, sans rebond), et `fling` pour une carte qui part. Trois modificateurs : `popIn` (apparaît en rebondissant), `bounce(trigger:)` (sursaute à chaque changement), `shake(trigger:)` (secoue, pour une erreur). Tout respecte « Réduire les animations ».
+- **Dans la leçon** : l'option choisie se colore en vert avec une coche qui surgit dans une gerbe, ou en orange avec une croix et une secousse, pendant que la bonne réponse se révèle en vert ; même langage pour les trous, le tri, les paires, les tuiles. La barre de progression a un reflet et se pose en ressort. Le compteur de bonnes réponses sursaute, et à 3, 5, 10 d'affilée un « Combo ×N » surgit avec une gerbe, un motif haptique et un arpège. Les cartes « valide ou pas » occupent l'écran, se glissent avec un tampon VALIDE / PAS VALIDE, s'envolent du côté choisi, et les deux boutons font toute la largeur.
+- **Sons** : cinq de plus, synthétisés par `ios/scripts/make-sounds.py` (aucune licence à suivre, régénérables) : juste, faux, pop (une tuile ou une carte qui se pose), combo, leçon terminée. Les anciens sont régénérés dans la même gamme.
+- **Haptique** : trois motifs de plus (`correct`, `wrong`, `lessonDone`), joués à chaque vérification et en fin de leçon ; `streakUp` sur un combo.
+- **Surfaces** : les cartes ne sont plus des rectangles gris plats : un fond légèrement dégradé, une lumière en haut, un filet qui s'éclaircit vers le haut, une ombre portée. Les chiffres du bilan du jour, de la journée complète et des fins d'exercice sont des tuiles teintées (`StatTile`) avec leur icône et un halo de leur couleur, et le nombre monte en comptant.
+- **Le chemin** : le score ou les XP d'une étape sont une pastille sur le bord du disque, plus sous le titre ; les pas sont plus hauts. Plus de chevauchement avec l'étape suivante.
+- **Écarté : des animations Lottie ou des vidéos.** Tout est dessiné et animé en SwiftUI : rien à télécharger, un seul style, et « Réduire les animations » suffit à tout calmer.
+

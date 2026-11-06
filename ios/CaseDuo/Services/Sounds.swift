@@ -1,6 +1,6 @@
 import AVFoundation
 
-/// Short sounds on success, can be turned off in Profil. Ambient session: they mix with music and
+/// Short sounds (synthesised by ios/scripts/make-sounds.py), can be turned off in Profil. Ambient session: they mix with music and
 /// stay silent when the ring switch is off.
 @MainActor
 final class Sounds {
@@ -8,6 +8,16 @@ final class Sounds {
         case send = "send"
         case success = "success"
         case streak = "streak"
+        /// A lesson item right: a two-note chime.
+        case correct = "correct"
+        /// A lesson item wrong: a muted low bump.
+        case wrong = "wrong"
+        /// A tile or a card lands.
+        case pop = "pop"
+        /// Three, five, ten right in a row: a rising arpeggio.
+        case combo = "combo"
+        /// A lesson ends: a short fanfare.
+        case done = "done"
     }
 
     static let shared = Sounds()
