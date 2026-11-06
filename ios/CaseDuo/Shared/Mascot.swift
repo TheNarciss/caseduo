@@ -202,14 +202,17 @@ struct FlameMascot: View {
             flame
                 .frame(width: 100 * u, height: size)
                 .rotationEffect(.degrees(swayAngle))
+                .animation(swayAnimation, value: swaying)
                 .scaleEffect(breathing ? 1.03 : 1.0)
+                .animation(reduceMotion ? nil : .easeInOut(duration: 1.6).repeatForever(autoreverses: true), value: breathing)
                 .scaleEffect(bounce)
+                .animation(reduceMotion ? nil : .spring(duration: 0.35, bounce: 0.4), value: bounce)
         }
         .frame(width: size, height: size)
         .onAppear(perform: startAmbientMotion)
         .onChange(of: mood) { _, newMood in
             if newMood == .happy || newMood == .proud { bounceOnce() }
-            updateSway(for: newMood)
+            swaying = newMood == .sleepy
         }
         .task(id: mood) { await blinkLoop() }
         .accessibilityElement(children: .ignore)
@@ -223,8 +226,10 @@ struct FlameMascot: View {
                 .fill(LinearGradient(colors: [MascotColor.flameLight, MascotColor.flame, MascotColor.flameDeep],
                                      startPoint: .top, endPoint: .bottom))
             InnerFlame().fill(MascotColor.flameLight.opacity(0.9))
-            Eye(mood: mood, u: u, isLeft: true).scaleEffect(x: 1, y: blink).position(d(38, 80))
-            Eye(mood: mood, u: u, isLeft: false).scaleEffect(x: 1, y: blink).position(d(62, 80))
+            Eye(mood: mood, u: u, isLeft: true).scaleEffect(x: 1, y: blink)
+                .animation(.easeInOut(duration: 0.09), value: blink).position(d(38, 80))
+            Eye(mood: mood, u: u, isLeft: false).scaleEffect(x: 1, y: blink)
+                .animation(.easeInOut(duration: 0.09), value: blink).position(d(62, 80))
             if mood == .thinking {                                 // one raised eyebrow
                 Capsule().fill(MascotColor.pupil).frame(width: 10 * u, height: 2.6 * u)
                     .rotationEffect(.degrees(-14)).position(d(63, 65))
@@ -269,35 +274,32 @@ struct FlameMascot: View {
         return path
     }
 
-    // MARK: Motion. Breathing, sway and bounce are skipped with Reduce Motion; the blink is kept (tiny).
+    // MARK: Motion. Each motion is animated by its own `.animation(_:value:)` modifier, never by a
+    // global `withAnimation`: a repeating animation started that way leaks into every transition
+    // on screen (the pages would slide back and forth). Breathing, sway and bounce are skipped with
+    // Reduce Motion; the blink is kept (tiny).
 
     private var swayAngle: Double {
         guard mood == .sleepy, !reduceMotion else { return 0 }
         return swaying ? 3 : -3
     }
 
-    private func startAmbientMotion() {
-        guard !reduceMotion else { return }
-        withAnimation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true)) { breathing = true }
-        updateSway(for: mood)
+    /// Repeating while it sways, a single ease back to upright when it stops.
+    private var swayAnimation: Animation? {
+        guard !reduceMotion else { return nil }
+        return swaying ? .easeInOut(duration: 1.4).repeatForever(autoreverses: true) : .easeInOut(duration: 0.3)
     }
 
-    private func updateSway(for mood: MascotMood) {
+    private func startAmbientMotion() {
         guard !reduceMotion else { return }
-        if mood == .sleepy {
-            withAnimation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true)) { swaying = true }
-        } else {
-            withAnimation(.easeInOut(duration: 0.3)) { swaying = false }
-        }
+        breathing = true
+        swaying = mood == .sleepy
     }
 
     private func bounceOnce() {
         guard !reduceMotion else { return }
-        withAnimation(.spring(duration: 0.35, bounce: 0.4)) {
-            bounce = 1.12
-        } completion: {
-            withAnimation(.spring(duration: 0.35, bounce: 0.4)) { bounce = 1 }
-        }
+        bounce = 1.12
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { bounce = 1 }
     }
 
     /// Blinks every ~3.5 s. Restarted by `.task(id: mood)` on each mood change, cancelled on disappear.
@@ -307,9 +309,9 @@ struct FlameMascot: View {
         guard mood.blinks else { return }
         while !Task.isCancelled {
             do { try await Task.sleep(for: .seconds(Double.random(in: 2.8...4.2))) } catch { return }
-            withAnimation(.easeInOut(duration: 0.09)) { blink = 0.1 }
+            blink = 0.1
             do { try await Task.sleep(for: .seconds(0.09)) } catch { return }
-            withAnimation(.easeInOut(duration: 0.09)) { blink = 1 }
+            blink = 1
         }
     }
 }
