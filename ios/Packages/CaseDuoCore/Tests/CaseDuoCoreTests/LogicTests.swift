@@ -168,3 +168,41 @@ final class LogicTests: XCTestCase {
         XCTAssertEqual(text, "Question 1 : Q1\nRéponse : R1\n\nQuestion 2 : Q2\nRéponse : R2")
     }
 }
+
+// MARK: - Dictation
+
+final class DictationMergeTests: XCTestCase {
+    func testRewriteOfTheSameUtteranceIsNotNew() {
+        XCTAssertFalse(DictationMerge.isNewUtterance(previous: "je reformule l'objectif", previousStart: 0.4,
+                                                     text: "je reformule l'objectif du client", start: 0.4))
+        // A correction of a few words, same start.
+        XCTAssertFalse(DictationMerge.isNewUtterance(previous: "je vais structurer", previousStart: 0.4,
+                                                     text: "j'ai structuré", start: 0.45))
+        XCTAssertFalse(DictationMerge.isNewUtterance(previous: "", previousStart: nil, text: "bonjour", start: 3))
+        // The first segment was dropped on refinement (the clock jumped) but the words are still there.
+        XCTAssertFalse(DictationMerge.isNewUtterance(previous: "euh le client veut doubler sa marge", previousStart: 0.3,
+                                                     text: "le client veut doubler sa marge en deux ans", start: 1.6))
+    }
+
+    func testAfterASilenceTheRecogniserStartsOver() {
+        // The first segment now starts later in the audio: a new sentence.
+        XCTAssertTrue(DictationMerge.isNewUtterance(previous: "le client veut doubler sa marge en deux ans",
+                                                    previousStart: 0.4, text: "donc", start: 6.8))
+        // The clock reset to zero.
+        XCTAssertTrue(DictationMerge.isNewUtterance(previous: "le client veut doubler sa marge", previousStart: 5.2,
+                                                    text: "je vois", start: 0.1))
+        // No timestamps: the text shrank and no longer starts the same way.
+        XCTAssertTrue(DictationMerge.isNewUtterance(previous: "le client veut doubler sa marge en deux ans",
+                                                    previousStart: nil, text: "trois axes", start: nil))
+        // Shrank but still the same beginning: a rewrite, not a restart.
+        XCTAssertFalse(DictationMerge.isNewUtterance(previous: "le client veut doubler sa marge en deux ans",
+                                                     previousStart: nil, text: "le client veut", start: nil))
+    }
+
+    func testJoinKeepsOneSpace() {
+        XCTAssertEqual(DictationMerge.join(committed: "", partial: "bonjour"), "bonjour")
+        XCTAssertEqual(DictationMerge.join(committed: "bonjour ", partial: "madame"), "bonjour madame")
+        XCTAssertEqual(DictationMerge.join(committed: "bonjour", partial: "madame"), "bonjour madame")
+        XCTAssertEqual(DictationMerge.join(committed: "bonjour", partial: ""), "bonjour")
+    }
+}

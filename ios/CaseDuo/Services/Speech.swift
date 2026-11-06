@@ -1,10 +1,15 @@
 import AVFoundation
+import CaseDuoCore
 import Observation
 import Speech
 
 /// Dictation, because interviews are spoken. On-device recognition when the phone supports it
 /// for the language (no time limit); otherwise Apple's server, whose tasks stop after about a
 /// minute: the task is restarted before that and the text keeps growing.
+///
+/// After a silence the recogniser starts a new utterance: its results no longer contain the
+/// previous words, and sometimes the task ends on its own. Both cases commit what was said so
+/// far before going on (DictationMerge decides), so a pause never erases anything.
 @MainActor
 @Observable
 final class Dictation {
@@ -21,6 +26,8 @@ final class Dictation {
 
     @ObservationIgnored private var committed = ""
     @ObservationIgnored private var partial = ""
+    /// Where in the audio the current utterance starts (its first segment's timestamp).
+    @ObservationIgnored private var partialStart: TimeInterval?
     @ObservationIgnored private let audioEngine = AVAudioEngine()
     @ObservationIgnored private var request: SFSpeechAudioBufferRecognitionRequest? {
         didSet { buffers.set(request) }
@@ -52,8 +59,9 @@ final class Dictation {
         }
         self.recognizer = recognizer
         onDevice = recognizer.supportsOnDeviceRecognition
-        committed = existing.isEmpty ? "" : existing + (existing.hasSuffix(" ") || existing.hasSuffix("\n") ? "" : " ")
+        committed = existing
         partial = ""
+        partialStart = nil
         transcript = existing
         do {
             let session = AVAudioSession.sharedInstance()
@@ -88,6 +96,7 @@ final class Dictation {
     func reset(to text: String = "") {
         committed = text
         partial = ""
+        partialStart = nil
         transcript = text
     }
 
@@ -101,16 +110,22 @@ final class Dictation {
         self.request = request
         task = recognizer.recognitionTask(with: request) { [weak self] result, error in
             let text = result?.bestTranscription.formattedString
+            let start = result?.bestTranscription.segments.first?.timestamp
             let isFinal = result?.isFinal ?? false
             Task { @MainActor in
-                guard let self else { return }
-                if let text {
+                guard let self, self.request === request else { return }  // a cancelled task still talks
+                if let text, !text.isEmpty {
+                    if DictationMerge.isNewUtterance(previous: self.partial, previousStart: self.partialStart,
+                                                     text: text, start: start) {
+                        self.commitPartial()  // the pause ended a sentence: keep it
+                    }
                     self.partial = text
-                    self.transcript = self.committed + text
+                    self.partialStart = start
+                    self.transcript = DictationMerge.join(committed: self.committed, partial: text)
                 }
                 if isFinal || error != nil {
-                    // Server tasks end on their own around a minute: keep going while recording.
-                    if self.state == .recording, !self.onDevice {
+                    // The task ended (a silence, or the server's minute): keep going while recording.
+                    if self.state == .recording {
                         self.commitPartial()
                         self.restartTask()
                     }
@@ -136,8 +151,9 @@ final class Dictation {
 
     private func commitPartial() {
         guard !partial.isEmpty else { return }
-        committed += partial + " "
+        committed = DictationMerge.join(committed: committed, partial: partial)
         partial = ""
+        partialStart = nil
         transcript = committed
     }
 
