@@ -80,6 +80,87 @@ enum Brand {
     static let spring = Animation.spring(duration: 0.28, bounce: 0.25)
 }
 
+/// The motion vocabulary (D18): a few named springs so every screen moves the same way.
+/// Feedback is fast (under 150 ms to start), rewards bounce, surfaces settle without bounce.
+enum Motion {
+    /// A tap acknowledged: a quick, barely bouncy spring.
+    static let snappy = Animation.spring(duration: 0.22, bounce: 0.2)
+    /// A reward lands: a bouncy pop.
+    static let bouncy = Animation.spring(duration: 0.45, bounce: 0.45)
+    /// A panel or a card moves into place.
+    static let settle = Animation.spring(duration: 0.38, bounce: 0.12)
+    /// A card leaves the screen.
+    static let fling = Animation.easeIn(duration: 0.28)
+}
+
+/// A horizontal shake, for a wrong answer: three quick wobbles that die out.
+struct ShakeEffect: GeometryEffect {
+    var amount: CGFloat = 10
+    var shakes: CGFloat = 3
+    var animatableData: CGFloat
+
+    func effectValue(size: CGSize) -> ProjectionTransform {
+        let progress = animatableData.truncatingRemainder(dividingBy: 1)
+        let x = amount * sin(progress * .pi * shakes * 2) * (1 - progress)
+        return ProjectionTransform(CGAffineTransform(translationX: x, y: 0))
+    }
+}
+
+extension View {
+    /// Shakes once each time `trigger` changes (no motion when the system asks for less).
+    func shake(trigger: Int) -> some View { modifier(ShakeOnChange(trigger: trigger)) }
+    /// Pops in (scale 0.6 → 1, bouncy) the first time it appears.
+    func popIn(delay: Double = 0) -> some View { modifier(PopIn(delay: delay)) }
+    /// Bounces (scale 1 → 1.18 → 1) each time `trigger` changes.
+    func bounce(trigger: some Equatable) -> some View { modifier(BounceOnChange(trigger: trigger)) }
+}
+
+private struct ShakeOnChange: ViewModifier {
+    let trigger: Int
+    @State private var shakes: CGFloat = 0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    func body(content: Content) -> some View {
+        content
+            .modifier(ShakeEffect(animatableData: shakes))
+            .onChange(of: trigger) { _, _ in
+                guard !reduceMotion else { return }
+                withAnimation(.linear(duration: 0.45)) { shakes += 1 }
+            }
+    }
+}
+
+private struct PopIn: ViewModifier {
+    let delay: Double
+    @State private var shown = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(shown || reduceMotion ? 1 : 0.6)
+            .opacity(shown || reduceMotion ? 1 : 0)
+            .onAppear { withAnimation(Motion.bouncy.delay(delay)) { shown = true } }
+    }
+}
+
+private struct BounceOnChange<T: Equatable>: ViewModifier {
+    let trigger: T
+    @State private var up = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(up ? 1.18 : 1)
+            .onChange(of: trigger) { _, _ in
+                guard !reduceMotion else { return }
+                withAnimation(.spring(duration: 0.18, bounce: 0.3)) { up = true }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
+                    withAnimation(Motion.bouncy) { up = false }
+                }
+            }
+    }
+}
+
 /// The accent of the moment: the usual flame, or the perfect-week theme for seven days.
 struct Palette: Equatable {
     var accent: Color
@@ -114,19 +195,28 @@ extension EnvironmentValues {
 
 // MARK: - Surfaces
 
+/// A raised surface: the fill, a faint light from the top (glass, not a flat grey square), a
+/// hairline, and a soft shadow that lifts it off the background.
 struct CardBackground: ViewModifier {
     var radius: CGFloat
     var fill: Color
 
     func body(content: Content) -> some View {
-        content
-            .background(fill, in: RoundedRectangle(cornerRadius: radius, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: radius, style: .continuous).stroke(Brand.stroke, lineWidth: 1))
+        let shape = RoundedRectangle(cornerRadius: radius, style: .continuous)
+        return content
+            .background {
+                shape.fill(fill)
+                    .overlay(shape.fill(LinearGradient(colors: [Color.white.opacity(0.07), Color.white.opacity(0.0)],
+                                                       startPoint: .top, endPoint: .center)))
+                    .overlay(shape.stroke(LinearGradient(colors: [Color.white.opacity(0.14), Brand.stroke],
+                                                         startPoint: .top, endPoint: .bottom), lineWidth: 1))
+                    .shadow(color: Color.black.opacity(0.35), radius: 14, y: 6)
+            }
     }
 }
 
 extension View {
-    func card(radius: CGFloat = 20, fill: Color = Brand.card) -> some View {
+    func card(radius: CGFloat = 24, fill: Color = Brand.card) -> some View {
         modifier(CardBackground(radius: radius, fill: fill))
     }
 }

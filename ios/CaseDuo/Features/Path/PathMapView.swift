@@ -114,8 +114,8 @@ struct NodeTrail: View {
     let tint: Color
     let open: (PathNode) -> Void
 
-    private let step: CGFloat = 96
-    private let amplitude: CGFloat = 64
+    private let step: CGFloat = 112
+    private let amplitude: CGFloat = 70
 
     private func offset(_ index: Int) -> CGFloat {
         amplitude * CGFloat(sin(Double(index) * 1.1))
@@ -190,8 +190,8 @@ struct NodeButton: View {
 
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 6) {
-                ZStack {
+            VStack(spacing: 8) {
+                ZStack(alignment: .bottom) {
                     if node.status == .active {
                         TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: reduceMotion)) { context in
                             let t = context.date.timeIntervalSince(born)
@@ -200,6 +200,7 @@ struct NodeButton: View {
                                 .stroke(tint.opacity(0.7 * (1 - phase)), lineWidth: 3)
                                 .frame(width: size + 10 + 26 * phase, height: size + 10 + 26 * phase)
                         }
+                        .frame(width: size, height: size)  // the ring overflows but keeps the disc's footprint
                         .accessibilityHidden(true)
                     }
                     Circle()
@@ -210,26 +211,38 @@ struct NodeButton: View {
                     Image(systemName: symbol)
                         .font(.system(size: size * 0.36, weight: .bold))
                         .foregroundStyle(foreground)
+                        .frame(width: size, height: size)
+                    // The score or the XP, as a small chip on the disc's edge: never over the next step.
+                    if let chip {
+                        Text(chip.text)
+                            .font(.system(size: 10, weight: .heavy, design: .rounded).monospacedDigit())
+                            .foregroundStyle(Color.black)
+                            .padding(.horizontal, 7).padding(.vertical, 3)
+                            .background(chip.color, in: Capsule())
+                            .overlay(Capsule().stroke(Brand.background, lineWidth: 2))
+                            .offset(y: 8)
+                    }
                 }
                 Text(node.title)
                     .font(.caption.weight(node.status == .active ? .bold : .semibold))
                     .foregroundStyle(node.status == .locked ? Brand.textTertiary : .white)
                     .lineLimit(1)
-                    .frame(width: 130)
-                if node.status == .done, let score = node.bestScore, node.kind != .applied {
-                    Text("\(score) %")
-                        .font(.caption2.monospacedDigit())
-                        .foregroundStyle(Brand.scoreColor(score))
-                } else if node.status == .active {
-                    Text(node.kind == .applied ? "Le case du jour" : "+\(node.xp) XP")
-                        .font(.caption2.weight(.bold))
-                        .foregroundStyle(tint)
-                }
+                    .frame(width: 140)
+                    .padding(.top, chip == nil ? 0 : 4)
             }
         }
-        .buttonStyle(.plain)
+        .buttonStyle(PressScaleStyle())
         .accessibilityLabel("\(node.title), \(label)")
         .accessibilityIdentifier("path.node.\(node.code)")
+    }
+
+    private var chip: (text: String, color: Color)? {
+        if node.status == .done, let score = node.bestScore, node.kind != .applied {
+            return ("\(score) %", Brand.scoreColor(score))
+        }
+        if node.status == .active { return (node.kind == .applied ? "case du jour" : "+\(node.xp) XP", tint) }
+        if node.status == .available { return ("bonus", tint) }
+        return nil
     }
 
     private var label: String {

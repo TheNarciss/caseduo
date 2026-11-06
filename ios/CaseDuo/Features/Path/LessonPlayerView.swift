@@ -23,6 +23,9 @@ struct LessonPlayerView: View {
     @State private var flagged: Set<String> = []
     @State private var flagNote = ""
     @State private var askFlag = false
+    /// « Combo ×3 ! » floating over the item, at 3, 5 and 10 right in a row.
+    @State private var combo: Int?
+    @State private var comboBurst = 0
 
     private var tint: Color {
         guard let kind = session?.start.node.kind else { return palette.accent }
@@ -94,7 +97,7 @@ struct LessonPlayerView: View {
                             Label("On la refait", systemImage: "arrow.uturn.backward")
                                 .font(.caption.weight(.bold)).foregroundStyle(Brand.cadrage)
                         }
-                        LessonItemView(item: step.item, locked: verdict != nil, answer: $answer, tint: tint)
+                        LessonItemView(item: step.item, locked: verdict != nil, verdict: verdict, answer: $answer, tint: tint)
                             .id(step.id)
                             .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity),
                                                     removal: .move(edge: .leading).combined(with: .opacity)))
@@ -105,7 +108,14 @@ struct LessonPlayerView: View {
                 .containerRelativeFrame(.horizontal)
             }
             .scrollDismissesKeyboard(.interactively)
-            .animation(Brand.quick, value: session.current?.id)
+            .animation(Motion.settle, value: session.current?.id)
+            .overlay(alignment: .top) {
+                if let combo {
+                    ComboToast(count: combo, tint: tint, burst: comboBurst)
+                        .padding(.top, 60)
+                        .transition(.scale(scale: 0.5).combined(with: .opacity))
+                }
+            }
             bottomPanel(session)
         }
     }
@@ -121,11 +131,16 @@ struct LessonPlayerView: View {
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
                     Capsule().fill(Brand.cardRaised)
-                    Capsule().fill(tint).frame(width: max(8, geo.size.width * session.progress))
-                        .animation(Brand.spring, value: session.progress)
+                    Capsule()
+                        .fill(LinearGradient(colors: [tint.opacity(0.85), tint], startPoint: .leading, endPoint: .trailing))
+                        .overlay(alignment: .top) {
+                            Capsule().fill(Color.white.opacity(0.35)).frame(height: 3).padding(.horizontal, 4).padding(.top, 2)
+                        }
+                        .frame(width: max(10, geo.size.width * session.progress))
+                        .animation(Motion.settle, value: session.progress)
                 }
             }
-            .frame(height: 12)
+            .frame(height: 14)
             .accessibilityLabel("Progression \(Int(session.progress * 100)) %")
             if session.streakOfCorrect >= 2 {
                 HStack(spacing: 3) {
@@ -134,6 +149,7 @@ struct LessonPlayerView: View {
                 }
                 .font(.subheadline.weight(.heavy))
                 .foregroundStyle(palette.linear)
+                .bounce(trigger: session.streakOfCorrect)
                 .transition(.scale.combined(with: .opacity))
             }
             Menu {
@@ -195,12 +211,27 @@ struct LessonPlayerView: View {
             advance()
             return
         }
-        withAnimation(Brand.spring) { verdict = result }
+        withAnimation(Motion.settle) { verdict = result }
         if result.correct {
             Haptics.shared.play(.correct)
-            Sounds.shared.play(.success)
+            Sounds.shared.play(.correct)
+            let streak = current.streakOfCorrect
+            if [3, 5, 10].contains(streak) || (streak > 10 && streak % 5 == 0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { showCombo(streak) }
+            }
         } else {
             Haptics.shared.play(.wrong)
+            Sounds.shared.play(.wrong)
+        }
+    }
+
+    private func showCombo(_ count: Int) {
+        Haptics.shared.play(.streakUp)
+        Sounds.shared.play(.combo)
+        withAnimation(Motion.bouncy) { combo = count }
+        comboBurst += 1
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+            withAnimation(Motion.settle) { combo = nil }
         }
     }
 
@@ -223,7 +254,7 @@ struct LessonPlayerView: View {
             completion = done
             phase = .done
             Haptics.shared.play(done.passed ? .lessonDone : .scoreLow)
-            if done.passed { Sounds.shared.play(.streak) }
+            if done.passed { Sounds.shared.play(.done) }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { burst += 1 }
             model.didCompleteLesson(done)
         } catch {
@@ -260,11 +291,19 @@ struct FeedbackPanel: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack(spacing: 8) {
+            HStack(spacing: 10) {
                 Image(systemName: verdict.correct ? "checkmark.circle.fill" : "xmark.circle.fill")
-                    .font(.title2)
+                    .font(.title)
+                    .popIn()
+                    .background {
+                        if verdict.correct {
+                            BurstView(trigger: 1, colors: [Brand.success, .white, Brand.flameLight], count: 18)
+                                .frame(width: 140, height: 140)
+                        }
+                    }
                 Text(verdict.correct ? headline : "Pas tout à fait")
                     .font(.title3.weight(.heavy))
+                    .popIn(delay: 0.05)
                 Spacer()
                 if !verdict.correct, verdict.ratio > 0 {
                     Text("\(Int((verdict.ratio * 100).rounded())) %")
@@ -308,6 +347,35 @@ struct FeedbackPanel: View {
     }
 }
 
+/// « Combo ×3 ! » : a burst and a label that pops over the item.
+struct ComboToast: View {
+    let count: Int
+    var tint: Color
+    var burst: Int
+    @Environment(\.palette) private var palette
+
+    var body: some View {
+        ZStack {
+            BurstView(trigger: burst, colors: palette.gradient + [.white], count: 30)
+                .frame(width: 220, height: 220)
+            VStack(spacing: 2) {
+                Text("Combo ×\(count)")
+                    .font(.system(size: 30, weight: .black, design: .rounded))
+                    .foregroundStyle(palette.linear)
+                Text(count >= 10 ? "Imparable" : count >= 5 ? "En feu" : "Ça s'enchaîne")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(Brand.textSecondary)
+            }
+            .padding(.horizontal, 22).padding(.vertical, 12)
+            .background(.ultraThinMaterial, in: Capsule())
+            .overlay(Capsule().stroke(tint.opacity(0.6), lineWidth: 1.5))
+            .shadow(color: tint.opacity(0.4), radius: 16)
+        }
+        .allowsHitTesting(false)
+        .accessibilityLabel("Combo de \(count) bonnes réponses")
+    }
+}
+
 /// The results are leaving: the mascot thinks, the oral item is being graded.
 struct LessonSendingView: View {
     let session: LessonSession
@@ -335,6 +403,7 @@ struct LessonDoneView: View {
     let close: () -> Void
     @Environment(\.palette) private var palette
     @State private var shown = false
+    @State private var shownScore = 0
 
     private var mood: MascotMood {
         if !completion.passed { return .sad }
@@ -358,10 +427,11 @@ struct LessonDoneView: View {
                         .font(.system(size: 30, weight: .heavy, design: .rounded))
                         .foregroundStyle(completion.passed ? AnyShapeStyle(palette.linear) : AnyShapeStyle(Brand.textSecondary))
                         .multilineTextAlignment(.center)
+                        .popIn(delay: 0.15)
                     Text(session.start.node.title).font(.headline).foregroundStyle(Brand.textSecondary)
 
                     HStack(spacing: 12) {
-                        stat(value: "\(completion.score) %", label: "au premier essai", color: Brand.scoreColor(completion.score))
+                        stat(value: "\(shownScore) %", label: "au premier essai", color: Brand.scoreColor(completion.score))
                         VStack(spacing: 4) {
                             XPPop(earned: completion.xp, tint: tint)
                             Text(completion.replay == true ? "déjà réussie" : session.isPerfect ? "sans faute !" : "gagnés")
@@ -415,7 +485,10 @@ struct LessonDoneView: View {
                     .accessibilityIdentifier("lesson.close")
             }
         }
-        .onAppear { withAnimation(.spring(duration: 0.5, bounce: 0.4)) { shown = true } }
+        .onAppear {
+            withAnimation(.spring(duration: 0.5, bounce: 0.4)) { shown = true }
+            withAnimation(.easeOut(duration: 0.7).delay(0.2)) { shownScore = completion.score }
+        }
     }
 
     private var title: String {
@@ -430,13 +503,7 @@ struct LessonDoneView: View {
     }
 
     private func stat(value: String, label: String, color: Color) -> some View {
-        VStack(spacing: 4) {
-            Text(value).font(.title2.weight(.heavy)).monospacedDigit().foregroundStyle(color)
-            Text(label).font(.caption).foregroundStyle(Brand.textSecondary)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 14)
-        .card(radius: 16)
+        StatTile(value: value, label: label, color: color)
     }
 }
 

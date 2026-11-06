@@ -6,6 +6,8 @@ import SwiftUI
 struct LessonItemView: View {
     let item: PathItem
     let locked: Bool
+    /// Once checked: the views colour the choice green or orange and reveal the key.
+    var verdict: PathVerdict? = nil
     @Binding var answer: PathAnswer?
     var tint: Color
 
@@ -23,26 +25,28 @@ struct LessonItemView: View {
             switch item.payload {
             case .concept(let screens):
                 ConceptCardView(screens: screens, tint: tint, answer: $answer)
-            case .choice(let options, _, let shuffle):
-                ChoiceView(options: options, shuffle: shuffle, seed: item.id, locked: locked, tint: tint, answer: $answer)
+            case .choice(let options, let correct, let shuffle):
+                ChoiceView(options: options, correct: correct, shuffle: shuffle, seed: item.id, locked: locked,
+                           verdict: verdict, tint: tint, answer: $answer)
             case .swipe(let cards, _):
-                SwipeCardsView(cards: cards, locked: locked, tint: tint, answer: $answer)
-            case .spotError(let lines, _, _):
-                SpotErrorView(lines: lines, locked: locked, tint: tint, answer: $answer)
+                SwipeCardsView(cards: cards, locked: locked, verdict: verdict, tint: tint, answer: $answer)
+            case .spotError(let lines, let wrongLine, _):
+                SpotErrorView(lines: lines, wrongLine: wrongLine, locked: locked, verdict: verdict, tint: tint, answer: $answer)
             case .tiles(let tiles, _, _, _):
-                TilesView(tiles: tiles, seed: item.id, locked: locked, tint: tint, answer: $answer)
+                TilesView(tiles: tiles, seed: item.id, locked: locked, verdict: verdict, tint: tint, answer: $answer)
             case .mentalMath(let questions, let seconds):
                 MentalMathView(questions: questions, seconds: seconds, locked: locked, tint: tint, answer: $answer)
             case .estimate(_, let slider, let unit, let log, _):
                 EstimateView(slider: slider, unit: unit, log: log, locked: locked, tint: tint, answer: $answer)
-            case .twoStep(let formulas, _, _, let unit, _):
-                TwoStepView(formulas: formulas, unit: unit, locked: locked, tint: tint, answer: $answer)
+            case .twoStep(let formulas, let correctFormula, _, let unit, _):
+                TwoStepView(formulas: formulas, correctFormula: correctFormula, unit: unit, locked: locked,
+                            verdict: verdict, tint: tint, answer: $answer)
             case .fillBlank(let text, let slots):
-                FillBlankView(text: text, slots: slots, locked: locked, tint: tint, answer: $answer)
+                FillBlankView(text: text, slots: slots, locked: locked, verdict: verdict, tint: tint, answer: $answer)
             case .meceSort(let buckets, let items):
-                MeceSortView(buckets: buckets, items: items, locked: locked, tint: tint, answer: $answer)
+                MeceSortView(buckets: buckets, items: items, locked: locked, verdict: verdict, tint: tint, answer: $answer)
             case .matchPairs(let pairs):
-                MatchPairsView(pairs: pairs, seed: item.id, locked: locked, tint: tint, answer: $answer)
+                MatchPairsView(pairs: pairs, seed: item.id, locked: locked, verdict: verdict, tint: tint, answer: $answer)
             case .oral(let seconds, let rubric, _):
                 OralItemView(seconds: seconds, rubric: rubric, locked: locked, tint: tint, answer: $answer)
             case .unknown:
@@ -72,14 +76,48 @@ private func seededOrder<T>(_ items: [T], seed: String) -> [T] {
     return out
 }
 
-/// A tappable answer row: one of several options, a line of a calculation.
+/// How an answer row looks: untouched, chosen, and after the check: right, wrong, or the key
+/// revealed next to a wrong choice.
+enum OptionState: Equatable { case idle, selected, right, wrong, revealed }
+
+extension OptionState {
+    /// The state of one option once the answer is known.
+    static func of(id: String, chosen: String?, correct: String, verdict: PathVerdict?) -> OptionState {
+        guard verdict != nil else { return chosen == id ? .selected : .idle }
+        if id == correct { return chosen == id ? .right : .revealed }
+        return chosen == id ? .wrong : .idle
+    }
+}
+
+/// A tappable answer row: one of several options, a line of a calculation. Green with a tick
+/// when right, orange with a cross and a shake when wrong, green outline for the key.
 struct OptionRow: View {
     let text: String
-    let selected: Bool
+    var state: OptionState
     let locked: Bool
     var tint: Color
     var leading: String?
     let action: () -> Void
+    @State private var shakes = 0
+
+    private var accent: Color {
+        switch state {
+        case .idle: return Brand.stroke
+        case .selected: return tint
+        case .right, .revealed: return Brand.success
+        case .wrong: return Brand.danger
+        }
+    }
+
+    private var fillColor: Color {
+        switch state {
+        case .idle: return Brand.card
+        case .selected: return tint.opacity(0.16)
+        case .right: return Brand.success.opacity(0.18)
+        case .revealed: return Brand.success.opacity(0.08)
+        case .wrong: return Brand.danger.opacity(0.16)
+        }
+    }
 
     var body: some View {
         Button(action: action) {
@@ -87,24 +125,45 @@ struct OptionRow: View {
                 if let leading {
                     Text(leading)
                         .font(.caption.weight(.bold))
-                        .foregroundStyle(selected ? Color.black : tint)
-                        .frame(width: 24, height: 24)
-                        .background(selected ? tint : tint.opacity(0.14), in: Circle())
+                        .foregroundStyle(state == .idle ? tint : Color.black)
+                        .frame(width: 26, height: 26)
+                        .background(state == .idle ? tint.opacity(0.14) : accent, in: Circle())
                 }
                 Text(text)
                     .font(.body)
                     .multilineTextAlignment(.leading)
                     .foregroundStyle(.white)
                 Spacer(minLength: 0)
+                if state == .right || state == .wrong || state == .revealed {
+                    Image(systemName: state == .wrong ? "xmark.circle.fill" : "checkmark.circle.fill")
+                        .font(.title3)
+                        .foregroundStyle(accent)
+                        .transition(.scale.combined(with: .opacity))
+                        .popIn()
+                }
             }
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(selected ? tint.opacity(0.16) : Brand.card, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(selected ? tint : Brand.stroke, lineWidth: selected ? 2 : 1))
+            .background(fillColor, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(accent, lineWidth: state == .idle ? 1 : 2))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(PressScaleStyle())
         .disabled(locked)
-        .accessibilityAddTraits(selected ? .isSelected : [])
+        .scaleEffect(state == .selected ? 1.015 : 1)
+        .animation(Motion.snappy, value: state)
+        .shake(trigger: shakes)
+        .onChange(of: state) { _, new in if new == .wrong { shakes += 1 } }
+        .accessibilityAddTraits(state == .selected ? .isSelected : [])
+        .accessibilityValue(state == .right ? "juste" : state == .wrong ? "faux" : state == .revealed ? "la bonne réponse" : "")
+    }
+}
+
+/// A button that gives a little under the finger.
+struct PressScaleStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.97 : 1)
+            .animation(Motion.snappy, value: configuration.isPressed)
     }
 }
 
@@ -160,9 +219,11 @@ struct ConceptCardView: View {
 
 struct ChoiceView: View {
     let options: [PathOption]
+    let correct: String
     let shuffle: Bool
     let seed: String
     let locked: Bool
+    var verdict: PathVerdict?
     var tint: Color
     @Binding var answer: PathAnswer?
     @State private var chosen: String?
@@ -172,8 +233,8 @@ struct ChoiceView: View {
     var body: some View {
         VStack(spacing: 10) {
             ForEach(Array(ordered.enumerated()), id: \.element.id) { index, option in
-                OptionRow(text: option.text, selected: chosen == option.id, locked: locked, tint: tint,
-                          leading: letter(index)) {
+                OptionRow(text: option.text, state: .of(id: option.id, chosen: chosen, correct: correct, verdict: verdict),
+                          locked: locked, tint: tint, leading: letter(index)) {
                     Haptics.shared.play(.tap)
                     chosen = option.id
                     answer = .option(option.id)
@@ -186,83 +247,134 @@ struct ChoiceView: View {
 
 // MARK: - Swipe
 
-/// Cards one by one: drag right for « valide », left for « pas valide », or the two buttons.
+/// Cards one by one, big, in the middle of the screen: drag right for « valide », left for
+/// « pas valide », or the two large buttons. The card flies off in the chosen direction.
 struct SwipeCardsView: View {
     let cards: [PathCard]
     let locked: Bool
+    var verdict: PathVerdict?
     var tint: Color
     @Binding var answer: PathAnswer?
     @State private var decisions: [String: Bool] = [:]
     @State private var drag: CGSize = .zero
+    /// The card leaving the screen and where it goes.
+    @State private var flying: (id: String, valid: Bool)?
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    private var remaining: [PathCard] { cards.filter { decisions[$0.id] == nil } }
+    private var remaining: [PathCard] { cards.filter { decisions[$0.id] == nil || flying?.id == $0.id } }
+    private var doneCount: Int { decisions.count - (flying == nil ? 0 : 1) }
 
     var body: some View {
-        VStack(spacing: 14) {
-            ZStack {
-                ForEach(Array(remaining.prefix(3).enumerated().reversed()), id: \.element.id) { index, card in
-                    cardView(card, depth: index)
-                }
-                if remaining.isEmpty {
-                    VStack(spacing: 8) {
+        VStack(spacing: 18) {
+            if remaining.isEmpty {
+                recap
+            } else {
+                HStack {
+                    Text("Carte \(min(cards.count, doneCount + 1)) sur \(cards.count)")
+                        .font(.caption.weight(.bold)).foregroundStyle(Brand.textSecondary)
+                    Spacer()
+                    HStack(spacing: 4) {
                         ForEach(cards) { card in
-                            HStack(spacing: 10) {
-                                Image(systemName: decisions[card.id] == true ? "checkmark.circle.fill" : "xmark.circle.fill")
-                                    .foregroundStyle(decisions[card.id] == true ? Brand.success : Brand.danger)
-                                Text(card.text).font(.subheadline)
-                                Spacer(minLength: 0)
-                                if !locked {
-                                    Button("Changer") {
-                                        decisions[card.id] = nil
-                                        answer = nil
-                                    }
-                                    .font(.caption.weight(.bold))
-                                    .foregroundStyle(tint)
-                                }
-                            }
-                            .padding(12)
-                            .card(radius: 12)
+                            Capsule().fill(decisions[card.id] == nil ? Color.white.opacity(0.15) : tint)
+                                .frame(width: decisions[card.id] == nil ? 8 : 16, height: 6)
                         }
                     }
+                    .animation(Motion.snappy, value: decisions.count)
                 }
-            }
-            .frame(minHeight: 150)
-            if !remaining.isEmpty {
-                HStack(spacing: 16) {
+                ZStack {
+                    ForEach(Array(remaining.prefix(3).enumerated().reversed()), id: \.element.id) { index, card in
+                        cardView(card, depth: index)
+                    }
+                }
+                .frame(maxWidth: .infinity, minHeight: 300)
+                HStack(spacing: 14) {
                     decideButton(false, symbol: "xmark", label: "Pas valide", color: Brand.danger)
-                    Text("\(cards.count - remaining.count + 1)/\(cards.count)")
-                        .font(.caption.monospacedDigit().weight(.bold))
-                        .foregroundStyle(Brand.textSecondary)
                     decideButton(true, symbol: "checkmark", label: "Valide", color: Brand.success)
                 }
+                Text("Glisse la carte, ou touche un bouton.")
+                    .font(.caption2).foregroundStyle(Brand.textTertiary)
+            }
+        }
+    }
+
+    /// Every card with the choice made, and after the check, whether it was right.
+    private var recap: some View {
+        VStack(spacing: 8) {
+            ForEach(cards) { card in
+                let chosen = decisions[card.id] ?? false
+                let judged = verdict != nil
+                let right = chosen == card.valid
+                HStack(spacing: 12) {
+                    Image(systemName: judged ? (right ? "checkmark.circle.fill" : "xmark.circle.fill")
+                                             : (chosen ? "hand.thumbsup.fill" : "hand.thumbsdown.fill"))
+                        .font(.title3)
+                        .foregroundStyle(judged ? (right ? Brand.success : Brand.danger) : (chosen ? Brand.success : Brand.danger))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(card.text).font(.subheadline.weight(.medium))
+                        if judged, !right {
+                            Text(card.reason).font(.caption).foregroundStyle(Brand.textSecondary)
+                        }
+                    }
+                    Spacer(minLength: 0)
+                    if !locked {
+                        Button("Changer") {
+                            decisions[card.id] = nil
+                            answer = nil
+                        }
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(tint)
+                    }
+                }
+                .padding(14)
+                .card(radius: 16, fill: judged ? (right ? Brand.success.opacity(0.10) : Brand.danger.opacity(0.12)) : Brand.card)
             }
         }
     }
 
     private func cardView(_ card: PathCard, depth: Int) -> some View {
         let isTop = depth == 0
-        return Text(card.text)
-            .font(.title3.weight(.semibold))
-            .multilineTextAlignment(.center)
-            .padding(24)
-            .frame(maxWidth: .infinity, minHeight: 150)
-            .background(Brand.cardRaised, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous).stroke(borderColor(isTop: isTop), lineWidth: 2))
-            .overlay(alignment: .topLeading) {
-                if isTop, drag.width > 30 {
-                    Label("Valide", systemImage: "checkmark").font(.headline).foregroundStyle(Brand.success).padding(14)
-                }
-            }
-            .overlay(alignment: .topTrailing) {
-                if isTop, drag.width < -30 {
-                    Label("Pas valide", systemImage: "xmark").font(.headline).foregroundStyle(Brand.danger).padding(14)
-                }
-            }
-            .scaleEffect(1 - CGFloat(depth) * 0.04)
-            .offset(x: isTop ? drag.width : 0, y: CGFloat(depth) * 8)
-            .rotationEffect(.degrees(isTop ? Double(drag.width) / 18 : 0))
-            .gesture(dragGesture(card), including: isTop && !locked ? .all : .none)
-            .animation(Brand.spring, value: drag)
+        let isFlying = flying?.id == card.id
+        let x: CGFloat = isFlying ? (flying?.valid == true ? 600 : -600) : (isTop ? drag.width : 0)
+        return VStack(spacing: 14) {
+            Image(systemName: "quote.opening")
+                .font(.title3).foregroundStyle(tint.opacity(0.7))
+            Text(card.text)
+                .font(.title2.weight(.semibold))
+                .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.8)
+        }
+        .padding(28)
+        .frame(maxWidth: .infinity, minHeight: 300)
+        .background(
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .fill(LinearGradient(colors: [Brand.cardRaised, Brand.card], startPoint: .top, endPoint: .bottom))
+        )
+        .overlay(RoundedRectangle(cornerRadius: 28, style: .continuous).stroke(borderColor(isTop: isTop), lineWidth: 2.5))
+        .overlay(alignment: .topLeading) {
+            if isTop, drag.width > 30 || (isFlying && flying?.valid == true) { stamp("VALIDE", color: Brand.success, angle: -12) }
+        }
+        .overlay(alignment: .topTrailing) {
+            if isTop, drag.width < -30 || (isFlying && flying?.valid == false) { stamp("PAS VALIDE", color: Brand.danger, angle: 12) }
+        }
+        .shadow(color: Color.black.opacity(isTop ? 0.4 : 0.2), radius: 16, y: 8)
+        .scaleEffect(1 - CGFloat(depth) * 0.05)
+        .offset(x: x, y: CGFloat(depth) * 10)
+        .rotationEffect(.degrees(Double(x) / 14))
+        .opacity(isFlying ? 0 : 1)
+        .gesture(dragGesture(card), including: isTop && !locked && !isFlying ? .all : .none)
+        .animation(isFlying ? Motion.fling : Motion.settle, value: x)
+        .animation(Motion.settle, value: depth)
+    }
+
+    private func stamp(_ text: String, color: Color, angle: Double) -> some View {
+        Text(text)
+            .font(.system(size: 18, weight: .black, design: .rounded))
+            .foregroundStyle(color)
+            .padding(.horizontal, 10).padding(.vertical, 5)
+            .overlay(RoundedRectangle(cornerRadius: 8).stroke(color, lineWidth: 3))
+            .rotationEffect(.degrees(angle))
+            .padding(18)
+            .transition(.scale(scale: 1.6).combined(with: .opacity))
     }
 
     private func borderColor(isTop: Bool) -> Color {
@@ -275,7 +387,6 @@ struct SwipeCardsView: View {
     private func dragGesture(_ card: PathCard) -> some Gesture {
         DragGesture(minimumDistance: 12)
             .onChanged { value in
-                // Horizontal only: a vertical drag is the page scrolling.
                 guard abs(value.translation.width) > abs(value.translation.height) else { return }
                 drag = CGSize(width: value.translation.width, height: 0)
             }
@@ -288,24 +399,34 @@ struct SwipeCardsView: View {
 
     private func decideButton(_ valid: Bool, symbol: String, label: String, color: Color) -> some View {
         Button {
-            if let card = remaining.first { decide(card, valid) }
+            if let card = remaining.first(where: { flying?.id != $0.id }) { decide(card, valid) }
         } label: {
             Label(label, systemImage: symbol)
-                .font(.subheadline.weight(.bold))
+                .font(.headline)
                 .foregroundStyle(color)
-                .padding(.vertical, 10)
+                .padding(.vertical, 16)
                 .frame(maxWidth: .infinity)
-                .background(color.opacity(0.14), in: Capsule())
+                .background(color.opacity(0.16), in: Capsule())
+                .overlay(Capsule().stroke(color.opacity(0.5), lineWidth: 1.5))
         }
-        .buttonStyle(.plain)
-        .disabled(locked)
+        .buttonStyle(PressScaleStyle())
+        .disabled(locked || flying != nil)
         .accessibilityIdentifier(valid ? "lesson.swipe.valid" : "lesson.swipe.invalid")
     }
 
     private func decide(_ card: PathCard, _ valid: Bool) {
         Haptics.shared.play(.tap)
+        Sounds.shared.play(.pop)
         decisions[card.id] = valid
-        answer = decisions.count == cards.count ? .swipes(decisions) : nil
+        if reduceMotion {
+            answer = decisions.count == cards.count ? .swipes(decisions) : nil
+            return
+        }
+        flying = (card.id, valid)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            flying = nil
+            answer = decisions.count == cards.count ? .swipes(decisions) : nil
+        }
     }
 }
 
@@ -313,7 +434,9 @@ struct SwipeCardsView: View {
 
 struct SpotErrorView: View {
     let lines: [PathLine]
+    let wrongLine: String
     let locked: Bool
+    var verdict: PathVerdict?
     var tint: Color
     @Binding var answer: PathAnswer?
     @State private var chosen: String?
@@ -321,7 +444,8 @@ struct SpotErrorView: View {
     var body: some View {
         VStack(spacing: 8) {
             ForEach(Array(lines.enumerated()), id: \.element.id) { index, line in
-                OptionRow(text: line.text, selected: chosen == line.id, locked: locked, tint: tint, leading: "\(index + 1)") {
+                OptionRow(text: line.text, state: .of(id: line.id, chosen: chosen, correct: wrongLine, verdict: verdict),
+                          locked: locked, tint: tint, leading: "\(index + 1)") {
                     Haptics.shared.play(.tap)
                     chosen = line.id
                     answer = .line(line.id)
@@ -337,6 +461,7 @@ struct TilesView: View {
     let tiles: [PathTile]
     let seed: String
     let locked: Bool
+    var verdict: PathVerdict?
     var tint: Color
     @Binding var answer: PathAnswer?
     @State private var placed: [String] = []
@@ -371,8 +496,9 @@ struct TilesView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(12)
-                .background(Brand.card, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(Brand.stroke, lineWidth: 1))
+                .background(verdictFill, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(verdictStroke, lineWidth: verdict == nil ? 1 : 2))
+                .shake(trigger: verdict?.correct == false ? 1 : 0)
             }
             FlowLayout(spacing: 8) {
                 ForEach(bank) { tile in
@@ -380,6 +506,7 @@ struct TilesView: View {
                     Button {
                         guard !locked, !used else { return }
                         Haptics.shared.play(.tap)
+                        Sounds.shared.play(.pop)
                         placed.append(tile.id)
                         update()
                     } label: {
@@ -396,6 +523,16 @@ struct TilesView: View {
                     .font(.caption.weight(.bold)).foregroundStyle(Brand.textSecondary)
             }
         }
+    }
+
+    private var verdictFill: Color {
+        guard let verdict else { return Brand.card }
+        return verdict.correct ? Brand.success.opacity(0.12) : Brand.danger.opacity(0.12)
+    }
+
+    private var verdictStroke: Color {
+        guard let verdict else { return Brand.stroke }
+        return verdict.correct ? Brand.success : Brand.danger
     }
 
     private func update() {
@@ -520,8 +657,10 @@ struct EstimateView: View {
 
 struct TwoStepView: View {
     let formulas: [PathOption]
+    let correctFormula: String
     let unit: String
     let locked: Bool
+    var verdict: PathVerdict?
     var tint: Color
     @Binding var answer: PathAnswer?
     @State private var formula: String?
@@ -531,8 +670,8 @@ struct TwoStepView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("1 · La formule").font(.caption.weight(.bold)).foregroundStyle(Brand.textSecondary)
             ForEach(Array(formulas.enumerated()), id: \.element.id) { index, option in
-                OptionRow(text: option.text, selected: formula == option.id, locked: locked, tint: tint,
-                          leading: letter(index)) {
+                OptionRow(text: option.text, state: .of(id: option.id, chosen: formula, correct: correctFormula, verdict: verdict),
+                          locked: locked, tint: tint, leading: letter(index)) {
                     Haptics.shared.play(.tap)
                     formula = option.id
                     update()
@@ -546,6 +685,8 @@ struct TwoStepView: View {
                     .font(.title3.weight(.semibold).monospacedDigit())
                     .padding(12)
                     .background(Brand.cardRaised, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .stroke(verdict == nil ? Color.clear : (verdict?.correct == true ? Brand.success : Brand.danger), lineWidth: 2))
                     .disabled(locked)
                     .onChange(of: text) { _, _ in update() }
                     .accessibilityIdentifier("lesson.twostep.value")
@@ -566,6 +707,7 @@ struct FillBlankView: View {
     let text: String
     let slots: [FillSlot]
     let locked: Bool
+    var verdict: PathVerdict?
     var tint: Color
     @Binding var answer: PathAnswer?
     @State private var chosen: [Int: Int] = [:]
@@ -578,6 +720,12 @@ struct FillBlankView: View {
             out = out.replacingOccurrences(of: "{{\(slot.id)}}", with: word.map { "**\($0)**" } ?? "＿＿＿")
         }
         return out
+    }
+
+    private func chipTint(slot: FillSlot, index: Int) -> Color {
+        guard verdict != nil else { return tint }
+        if slot.correct == index { return Brand.success }
+        return chosen[slot.id] == index ? Brand.danger : tint
     }
 
     var body: some View {
@@ -599,7 +747,7 @@ struct FillBlankView: View {
                                 chosen[slot.id] = index
                                 answer = chosen.count == slots.count ? .blanks(chosen) : nil
                             } label: {
-                                TileChip(text: option, tint: tint, placed: chosen[slot.id] == index)
+                                TileChip(text: option, tint: chipTint(slot: slot, index: index), placed: chosen[slot.id] == index || (verdict != nil && slot.correct == index))
                             }
                             .buttonStyle(.plain)
                             .disabled(locked)
@@ -619,9 +767,16 @@ struct MeceSortView: View {
     let buckets: [SortBucket]
     let items: [SortItem]
     let locked: Bool
+    var verdict: PathVerdict?
     var tint: Color
     @Binding var answer: PathAnswer?
     @State private var placed: [String: String] = [:]
+
+    private func bucketTint(item: SortItem, bucket: SortBucket) -> Color {
+        guard verdict != nil else { return tint }
+        if item.bucket == bucket.id { return Brand.success }
+        return placed[item.id] == bucket.id ? Brand.danger : tint
+    }
 
     var body: some View {
         VStack(spacing: 10) {
@@ -636,14 +791,16 @@ struct MeceSortView: View {
                                 placed[item.id] = bucket.id
                                 answer = placed.count == items.count ? .buckets(placed) : nil
                             } label: {
+                                let color = bucketTint(item: item, bucket: bucket)
+                                let on = placed[item.id] == bucket.id || (verdict != nil && item.bucket == bucket.id)
                                 Text(bucket.label)
                                     .font(.caption.weight(.bold))
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.7)
-                                    .foregroundStyle(placed[item.id] == bucket.id ? Color.black : tint)
-                                    .padding(.vertical, 8)
+                                    .foregroundStyle(on ? Color.black : color)
+                                    .padding(.vertical, 10)
                                     .frame(maxWidth: .infinity)
-                                    .background(placed[item.id] == bucket.id ? tint : tint.opacity(0.12), in: Capsule())
+                                    .background(on ? color : color.opacity(0.12), in: Capsule())
                             }
                             .buttonStyle(.plain)
                             .disabled(locked)
@@ -664,6 +821,7 @@ struct MatchPairsView: View {
     let pairs: [MatchPair]
     let seed: String
     let locked: Bool
+    var verdict: PathVerdict?
     var tint: Color
     @Binding var answer: PathAnswer?
     @State private var matched: [String: String] = [:]
@@ -673,7 +831,8 @@ struct MatchPairsView: View {
     private var pairColors: [Color] { [tint, Brand.marketSizing, Brand.cadrage, Brand.diagnostic, Brand.brainteaser, Brand.fit] }
 
     private func color(forLeft left: String) -> Color? {
-        guard matched[left] != nil, let index = pairs.firstIndex(where: { $0.left == left }) else { return nil }
+        guard let right = matched[left], let index = pairs.firstIndex(where: { $0.left == left }) else { return nil }
+        if verdict != nil { return pairs[index].right == right ? Brand.success : Brand.danger }
         return pairColors[index % pairColors.count]
     }
 
