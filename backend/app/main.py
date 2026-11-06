@@ -36,6 +36,14 @@ async def lifespan(_: FastAPI):
         await init_db()
     except Exception:
         logger.exception("Failed to initialize DB schema at startup")
+    try:
+        from .db import async_session_factory
+        from .path.loader import import_content
+
+        async with async_session_factory() as session:
+            await import_content(session)
+    except Exception:
+        logger.exception("Parcours content not loaded")
 
     scheduler = None
     if os.getenv("SCHEDULER_ENABLED", "true").lower() == "true":
