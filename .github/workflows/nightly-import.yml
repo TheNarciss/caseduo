@@ -1,13 +1,10 @@
 name: Nightly - import des exercices générés
 
-# Toutes les 10 minutes de 01:00 à 05:50 à Singapour, sur la VM : ce que la tâche
-# planifiée Claude Code a poussé dans `nightly/generated/<date>/` est validé et inséré
-# (python -m app.nightly import) ; la réponse va dans `nightly/results/<date>.json`.
-# Idempotent : rien n'est refait tant que les fichiers ne changent pas. Le secours de
-# 05:30 sur la VM complète ce qui manquerait encore (DEVIATIONS D13).
+# En sommeil depuis DEVIATIONS D15 : le serveur écrit lui-même les exercices avec Claude Code.
+# Reste lançable à la main (Run workflow) : ce qui a été poussé dans
+# `nightly/generated/<date>/` est validé et inséré (python -m app.nightly import), la réponse
+# va dans `nightly/results/<date>.json` (D13). Idempotent.
 on:
-  schedule:
-    - cron: "*/10 17-21 * * *"
   workflow_dispatch:
 
 permissions:

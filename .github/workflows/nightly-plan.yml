@@ -1,11 +1,9 @@
 name: Nightly - plan des exercices de demain
 
-# 00:40 à Singapour, sur la VM : le plan de demain (consignes, faiblesses, titres déjà vus)
-# part dans la branche `nightly`, où la tâche planifiée Claude Code de 01:32 le lit.
-# Comme pour Tangent et SingaSmoke, seule GitHub Actions touche la VM (DEVIATIONS D13).
+# En sommeil depuis DEVIATIONS D15 : le serveur écrit lui-même les exercices avec Claude Code.
+# Reste lançable à la main (Run workflow) : le plan de demain (consignes, faiblesses, titres
+# déjà vus) part dans la branche `nightly`, pour une génération faite ailleurs (D13).
 on:
-  schedule:
-    - cron: "40 16 * * *"
   workflow_dispatch:
     inputs:
       date:

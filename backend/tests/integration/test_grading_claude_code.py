@@ -1,32 +1,17 @@
 """Grading through Claude Code on the subscription (DEVIATIONS D14), with a fake CLI."""
 
 import json
-import stat
-import sys
 from pathlib import Path
 
 import pytest
 from sqlalchemy import select
 
 from app.db.models import Attempt
-from app.llm import anthropic_client
 from tests.integration.test_grading import seed_today
 
 pytestmark = pytest.mark.integration
 
 ROOT = Path(__file__).resolve().parents[2]
-
-
-@pytest.fixture
-def fake_cli(tmp_path, monkeypatch):
-    binary = tmp_path / "claude"
-    binary.write_text(f"#!{sys.executable}\n" + (ROOT / "tests" / "fake_claude.py").read_text())
-    binary.chmod(binary.stat().st_mode | stat.S_IEXEC)
-    monkeypatch.setenv("CLAUDE_CODE_BIN", str(binary))
-    monkeypatch.setenv("CLAUDE_CODE_OAUTH_TOKEN", "sk-ant-oat01-test")
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-ant-api-must-not-reach-the-cli")
-    anthropic_client.set_client_for_testing(None)
-    return tmp_path
 
 
 def sse_events(text: str) -> list[tuple[str, dict]]:
@@ -58,7 +43,7 @@ async def test_claude_code_streams_the_grading_like_the_api(user_client, db, fak
     assert stored.model_used == "claude-sonnet-5-5"
     assert stored.output_tokens == 900 and stored.cache_write_tokens == 4200
 
-    seen = json.loads((fake_cli / "cli.json").read_text())
+    seen = json.loads((fake_cli / "cli.jsonl").read_text().splitlines()[-1])
     argv = seen["argv"]
     assert argv[argv.index("--tools") + 1] == ""
     assert argv[argv.index("--model") + 1] == "sonnet"

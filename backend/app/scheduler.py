@@ -5,11 +5,11 @@ crons are in JOBS_TIMEZONE (Asia/Singapore). Each job opens its own session
 and catches its exceptions so the scheduler keeps ticking.
 
 Jobs:
-- generation_submit     03:00 daily   → batch of tomorrow's exercises (GENERATION_PROVIDER=api only;
-                                        with claude_code, a Claude Code scheduled task writes them)
+- generation_nightly    03:00 daily   → tomorrow's exercises, by Claude Code on the subscription
+                                        (DEVIATIONS D15), or an API batch with only an API key
 - generation_poll       every 30 min  → insert batch results as they land
 - generation_fallback   05:30 daily   → sync for whatever is still missing
-- generation_catch_up   at boot +60 s → today never empty, missed nights redone
+- generation_catch_up   at boot +60 s → bonus pack imported, today never empty, missed nights redone
 - streak_rollover       hourly at :05 → missed days settled, freezes applied
 - push_tick             every 15 min  → streak saver at 20:00 local, disengagement
 - league_close          every 30 min  → promotion/relegation after Sunday 23:00 local
@@ -39,13 +39,12 @@ def setup_scheduler() -> AsyncIOScheduler:
     scheduler = AsyncIOScheduler(timezone=JOBS_TZ)
     sub, fb = generation_jobs.SUBMIT_AT, generation_jobs.FALLBACK_AT
 
-    if generation_jobs.PROVIDER == "api":
-        scheduler.add_job(
-            generation_jobs.job_submit_batch,
-            CronTrigger(hour=sub.hour, minute=sub.minute, timezone=JOBS_TZ),
-            id="generation_submit",
-            **_DAILY,
-        )
+    scheduler.add_job(
+        generation_jobs.job_nightly,
+        CronTrigger(hour=sub.hour, minute=sub.minute, timezone=JOBS_TZ),
+        id="generation_nightly",
+        **_DAILY,
+    )
     scheduler.add_job(
         generation_jobs.job_poll_batches,
         CronTrigger(minute="0,30", timezone=JOBS_TZ),

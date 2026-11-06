@@ -1,12 +1,14 @@
 """The generation jobs the scheduler runs (Asia/Singapore), with their own sessions.
 
-- 03:00  submit tomorrow's batch
+- 03:00  tomorrow's exercises: written by Claude Code on the subscription (DEVIATIONS D15),
+         or submitted as an API batch when only an API key is set
 - :00/:30 poll in-flight batches, insert as soon as results land
 - 05:30  fallback: whatever tomorrow still lacks is generated synchronously
          (the batch is cancelled first); today is checked too — there must
          never be an empty day
 - boot   catch-up: a restart at night (deploy, security updates) must not
-         skip any of the above (same idea as Tangent's `missed_tonight`)
+         skip any of the above (same idea as Tangent's `missed_tonight`); the bonus
+         pack is imported once
 """
 
 from __future__ import annotations
@@ -18,17 +20,15 @@ from zoneinfo import ZoneInfo
 
 from sqlalchemy import select
 
+from ..content import bonus
 from ..db import async_session_factory
 from ..db.models import CronRun
 from ..errors import LLMUnavailableError
-from . import batch, service
+from . import batch, provider, service
 
 logger = logging.getLogger(__name__)
 
 TZ = ZoneInfo(os.getenv("JOBS_TIMEZONE", "Asia/Singapore"))
-# "api": the 03:00 Message Batch writes tomorrow. "claude_code": a Claude Code scheduled task
-# does, through GitHub (services/nightly.py, DEVIATIONS D13); the 05:30 fallback stays.
-PROVIDER = os.getenv("GENERATION_PROVIDER", "api").strip().lower()
 SUBMIT_AT = time(3, 0)
 FALLBACK_AT = time(5, 30)
 
@@ -50,6 +50,23 @@ async def job_submit_batch() -> None:
             logger.warning("Batch for %s skipped: %s", tomorrow, exc)
         except Exception:
             logger.exception("Batch submit for %s failed", tomorrow)
+
+
+async def job_nightly() -> None:
+    """03:00: tomorrow's exercises, by Claude Code (D15) or, with only an API key, by batch."""
+    chosen = provider.provider()
+    if chosen == "api":
+        await job_submit_batch()
+        return
+    tomorrow = now_local().date() + timedelta(days=1)
+    if chosen is None:
+        logger.warning("03:00: neither a Claude Code token nor an API key, nothing generated")
+        return
+    async with async_session_factory() as session:
+        try:
+            await service.ensure_day(session, tomorrow, job="claude_code")
+        except Exception:
+            logger.exception("Claude Code generation for %s failed", tomorrow)
 
 
 async def job_poll_batches() -> None:
@@ -96,6 +113,11 @@ async def job_catch_up_at_boot() -> None:
     tomorrow = now.date() + timedelta(days=1)
     async with async_session_factory() as session:
         try:
+            await bonus.import_packs(session, now.date())
+        except Exception:
+            logger.exception("Boot catch-up: bonus pack import failed")
+            await session.rollback()
+        try:
             await service.ensure_day(session, now.date(), job="fallback")
             stmt = (
                 select(CronRun.started_at)
@@ -110,6 +132,6 @@ async def job_catch_up_at_boot() -> None:
     if missed(now, FALLBACK_AT, last):
         logger.warning("Boot catch-up: 05:30 fallback was missed, running it")
         await job_fallback()
-    elif PROVIDER == "api" and missed(now, SUBMIT_AT, last):
-        logger.warning("Boot catch-up: 03:00 batch was missed, submitting it")
-        await job_submit_batch()
+    elif missed(now, SUBMIT_AT, last):
+        logger.warning("Boot catch-up: 03:00 generation was missed, running it")
+        await job_nightly()

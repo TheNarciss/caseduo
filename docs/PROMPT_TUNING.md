@@ -4,7 +4,7 @@ Deux fichiers pilotent toute la qualité de l'app :
 
 | Fichier | Rôle | Lu par |
 |---|---|---|
-| `prompts/generate.md` | le senior manager qui écrit les exercices, corrigés et rubrics | la génération (batch de 03:00, secours de 05:30, seed) |
+| `prompts/generate.md` | le senior manager qui écrit les exercices, corrigés et rubrics | la génération (Claude Code à 03:00, secours de 05:30, seed) |
 | `prompts/grade.md` | l'interviewer qui note, écrit le feedback et pose la relance | chaque `POST /api/grade`, par Claude Code sur l'abonnement ou par l'API (DEVIATIONS D14) |
 
 Les deux sont **relus à chaque appel**. Une modification s'applique dès la génération ou la notation suivante, sans rebuild ni redémarrage. Sur la VM, le dossier `prompts/` est monté en lecture seule dans le conteneur (DEVIATIONS D4).
@@ -84,7 +84,7 @@ Les identifiants de tentatives sont dans `GET /api/attempts` ou dans la table `a
 
 ### 4. Appliquer pour de vrai
 
-- **Les prochains jours** : rien à faire, le batch de 03:00 utilise déjà le nouveau prompt.
+- **Les prochains jours** : rien à faire, la génération de 03:00 utilise déjà le nouveau prompt.
 - **Refaire un jour déjà généré** (par exemple aujourd'hui) : les exercices sans réponse sont supprimés puis régénérés, ceux auxquels tu as répondu sont gardés.
 
   ```bash

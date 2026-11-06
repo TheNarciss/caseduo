@@ -72,7 +72,7 @@ Le backend écoute sur `127.0.0.1:8001` et Postgres sur `127.0.0.1:5433`. Ces po
 | `JWT_SECRET` | signe le cookie de session. `python -c "import secrets; print(secrets.token_urlsafe(48))"` |
 | `POSTGRES_PASSWORD` | mot de passe de la base en dev ; en prod, la base n'a aucun port hors de Docker (comme Tangent) |
 | `ANTHROPIC_API_KEY` | génération et notation. Sans elle, l'app tourne sur le pack d'exercices écrit à la main et la notation répond 503 |
-| `GENERATION_PROVIDER` | `claude_code` (défaut) : les exercices sont écrits chaque nuit par une tâche planifiée Claude Code, sur ton abonnement, et arrivent par GitHub Actions ([D13](docs/DEVIATIONS.md)) ; `api` : batch Message Batches à 03:00 |
+| `GENERATION_PROVIDER` | `claude_code` (défaut) : le serveur écrit lui-même les exercices avec Claude Code, sur ton abonnement, recherche web comprise ([D15](docs/DEVIATIONS.md)) ; `api` : batch Message Batches à 03:00 |
 | `CASEDUO_MODEL` | `claude-sonnet-4-5` par défaut, comme demandé. **Ce modèle est retiré le 30/11/2026** : voir [DEVIATIONS D1](docs/DEVIATIONS.md) (proposition : `claude-sonnet-5-5`) |
 | `LLM_DAILY_CAP_USD` | plafond global par jour, génération et notations confondues (1 $ par défaut) |
 | `GENERATION_WEB_SEARCH_MAX_USES` | recherches web par case (3 par défaut, 0 pour les couper) |
@@ -110,7 +110,7 @@ Même schéma que Tangent, à côté de lui : une stack Compose séparée derri�
 
 Ensuite, un push sur `main` (ou Actions → CD → Run workflow) déploie. Le compte de démo se rafraîchit avec Actions → CD → Run workflow, case « Rafraîchir le compte de démo ». Les logs se lisent dans les runs GitHub ou avec `docker compose -f docker-compose.yml -f docker-compose.prod.yml logs -f backend` sur la VM.
 
-**La génération de nuit** se fait sans aucun réglage de plus, entre la tâche planifiée « CaseDuo — exercices du lendemain » (claude.ai, 01:32) et les workflows `nightly-plan.yml` et `nightly-import.yml` sur la VM. La branche `nightly` leur sert de boîte aux lettres (D13).
+**La génération de nuit** n'a pas d'autre réglage que `CLAUDE_CODE_OAUTH_TOKEN` : le serveur écrit lui-même les exercices du lendemain à 03:00 avec Claude Code (D15).
 
 ## Les jobs planifiés (et comment les lancer à la main)
 
@@ -118,13 +118,10 @@ Ils tournent dans le process du backend (APScheduler, comme Tangent), à l'heure
 
 | Quand | Quoi |
 |---|---|
-| 00:40 | GitHub Actions sur la VM (`nightly-plan.yml`) : le plan de demain part dans la branche `nightly` |
-| 01:32 | **tâche planifiée Claude Code** (claude.ai, comme le projet Thales) : écrit les exercices du lendemain, les vérifie et les pousse sur `nightly` |
-| 01:00 → 05:50 | GitHub Actions sur la VM (`nightly-import.yml`, toutes les 10 min) : import de ce qui a été poussé |
-| 03:00 | ou, avec `GENERATION_PROVIDER=api` : batch Message Batches (−50 %) des exercices du lendemain |
+| 03:00 | **Claude Code** sur ton abonnement écrit les exercices du lendemain (recherche web pour les cases), validés comme avant (D15) ; avec seulement une clé API : batch Message Batches (−50 %) |
 | toutes les 30 min | lecture des batchs terminés, insertion dès réception, exercices ratés refaits en synchrone |
 | 05:30 | secours : ce qui manque au lendemain est généré en synchrone (le batch est annulé) ; aujourd'hui est vérifié aussi |
-| au démarrage | rattrapage si un redémarrage nocturne a fait sauter un de ces jobs ; aujourd'hui jamais vide |
+| au démarrage | pack bonus importé (une fois) ; aujourd'hui complété s'il manque des exercices (le pack écrit à la main non entamé est alors remplacé) ; rattrapage si un redémarrage nocturne a fait sauter un de ces jobs |
 | toutes les heures | série : jours ratés réglés, freezes appliqués |
 | toutes les 15 min | push : rappel de série à 20:00 locale, désengagement après 7 jours |
 | toutes les 30 min | ligues : promotion et relégation après dimanche 23:00 locale |
@@ -145,7 +142,7 @@ Chaque génération écrit une ligne dans `cron_runs` : id du batch, statut, tok
 
 ## Coûts
 
-Avec la génération par Claude Code (D13), les exercices ne coûtent rien de plus que ton abonnement. En mode `api`, une journée en batch revient à ~0,40 $ avec Sonnet 4.5, ~0,30 $ avec Sonnet 5.5. La recherche web pèse lourd (0,01 $ par recherche, sans remise batch). La notation passe aussi par ton abonnement (D14) ; par l'API, elle coûterait ~0,02 à 0,03 $. La cible de 0,10 $ par jour n'est pas tenable avec une recherche web sur chaque case : le détail est dans [DEVIATIONS D2](docs/DEVIATIONS.md). Le plafond journalier coupe tout au-delà de `LLM_DAILY_CAP_USD`.
+Avec la génération par Claude Code (D15), les exercices ne coûtent rien de plus que ton abonnement. En mode `api`, une journée en batch revient à ~0,40 $ avec Sonnet 4.5, ~0,30 $ avec Sonnet 5.5. La recherche web pèse lourd (0,01 $ par recherche, sans remise batch). La notation passe aussi par ton abonnement (D14) ; par l'API, elle coûterait ~0,02 à 0,03 $. La cible de 0,10 $ par jour n'est pas tenable avec une recherche web sur chaque case : le détail est dans [DEVIATIONS D2](docs/DEVIATIONS.md). Le plafond journalier coupe tout au-delà de `LLM_DAILY_CAP_USD`.
 
 ## L'app iPhone
 
