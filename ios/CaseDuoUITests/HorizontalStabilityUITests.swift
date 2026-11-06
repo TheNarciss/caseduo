@@ -13,7 +13,9 @@ final class HorizontalStabilityUITests: XCTestCase {
         let training = app.tabBars.buttons["Entraîner"]
         XCTAssertTrue(training.waitForExistence(timeout: 10), "no Entraîner tab")
         training.tap()
-        assertStaysPut(app, anchor: app.staticTexts["6 à faire"], page: "Entraîner")
+        // The first card of the demo pack (a NavigationLink, read as one button).
+        let card = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Huit bagues")).firstMatch
+        assertStaysPut(app, anchor: card, page: "Entraîner")
     }
 
     private func assertStaysPut(_ app: XCUIApplication, anchor: XCUIElement, page: String) {
