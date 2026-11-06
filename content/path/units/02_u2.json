@@ -1,0 +1,115 @@
+{
+ "code": "u2",
+ "order": 2,
+ "track": "common",
+ "title": "Le calcul en entretien",
+ "symbol": "number",
+ "subtitle": "Arrondir en parlant, garder les zéros, dire ce que le chiffre veut dire.",
+ "nodes": [
+  {
+   "code": "u2.round",
+   "kind": "lesson",
+   "title": "Arrondir et garder les zéros",
+   "objective": "Calculer à voix haute en arrondissant d'abord, en gardant les unités et les zéros (k, M, Md), puis corriger l'arrondi.",
+   "errors": [
+    "Perdre un zéro en passant des millions aux milliards",
+    "Mélanger euros et milliers d'euros",
+    "Calculer juste mais en silence, sans annoncer la démarche"
+   ],
+   "formats": [
+    "concept_card",
+    "mental_math",
+    "spot_error",
+    "fill_blank",
+    "swipe_valid",
+    "two_step_calc"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u2.percent",
+   "kind": "lesson",
+   "title": "Pourcentages, fractions, croissance",
+   "objective": "Utiliser les équivalences utiles (1/8 = 12,5 %, ×5 = ×10÷2, 1/6 ≈ 17 %), la règle de 72 et la différence entre moyenne et taux de croissance annuel.",
+   "errors": [
+    "Faire la moyenne de pourcentages",
+    "Confondre points et pourcents",
+    "Appliquer une croissance simple au lieu de composée sur 5 ans"
+   ],
+   "formats": [
+    "concept_card",
+    "mental_math",
+    "match_pairs",
+    "spot_error",
+    "fill_blank",
+    "two_step_calc"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u2.breakeven",
+   "kind": "lesson",
+   "title": "Seuil de rentabilité, marge, retour",
+   "objective": "Poser la bonne formule avant de calculer : seuil = coûts fixes ÷ marge sur coût variable, retour sur investissement, délai de remboursement.",
+   "errors": [
+    "Diviser les coûts fixes par le prix au lieu de la marge unitaire",
+    "Oublier de retrancher l'investissement",
+    "Donner un seuil en euros quand on demandait des unités"
+   ],
+   "formats": [
+    "concept_card",
+    "two_step_calc",
+    "mental_math",
+    "spot_error",
+    "fill_blank",
+    "match_pairs"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u2.meaning",
+   "kind": "lesson",
+   "title": "Dire ce que le chiffre veut dire",
+   "objective": "Vérifier l'ordre de grandeur (compter les zéros, comparer à une référence, refaire à l'envers) puis traduire le chiffre en implication pour le client.",
+   "errors": [
+    "Annoncer un résultat absurde sans le remarquer",
+    "S'arrêter au chiffre sans dire ce qu'il change",
+    "Donner une précision illusoire (3 décimales)"
+   ],
+   "formats": [
+    "concept_card",
+    "estimate_range",
+    "pick_so_what",
+    "swipe_valid",
+    "spot_error",
+    "synth_order"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u2.review",
+   "kind": "review",
+   "title": "Sprint : calcul chrono",
+   "formats": [
+    "mental_math",
+    "two_step_calc",
+    "estimate_range",
+    "spot_error"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u2.check",
+   "kind": "checkpoint",
+   "title": "Bilan : le calcul en entretien",
+   "formats": [
+    "mental_math",
+    "two_step_calc",
+    "spot_error",
+    "estimate_range",
+    "oral_prompt"
+   ],
+   "items": 12
+  }
+ ]
+}

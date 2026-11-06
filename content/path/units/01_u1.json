@@ -1,0 +1,124 @@
+{
+ "code": "u1",
+ "order": 1,
+ "track": "common",
+ "title": "Ouvrir un case",
+ "symbol": "door.left.hand.open",
+ "subtitle": "Reformuler, clarifier, demander une minute, poser une hypothèse.",
+ "nodes": [
+  {
+   "code": "u1.reformulate",
+   "kind": "lesson",
+   "title": "Reformuler l'objectif",
+   "objective": "Redire la question en une phrase avec la métrique, l'horizon et la contrainte, pour ne jamais résoudre un autre problème que celui posé.",
+   "errors": [
+    "Confondre chiffre d'affaires et profit",
+    "Oublier l'horizon (cette année ? dans 5 ans ?)",
+    "Répéter l'énoncé mot pour mot sans en extraire l'objectif"
+   ],
+   "formats": [
+    "concept_card",
+    "choose_structure",
+    "fill_blank",
+    "headline_tiles",
+    "swipe_valid",
+    "spot_error"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u1.clarify",
+   "kind": "lesson",
+   "title": "Les deux questions qui comptent",
+   "objective": "Poser une ou deux questions de clarification qui changent la structure (définition, périmètre, critère de succès), et pas plus.",
+   "errors": [
+    "Poser cinq questions générales pour gagner du temps",
+    "Demander une donnée qu'on aurait pu supposer",
+    "Ne rien demander et partir sur une mauvaise interprétation"
+   ],
+   "formats": [
+    "concept_card",
+    "first_question",
+    "swipe_valid",
+    "order_steps",
+    "fill_blank",
+    "mece_sort"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u1.minute",
+   "kind": "lesson",
+   "title": "Une minute, puis le plan",
+   "objective": "Demander un temps de réflexion, puis annoncer sa démarche en trois phrases avant d'entrer dans le détail.",
+   "errors": [
+    "Commencer à parler avant d'avoir structuré",
+    "Annoncer un plan puis ne pas le suivre",
+    "Rester muet pendant deux minutes sans prévenir"
+   ],
+   "formats": [
+    "concept_card",
+    "order_steps",
+    "headline_tiles",
+    "swipe_valid",
+    "fill_blank",
+    "choose_structure"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u1.hypothesis",
+   "kind": "lesson",
+   "title": "L'hypothèse de départ",
+   "objective": "Formuler une hypothèse testable une fois la structure posée, et dire ce qui la confirmerait ou l'infirmerait.",
+   "errors": [
+    "Une hypothèse qui n'est qu'une reformulation de la question",
+    "Une hypothèse qu'aucune donnée ne peut trancher",
+    "S'accrocher à l'hypothèse quand les chiffres la contredisent"
+   ],
+   "formats": [
+    "concept_card",
+    "swipe_valid",
+    "fill_blank",
+    "choose_structure",
+    "spot_error",
+    "synth_order"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u1.review",
+   "kind": "review",
+   "title": "Révision : l'ouverture",
+   "formats": [
+    "choose_structure",
+    "first_question",
+    "swipe_valid",
+    "fill_blank",
+    "order_steps",
+    "headline_tiles"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u1.applied",
+   "kind": "applied",
+   "title": "En situation : ouvrir le case du jour",
+   "applied_type": "case",
+   "items": 4
+  },
+  {
+   "code": "u1.check",
+   "kind": "checkpoint",
+   "title": "Bilan : ouvrir un case",
+   "formats": [
+    "first_question",
+    "fill_blank",
+    "spot_error",
+    "synth_order",
+    "oral_prompt"
+   ],
+   "items": 12
+  }
+ ]
+}

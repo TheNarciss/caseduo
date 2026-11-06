@@ -86,6 +86,7 @@ Correction : tolérance pour les nombres (3 %), explication d'une ligne à chaqu
   - **Conseil IT / transformation** (Wavestone, Capgemini Invent, Accenture, Sopra, BearingPoint…) : note de cadrage, transformation data/IA, programme et gouvernance, cas « SI et métier ».
   - **Stratégie** (McKinsey, BCG, Bain, Roland Berger, Oliver Wyman, Kearney…) : cases candidat-led longs, PEI, cases conceptuels, Solve/chatbot.
   - **Finance** (transaction services, due diligence, M&A, Big Four advisory) : lecture d'états financiers, multiples, due diligence commerciale, cas de valorisation simples, questions techniques de fit.
+- **Rien d'accroché à un cabinet** : les cabinets cités ne sont que des exemples de chaque voie ; le prompt de génération des cases (aujourd'hui « practice Data & IA type Wavestone ») devient neutre, et les deux styles d'exercice (`wavestone`, `mbb`) deviennent trois voies (`transfo`, `strat`, `finance`), l'ancien nom restant accepté par l'API.
 - **Fit généraliste** : pourquoi le conseil, pourquoi ce cabinet, récit personnel (STAR), questions classiques ; rien de propre à un profil dans le cours.
 - **Pas un cours de maths** : l'unité calcul tombe à 4 leçons orientées entretien (arrondir en parlant, dire ce que le chiffre veut dire, vérifier un ordre de grandeur) ; le volume va à ouvrir, structurer, sizing, graphiques, synthèse, fit.
 - **Le case complet du jour reste dès le jour 1** : les drills par morceaux ne transfèrent que couplés à la pratique complète.

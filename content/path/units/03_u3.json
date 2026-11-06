@@ -1,0 +1,177 @@
+{
+ "code": "u3",
+ "order": 3,
+ "track": "common",
+ "title": "Structurer",
+ "symbol": "point.3.connected.trianglepath.dotted",
+ "subtitle": "MECE, arbres, hypothèses, frameworks comme briques, structurer en deux minutes.",
+ "nodes": [
+  {
+   "code": "u3.mece",
+   "kind": "lesson",
+   "title": "Le test MECE",
+   "objective": "Vérifier qu'un découpage n'a ni chevauchement ni trou et qu'il ne mélange pas deux dimensions au même niveau.",
+   "errors": [
+    "Deux branches qui se recouvrent (coûts et coûts fournisseurs)",
+    "Une branche fourre-tout « autres »",
+    "Mélanger clients et canaux au même niveau"
+   ],
+   "formats": [
+    "concept_card",
+    "swipe_valid",
+    "mece_sort",
+    "spot_error",
+    "tree_complete",
+    "fill_blank"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u3.tree",
+   "kind": "lesson",
+   "title": "L'arbre à partir de l'objectif",
+   "objective": "Construire un arbre dont la racine est l'objectif du client et dont chaque niveau décompose le niveau du dessus, sans partir d'un modèle appris.",
+   "errors": [
+    "Partir d'un framework au lieu de la question",
+    "Un arbre à quatre niveaux qu'on ne résout jamais",
+    "Des branches sans lien avec l'objectif"
+   ],
+   "formats": [
+    "concept_card",
+    "choose_structure",
+    "tree_complete",
+    "order_steps",
+    "swipe_valid",
+    "spot_error"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u3.hypotheses",
+   "kind": "lesson",
+   "title": "Questions, hypothèses, priorité",
+   "objective": "Distinguer un arbre de questions d'un arbre d'hypothèses, et choisir la branche à tester en premier (impact probable, facilité).",
+   "errors": [
+    "Traiter toutes les branches à égalité",
+    "Formuler des hypothèses vagues",
+    "Tester d'abord la branche la plus facile plutôt que la plus probable"
+   ],
+   "formats": [
+    "concept_card",
+    "swipe_valid",
+    "choose_structure",
+    "fill_blank",
+    "order_steps",
+    "synth_order"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u3.frameworks",
+   "kind": "lesson",
+   "title": "Les frameworks comme briques",
+   "objective": "Connaître les décompositions standard (rentabilité, entrée de marché, acquisition, prix, croissance, opérations, nouveau produit) et les combiner plutôt que les réciter.",
+   "errors": [
+    "Plaquer les 4P ou le SWOT sur tout",
+    "Garder des branches qui ne s'appliquent pas au client",
+    "Oublier de nommer les branches avec les mots du client"
+   ],
+   "formats": [
+    "concept_card",
+    "match_pairs",
+    "choose_structure",
+    "mece_sort",
+    "tree_complete",
+    "swipe_valid"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u3.when_not",
+   "kind": "lesson",
+   "title": "Quand il n'y a pas de framework",
+   "objective": "Reconnaître les cases conceptuels, digitaux ou d'estimation où aucun modèle ne s'applique et structurer à partir de la décision à prendre.",
+   "errors": [
+    "Chercher un framework pendant une minute et s'enliser",
+    "Refuser de structurer sous prétexte que le sujet est nouveau",
+    "Structurer par la technologie au lieu de l'objectif"
+   ],
+   "formats": [
+    "concept_card",
+    "choose_structure",
+    "swipe_valid",
+    "tree_complete",
+    "spot_error",
+    "fill_blank"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u3.two_minutes",
+   "kind": "lesson",
+   "title": "Structurer en deux minutes",
+   "objective": "Produire en deux minutes une structure à trois ou quatre branches, l'annoncer de haut en bas et indiquer par où commencer.",
+   "errors": [
+    "Lire sa feuille au lieu de parler à l'interviewer",
+    "Donner les détails avant la vue d'ensemble",
+    "Ne pas dire par quelle branche on commence et pourquoi"
+   ],
+   "formats": [
+    "concept_card",
+    "order_steps",
+    "headline_tiles",
+    "choose_structure",
+    "swipe_valid",
+    "synth_order"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u3.review",
+   "kind": "review",
+   "title": "Révision : structurer",
+   "formats": [
+    "swipe_valid",
+    "mece_sort",
+    "tree_complete",
+    "choose_structure",
+    "order_steps",
+    "spot_error"
+   ],
+   "items": 10
+  },
+  {
+   "code": "u3.applied",
+   "kind": "applied",
+   "title": "En situation : une note de cadrage",
+   "applied_type": "cadrage",
+   "items": 4
+  },
+  {
+   "code": "u3.check",
+   "kind": "checkpoint",
+   "title": "Bilan : structurer",
+   "formats": [
+    "mece_sort",
+    "tree_complete",
+    "choose_structure",
+    "spot_error",
+    "oral_prompt"
+   ],
+   "items": 12
+  },
+  {
+   "code": "u3.legendary",
+   "kind": "legendary",
+   "title": "Légendaire : structurer sans filet",
+   "formats": [
+    "choose_structure",
+    "tree_complete",
+    "swipe_valid",
+    "mece_sort",
+    "order_steps"
+   ],
+   "items": 12
+  }
+ ]
+}
