@@ -192,20 +192,20 @@
    "options": [
     {
      "id": "a",
-     "text": "Marge par article",
-     "why_wrong": "La marge est une différence prix − coût, pas le facteur qui donne le CA."
-    },
-    {
-     "id": "b",
      "text": "Nombre d'articles vendus"
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Nombre de magasins",
      "why_wrong": "Un niveau trop bas : les magasins expliquent le volume, ils ne le remplacent pas."
+    },
+    {
+     "id": "c",
+     "text": "Marge par article",
+     "why_wrong": "La marge est une différence prix − coût, pas le facteur qui donne le CA."
     }
    ],
-   "correct": "b"
+   "correct": "a"
   },
   "tags": []
  },
@@ -586,20 +586,20 @@
    "options": [
     {
      "id": "a",
-     "text": "Achats médicaux et consommables"
-    },
-    {
-     "id": "b",
      "text": "Coûts du bloc opératoire",
      "why_wrong": "Le bloc contient du personnel et des équipements : chevauchement avec les deux branches existantes."
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Autres charges",
      "why_wrong": "Une branche fourre-tout cache le trou au lieu de le combler."
+    },
+    {
+     "id": "c",
+     "text": "Achats médicaux et consommables"
     }
    ],
-   "correct": "a"
+   "correct": "c"
   },
   "tags": []
  },
@@ -1003,25 +1003,25 @@
    "options": [
     {
      "id": "a",
-     "text": "Forces / faiblesses / opportunités / menaces",
-     "why_wrong": "Une grille de diagnostic général : elle ne décompose pas la rentabilité."
-    },
-    {
-     "id": "b",
      "text": "Revenus (actes × tarif) vs Coûts (personnel, matériel, locaux)"
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Concurrents / réglementation / patients",
      "why_wrong": "Du contexte, pas une décomposition de la rentabilité : rien ne s'additionne vers l'objectif."
     },
     {
-     "id": "d",
+     "id": "c",
      "text": "Chirurgie / maternité / urgences / imagerie",
      "why_wrong": "Une coupe par service : utile en niveau 2, mais elle ne dit pas si c'est un problème de revenus ou de coûts."
+    },
+    {
+     "id": "d",
+     "text": "Forces / faiblesses / opportunités / menaces",
+     "why_wrong": "Une grille de diagnostic général : elle ne décompose pas la rentabilité."
     }
    ],
-   "correct": "b"
+   "correct": "a"
   },
   "tags": []
  },
@@ -1047,20 +1047,20 @@
    "options": [
     {
      "id": "a",
-     "text": "Taux de conversion (visite → commande)"
+     "text": "Budget publicitaire",
+     "why_wrong": "Il explique les visites ; ce n'est pas un terme du CA."
     },
     {
      "id": "b",
-     "text": "Nombre de produits au catalogue",
-     "why_wrong": "Un levier du panier ou de la conversion, pas un facteur de la formule."
+     "text": "Taux de conversion (visite → commande)"
     },
     {
      "id": "c",
-     "text": "Budget publicitaire",
-     "why_wrong": "Il explique les visites ; ce n'est pas un terme du CA."
+     "text": "Nombre de produits au catalogue",
+     "why_wrong": "Un levier du panier ou de la conversion, pas un facteur de la formule."
     }
    ],
-   "correct": "a"
+   "correct": "b"
   },
   "tags": []
  },
@@ -1253,20 +1253,20 @@
    "options": [
     {
      "id": "a",
+     "text": "Prix, qualité du réseau et du service, offre concurrente"
+    },
+    {
+     "id": "b",
      "text": "Coût d'acquisition d'un nouveau client",
      "why_wrong": "Un coût commercial : il n'explique aucun départ."
     },
     {
-     "id": "b",
+     "id": "c",
      "text": "Clients résiliés par l'opérateur",
      "why_wrong": "C'est un départ subi : déjà dans l'autre branche."
-    },
-    {
-     "id": "c",
-     "text": "Prix, qualité du réseau et du service, offre concurrente"
     }
    ],
-   "correct": "c"
+   "correct": "a"
   },
   "tags": []
  },
@@ -1337,25 +1337,25 @@
    "options": [
     {
      "id": "a",
-     "text": "Éolien en mer / éolien terrestre / solaire / nucléaire",
-     "why_wrong": "Une comparaison de technologies : la question porte sur ce parc, pas sur le choix de la techno."
-    },
-    {
-     "id": "b",
      "text": "Rentabilité (MWh × prix − capex, opex) vs Risques vs Capacité à financer"
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Fournisseurs / clients / concurrents / entrants / substituts",
      "why_wrong": "Les cinq forces décrivent un secteur ; elles ne disent pas si ces 300 M€ rapportent."
     },
     {
-     "id": "d",
+     "id": "c",
      "text": "Revenus (MWh × prix de vente) vs Coûts (capex, opex)",
      "why_wrong": "Juste mais incomplet pour un investissement : sans risques ni financement, la décision n'est pas structurée."
+    },
+    {
+     "id": "d",
+     "text": "Éolien en mer / éolien terrestre / solaire / nucléaire",
+     "why_wrong": "Une comparaison de technologies : la question porte sur ce parc, pas sur le choix de la techno."
     }
    ],
-   "correct": "b"
+   "correct": "a"
   },
   "tags": []
  },
@@ -1471,20 +1471,20 @@
    "options": [
     {
      "id": "a",
+     "text": "Nombre de bassins ouverts",
+     "why_wrong": "Une contrainte de capacité : elle explique la fréquence, elle ne la remplace pas."
+    },
+    {
+     "id": "b",
      "text": "Prix du ticket d'entrée",
      "why_wrong": "Un levier de la part qui vient, pas un terme de la formule des entrées."
     },
     {
-     "id": "b",
-     "text": "Visites par an et par usager"
-    },
-    {
      "id": "c",
-     "text": "Nombre de bassins ouverts",
-     "why_wrong": "Une contrainte de capacité : elle explique la fréquence, elle ne la remplace pas."
+     "text": "Visites par an et par usager"
     }
    ],
-   "correct": "b"
+   "correct": "c"
   },
   "tags": []
  },
@@ -1502,25 +1502,25 @@
    "options": [
     {
      "id": "a",
-     "text": "Boutiques (nombre × ventes par boutique : trafic, conversion, panier) + Ventes en ligne"
-    },
-    {
-     "id": "b",
-     "text": "Produit / prix / distribution / communication",
-     "why_wrong": "Les 4P listent des leviers sans dire d'où viennent les ventes : on ne saurait pas quoi chiffrer."
-    },
-    {
-     "id": "c",
      "text": "Chine / reste du monde",
      "why_wrong": "Le reste du monde est hors de l'objectif : une branche vide."
     },
     {
-     "id": "d",
+     "id": "b",
      "text": "Clients chinois en Chine / touristes chinois à l'étranger",
      "why_wrong": "Les touristes achètent hors de Chine : l'objectif vise les ventes en Chine."
+    },
+    {
+     "id": "c",
+     "text": "Boutiques (nombre × ventes par boutique : trafic, conversion, panier) + Ventes en ligne"
+    },
+    {
+     "id": "d",
+     "text": "Produit / prix / distribution / communication",
+     "why_wrong": "Les 4P listent des leviers sans dire d'où viennent les ventes : on ne saurait pas quoi chiffrer."
     }
    ],
-   "correct": "a"
+   "correct": "c"
   },
   "tags": []
  },
@@ -1668,20 +1668,20 @@
    "options": [
     {
      "id": "a",
-     "text": "Fréquence × coût moyen des sinistres"
-    },
-    {
-     "id": "b",
      "text": "Commissions des courtiers",
      "why_wrong": "Ce sont des frais : l'autre branche."
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Part de marché par région",
      "why_wrong": "Hors objectif : la part de marché ne change pas le ratio."
+    },
+    {
+     "id": "c",
+     "text": "Fréquence × coût moyen des sinistres"
     }
    ],
-   "correct": "a"
+   "correct": "c"
   },
   "tags": []
  },
@@ -1972,25 +1972,25 @@
    "options": [
     {
      "id": "a",
+     "text": "Les coûts montent parce que le bois importé a doublé depuis 2022"
+    },
+    {
+     "id": "b",
+     "text": "Les coûts sont trop élevés",
+     "why_wrong": "Un constat sans cause : on ne sait pas quoi tester."
+    },
+    {
+     "id": "c",
      "text": "Pourquoi les coûts ont-ils augmenté ?",
      "why_wrong": "Une question : c'est le point de départ, pas une hypothèse."
     },
     {
-     "id": "b",
+     "id": "d",
      "text": "Analyser l'évolution des coûts sur trois ans",
      "why_wrong": "Une tâche : elle ne dit pas ce qu'on s'attend à trouver."
-    },
-    {
-     "id": "c",
-     "text": "Les coûts montent parce que le bois importé a doublé depuis 2022"
-    },
-    {
-     "id": "d",
-     "text": "Les coûts sont trop élevés",
-     "why_wrong": "Un constat sans cause : on ne sait pas quoi tester."
     }
    ],
-   "correct": "c"
+   "correct": "a"
   },
   "tags": []
  },
@@ -2238,25 +2238,25 @@
    "options": [
     {
      "id": "a",
-     "text": "Les clients partent, il faudrait comprendre pourquoi en les interrogeant",
-     "why_wrong": "Ni segment ni cause : on ne sait pas quoi tester."
-    },
-    {
-     "id": "b",
      "text": "Il faut baisser les frais de tenue de compte pour retenir les clients",
      "why_wrong": "Une recommandation avant diagnostic, pas une hypothèse."
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Le marché bancaire évolue et les comportements des clients changent",
      "why_wrong": "Une généralité sans donnée qui tranche."
     },
     {
-     "id": "d",
+     "id": "c",
      "text": "Les clients > 100 k€ déplacent leur épargne vers des livrets concurrents depuis la hausse des taux"
+    },
+    {
+     "id": "d",
+     "text": "Les clients partent, il faudrait comprendre pourquoi en les interrogeant",
+     "why_wrong": "Ni segment ni cause : on ne sait pas quoi tester."
     }
    ],
-   "correct": "d"
+   "correct": "c"
   },
   "tags": []
  },
@@ -2402,25 +2402,25 @@
    "options": [
     {
      "id": "a",
-     "text": "Rebuts (8 points d'écart) → énergie → maintenance"
-    },
-    {
-     "id": "b",
      "text": "Maintenance → énergie → rebuts",
      "why_wrong": "La maintenance est stable : la tester d'abord ne peut rien expliquer."
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Énergie → rebuts → maintenance",
      "why_wrong": "L'énergie n'a bougé que de 3 % : l'écart de rebuts est bien plus grand."
     },
     {
-     "id": "d",
+     "id": "c",
      "text": "Les trois en parallèle, à égalité",
      "why_wrong": "Traiter tout à égalité, c'est ne rien prioriser : le temps du case ne le permet pas."
+    },
+    {
+     "id": "d",
+     "text": "Rebuts (8 points d'écart) → énergie → maintenance"
     }
    ],
-   "correct": "a"
+   "correct": "d"
   },
   "tags": []
  },
@@ -2479,25 +2479,25 @@
    "options": [
     {
      "id": "a",
-     "text": "Médecins / infirmiers / administratifs / direction",
-     "why_wrong": "Des équipes, pas des causes : aucune hypothèse à tester."
-    },
-    {
-     "id": "b",
      "text": "H1 patients plus lourds ; H2 sorties retardées (aval) ; H3 délais internes"
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Pourquoi la durée de séjour augmente-t-elle depuis deux ans ?",
      "why_wrong": "C'est la question de départ, pas un arbre d'hypothèses."
     },
     {
-     "id": "d",
+     "id": "c",
      "text": "Lancer une analyse complète des données du dossier patient",
      "why_wrong": "Une tâche sans hypothèse : on ne sait pas quoi chercher dans les données."
+    },
+    {
+     "id": "d",
+     "text": "Médecins / infirmiers / administratifs / direction",
+     "why_wrong": "Des équipes, pas des causes : aucune hypothèse à tester."
     }
    ],
-   "correct": "b"
+   "correct": "a"
   },
   "tags": []
  },
@@ -2904,20 +2904,20 @@
    "options": [
     {
      "id": "a",
-     "text": "Revenus croisés et coûts mutualisés"
+     "text": "Prix d'acquisition",
+     "why_wrong": "Déjà dans la troisième branche."
     },
     {
      "id": "b",
-     "text": "Chiffre d'affaires de la cible",
-     "why_wrong": "C'est la valeur de la cible seule, déjà dans la première branche."
+     "text": "Revenus croisés et coûts mutualisés"
     },
     {
      "id": "c",
-     "text": "Prix d'acquisition",
-     "why_wrong": "Déjà dans la troisième branche."
+     "text": "Chiffre d'affaires de la cible",
+     "why_wrong": "C'est la valeur de la cible seule, déjà dans la première branche."
     }
    ],
-   "correct": "a"
+   "correct": "b"
   },
   "tags": []
  },
@@ -3124,20 +3124,20 @@
    "options": [
     {
      "id": "a",
-     "text": "Coût par siège",
-     "why_wrong": "Un coût, pas un terme des revenus."
-    },
-    {
-     "id": "b",
      "text": "Prix moyen du billet"
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Nombre d'avions",
      "why_wrong": "Il explique les sièges offerts, déjà dans la formule."
+    },
+    {
+     "id": "c",
+     "text": "Coût par siège",
+     "why_wrong": "Un coût, pas un terme des revenus."
     }
    ],
-   "correct": "b"
+   "correct": "a"
   },
   "tags": []
  },
@@ -3208,25 +3208,25 @@
    "options": [
     {
      "id": "a",
-     "text": "Revenus (bornes × prix) vs coûts (installation, électricité)",
-     "why_wrong": "La rentabilité seule ignore le marché et la capacité à faire : trop étroit pour un lancement."
-    },
-    {
-     "id": "b",
      "text": "Marché (taille, concurrents) / Offre / Économie (investissement, marge) / Capacité"
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Bornes rapides / bornes lentes / bornes à domicile / bornes publiques",
      "why_wrong": "Une liste de produits : elle ne dit pas si lancer vaut le coup."
     },
     {
-     "id": "d",
+     "id": "c",
      "text": "Forces / faiblesses / opportunités / menaces du fournisseur",
      "why_wrong": "Un SWOT décrit ; il ne chiffre ni le marché ni l'économie de l'offre."
+    },
+    {
+     "id": "d",
+     "text": "Revenus (bornes × prix) vs coûts (installation, électricité)",
+     "why_wrong": "La rentabilité seule ignore le marché et la capacité à faire : trop étroit pour un lancement."
     }
    ],
-   "correct": "b"
+   "correct": "a"
   },
   "tags": []
  },
@@ -3312,20 +3312,20 @@
    "options": [
     {
      "id": "a",
-     "text": "Pannes évitées × coût d'une panne pour le client"
-    },
-    {
-     "id": "b",
      "text": "Coût de développement du logiciel",
      "why_wrong": "C'est le plancher, déjà dans la première branche."
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Prix de l'offre concurrente la plus proche",
      "why_wrong": "C'est la référence, troisième branche."
+    },
+    {
+     "id": "c",
+     "text": "Pannes évitées × coût d'une panne pour le client"
     }
    ],
-   "correct": "a"
+   "correct": "c"
   },
   "tags": []
  },
@@ -3714,25 +3714,25 @@
    "options": [
     {
      "id": "a",
+     "text": "Surcoût (repas × écart de prix) vs Bénéfices (santé, loi, image) vs Faisabilité (fournisseurs)"
+    },
+    {
+     "id": "b",
+     "text": "Forces / faiblesses / opportunités / menaces de la cantine municipale",
+     "why_wrong": "Une grille descriptive qui ne chiffre ni le surcoût ni la faisabilité."
+    },
+    {
+     "id": "c",
      "text": "Produit / prix / distribution / communication de la cantine scolaire",
      "why_wrong": "Une cantine municipale ne se vend pas : les 4P n'éclairent pas la décision."
     },
     {
-     "id": "b",
+     "id": "d",
      "text": "Bio / non bio, avec les avantages et inconvénients de chacun",
      "why_wrong": "Ce sont les deux options, pas les critères qui permettent de choisir entre elles."
-    },
-    {
-     "id": "c",
-     "text": "Surcoût (repas × écart de prix) vs Bénéfices (santé, loi, image) vs Faisabilité (fournisseurs)"
-    },
-    {
-     "id": "d",
-     "text": "Forces / faiblesses / opportunités / menaces de la cantine municipale",
-     "why_wrong": "Une grille descriptive qui ne chiffre ni le surcoût ni la faisabilité."
     }
    ],
-   "correct": "c"
+   "correct": "a"
   },
   "tags": []
  },
@@ -3840,20 +3840,20 @@
    "options": [
     {
      "id": "a",
-     "text": "Données, SI à connecter, équipes"
+     "text": "Mécontentement des clients",
+     "why_wrong": "Un risque : troisième branche."
     },
     {
      "id": "b",
-     "text": "Nombre de contacts par an",
-     "why_wrong": "C'est un terme de la valeur, déjà dans la première branche."
+     "text": "Données, SI à connecter, équipes"
     },
     {
      "id": "c",
-     "text": "Mécontentement des clients",
-     "why_wrong": "Un risque : troisième branche."
+     "text": "Nombre de contacts par an",
+     "why_wrong": "C'est un terme de la valeur, déjà dans la première branche."
     }
    ],
-   "correct": "a"
+   "correct": "b"
   },
   "tags": []
  },
@@ -3909,25 +3909,25 @@
    "options": [
     {
      "id": "a",
+     "text": "Forces / faiblesses / opportunités / menaces",
+     "why_wrong": "Un SWOT ne produit aucun chiffre."
+    },
+    {
+     "id": "b",
      "text": "Régions / villes / autoroutes",
      "why_wrong": "Une coupe géographique : elle répartit un nombre qu'on n'a pas encore."
     },
     {
-     "id": "b",
+     "id": "c",
      "text": "Véhicules électriques en 2030 × bornes publiques nécessaires par véhicule"
     },
     {
-     "id": "c",
+     "id": "d",
      "text": "Fabricants de bornes / opérateurs / collectivités",
      "why_wrong": "Les acteurs de l'offre : ils n'estiment pas le besoin."
-    },
-    {
-     "id": "d",
-     "text": "Forces / faiblesses / opportunités / menaces",
-     "why_wrong": "Un SWOT ne produit aucun chiffre."
     }
    ],
-   "correct": "b"
+   "correct": "c"
   },
   "tags": []
  },
@@ -4050,20 +4050,20 @@
    "options": [
     {
      "id": "a",
-     "text": "Nombre de candidats par an",
-     "why_wrong": "Un volume d'usagers : il ne mesure pas l'effet sur l'administration."
-    },
-    {
-     "id": "b",
      "text": "Charge de travail des agents, taux d'erreur"
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Satisfaction des auto-écoles",
      "why_wrong": "Une autre partie prenante : elle mériterait sa propre branche, pas celle-ci."
+    },
+    {
+     "id": "c",
+     "text": "Nombre de candidats par an",
+     "why_wrong": "Un volume d'usagers : il ne mesure pas l'effet sur l'administration."
     }
    ],
-   "correct": "b"
+   "correct": "a"
   },
   "tags": []
  },
@@ -4081,25 +4081,25 @@
    "options": [
     {
      "id": "a",
-     "text": "Front / back-office / flux de données / infrastructure / sécurité",
-     "why_wrong": "Une architecture technique : elle suppose le lancement décidé."
-    },
-    {
-     "id": "b",
      "text": "Valeur pour le client (offre, prix) / Économie pour nous (commission, cannibalisation) / Capacité"
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Nous face aux deux grands acteurs du marché et aux spécialistes",
      "why_wrong": "Un benchmark : il décrit les autres sans dire si nous devons lancer."
     },
     {
-     "id": "d",
+     "id": "c",
      "text": "Produit / prix / distribution / communication de la marketplace",
      "why_wrong": "Les 4P ne chiffrent ni la commission ni la cannibalisation."
+    },
+    {
+     "id": "d",
+     "text": "Front / back-office / flux de données / infrastructure / sécurité",
+     "why_wrong": "Une architecture technique : elle suppose le lancement décidé."
     }
    ],
-   "correct": "b"
+   "correct": "a"
   },
   "tags": []
  },
@@ -4206,20 +4206,20 @@
    "options": [
     {
      "id": "a",
-     "text": "Capteurs, développement, maintenance du modèle"
-    },
-    {
-     "id": "b",
      "text": "Coût d'une panne en exploitation",
      "why_wrong": "C'est un terme du gain, première branche."
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Disponibilité des données capteurs",
      "why_wrong": "Un prérequis : troisième branche."
+    },
+    {
+     "id": "c",
+     "text": "Capteurs, développement, maintenance du modèle"
     }
    ],
-   "correct": "a"
+   "correct": "c"
   },
   "tags": []
  },
@@ -4281,25 +4281,25 @@
    "options": [
     {
      "id": "a",
-     "text": "Demande (patients, actes transférables) / Économie (revenus, coûts) / Capacité (médecins, outils)"
-    },
-    {
-     "id": "b",
-     "text": "Application mobile dédiée / site web / téléphone / visioconférence",
-     "why_wrong": "Un choix de canal technique : il vient après la décision d'ouvrir."
-    },
-    {
-     "id": "c",
      "text": "Forces / faiblesses / opportunités / menaces de la clinique privée",
      "why_wrong": "Un SWOT ne chiffre ni la demande ni l'économie."
     },
     {
-     "id": "d",
+     "id": "b",
      "text": "Médecins / infirmiers / administratifs / direction de la clinique",
      "why_wrong": "Une coupe par métier : elle ne dit pas si le service vaut le coup."
+    },
+    {
+     "id": "c",
+     "text": "Demande (patients, actes transférables) / Économie (revenus, coûts) / Capacité (médecins, outils)"
+    },
+    {
+     "id": "d",
+     "text": "Application mobile dédiée / site web / téléphone / visioconférence",
+     "why_wrong": "Un choix de canal technique : il vient après la décision d'ouvrir."
     }
    ],
-   "correct": "a"
+   "correct": "c"
   },
   "tags": []
  },
@@ -4406,20 +4406,20 @@
    "options": [
     {
      "id": "a",
-     "text": "Exclusivité, contrefaçon, expérience"
+     "text": "Coût de la plateforme en ligne",
+     "why_wrong": "C'est la branche coût et capacité."
     },
     {
      "id": "b",
-     "text": "Cannibalisation des boutiques",
-     "why_wrong": "Un risque sur les ventes, à ranger dans le gain net, pas dans l'image de marque."
+     "text": "Exclusivité, contrefaçon, expérience"
     },
     {
      "id": "c",
-     "text": "Coût de la plateforme en ligne",
-     "why_wrong": "C'est la branche coût et capacité."
+     "text": "Cannibalisation des boutiques",
+     "why_wrong": "Un risque sur les ventes, à ranger dans le gain net, pas dans l'image de marque."
     }
    ],
-   "correct": "a"
+   "correct": "b"
   },
   "tags": []
  },
@@ -4437,25 +4437,25 @@
    "options": [
     {
      "id": "a",
-     "text": "Licence permissive / licence copyleft / double licence commerciale",
-     "why_wrong": "Un choix de licence vient après la décision d'ouvrir."
-    },
-    {
-     "id": "b",
      "text": "Gains (adoption, contributions, recrutement) vs Pertes (licences, avantage) vs Capacité"
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Marché / concurrence / entreprise / tendances de l'open source",
      "why_wrong": "Une grille de contexte qui ne chiffre aucun effet de l'ouverture."
     },
     {
-     "id": "d",
+     "id": "c",
      "text": "Développeurs / commerciaux / clients / partenaires / investisseurs",
      "why_wrong": "Des parties prenantes : utile en niveau 2, mais ça ne dit pas gain ou perte."
+    },
+    {
+     "id": "d",
+     "text": "Licence permissive / licence copyleft / double licence commerciale",
+     "why_wrong": "Un choix de licence vient après la décision d'ouvrir."
     }
    ],
-   "correct": "b"
+   "correct": "a"
   },
   "tags": []
  },
@@ -4657,25 +4657,25 @@
    "options": [
     {
      "id": "a",
-     "text": "D'abord il faudrait regarder les relances, puis peut-être les délais de paiement, et aussi les clients à risque…",
-     "why_wrong": "Une liste au fil de l'eau : l'interviewer ne peut pas dessiner l'arbre."
-    },
-    {
-     "id": "b",
      "text": "Trois leviers : éviter l'impayé, le détecter tôt, le recouvrer. Je commence par le recouvrement."
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Je vais analyser le marché, la concurrence et l'entreprise.",
      "why_wrong": "Un cadre générique sans lien avec les impayés."
     },
     {
-     "id": "d",
+     "id": "c",
      "text": "Les impayés viennent des clients précaires, il faut les refuser.",
      "why_wrong": "Une conclusion sans structure : rien n'a été testé."
+    },
+    {
+     "id": "d",
+     "text": "D'abord il faudrait regarder les relances, puis peut-être les délais de paiement, et aussi les clients à risque…",
+     "why_wrong": "Une liste au fil de l'eau : l'interviewer ne peut pas dessiner l'arbre."
     }
    ],
-   "correct": "b"
+   "correct": "a"
   },
   "tags": []
  },
@@ -4899,25 +4899,25 @@
    "options": [
     {
      "id": "a",
-     "text": "Je commence par le début de mon arbre, les revenus.",
-     "why_wrong": "L'ordre d'écriture n'est pas une raison."
-    },
-    {
-     "id": "b",
      "text": "Je commence par la branche la plus facile à calculer.",
      "why_wrong": "La facilité seule ne dit rien de la cause."
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Je commence par les coûts d'achat : 60 % des coûts et le seul poste qui a bougé."
     },
     {
-     "id": "d",
+     "id": "c",
      "text": "Je commence par ce qui vous semble le plus utile.",
      "why_wrong": "C'est à toi de choisir : l'interviewer évalue ta priorisation."
+    },
+    {
+     "id": "d",
+     "text": "Je commence par le début de mon arbre, les revenus.",
+     "why_wrong": "L'ordre d'écriture n'est pas une raison."
     }
    ],
-   "correct": "c"
+   "correct": "b"
   },
   "tags": []
  },
@@ -5413,25 +5413,25 @@
    "options": [
     {
      "id": "a",
-     "text": "CAC = dépenses commerciales ÷ nouveaux clients. Trois branches : dépenses, conversion, mix. Je commence par la conversion : vos dépenses sont stables."
-    },
-    {
-     "id": "b",
      "text": "Je regarderais les campagnes, le coût par clic, les pages d'atterrissage, le nombre de commerciaux, leur rémunération, puis…",
      "why_wrong": "Bottom-up : les détails arrivent avant la vue d'ensemble, l'arbre est impossible à dessiner."
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Trois branches : marketing, ventes, produit. Je commence par le marketing.",
      "why_wrong": "Des équipes, pas une décomposition du CAC ; et la raison du départ manque."
     },
     {
-     "id": "d",
+     "id": "c",
      "text": "Il faudrait d'abord faire un benchmark du CAC dans le SaaS.",
      "why_wrong": "Un benchmark n'est pas une structure : on ne saura toujours pas d'où vient le doublement."
+    },
+    {
+     "id": "d",
+     "text": "CAC = dépenses commerciales ÷ nouveaux clients. Trois branches : dépenses, conversion, mix. Je commence par la conversion : vos dépenses sont stables."
     }
    ],
-   "correct": "a"
+   "correct": "d"
   },
   "tags": []
  },
@@ -5818,25 +5818,25 @@
    "options": [
     {
      "id": "a",
+     "text": "Le marketing de la clinique pour attirer des patients",
+     "why_wrong": "Un levier d'image, pas une branche de la marge."
+    },
+    {
+     "id": "b",
      "text": "Les tarifs : c'est le levier le plus direct",
      "why_wrong": "Les tarifs sont fixés : une branche vide pour ce client."
     },
     {
-     "id": "b",
+     "id": "c",
      "text": "Le taux d'occupation : 72 %, donc 28 % de capacité non facturée"
     },
     {
-     "id": "c",
+     "id": "d",
      "text": "Les achats médicaux : facile à chiffrer rapidement",
      "why_wrong": "Facile ne suffit pas : ils pèsent peu face au personnel et à l'occupation."
-    },
-    {
-     "id": "d",
-     "text": "Le marketing de la clinique pour attirer des patients",
-     "why_wrong": "Un levier d'image, pas une branche de la marge."
     }
    ],
-   "correct": "b"
+   "correct": "c"
   },
   "tags": []
  },
@@ -6202,25 +6202,25 @@
    "options": [
     {
      "id": "a",
+     "text": "Avantages / inconvénients de l'assistant, puis recommandation",
+     "why_wrong": "Trop vague : on ne saurait pas quoi chiffrer ni par où commencer."
+    },
+    {
+     "id": "b",
      "text": "Modèle propriétaire / modèle ouvert / développement interne",
      "why_wrong": "Un choix de technologie : il vient après la décision."
     },
     {
-     "id": "b",
+     "id": "c",
      "text": "Valeur (temps gagné × 400 conseillers × coût horaire) / Faisabilité / Adoption et risques"
     },
     {
-     "id": "c",
+     "id": "d",
      "text": "Produit / prix / distribution / communication de l'assistant",
      "why_wrong": "Les 4P n'ont rien à dire sur un outil interne."
-    },
-    {
-     "id": "d",
-     "text": "Avantages / inconvénients de l'assistant, puis recommandation",
-     "why_wrong": "Trop vague : on ne saurait pas quoi chiffrer ni par où commencer."
     }
    ],
-   "correct": "b"
+   "correct": "c"
   },
   "tags": []
  },
@@ -6371,25 +6371,25 @@
    "options": [
     {
      "id": "a",
-     "text": "Routes départementales / ponts / tunnels / carrefours dangereux",
-     "why_wrong": "Une liste d'infrastructures : elle ne dit pas d'où viennent les sorties de route."
-    },
-    {
-     "id": "b",
      "text": "Conducteur (vitesse, alcool, fatigue) vs Véhicule (état) vs Route (tracé, signalisation)"
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Radars / glissières / campagnes de prévention / limitations",
      "why_wrong": "Des solutions avant le diagnostic : on ne sait pas encore quelle cause domine."
     },
     {
-     "id": "d",
+     "id": "c",
      "text": "Forces / faiblesses / opportunités / menaces du département",
      "why_wrong": "Un SWOT ne décompose pas un accident."
+    },
+    {
+     "id": "d",
+     "text": "Routes départementales / ponts / tunnels / carrefours dangereux",
+     "why_wrong": "Une liste d'infrastructures : elle ne dit pas d'où viennent les sorties de route."
     }
    ],
-   "correct": "b"
+   "correct": "a"
   },
   "tags": []
  },
@@ -6544,20 +6544,20 @@
    "options": [
     {
      "id": "a",
-     "text": "Perte en cas de défaut (garanties)"
+     "text": "Nombre de clients PME actifs",
+     "why_wrong": "Il entre dans l'exposition totale, déjà comptée."
     },
     {
      "id": "b",
-     "text": "Taux d'intérêt facturé",
-     "why_wrong": "Un revenu, pas un facteur de la perte."
+     "text": "Perte en cas de défaut (garanties)"
     },
     {
      "id": "c",
-     "text": "Nombre de clients PME actifs",
-     "why_wrong": "Il entre dans l'exposition totale, déjà comptée."
+     "text": "Taux d'intérêt facturé",
+     "why_wrong": "Un revenu, pas un facteur de la perte."
     }
    ],
-   "correct": "a"
+   "correct": "b"
   },
   "tags": []
  },
@@ -6744,25 +6744,25 @@
    "options": [
     {
      "id": "a",
+     "text": "En ligne / magasin, avec les ventes et les coûts de chacun des deux canaux",
+     "why_wrong": "Les deux canaux, pas les critères de la décision."
+    },
+    {
+     "id": "b",
      "text": "Magasins rentables / magasins déficitaires / magasins à transformer",
      "why_wrong": "Un tri comptable : il ignore ce qu'un magasin apporte aux ventes en ligne de sa zone."
     },
     {
-     "id": "b",
-     "text": "Contribution du magasin (ventes + effet sur le en ligne) vs Coût (loyer, personnel) vs Alternatives"
-    },
-    {
      "id": "c",
-     "text": "Produit / prix / distribution / communication de l'enseigne de meubles",
-     "why_wrong": "Les 4P ne tranchent pas une fermeture."
+     "text": "Contribution du magasin (ventes + effet sur le site) vs Coût (loyer, personnel) vs Alternatives"
     },
     {
      "id": "d",
-     "text": "En ligne / magasin, avec les ventes et les coûts de chacun des deux canaux",
-     "why_wrong": "Les deux canaux, pas les critères de la décision."
+     "text": "Produit / prix / distribution / communication de l'enseigne de meubles",
+     "why_wrong": "Les 4P ne tranchent pas une fermeture."
     }
    ],
-   "correct": "b"
+   "correct": "c"
   },
   "tags": []
  },
@@ -6932,25 +6932,25 @@
    "options": [
     {
      "id": "a",
-     "text": "Délais de livraison / clients perdus / image de marque / concurrence",
-     "why_wrong": "Deux symptômes côte à côte : l'arbre ne dit pas lequel explique l'autre."
-    },
-    {
-     "id": "b",
      "text": "Clients perdus → dus au délai vs autres causes ; délai → charge (commandes) vs capacité"
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Production / ventes / achats / logistique / service après-vente",
      "why_wrong": "Des fonctions : elles ne relient pas le délai aux départs."
     },
     {
-     "id": "d",
+     "id": "c",
      "text": "Forces / faiblesses / opportunités / menaces du fabricant",
      "why_wrong": "Un SWOT ne décompose ni le délai ni les départs."
+    },
+    {
+     "id": "d",
+     "text": "Délais de livraison / clients perdus / image de marque / concurrence",
+     "why_wrong": "Deux symptômes côte à côte : l'arbre ne dit pas lequel explique l'autre."
     }
    ],
-   "correct": "b"
+   "correct": "a"
   },
   "tags": []
  },
@@ -7031,20 +7031,20 @@
    "options": [
     {
      "id": "a",
-     "text": "Rémunération, perspectives de carrière, management"
-    },
-    {
-     "id": "b",
      "text": "Coût de recrutement d'un remplaçant",
      "why_wrong": "Une conséquence du départ, pas une cause."
     },
     {
-     "id": "c",
+     "id": "b",
      "text": "Départs à la retraite",
      "why_wrong": "Un départ subi : l'autre branche."
+    },
+    {
+     "id": "c",
+     "text": "Rémunération, perspectives de carrière, management"
     }
    ],
-   "correct": "a"
+   "correct": "c"
   },
   "tags": []
  }
